@@ -5,6 +5,11 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+}
+
 html,
 body {
   padding: 0;
@@ -14,8 +19,11 @@ body {
     sans-serif;
   /* medium by default */
   font-weight: 500;
+  font-size: 16px;
+}
 
-  background-color: #0e1010;
+body {
+  background-color: #1d2b2a;
   color: #36c8e9;
 }
 
