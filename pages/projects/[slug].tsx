@@ -4,10 +4,6 @@ import { GetStaticProps, InferGetStaticPropsType, GetStaticPaths } from "next";
 import { getAllPostSlugs, getPostBySlug } from "../../lib/projects";
 import TestingComponent from "../../components/TestingComponent";
 
-const components = {
-  TestingComponent,
-};
-
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   // Return a list of possible value for id
   const paths = getAllPostSlugs();
@@ -39,7 +35,12 @@ export default function Post({ source, meta }: PostProps) {
   return (
     <div className="wrapper">
       <h1 className="text-6xl">{meta.title}</h1>
-      <MDXRemote {...source} components={components} />
+      <MDXRemote
+        {...source}
+        components={{
+          TestingComponent,
+        }}
+      />
     </div>
   );
 }
