@@ -9,6 +9,7 @@ interface ProjectGridItemProps {
   bgColor: string;
   projectTitle: string;
   projectType?: string[];
+  slug: string;
 }
 
 const INACTIVE_TEXT_COLOR = "#1e4852";
@@ -21,6 +22,7 @@ const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   projectType,
   isActive,
   isFirstRow,
+  slug,
 }) => {
   const { scrollY } = useScroll();
 
@@ -63,6 +65,7 @@ const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
         projectTitle={projectTitle}
         projectType={projectType}
         isFirstRow={isFirstRow}
+        slug={slug}
       ></ProjectCard>
     </motion.div>
   );
@@ -78,6 +81,9 @@ const ProjectGrid = ({ isViewing, isViewingTopBar, projects }: Props) => {
     <>
       <motion.div
         className="fixed top-0 left-0 right-0 pt-4 px-6 grid grid-cols-3"
+        initial={{
+          opacity: 0,
+        }}
         animate={{
           opacity: isViewingTopBar ? 0.4 : 0,
         }}
@@ -98,6 +104,7 @@ const ProjectGrid = ({ isViewing, isViewingTopBar, projects }: Props) => {
           <ProjectGridItem
             key={index}
             isFirstRow={index < 3}
+            slug={project.slug}
             textColor={project.meta.thumbnailTextColor}
             bgColor={project.meta.thumbnailBgColor}
             projectTitle={project.meta.title}

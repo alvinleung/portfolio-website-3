@@ -1,4 +1,5 @@
 import { motion, MotionValue } from "framer-motion";
+import Link from "next/link";
 import React from "react";
 
 const RoundedCornerSVGLeft = ({ size = 12 }) => (
@@ -41,6 +42,7 @@ type Props = {
   bgColor: string;
   projectTitle: string;
   projectType?: string[];
+  slug: string;
   opacity: MotionValue;
 };
 
@@ -51,54 +53,63 @@ const ProjectCard = ({
   projectTitle,
   projectType,
   opacity,
+  slug,
 }: Props) => {
   return (
-    <div className="relative h-[40vw]">
-      {!isFirstRow && (
-        <div
-          className={`absolute top-[-1rem] left-0 right-0 h-8 bg-brand-dark`}
-        >
-          <RoundedCornerSVGLeft />
-          <RoundedCornerSVGRight />
-        </div>
-      )}
-      <motion.div
-        className="relative h-full rounded-xl"
-        style={{
-          opacity: opacity,
-        }}
-        animate={{
-          backgroundColor: bgColor,
-        }}
-        transition={{
-          duration: 0.3,
-          ease: "linear",
-        }}
-      >
-        {/* content */}
+    <Link href={`projects/${slug}`}>
+      <a className="relative block h-[40vw]">
+        {!isFirstRow && (
+          <div
+            className={`absolute top-[-1rem] left-0 right-0 h-8 bg-brand-dark`}
+          >
+            <RoundedCornerSVGLeft />
+            <RoundedCornerSVGRight />
+          </div>
+        )}
         <motion.div
-          className="absolute left-0 right-0 top-0"
+          className="relative h-full rounded-xl"
+          style={{
+            opacity: opacity,
+          }}
+          initial={{
+            backgroundColor: bgColor,
+          }}
           animate={{
-            // backgroundColor: isActive ? bgColor : INACTIVE_BG_COLOR,
-            color: textColor,
+            backgroundColor: bgColor,
           }}
           transition={{
             duration: 0.3,
             ease: "linear",
           }}
         >
-          <div className="grid grid-cols-2 p-4">
-            <div>{projectTitle}</div>
-            <div>
-              {projectType &&
-                projectType.map((type, index) => {
-                  return <div key={index}>{type}</div>;
-                })}
+          {/* content */}
+          <motion.div
+            className="absolute left-0 right-0 top-0"
+            initial={{
+              color: textColor,
+            }}
+            animate={{
+              // backgroundColor: isActive ? bgColor : INACTIVE_BG_COLOR,
+              color: textColor,
+            }}
+            transition={{
+              duration: 0.3,
+              ease: "linear",
+            }}
+          >
+            <div className="grid grid-cols-2 p-4">
+              <div>{projectTitle}</div>
+              <div>
+                {projectType &&
+                  projectType.map((type, index) => {
+                    return <div key={index}>{type}</div>;
+                  })}
+              </div>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
-      </motion.div>
-    </div>
+      </a>
+    </Link>
   );
 };
 
