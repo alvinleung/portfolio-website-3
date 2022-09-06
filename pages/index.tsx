@@ -25,17 +25,20 @@ const Home: NextPage = ({
   projects,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { scrollY } = useScroll();
-
   const [isViewingGrid, setIsViewingGrid] = useState(false);
+  const [isViewingGridBar, setIsViewingGridBar] = useState(false);
 
   useEffect(() => {
-    console.log(projects);
-
     scrollY.onChange((amount) => {
       if (amount > 400) {
         setIsViewingGrid(true);
       } else {
         setIsViewingGrid(false);
+      }
+      if (amount > 800) {
+        setIsViewingGridBar(true);
+      } else {
+        setIsViewingGridBar(false);
       }
     });
   }, []);
@@ -43,7 +46,11 @@ const Home: NextPage = ({
   return (
     <>
       <LandingHero />
-      <ProjectGrid isViewing={isViewingGrid} projects={projects} />
+      <ProjectGrid
+        isViewing={isViewingGrid}
+        isViewingTopBar={isViewingGridBar}
+        projects={projects}
+      />
     </>
   );
 };
