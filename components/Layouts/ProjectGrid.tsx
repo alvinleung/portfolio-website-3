@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
+import ProjectCard from "../ProjectGrid/ProjectCard";
 
 interface ProjectGridItemProps {
   isActive: boolean;
@@ -12,40 +13,6 @@ interface ProjectGridItemProps {
 
 const INACTIVE_TEXT_COLOR = "#1e4852";
 const INACTIVE_BG_COLOR = "#1E2222";
-
-const RoundedCornerSVGLeft = ({ size = 12 }) => (
-  <svg
-    width="6"
-    height="6"
-    viewBox="0 0 6 6"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="absolute -top-3 left-0"
-    style={{
-      width: size,
-      height: size,
-    }}
-  >
-    <path d="M0 0V6H6C2.68555 6 0 3.31445 0 0Z" fill="#0E1010" />
-  </svg>
-);
-
-const RoundedCornerSVGRight = ({ size = 12 }) => (
-  <svg
-    width="6"
-    height="6"
-    viewBox="0 0 6 6"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="absolute -top-3 right-0"
-    style={{
-      width: size,
-      height: size,
-    }}
-  >
-    <path d="M0 6L6 6L6 -2.62268e-07C6 3.31445 3.31445 6 0 6Z" fill="#0E1010" />
-  </svg>
-);
 
 const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   bgColor,
@@ -89,52 +56,14 @@ const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   return (
     <motion.div ref={containerRef} className="sticky top-14">
       {/* background media */}
-      <div className="relative h-[40vw]">
-        {!isFirstRow && (
-          <div
-            className={`absolute top-[-1rem] left-0 right-0 h-8 bg-brand-dark`}
-          >
-            <RoundedCornerSVGLeft />
-            <RoundedCornerSVGRight />
-          </div>
-        )}
-        <motion.div
-          className="relative h-full rounded-xl"
-          style={{
-            opacity: boxOpacity,
-          }}
-          animate={{
-            backgroundColor: isActive ? bgColor : INACTIVE_BG_COLOR,
-          }}
-          transition={{
-            duration: 0.3,
-            ease: "linear",
-          }}
-        >
-          {/* content */}
-          <motion.div
-            className="absolute left-0 right-0 top-0"
-            animate={{
-              // backgroundColor: isActive ? bgColor : INACTIVE_BG_COLOR,
-              color: isActive ? textColor : INACTIVE_TEXT_COLOR,
-            }}
-            transition={{
-              duration: 0.3,
-              ease: "linear",
-            }}
-          >
-            <div className="grid grid-cols-2 p-4">
-              <div>{projectTitle}</div>
-              <div>
-                {projectType &&
-                  projectType.map((type) => {
-                    return <div>{type}</div>;
-                  })}
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
+      <ProjectCard
+        opacity={boxOpacity}
+        bgColor={isActive ? bgColor : INACTIVE_BG_COLOR}
+        textColor={isActive ? textColor : INACTIVE_TEXT_COLOR}
+        projectTitle={projectTitle}
+        projectType={projectType}
+        isFirstRow={isFirstRow}
+      ></ProjectCard>
     </motion.div>
   );
 };
