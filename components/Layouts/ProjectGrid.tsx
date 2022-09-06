@@ -1,75 +1,6 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
-import ProjectCard from "../ProjectGrid/ProjectCard";
-
-interface ProjectGridItemProps {
-  isActive: boolean;
-  isFirstRow: boolean;
-  textColor: string;
-  bgColor: string;
-  projectTitle: string;
-  projectType?: string[];
-  slug: string;
-}
-
-const INACTIVE_TEXT_COLOR = "#1e4852";
-const INACTIVE_BG_COLOR = "#1E2222";
-
-const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
-  bgColor,
-  textColor,
-  projectTitle,
-  projectType,
-  isActive,
-  isFirstRow,
-  slug,
-}) => {
-  const { scrollY } = useScroll();
-
-  const containerRef = useRef() as MutableRefObject<HTMLDivElement>;
-
-  const TOP_OFFSET = 64;
-
-  const [beginShrinkPos, setBeginShrinkPos] = useState(100);
-  const [endShrinkPos, setEndShrinkPos] = useState(200);
-
-  const boxTransitionOutProgress = useTransform(
-    scrollY,
-    [beginShrinkPos, endShrinkPos],
-    [1, 0]
-  );
-
-  const boxOpacity = useTransform(boxTransitionOutProgress, [0, 0.1], [0, 1]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      const bounds = containerRef.current.getBoundingClientRect();
-      const beginShrinkPos = bounds.top - TOP_OFFSET + window.scrollY;
-      setBeginShrinkPos(beginShrinkPos);
-      setEndShrinkPos(beginShrinkPos + bounds.height);
-    };
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  return (
-    <motion.div ref={containerRef} className="sticky top-14">
-      {/* background media */}
-      <ProjectCard
-        opacity={boxOpacity}
-        bgColor={isActive ? bgColor : INACTIVE_BG_COLOR}
-        textColor={isActive ? textColor : INACTIVE_TEXT_COLOR}
-        projectTitle={projectTitle}
-        projectType={projectType}
-        isFirstRow={isFirstRow}
-        slug={slug}
-      ></ProjectCard>
-    </motion.div>
-  );
-};
+import { motion } from "framer-motion";
+import React, { useState } from "react";
+import { ProjectGridItem } from "../ProjectGrid/ProjectGridItem";
 
 type Props = {
   isViewing: boolean;
@@ -77,6 +8,8 @@ type Props = {
   projects: any[];
 };
 const ProjectGrid = ({ isViewing, isViewingTopBar, projects }: Props) => {
+  const [selectedProject, setSelectedProject] = useState("");
+
   return (
     <>
       <motion.div
@@ -103,13 +36,19 @@ const ProjectGrid = ({ isViewing, isViewingTopBar, projects }: Props) => {
         {projects.map((project, index) => (
           <ProjectGridItem
             key={index}
-            isFirstRow={index < 3}
-            slug={project.slug}
-            textColor={project.meta.thumbnailTextColor}
-            bgColor={project.meta.thumbnailBgColor}
-            projectTitle={project.meta.title}
-            projectType={project.meta.tags && project.meta.tags.split(",")}
             isActive={isViewing}
+            onSelect={setSelectedProject}
+            isSelected={selectedProject === project.slug}
+            isFirstRow={index < 3}
+            projectInfo={{
+              slug: project.slug,
+              title: project.meta.title,
+              tags: project.meta.tags && project.meta.tags.split(","),
+            }}
+            projectStyle={{
+              bgColor: project.meta.thumbnailBgColor,
+              textColor: project.meta.thumbnailTextColor,
+            }}
           />
         ))}
       </motion.div>

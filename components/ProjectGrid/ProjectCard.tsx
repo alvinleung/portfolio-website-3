@@ -1,6 +1,7 @@
 import { motion, MotionValue } from "framer-motion";
 import Link from "next/link";
 import React from "react";
+import { ProjectInfo, ProjectStyle } from "./Project";
 
 const RoundedCornerSVGLeft = ({ size = 12 }) => (
   <svg
@@ -38,25 +39,19 @@ const RoundedCornerSVGRight = ({ size = 12 }) => (
 
 type Props = {
   isFirstRow: boolean;
-  textColor: string;
-  bgColor: string;
-  projectTitle: string;
-  projectType?: string[];
-  slug: string;
+  projectInfo: ProjectInfo;
+  projectStyle: ProjectStyle;
   opacity: MotionValue;
 };
 
 const ProjectCard = ({
   isFirstRow,
-  bgColor,
-  textColor,
-  projectTitle,
-  projectType,
+  projectInfo,
+  projectStyle,
   opacity,
-  slug,
 }: Props) => {
   return (
-    <Link href={`projects/${slug}`}>
+    <Link href={`projects/${projectInfo.slug}`}>
       <a className="relative block h-[40vw]">
         {!isFirstRow && (
           <div
@@ -72,10 +67,10 @@ const ProjectCard = ({
             opacity: opacity,
           }}
           initial={{
-            backgroundColor: bgColor,
+            backgroundColor: projectStyle.bgColor,
           }}
           animate={{
-            backgroundColor: bgColor,
+            backgroundColor: projectStyle.bgColor,
           }}
           transition={{
             duration: 0.3,
@@ -86,11 +81,11 @@ const ProjectCard = ({
           <motion.div
             className="absolute left-0 right-0 top-0"
             initial={{
-              color: textColor,
+              color: projectStyle.textColor,
             }}
             animate={{
               // backgroundColor: isActive ? bgColor : INACTIVE_BG_COLOR,
-              color: textColor,
+              color: projectStyle.textColor,
             }}
             transition={{
               duration: 0.3,
@@ -98,11 +93,11 @@ const ProjectCard = ({
             }}
           >
             <div className="grid grid-cols-2 p-4">
-              <div>{projectTitle}</div>
+              <div>{projectInfo.title}</div>
               <div>
-                {projectType &&
-                  projectType.map((type, index) => {
-                    return <div key={index}>{type}</div>;
+                {projectInfo.tags &&
+                  projectInfo.tags.map((tag, index) => {
+                    return <div key={index}>{tag}</div>;
                   })}
               </div>
             </div>
