@@ -10,11 +10,13 @@ export function getPostBySlug(slug: string) {
   const fileContents = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(fileContents);
 
+  console.log(data);
+
   return { slug: realSlug, meta: data, content };
 }
 
+const fileNames = fs.readdirSync(DOCS_DIRECTORY);
 export function getAllPostSlugs() {
-  const fileNames = fs.readdirSync(DOCS_DIRECTORY);
   return fileNames.map((fileName) => {
     return {
       params: {

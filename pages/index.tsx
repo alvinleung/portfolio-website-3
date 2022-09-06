@@ -1,17 +1,38 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import type { NextPage } from "next";
+import { useScroll } from "framer-motion";
+import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import { useEffect, useState } from "react";
 import LandingHero from "../components/Layouts/LandingHero";
 import ProjectGrid from "../components/Layouts/ProjectGrid";
+import { getAllPostSlugs, getPostBySlug } from "../lib/projects";
 
-const Home: NextPage = () => {
+export const getStaticProps: GetStaticProps = () => {
+  const allProjectsSlugs = getAllPostSlugs();
+  return {
+    props: {
+      projects: allProjectsSlugs
+        .map((project) => {
+          return getPostBySlug(project.params.slug);
+        })
+        //@ts-ignore
+        .sort((a, b) => {
+          return b.meta.weight - a.meta.weight;
+        }),
+    },
+  };
+};
+
+const Home: NextPage = ({
+  projects,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { scrollY } = useScroll();
 
   const [isViewingGrid, setIsViewingGrid] = useState(false);
 
   useEffect(() => {
+    console.log(projects);
+
     scrollY.onChange((amount) => {
-      if (amount > 200) {
+      if (amount > 400) {
         setIsViewingGrid(true);
       } else {
         setIsViewingGrid(false);
@@ -19,12 +40,10 @@ const Home: NextPage = () => {
     });
   }, []);
 
-  console.log("re render");
-
   return (
     <>
       <LandingHero />
-      <ProjectGrid isViewing={isViewingGrid} />
+      <ProjectGrid isViewing={isViewingGrid} projects={projects} />
     </>
   );
 };

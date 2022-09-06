@@ -55,56 +55,20 @@ const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
 
 type Props = {
   isViewing: boolean;
+  projects: any[];
 };
-const ProjectGrid = ({ isViewing }: Props) => {
+const ProjectGrid = ({ isViewing, projects }: Props) => {
   return (
     <motion.div className="grid grid-cols-3 gap-4 z-20 px-6">
-      <ProjectGridItem
-        textColor="#1C1E26"
-        bgColor="#F1F1F1"
-        projectTitle="iDAGIO"
-        projectType={["Experience Design"]}
-        isActive={isViewing}
-      />
-      <ProjectGridItem
-        textColor="#EDFF31"
-        bgColor="#292C12"
-        projectTitle="What If?"
-        projectType={["Interaction Design"]}
-        isActive={isViewing}
-      />
-      <ProjectGridItem
-        textColor="#FFF"
-        bgColor="#020202"
-        projectTitle="TEDxSFU"
-        projectType={["Art Direction", "Interaction Desgin", "Web Dev"]}
-        isActive={isViewing}
-      />
-      <ProjectGridItem
-        textColor="#1C1E26"
-        bgColor="#F1F1F1"
-        projectTitle="Daybreak Studio"
-        projectType={["Interaction Design", "Web Dev"]}
-        isActive={isViewing}
-      />
-      <ProjectGridItem
-        textColor="#F1F1F1"
-        bgColor="#020202"
-        projectTitle="Creative Coding Experiments"
-        isActive={isViewing}
-      />
-      <ProjectGridItem
-        textColor="#F1F1F1"
-        bgColor="#020202"
-        projectTitle="Posters a Day (2022)"
-        isActive={isViewing}
-      />
-      <ProjectGridItem
-        textColor="#F1F1F1"
-        bgColor="#020202"
-        projectTitle="Visual Design Projects (2018-2022)"
-        isActive={isViewing}
-      />
+      {projects.map((project) => (
+        <ProjectGridItem
+          textColor={project.meta.thumbnailTextColor}
+          bgColor={project.meta.thumbnailBgColor}
+          projectTitle={project.meta.title}
+          projectType={project.meta.tags && project.meta.tags.split(",")}
+          isActive={isViewing}
+        />
+      ))}
     </motion.div>
   );
 };
