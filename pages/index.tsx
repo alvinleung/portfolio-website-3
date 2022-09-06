@@ -2,7 +2,8 @@ import { useScroll } from "framer-motion";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import { useEffect, useState } from "react";
 import LandingHero from "../components/Layouts/LandingHero";
-import ProjectGrid from "../components/Layouts/ProjectGrid";
+import ProjectGridSection from "../components/Layouts/ProjectGridSection";
+import ProjectGrid from "../components/ProjectGrid/ProjectGrid";
 import { getAllPostSlugs, getPostBySlug } from "../lib/projects";
 
 export const getStaticProps: GetStaticProps = () => {
@@ -46,7 +47,7 @@ const Home: NextPage = ({
   return (
     <>
       <LandingHero />
-      <ProjectGrid
+      <ProjectGridSection
         isViewing={isViewingGrid}
         isViewingTopBar={isViewingGridBar}
         projects={projects}
