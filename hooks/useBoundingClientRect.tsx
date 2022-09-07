@@ -11,9 +11,10 @@ type BoundingBoxInfo = {
   bottom: number;
 };
 
-type BoundingBoxConfig = [MutableRefObject<HTMLElement>, BoundingBoxInfo];
-export function useBoundingBox(dependency?: any[]): BoundingBoxConfig {
-  const containerRef = useRef<HTMLElement>() as MutableRefObject<HTMLElement>;
+export function useBoundingBox<T extends HTMLElement>(
+  dependency?: any[]
+): [MutableRefObject<T>, BoundingBoxInfo] {
+  const containerRef = useRef<T>() as MutableRefObject<T>;
   const [bounds, setBounds] = useState({
     x: 0,
     y: 0,

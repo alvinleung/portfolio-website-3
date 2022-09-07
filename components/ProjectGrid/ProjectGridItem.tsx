@@ -24,15 +24,20 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
 }) => {
   const { scrollY } = useScroll();
   const containerRef = useRef() as MutableRefObject<HTMLDivElement>;
-  const TOP_OFFSET = 64;
+  const TOP_OFFSET = 58;
   const [beginShrinkPos, setBeginShrinkPos] = useState(100);
   const [endShrinkPos, setEndShrinkPos] = useState(200);
+  const [boxContainerHeight, setBoxContainerHeight] = useState(200);
   const boxTransitionOutProgress = useTransform(
     scrollY,
     [beginShrinkPos, endShrinkPos],
     [1, 0]
   );
   const boxOpacity = useTransform(boxTransitionOutProgress, [0, 0.1], [0, 1]);
+  const boxHeight = useTransform(
+    boxTransitionOutProgress,
+    (val) => val * boxContainerHeight
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -40,6 +45,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
       const beginShrinkPos = bounds.top - TOP_OFFSET + window.scrollY;
       setBeginShrinkPos(beginShrinkPos);
       setEndShrinkPos(beginShrinkPos + bounds.height);
+      setBoxContainerHeight(bounds.height);
     };
     window.addEventListener("resize", handleResize);
     handleResize();
@@ -51,12 +57,13 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   return (
     <motion.div
       ref={containerRef}
-      className="sticky top-14"
+      className="sticky top-14 h-[40vw]"
       onClick={() => onSelect?.(projectInfo.slug)}
     >
       {/* background media */}
       <ProjectCard
         opacity={boxOpacity}
+        height={boxHeight}
         projectInfo={projectInfo}
         isFirstRow={isFirstRow}
         projectStyle={{
