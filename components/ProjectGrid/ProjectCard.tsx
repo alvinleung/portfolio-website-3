@@ -1,4 +1,5 @@
 import { motion, MotionValue } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useBoundingBox } from "../../hooks/useBoundingClientRect";
@@ -41,6 +42,7 @@ const RoundedCornerSVGRight = ({ size = 12 }) => (
 
 type Props = {
   isFirstRow: boolean;
+  isActive: boolean;
   projectInfo: ProjectInfo;
   projectStyle: ProjectStyle;
   opacity: MotionValue;
@@ -53,6 +55,7 @@ const ProjectCard = ({
   projectStyle,
   opacity,
   height,
+  isActive,
 }: Props) => {
   const [cursorOffsetFromCenter, setCursorOffsetFromCenter] = useState({
     x: 0,
@@ -91,12 +94,12 @@ const ProjectCard = ({
             translateZ: "-.5vw",
           }}
           transition={{
-            duration: AnimationConfig.VERY_FAST,
+            duration: AnimationConfig.FAST,
             ease: AnimationConfig.EASING,
           }}
         >
           <motion.div
-            className="relative h-full rounded-xl"
+            className="relative h-full rounded-xl overflow-hidden"
             style={{
               opacity: opacity,
               height: height,
@@ -112,6 +115,21 @@ const ProjectCard = ({
               ease: "linear",
             }}
           >
+            <motion.div
+              animate={{
+                opacity: isActive ? 1 : 0.05,
+              }}
+              transition={{
+                duration: AnimationConfig.NORMAL,
+                ease: "linear",
+              }}
+            >
+              <Image
+                src={`/project-assets/${projectInfo.slug}/${projectInfo.slug}-cover.jpg`}
+                width={582}
+                height={767}
+              />
+            </motion.div>
             {/* content */}
             <motion.div
               className="absolute left-0 right-0 top-0"

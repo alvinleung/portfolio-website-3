@@ -12,7 +12,7 @@ interface ProjectGridItemProps {
   onSelect?: (slug: string) => void;
 }
 
-const INACTIVE_TEXT_COLOR = "#1e4852";
+const INACTIVE_TEXT_COLOR = "#3c4d51";
 const INACTIVE_BG_COLOR = "#1E2222";
 
 export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
@@ -70,6 +70,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
           textColor: isActive ? projectStyle.textColor : INACTIVE_TEXT_COLOR,
           bgColor: isActive ? projectStyle.bgColor : INACTIVE_BG_COLOR,
         }}
+        isActive={isActive}
       ></ProjectCard>
     </motion.div>
   );
