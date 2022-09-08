@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import LandingHero from "../components/Layouts/LandingHero";
 import ProjectGridSection from "../components/Layouts/ProjectGridSection";
 import ProjectGrid from "../components/ProjectGrid/ProjectGrid";
+import { useContainerScroll } from "../components/ScrollContainer/ScrollContainer";
 import { getAllPostSlugs, getPostBySlug } from "../lib/projects";
 
 export const getStaticProps: GetStaticProps = () => {
@@ -25,7 +26,7 @@ export const getStaticProps: GetStaticProps = () => {
 const Home: NextPage = ({
   projects,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { scrollY } = useScroll();
+  const { scrollY } = useContainerScroll();
   const [isViewingGrid, setIsViewingGrid] = useState(false);
   const [isViewingGridBar, setIsViewingGridBar] = useState(false);
 

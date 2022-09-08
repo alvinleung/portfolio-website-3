@@ -1,18 +1,19 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 import { ProjectInfo, ProjectStyle } from "./Project";
 import ProjectCard from "./ProjectCard";
 
 interface ProjectGridItemProps {
   isActive: boolean;
   isFirstRow: boolean;
-  isSelected: boolean;
+  selectedProject: string;
   projectStyle: ProjectStyle;
   projectInfo: ProjectInfo;
   onSelect?: (slug: string) => void;
 }
 
-const INACTIVE_TEXT_COLOR = "#3c4d51";
+const INACTIVE_TEXT_COLOR = "#4f5c5f";
 const INACTIVE_BG_COLOR = "#1E2222";
 
 export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
@@ -21,8 +22,9 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   isActive,
   isFirstRow,
   onSelect,
+  selectedProject,
 }) => {
-  const { scrollY } = useScroll();
+  const { scrollY } = useContainerScroll();
   const containerRef = useRef() as MutableRefObject<HTMLDivElement>;
   const TOP_OFFSET = 58;
   const [beginShrinkPos, setBeginShrinkPos] = useState(100);

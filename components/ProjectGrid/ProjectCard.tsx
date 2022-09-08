@@ -63,7 +63,7 @@ const ProjectCard = ({
   });
 
   return (
-    <Link href={`projects/${projectInfo.slug}`}>
+    <Link href={`projects/${projectInfo.slug}`} scroll={false}>
       <a
         className="relative block h-full"
         onMouseDownCapture={(e) => {

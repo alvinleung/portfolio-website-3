@@ -1,10 +1,12 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import React, { useEffect } from "react";
+import { createPortal } from "react-dom";
+import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 
 type Props = {};
 
 const LandingHero = (props: Props) => {
-  const { scrollY } = useScroll();
+  const { scrollY } = useContainerScroll();
   const introSectionHeight = 700;
   const bgColour = useTransform(
     scrollY,
