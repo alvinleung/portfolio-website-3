@@ -116,6 +116,7 @@ const ProjectCard = ({
             }}
           >
             <motion.div
+              initial={{ opacity: 0 }}
               animate={{
                 opacity: isActive ? 1 : 0.05,
               }}
