@@ -21,6 +21,9 @@ const LandingHero = (props: Props) => {
       <motion.div
         className="fixed w-full h-full -z-10"
         style={{ backgroundColor: bgColour }}
+        exit={{
+          backgroundColor: "#1d2b2a",
+        }}
       ></motion.div>
       <motion.section className="relative h-[90vh]">
         <motion.div

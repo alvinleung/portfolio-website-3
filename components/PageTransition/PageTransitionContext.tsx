@@ -1,4 +1,9 @@
-import React, { createContext, useState } from "react";
+import React, {
+  createContext,
+  MutableRefObject,
+  useRef,
+  useState,
+} from "react";
 
 export interface CardBounds {
   left: number;
@@ -8,16 +13,17 @@ export interface CardBounds {
 }
 
 export interface PageTransitionInfo {
-  prevCardBounds: CardBounds | null;
-  nextCardBounds: CardBounds | null;
+  // prevCardContainer: CardBounds | null;
+  // nextCardBounds: CardBounds | null;
+  prevCardRef: MutableRefObject<HTMLDivElement> | null;
   nextSlug: string | null;
   prevSlug: string;
   isPerformingTransition: boolean;
 }
 
 const PageTransitionContext = createContext<PageTransitionInfo>({
-  prevCardBounds: null,
-  nextCardBounds: null,
+  prevCardRef: null,
+  // nextCardBounds: null,
   nextSlug: null,
   prevSlug: "",
   isPerformingTransition: false,
@@ -28,8 +34,9 @@ type Props = {
 };
 
 export const PageTransitionProvider = ({ children }: Props) => {
-  const [prevCardBounds, setPrevCardBounds] = useState<CardBounds | null>(null);
-  const [nextCardBounds, setNextBounds] = useState<CardBounds | null>(null);
+  // const [prevCardBounds, setPrevCardBounds] = useState<CardBounds | null>(null);
+  // const [nextCardBounds, setNextBounds] = useState<CardBounds | null>(null);
+  const prevCardRef = useRef() as MutableRefObject<HTMLDivElement>;
   const [nextSlug, setNextSlug] = useState<string | null>(null);
   const [prevSlug, setPrevSlug] = useState<string>("");
   const [isPerformingTransition, setIsPerformingTransition] = useState(false);
@@ -37,8 +44,9 @@ export const PageTransitionProvider = ({ children }: Props) => {
   return (
     <PageTransitionContext.Provider
       value={{
-        prevCardBounds,
-        nextCardBounds,
+        // prevCardBounds,
+        // nextCardBounds,
+        prevCardRef,
         nextSlug,
         prevSlug,
         isPerformingTransition,
