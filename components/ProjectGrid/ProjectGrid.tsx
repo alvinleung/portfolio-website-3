@@ -44,6 +44,7 @@ const ProjectGrid = ({ isViewing, projects }: Props) => {
       >
         {projects.map((project, index) => (
           <ProjectGridItem
+            key={index}
             isActive={isViewing}
             onSelect={setSelectedProject}
             selectedProject={selectedProject}
