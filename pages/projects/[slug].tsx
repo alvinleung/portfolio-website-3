@@ -6,7 +6,7 @@ import { getAllPostSlugs, getPostBySlug } from "../../lib/projects";
 import TestingComponent from "../../components/TestingComponent";
 import ProjectTemplate from "../../components/Layouts/ProjectTemplate";
 import { motion } from "framer-motion";
-import Fullimage from "../../components/ProjectTempateLayouts/Fullimage";
+import ImageFull from "../../components/ProjectTempateLayouts/ImageFull";
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   // Return a list of possible value for id
@@ -68,7 +68,7 @@ export default function Post({ source, meta, slug }: PostProps) {
         {...source}
         components={{
           TestingComponent,
-          Fullimage,
+          ImageFull,
         }}
       />
     </ProjectTemplate>

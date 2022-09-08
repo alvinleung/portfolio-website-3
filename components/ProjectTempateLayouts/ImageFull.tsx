@@ -5,8 +5,8 @@ type Props = {
   src: string;
 };
 
-const Fullimage = ({ src }: Props) => {
+const FullImage = ({ src }: Props) => {
   return <img src={src} className="w-full" />;
 };
 
-export default Fullimage;
+export default FullImage;
