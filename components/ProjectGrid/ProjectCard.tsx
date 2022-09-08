@@ -68,7 +68,7 @@ const ProjectCard = ({
     <Link href={`projects/${projectInfo.slug}`} scroll={false}>
       <a
         className="relative block h-full"
-        onMouseDownCapture={(e) => {
+        onMouseDown={(e) => {
           const target = e.currentTarget as HTMLAnchorElement;
           const bounds = target.getBoundingClientRect();
           setCursorOffsetFromCenter({
