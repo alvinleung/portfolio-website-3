@@ -3,6 +3,7 @@ import { serialize } from "next-mdx-remote/serialize";
 import { GetStaticProps, InferGetStaticPropsType, GetStaticPaths } from "next";
 import { getAllPostSlugs, getPostBySlug } from "../../lib/projects";
 import TestingComponent from "../../components/TestingComponent";
+import ProjectTemplate from "../../components/Layouts/ProjectTemplate";
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   // Return a list of possible value for id
@@ -33,7 +34,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 type PostProps = InferGetStaticPropsType<typeof getStaticProps>;
 export default function Post({ source, meta }: PostProps) {
   return (
-    <div className="wrapper">
+    <ProjectTemplate
+      bgColor={meta.thumbnailBgColor}
+      textColor={meta.thumbnailTextColor}
+    >
       <h1 className="text-6xl">{meta.title}</h1>
       <MDXRemote
         {...source}
@@ -41,6 +45,6 @@ export default function Post({ source, meta }: PostProps) {
           TestingComponent,
         }}
       />
-    </div>
+    </ProjectTemplate>
   );
 }

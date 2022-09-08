@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { usePageTransition } from "../PageTransition/PageTransitionContext";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 import { ProjectInfo, ProjectStyle } from "./Project";
 import ProjectCard from "./ProjectCard";
@@ -40,6 +41,13 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
     boxTransitionOutProgress,
     (val) => val * boxContainerHeight
   );
+
+  const { prevCardRef } = usePageTransition();
+  useEffect(() => {
+    if (prevCardRef && selectedProject === projectInfo.slug) {
+      prevCardRef.current = containerRef.current;
+    }
+  }, [selectedProject]);
 
   useEffect(() => {
     const handleResize = () => {

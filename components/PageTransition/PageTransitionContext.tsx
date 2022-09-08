@@ -1,6 +1,7 @@
 import React, {
   createContext,
   MutableRefObject,
+  useContext,
   useRef,
   useState,
 } from "react";
@@ -56,3 +57,5 @@ export const PageTransitionProvider = ({ children }: Props) => {
     </PageTransitionContext.Provider>
   );
 };
+
+export const usePageTransition = () => useContext(PageTransitionContext);
