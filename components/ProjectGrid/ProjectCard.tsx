@@ -1,7 +1,7 @@
 import { motion, MotionValue } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { MutableRefObject, useState } from "react";
 import { useBoundingBox } from "../../hooks/useBoundingClientRect";
 import { AnimationConfig } from "../AnimationConfig";
 import { ProjectInfo, ProjectStyle } from "./Project";
@@ -47,6 +47,7 @@ type Props = {
   projectStyle: ProjectStyle;
   opacity: MotionValue;
   height: MotionValue;
+  cardRef: MutableRefObject<HTMLDivElement>;
 };
 
 const ProjectCard = ({
@@ -56,6 +57,7 @@ const ProjectCard = ({
   opacity,
   height,
   isActive,
+  cardRef,
 }: Props) => {
   const [cursorOffsetFromCenter, setCursorOffsetFromCenter] = useState({
     x: 0,
@@ -114,6 +116,7 @@ const ProjectCard = ({
               duration: 0.3,
               ease: "linear",
             }}
+            ref={cardRef}
           >
             <motion.div
               initial={{ opacity: 0 }}
@@ -146,9 +149,9 @@ const ProjectCard = ({
                 ease: "linear",
               }}
             >
-              <div className="grid grid-cols-2 p-4">
-                <div>{projectInfo.title}</div>
-                <div>
+              <div className="grid grid-cols-2 py-3 px-4">
+                <div className="leading-tight">{projectInfo.title}</div>
+                <div className="leading-tight">
                   {projectInfo.tags &&
                     projectInfo.tags.map((tag, index) => {
                       return <div key={index}>{tag}</div>;

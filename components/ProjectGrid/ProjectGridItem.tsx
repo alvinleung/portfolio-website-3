@@ -43,9 +43,10 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   );
 
   const { prevCardRef } = usePageTransition();
+  const cardRef = useRef() as MutableRefObject<HTMLDivElement>;
   useEffect(() => {
     if (prevCardRef && selectedProject === projectInfo.slug) {
-      prevCardRef.current = containerRef.current;
+      prevCardRef.current = cardRef.current;
     }
   }, [selectedProject]);
 
@@ -72,6 +73,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
     >
       {/* background media */}
       <ProjectCard
+        cardRef={cardRef}
         opacity={boxOpacity}
         height={boxHeight}
         projectInfo={projectInfo}
