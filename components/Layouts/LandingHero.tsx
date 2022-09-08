@@ -5,13 +5,16 @@ import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 
 type Props = {};
 
+const LANDING_THEME_BG = "#1d2b2a";
+const DEFAULT_BG = "#0e1010";
+
 const LandingHero = (props: Props) => {
   const { scrollY } = useContainerScroll();
   const introSectionHeight = 700;
   const bgColour = useTransform(
     scrollY,
     [0, introSectionHeight],
-    ["#1d2b2a", "#0E1010"]
+    [LANDING_THEME_BG, DEFAULT_BG]
   );
   const heroScale = useTransform(scrollY, [0, introSectionHeight], [1, 0.97]);
   const heroOpacity = useTransform(scrollY, [0, introSectionHeight], [1, 0]);
@@ -22,7 +25,7 @@ const LandingHero = (props: Props) => {
         className="fixed w-full h-full -z-10"
         style={{ backgroundColor: bgColour }}
         exit={{
-          backgroundColor: "#1d2b2a",
+          backgroundColor: DEFAULT_BG,
         }}
       ></motion.div>
       <motion.section className="relative h-[90vh]">

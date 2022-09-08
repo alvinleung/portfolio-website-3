@@ -36,7 +36,7 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
       width: containerBounds.width,
       height: containerBounds.height * 2,
       transition: {
-        duration: 0.5,
+        duration: 0.6,
         ease: [0.81, 0.03, 0.06, 1],
       },
       overflow: "scroll",
@@ -56,7 +56,7 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.2 }}
           >
             {children}
           </motion.div>

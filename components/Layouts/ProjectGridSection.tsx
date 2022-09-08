@@ -27,7 +27,7 @@ const ProjectGridSection = ({
           opacity: 0,
         }}
         whileHover={{
-          opacity: isViewingTopBar ? 1 : 0,
+          opacity: isViewingTopBar ? 0.8 : 0,
         }}
         transition={{
           duration: 0.15,

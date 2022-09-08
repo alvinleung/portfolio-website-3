@@ -6,6 +6,7 @@ import { getAllPostSlugs, getPostBySlug } from "../../lib/projects";
 import TestingComponent from "../../components/TestingComponent";
 import ProjectTemplate from "../../components/Layouts/ProjectTemplate";
 import { motion } from "framer-motion";
+import Fullimage from "../../components/ProjectTempateLayouts/Fullimage";
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   // Return a list of possible value for id
@@ -62,15 +63,12 @@ export default function Post({ source, meta, slug }: PostProps) {
           )}
         </div>
       </motion.div>
-      <img
-        src={`/project-assets/${slug}/${slug}-cover.jpg`}
-        className="block w-full"
-      />
 
       <MDXRemote
         {...source}
         components={{
           TestingComponent,
+          Fullimage,
         }}
       />
     </ProjectTemplate>
