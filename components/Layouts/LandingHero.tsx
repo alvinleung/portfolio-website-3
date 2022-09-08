@@ -19,12 +19,12 @@ const LandingHero = (props: Props) => {
   return (
     <>
       <motion.div
-        className="fixed w-full h-full"
+        className="fixed w-full h-full -z-10"
         style={{ backgroundColor: bgColour }}
       ></motion.div>
       <motion.section className="relative h-[90vh]">
         <motion.div
-          className="fixed px-6 py-6 grid grid-cols-6 grid-rows-[1fr] gap-4 h-[80vh]"
+          className="fixed px-6 py-6 grid grid-cols-6 grid-rows-[1fr] gap-4 h-[80vh]  -z-10"
           style={{ scale: heroScale, opacity: heroOpacity }}
         >
           <div className="col-start-1 col-end-5 flex flex-col">
