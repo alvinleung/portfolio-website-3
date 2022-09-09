@@ -37,7 +37,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 type PostProps = InferGetStaticPropsType<typeof getStaticProps>;
 export default function Post({ source, meta, slug }: PostProps) {
   const projectLogoSource = `/project-assets/${slug}/${slug}-logo.png`;
-  const projectCoverSource = `/project-assets/${slug}/${slug}-cover.png`;
 
   return (
     <ProjectTemplate
