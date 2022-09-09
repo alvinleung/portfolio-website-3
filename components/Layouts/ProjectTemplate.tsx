@@ -70,6 +70,7 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
     }
     const containerBounds = contentContainerRef.current.getBoundingClientRect();
     anim.start({
+      position: "absolute",
       left: containerBounds.left,
       top: containerBounds.top,
       width: containerBounds.width,
