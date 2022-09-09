@@ -26,7 +26,6 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
     const bounds = prevCardRef.current.getBoundingClientRect();
     const containerBounds = contentContainerRef.current.getBoundingClientRect();
     anim.set({
-      position: "absolute",
       left: bounds.left,
       width: bounds.width,
       height: bounds.height,
@@ -59,19 +58,16 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
 
   useEffect(() => {
     if (!isReady) return;
-
     if (isScrolled) {
       anim.start({
-        position: "absolute",
         width: window.innerWidth,
-        top: 0,
         left: 0,
+        top: 0,
       });
       return;
     }
     const containerBounds = contentContainerRef.current.getBoundingClientRect();
     anim.start({
-      position: "absolute",
       left: containerBounds.left,
       top: containerBounds.top,
       width: containerBounds.width,
@@ -89,7 +85,7 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
     <div className="px-4 pt-16">
       <div ref={contentContainerRef} className="w-full">
         <motion.div
-          className="overflow-hidden rounded-xl"
+          className="overflow-hidden rounded-xl absolute"
           animate={anim}
           onAnimationComplete={handleAnimationComplete}
           style={{ backgroundColor: bgColor, color: textColor }}
