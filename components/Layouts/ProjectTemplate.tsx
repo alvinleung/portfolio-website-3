@@ -62,6 +62,7 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
 
     if (isScrolled) {
       anim.start({
+        position: "absolute",
         width: window.innerWidth,
         top: 0,
         left: 0,
