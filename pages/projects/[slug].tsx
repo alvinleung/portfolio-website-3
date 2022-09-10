@@ -63,13 +63,14 @@ export default function Post({ source, meta, slug }: PostProps) {
         </div>
       </motion.div>
 
-      <main className="grid">
+      <main className="grid grid-cols-12">
         <MDXRemote
           {...source}
           components={{
             TestingComponent,
             FullImage,
             blockquote: Quote,
+            p: Paragraph,
           }}
         />
       </main>
@@ -77,6 +78,12 @@ export default function Post({ source, meta, slug }: PostProps) {
   );
 }
 
+const Paragraph = ({ children }: any) => (
+  <p className="col-start-4 col-span-3">{children}</p>
+);
+
 const Quote = ({ children }: any) => (
-  <blockquote className="text-5xl font-normal mx-[20vw]">{children}</blockquote>
+  <blockquote className="col-start-4 col-span-6 my-48 text-5xl font-normal">
+    {children}
+  </blockquote>
 );
