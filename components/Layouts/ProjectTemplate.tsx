@@ -16,7 +16,7 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const { prevCardRef } = usePageTransition();
-  const { scrollY } = useContainerScroll();
+  const { scrollY, scrollWidth } = useContainerScroll();
 
   useEffect(() => {
     if (!prevCardRef?.current) {
@@ -38,7 +38,7 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
       width: containerBounds.width,
       height: window.innerHeight * 2,
       transition: {
-        duration: 0.6,
+        duration: 0.5,
         ease: [0.81, 0.03, 0.06, 1],
       },
     });
@@ -60,7 +60,7 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
     if (!isReady) return;
     if (isScrolled) {
       anim.start({
-        width: window.innerWidth,
+        width: scrollWidth,
         left: 0,
         top: 0,
       });
@@ -82,7 +82,7 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
   };
 
   return (
-    <div className="px-4 pt-16">
+    <article className="px-4 pt-16">
       <div ref={contentContainerRef} className="w-full">
         <motion.div
           className="overflow-hidden rounded-xl absolute"
@@ -100,7 +100,7 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
           </motion.div>
         </motion.div>
       </div>
-    </div>
+    </article>
   );
 };
 

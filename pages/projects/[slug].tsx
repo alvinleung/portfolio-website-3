@@ -63,13 +63,20 @@ export default function Post({ source, meta, slug }: PostProps) {
         </div>
       </motion.div>
 
-      <MDXRemote
-        {...source}
-        components={{
-          TestingComponent,
-          FullImage,
-        }}
-      />
+      <main className="grid">
+        <MDXRemote
+          {...source}
+          components={{
+            TestingComponent,
+            FullImage,
+            blockquote: Quote,
+          }}
+        />
+      </main>
     </ProjectTemplate>
   );
 }
+
+const Quote = ({ children }: any) => (
+  <blockquote className="text-5xl font-normal mx-[20vw]">{children}</blockquote>
+);
