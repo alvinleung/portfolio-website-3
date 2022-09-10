@@ -1,12 +1,13 @@
 import { MDXRemote } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
-import Image from "next/image";
 import { GetStaticProps, InferGetStaticPropsType, GetStaticPaths } from "next";
 import { getAllPostSlugs, getPostBySlug } from "../../lib/projects";
 import TestingComponent from "../../components/TestingComponent";
 import ProjectTemplate from "../../components/Layouts/ProjectTemplate";
 import { motion } from "framer-motion";
 import FullImage from "../../components/ProjectViewLayouts/FullImage";
+import Team from "../../components/ProjectViewLayouts/Team";
+import Image from "../../components/ProjectViewLayouts/Image";
 import { createParagraphProcessor } from "../../components/ProjectViewLayouts/ParagraphProcessor";
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
@@ -81,6 +82,7 @@ export default function Post({ source, meta, slug }: PostProps) {
             ),
             h2: Header2,
             Image: Image,
+            Team,
           }}
         />
       </main>
@@ -89,16 +91,16 @@ export default function Post({ source, meta, slug }: PostProps) {
 }
 
 const ParagraphBig = (children: any) => (
-  <p className="col-start-2 col-span-3 my-48 text-5xl font-normal">
+  <p className="col-start-2 col-span-3 mt-48 mb-32 text-5xl font-normal">
     {children}
   </p>
 );
 
 const Paragraph = (children: any) => (
-  <p className="col-start-2 col-span-2 leading-[1.116em] opacity-50 pb-8">
+  <p className="col-start-2 col-span-2 leading-[1.116em] opacity-70 pb-[1em]">
     {children}
   </p>
 );
 const Header2 = ({ children }: any) => (
-  <h2 className="col-start-2 col-span-2 text-2xl pb-8 pt-12">{children}</h2>
+  <h2 className="col-start-2 col-span-2 text-2xl pb-8 pt-24">{children}</h2>
 );

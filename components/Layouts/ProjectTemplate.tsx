@@ -1,5 +1,6 @@
 import { motion, useAnimation } from "framer-motion";
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
+import { useWindowDimension } from "../../hooks/useWindowDimension";
 import { AnimationConfig } from "../AnimationConfig";
 import { usePageTransition } from "../PageTransition/PageTransitionContext";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
@@ -17,6 +18,7 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
   const [isReady, setIsReady] = useState(false);
   const { prevCardRef } = usePageTransition();
   const { scrollY, scrollWidth } = useContainerScroll();
+  const windowDimension = useWindowDimension();
 
   useEffect(() => {
     if (!prevCardRef?.current) {
@@ -72,7 +74,7 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
       top: containerBounds.top,
       width: containerBounds.width,
     });
-  }, [isScrolled, isReady]);
+  }, [isScrolled, isReady, windowDimension.width]);
 
   const handleAnimationComplete = (endValue: any) => {
     setIsReady(true);
