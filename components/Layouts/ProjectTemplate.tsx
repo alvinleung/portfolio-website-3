@@ -2,6 +2,7 @@ import { motion, useAnimation } from "framer-motion";
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import { useWindowDimension } from "../../hooks/useWindowDimension";
 import { AnimationConfig } from "../AnimationConfig";
+import CloseButton from "../CloseButton/CloseButton";
 import { usePageTransition } from "../PageTransition/PageTransitionContext";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 
@@ -84,25 +85,42 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
   };
 
   return (
-    <article className="px-4 pt-16">
-      <div ref={contentContainerRef} className="w-full">
-        <motion.div
-          className="overflow-hidden rounded-xl absolute"
-          animate={anim}
-          onAnimationComplete={handleAnimationComplete}
-          style={{ backgroundColor: bgColor, color: textColor }}
-        >
+    <>
+      {/* <div className="fixed px-4 pt-4 z-10">
+        <CloseButton />
+      </div> */}
+      <motion.div
+        className="px-4 pt-4 pb-2"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          delay: 0.3,
+          duration: AnimationConfig.NORMAL,
+          ease: AnimationConfig.EASING,
+        }}
+      >
+        <CloseButton />
+      </motion.div>
+      <article className="px-4">
+        <div ref={contentContainerRef} className="w-full">
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="relative"
+            className="overflow-hidden rounded-xl absolute"
+            animate={anim}
+            onAnimationComplete={handleAnimationComplete}
+            style={{ backgroundColor: bgColor, color: textColor }}
           >
-            {children}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="relative"
+            >
+              {children}
+            </motion.div>
           </motion.div>
-        </motion.div>
-      </div>
-    </article>
+        </div>
+      </article>
+    </>
   );
 };
 
