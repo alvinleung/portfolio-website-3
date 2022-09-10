@@ -6,7 +6,8 @@ import { getAllPostSlugs, getPostBySlug } from "../../lib/projects";
 import TestingComponent from "../../components/TestingComponent";
 import ProjectTemplate from "../../components/Layouts/ProjectTemplate";
 import { motion } from "framer-motion";
-import FullImage from "../../components/ProjectTempateLayouts/FullImage";
+import FullImage from "../../components/ProjectViewLayouts/FullImage";
+import { createParagraphProcessor } from "../../components/ProjectViewLayouts/ParagraphProcessor";
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   // Return a list of possible value for id
@@ -63,14 +64,23 @@ export default function Post({ source, meta, slug }: PostProps) {
         </div>
       </motion.div>
 
-      <main className="grid grid-cols-12">
+      <main className="grid grid-cols-6 text-2xl">
         <MDXRemote
           {...source}
           components={{
             TestingComponent,
             FullImage,
-            blockquote: Quote,
-            p: Paragraph,
+            p: createParagraphProcessor(
+              [
+                {
+                  token: "--",
+                  output: ParagraphBig,
+                },
+              ],
+              Paragraph
+            ),
+            h2: Header2,
+            Image: Image,
           }}
         />
       </main>
@@ -78,12 +88,17 @@ export default function Post({ source, meta, slug }: PostProps) {
   );
 }
 
-const Paragraph = ({ children }: any) => (
-  <p className="col-start-4 col-span-3">{children}</p>
+const ParagraphBig = (children: any) => (
+  <p className="col-start-2 col-span-3 my-48 text-5xl font-normal">
+    {children}
+  </p>
 );
 
-const Quote = ({ children }: any) => (
-  <blockquote className="col-start-4 col-span-6 my-48 text-5xl font-normal">
+const Paragraph = (children: any) => (
+  <p className="col-start-2 col-span-2 leading-[1.116em] opacity-50 pb-8">
     {children}
-  </blockquote>
+  </p>
+);
+const Header2 = ({ children }: any) => (
+  <h2 className="col-start-2 col-span-2 text-2xl pb-8 pt-12">{children}</h2>
 );
