@@ -47,7 +47,7 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const { prevCardRef } = usePageTransition();
-  const { scrollY, scrollWidth, scrollDirection } = useContainerScroll();
+  const { scrollY, scrollDirection } = useContainerScroll();
   const windowDimension = useWindowDimension();
 
   const [shouldShowNav, setShouldShowNav] = useState(false);
@@ -98,7 +98,7 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
     if (!isReady) return;
     if (isScrolled) {
       anim.start({
-        width: scrollWidth,
+        width: document.body.scrollWidth,
         left: 0,
         top: 0,
       });
@@ -114,18 +114,24 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
   }, [isScrolled, isReady, windowDimension.width]);
 
   useEffect(() => {
-    const unobserveScroll = scrollY.onChange(() => {});
+    let scrolledAmount = 0;
+    const THRESHOLD = 200;
+    const unobserveScroll = scrollY.onChange(() => {
+      scrolledAmount += scrollY.getVelocity() / 100;
+      if (scrolledAmount < -THRESHOLD) {
+        setShouldShowNav(true);
+        return;
+      }
+    });
 
-    if (scrollDirection === ScrollDirection.UP) {
-      setShouldShowNav(true);
-      return;
+    if (scrollDirection === ScrollDirection.DOWN) {
+      setShouldShowNav(false);
     }
-    setShouldShowNav(false);
 
     return () => {
       unobserveScroll();
     };
-  }, [scrollDirection, isScrolled]);
+  }, [scrollDirection]);
 
   const handleAnimationComplete = (endValue: any) => {
     setIsReady(true);
@@ -136,7 +142,6 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
 
   return (
     <>
-      <div className="h-20"></div>
       <motion.div
         animate={{
           opacity: shouldShowNav || !isScrolled ? 1 : 0,
@@ -145,7 +150,7 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
           duration: AnimationConfig.FAST,
           ease: AnimationConfig.EASING,
         }}
-        className="fixed left-0 right-0 top-0 z-10"
+        className="sticky left-0 right-0 top-0 z-10"
       >
         <ProjectViewNavBar scrolled={isScrolled} />
       </motion.div>
