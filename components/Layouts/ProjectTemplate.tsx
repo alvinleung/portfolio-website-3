@@ -4,12 +4,37 @@ import { useWindowDimension } from "../../hooks/useWindowDimension";
 import { AnimationConfig } from "../AnimationConfig";
 import CloseButton from "../CloseButton/CloseButton";
 import { usePageTransition } from "../PageTransition/PageTransitionContext";
-import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
+import ProjectLinkButton from "../ProjectLinkButton/ProjectLinkButton";
+import {
+  ScrollDirection,
+  useContainerScroll,
+} from "../ScrollContainer/ScrollContainer";
 
 type Props = {
   children: React.ReactNode;
   bgColor: string;
   textColor: string;
+};
+
+const ProjectViewNavBar = () => {
+  return (
+    <motion.div
+      className="px-6 pt-6 pb-4 flex justify-between"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        delay: 0.3,
+        duration: AnimationConfig.NORMAL,
+        ease: AnimationConfig.EASING,
+      }}
+    >
+      <CloseButton />
+      <div className="flex flex-row items-center text-white">
+        <div className="mr-4 text-[rgba(100,100,100,.7)]">Up Next</div>
+        <ProjectLinkButton slug={"whatif"} projectName={"What if?"} />
+      </div>
+    </motion.div>
+  );
 };
 
 const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
@@ -18,8 +43,10 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const { prevCardRef } = usePageTransition();
-  const { scrollY, scrollWidth } = useContainerScroll();
+  const { scrollY, scrollWidth, scrollDirection } = useContainerScroll();
   const windowDimension = useWindowDimension();
+
+  const [shouldShowNav, setShouldShowNav] = useState(false);
 
   useEffect(() => {
     if (!prevCardRef?.current) {
@@ -50,13 +77,17 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
   }, []);
 
   useEffect(() => {
-    scrollY.onChange((val) => {
+    const unobserveScrollY = scrollY.onChange((val) => {
       if (val > 0) {
         setIsScrolled(true);
         return;
       }
       setIsScrolled(false);
     });
+
+    return () => {
+      unobserveScrollY();
+    };
   }, [scrollY]);
 
   useEffect(() => {
@@ -67,6 +98,7 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
         left: 0,
         top: 0,
       });
+
       return;
     }
     const containerBounds = contentContainerRef.current.getBoundingClientRect();
@@ -77,6 +109,20 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
     });
   }, [isScrolled, isReady, windowDimension.width]);
 
+  useEffect(() => {
+    const unobserveScroll = scrollY.onChange(() => {});
+
+    if (scrollDirection === ScrollDirection.UP) {
+      setShouldShowNav(true);
+      return;
+    }
+    setShouldShowNav(false);
+
+    return () => {
+      unobserveScroll();
+    };
+  }, [scrollDirection, isScrolled]);
+
   const handleAnimationComplete = (endValue: any) => {
     setIsReady(true);
     anim.set({
@@ -86,22 +132,20 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
 
   return (
     <>
-      {/* <div className="fixed px-4 pt-4 z-10">
-        <CloseButton />
-      </div> */}
+      <div className="h-20"></div>
       <motion.div
-        className="px-4 pt-4 pb-2"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={{
+          opacity: shouldShowNav || !isScrolled ? 1 : 0,
+        }}
         transition={{
-          delay: 0.3,
-          duration: AnimationConfig.NORMAL,
+          duration: AnimationConfig.FAST,
           ease: AnimationConfig.EASING,
         }}
+        className="fixed left-0 right-0 top-0 z-10"
       >
-        <CloseButton />
+        <ProjectViewNavBar />
       </motion.div>
-      <article className="px-4">
+      <article className="px-6">
         <div ref={contentContainerRef} className="w-full">
           <motion.div
             className="overflow-hidden rounded-xl absolute"

@@ -10,7 +10,7 @@ const CloseButton = (props: Props) => {
   return (
     <Link href="/">
       <motion.a
-        className="inline-block rounded-full p-2 bg-[rgba(255,255,255,.1)] cursor-pointer"
+        className="inline-block rounded-full p-2 bg-[rgba(60,60,60,.7)] cursor-pointer backdrop-blur-md"
         initial={{
           rotate: 90,
         }}
@@ -19,7 +19,7 @@ const CloseButton = (props: Props) => {
         }}
         whileHover={{
           rotate: 90,
-          backgroundColor: "rgba(255,255,255,.3)",
+          backgroundColor: "rgba(60,60,60,.9)",
         }}
         whileTap={{
           scale: 0.95,

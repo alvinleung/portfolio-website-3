@@ -15,12 +15,18 @@ type Props = {
   children: React.ReactNode;
 };
 
+export enum ScrollDirection {
+  DOWN,
+  UP,
+}
+
 interface ScrollContextInfo {
   scrollWidth: number;
   scrollX: MotionValue;
   scrollY: MotionValue;
   scrollXProgress: MotionValue;
   scrollYProgress: MotionValue;
+  scrollDirection: ScrollDirection;
   setCanScroll: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -30,6 +36,7 @@ export const ScrollContext = createContext<ScrollContextInfo>({
   scrollY: new MotionValue(),
   scrollXProgress: new MotionValue(),
   scrollYProgress: new MotionValue(),
+  scrollDirection: ScrollDirection.DOWN,
   setCanScroll: () => {},
 });
 
@@ -37,6 +44,9 @@ export const ScrollContainer = ({ children }: Props) => {
   const scrollContainerRef = useRef() as MutableRefObject<HTMLDivElement>;
   const [canScroll, setCanScroll] = useState(true);
   const [scrollWidth, setScrollWidth] = useState(0);
+  const [scrollDirection, setScrollDirection] = useState<ScrollDirection>(
+    ScrollDirection.DOWN
+  );
   const { scrollX, scrollY, scrollXProgress, scrollYProgress } = useScroll({
     container: scrollContainerRef,
   });
@@ -45,6 +55,20 @@ export const ScrollContainer = ({ children }: Props) => {
   useEffect(() => {
     setScrollWidth(scrollContainerRef.current.scrollWidth);
   }, [windowDim]);
+
+  useEffect(() => {
+    const unobserveScrollY = scrollY.onChange((val) => {
+      if (val > scrollY.getPrevious()) {
+        setScrollDirection(ScrollDirection.DOWN);
+        return;
+      }
+      setScrollDirection(ScrollDirection.UP);
+    });
+
+    return () => {
+      unobserveScrollY();
+    };
+  }, []);
 
   return (
     <ScrollContext.Provider
@@ -55,6 +79,7 @@ export const ScrollContainer = ({ children }: Props) => {
         scrollXProgress,
         scrollYProgress,
         setCanScroll,
+        scrollDirection,
       }}
     >
       <motion.div
