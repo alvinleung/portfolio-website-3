@@ -25,6 +25,8 @@ const LandingHero = (props: Props) => {
       <motion.div
         className="fixed w-full h-full -z-10"
         style={{ backgroundColor: bgColour }}
+        initial={{ backgroundColor: DEFAULT_BG }}
+        animate={{ backgroundColor: LANDING_THEME_BG }}
         exit={{
           backgroundColor: DEFAULT_BG,
         }}
