@@ -38,8 +38,8 @@ const ProjectGrid = ({ isViewing, projects }: Props) => {
           scale: 0.9,
         }}
         transition={{
-          duration: AnimationConfig.SLOW,
-          ease: AnimationConfig.EASING_IN_OUT,
+          duration: AnimationConfig.NORMAL,
+          ease: AnimationConfig.EASING_INVERTED,
         }}
       >
         {projects.map((project, index) => (

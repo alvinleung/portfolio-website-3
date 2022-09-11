@@ -37,8 +37,8 @@ const LandingHero = (props: Props) => {
             opacity: 0,
             scale: 0.8,
             transition: {
-              ease: AnimationConfig.EASING_IN_OUT,
-              duration: AnimationConfig.SLOW,
+              ease: AnimationConfig.EASING_INVERTED,
+              duration: AnimationConfig.NORMAL,
             },
           }}
         >
