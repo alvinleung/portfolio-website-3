@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     <WindowDimensionContextProvider>
       <PageTransitionProvider>
         <AnimatePresence>
-          <ScrollContainer key={router.route}>
+          <ScrollContainer key={router.asPath}>
             <Component {...pageProps} />
           </ScrollContainer>
         </AnimatePresence>
