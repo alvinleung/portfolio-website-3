@@ -6,14 +6,13 @@ import { ScrollContainer } from "../components/ScrollContainer/ScrollContainer";
 import { PageTransitionProvider } from "../components/PageTransition/PageTransitionContext";
 
 function MyApp({ Component, pageProps, router }: AppProps) {
+  const isRouteHome = router.asPath === "/";
+
   return (
     <WindowDimensionContextProvider>
       <PageTransitionProvider>
-        <AnimatePresence>
-          <ScrollContainer
-            key={router.asPath}
-            zIndex={router.asPath === "/" ? 10 : 100}
-          >
+        <AnimatePresence initial={false}>
+          <ScrollContainer key={router.asPath} zIndex={isRouteHome ? 10 : 100}>
             <Component {...pageProps} />
           </ScrollContainer>
         </AnimatePresence>

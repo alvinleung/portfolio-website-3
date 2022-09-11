@@ -33,9 +33,21 @@ const LandingHero = (props: Props) => {
         <motion.div
           className="fixed px-6 py-6 grid grid-cols-6 grid-rows-[1fr] gap-4 h-[80vh]  -z-10"
           style={{ scale: heroScale, opacity: heroOpacity }}
+          initial={{
+            opacity: 0,
+            scale: 0.9,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            transition: {
+              ease: AnimationConfig.EASING,
+              duration: AnimationConfig.NORMAL,
+            },
+          }}
           exit={{
             opacity: 0,
-            scale: 0.8,
+            scale: 0.9,
             transition: {
               ease: AnimationConfig.EASING_INVERTED,
               duration: AnimationConfig.NORMAL,
