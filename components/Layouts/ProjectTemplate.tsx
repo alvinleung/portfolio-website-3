@@ -22,6 +22,7 @@ const ProjectViewNavBar = ({ scrolled }: any) => {
       className="px-6 pt-6 pb-4 flex justify-between"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
       transition={{
         delay: 0.3,
         duration: AnimationConfig.NORMAL,
@@ -53,6 +54,7 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
   const [shouldShowNav, setShouldShowNav] = useState(false);
 
   useEffect(() => {
+    console.log(prevCardRef.current);
     if (!prevCardRef?.current) {
       setIsReady(true);
       return;
@@ -151,6 +153,10 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
           ease: AnimationConfig.EASING,
         }}
         className="sticky left-0 right-0 top-0 z-10"
+        exit={{
+          opacity: 0,
+          y: 300,
+        }}
       >
         <ProjectViewNavBar scrolled={isScrolled} />
       </motion.div>
@@ -159,6 +165,10 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
           <motion.div
             className="overflow-hidden rounded-xl absolute"
             animate={anim}
+            exit={{
+              opacity: 0,
+              y: "100vh",
+            }}
             onAnimationComplete={handleAnimationComplete}
             style={{ backgroundColor: bgColor, color: textColor }}
           >

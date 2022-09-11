@@ -16,14 +16,14 @@ export interface CardBounds {
 export interface PageTransitionInfo {
   // prevCardContainer: CardBounds | null;
   // nextCardBounds: CardBounds | null;
-  prevCardRef: MutableRefObject<HTMLDivElement> | null;
+  prevCardRef: MutableRefObject<HTMLDivElement | HTMLAnchorElement | undefined>;
   nextSlug: string | null;
   prevSlug: string;
   isPerformingTransition: boolean;
 }
 
 const PageTransitionContext = createContext<PageTransitionInfo>({
-  prevCardRef: null,
+  prevCardRef: { current: undefined },
   // nextCardBounds: null,
   nextSlug: null,
   prevSlug: "",

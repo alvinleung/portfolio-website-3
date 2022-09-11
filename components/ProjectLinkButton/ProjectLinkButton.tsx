@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { MutableRefObject, useRef, useState } from "react";
 import { AnimationConfig } from "../AnimationConfig";
+import { usePageTransition } from "../PageTransition/PageTransitionContext";
 
 type Props = {
   slug: string;
@@ -20,10 +21,18 @@ const ProjectLinkButton = ({
   scrolled,
 }: Props) => {
   const [isHovering, setIsHovering] = useState(false);
+  const linkRef = useRef() as MutableRefObject<HTMLAnchorElement>;
+  const { prevCardRef } = usePageTransition();
+
+  const handleClick = () => {
+    prevCardRef.current = linkRef.current;
+  };
 
   return (
     <Link href={`/projects/${slug}`}>
       <motion.a
+        onClickCapture={handleClick}
+        ref={linkRef}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
         transition={{
