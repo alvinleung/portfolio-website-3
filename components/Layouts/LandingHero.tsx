@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
+import { AnimationConfig } from "../AnimationConfig";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 
 type Props = {};
@@ -32,6 +33,14 @@ const LandingHero = (props: Props) => {
         <motion.div
           className="fixed px-6 py-6 grid grid-cols-6 grid-rows-[1fr] gap-4 h-[80vh]  -z-10"
           style={{ scale: heroScale, opacity: heroOpacity }}
+          exit={{
+            opacity: 0,
+            scale: 0.8,
+            transition: {
+              ease: AnimationConfig.EASING_IN_OUT,
+              duration: AnimationConfig.SLOW,
+            },
+          }}
         >
           <div className="col-start-1 col-end-5 flex flex-col">
             <h1 className="text-6xl font-normal tracking-[-.03em]">
