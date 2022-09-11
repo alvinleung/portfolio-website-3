@@ -10,7 +10,7 @@ const CloseButton = (props: Props) => {
   return (
     <Link href="/">
       <motion.a
-        className="inline-block rounded-full p-2 bg-[rgba(60,60,60,.7)] cursor-pointer backdrop-blur-md"
+        className="inline-block rounded-full p-2 bg-[rgba(50,50,50,.6)] cursor-pointer backdrop-blur-md"
         initial={{
           rotate: 90,
         }}

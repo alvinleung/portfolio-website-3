@@ -16,7 +16,7 @@ type Props = {
   textColor: string;
 };
 
-const ProjectViewNavBar = () => {
+const ProjectViewNavBar = ({ scrolled }: any) => {
   return (
     <motion.div
       className="px-6 pt-6 pb-4 flex justify-between"
@@ -30,8 +30,12 @@ const ProjectViewNavBar = () => {
     >
       <CloseButton />
       <div className="flex flex-row items-center text-white">
-        <div className="mr-4 text-[rgba(100,100,100,.7)]">Up Next</div>
-        <ProjectLinkButton slug={"whatif"} projectName={"What if?"} />
+        <div className="mr-4 text-[rgba(120,120,120,.7)]">Up Next</div>
+        <ProjectLinkButton
+          slug={"whatif"}
+          projectName={"What if?"}
+          scrolled={scrolled}
+        />
       </div>
     </motion.div>
   );
@@ -143,7 +147,7 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
         }}
         className="fixed left-0 right-0 top-0 z-10"
       >
-        <ProjectViewNavBar />
+        <ProjectViewNavBar scrolled={isScrolled} />
       </motion.div>
       <article className="px-6">
         <div ref={contentContainerRef} className="w-full">
