@@ -74,8 +74,8 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
       width: containerBounds.width,
       height: window.innerHeight * 2,
       transition: {
-        duration: 0.5,
-        ease: [0.81, 0.03, 0.06, 1],
+        duration: AnimationConfig.SLOW,
+        ease: AnimationConfig.EASING_IN_OUT,
       },
     });
 
@@ -163,11 +163,6 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
         className="sticky left-0 right-0 top-0 z-10"
         exit={{
           opacity: 0,
-          // y: 300,
-          transition: {
-            duration: AnimationConfig.FAST,
-            ease: AnimationConfig.EASING,
-          },
         }}
       >
         <ProjectViewNavBar scrolled={isScrolled} />
@@ -179,7 +174,11 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
             animate={anim}
             exit={{
               opacity: 0,
-              y: "100vh",
+              y: "20vh",
+              transition: {
+                duration: AnimationConfig.NORMAL,
+                ease: AnimationConfig.EASING_IN_OUT,
+              },
             }}
             onAnimationComplete={handleAnimationComplete}
             style={{ backgroundColor: bgColor, color: textColor }}

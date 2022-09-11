@@ -13,6 +13,7 @@ import { useWindowDimension } from "../../hooks/useWindowDimension";
 
 type Props = {
   children: React.ReactNode;
+  zIndex?: number;
 };
 
 export enum ScrollDirection {
@@ -40,7 +41,7 @@ export const ScrollContext = createContext<ScrollContextInfo>({
   setCanScroll: () => {},
 });
 
-export const ScrollContainer = ({ children }: Props) => {
+export const ScrollContainer = ({ children, zIndex = 0 }: Props) => {
   const scrollContainerRef = useRef() as MutableRefObject<HTMLDivElement>;
   const [canScroll, setCanScroll] = useState(true);
   const [scrollWidth, setScrollWidth] = useState(0);
@@ -87,6 +88,9 @@ export const ScrollContainer = ({ children }: Props) => {
           canScroll ? "overflow-y-auto" : "overflow-y-hidden"
         } `}
         ref={scrollContainerRef}
+        style={{
+          zIndex: zIndex,
+        }}
       >
         {children}
       </motion.div>
