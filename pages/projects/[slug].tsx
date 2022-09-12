@@ -3,7 +3,7 @@ import { serialize } from "next-mdx-remote/serialize";
 import { GetStaticProps, InferGetStaticPropsType, GetStaticPaths } from "next";
 import { getAllPostSlugs, getPostBySlug } from "../../lib/projects";
 import TestingComponent from "../../components/TestingComponent";
-import ProjectTemplate from "../../components/Layouts/ProjectTemplate";
+import ProjectView from "../../components/Layouts/ProjectView";
 import { motion } from "framer-motion";
 import FullImage from "../../components/ProjectViewLayouts/FullImage";
 import Team from "../../components/ProjectViewLayouts/Team";
@@ -41,7 +41,7 @@ export default function Post({ source, meta, slug }: PostProps) {
   const projectLogoSource = `/project-assets/${slug}/${slug}-logo.png`;
 
   return (
-    <ProjectTemplate
+    <ProjectView
       bgColor={meta.thumbnailBgColor}
       textColor={meta.thumbnailTextColor}
     >
@@ -86,7 +86,7 @@ export default function Post({ source, meta, slug }: PostProps) {
           }}
         />
       </main>
-    </ProjectTemplate>
+    </ProjectView>
   );
 }
 

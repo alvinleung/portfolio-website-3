@@ -42,7 +42,7 @@ const ProjectViewNavBar = ({ scrolled }: any) => {
   );
 };
 
-const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
+const ProjectView = ({ children, bgColor, textColor }: Props) => {
   const anim = useAnimation();
   const contentContainerRef = useRef() as MutableRefObject<HTMLDivElement>;
   const [isScrolled, setIsScrolled] = useState(false);
@@ -54,7 +54,6 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
   const [shouldShowNav, setShouldShowNav] = useState(false);
 
   useEffect(() => {
-    console.log(prevCardRef.current);
     if (!prevCardRef?.current) {
       setIsReady(true);
       return;
@@ -78,8 +77,6 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
         ease: AnimationConfig.EASING_IN_OUT,
       },
     });
-
-    // setCanScroll(false);
   }, []);
 
   useEffect(() => {
@@ -167,35 +164,34 @@ const ProjectTemplate = ({ children, bgColor, textColor }: Props) => {
       >
         <ProjectViewNavBar scrolled={isScrolled} />
       </motion.div>
-      <article className="px-6">
-        <div ref={contentContainerRef} className="w-full">
+      <article ref={contentContainerRef} className=" mx-6">
+        {/* Project Content */}
+        <motion.div
+          className="overflow-hidden rounded-xl absolute"
+          animate={anim}
+          exit={{
+            opacity: 0,
+            y: "20vh",
+            transition: {
+              duration: AnimationConfig.NORMAL,
+              ease: AnimationConfig.EASING_IN_OUT,
+            },
+          }}
+          onAnimationComplete={handleAnimationComplete}
+          style={{ backgroundColor: bgColor, color: textColor }}
+        >
           <motion.div
-            className="overflow-hidden rounded-xl absolute"
-            animate={anim}
-            exit={{
-              opacity: 0,
-              y: "20vh",
-              transition: {
-                duration: AnimationConfig.NORMAL,
-                ease: AnimationConfig.EASING_IN_OUT,
-              },
-            }}
-            onAnimationComplete={handleAnimationComplete}
-            style={{ backgroundColor: bgColor, color: textColor }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="relative"
           >
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="relative"
-            >
-              {children}
-            </motion.div>
+            {children}
           </motion.div>
-        </div>
+        </motion.div>
       </article>
     </>
   );
 };
 
-export default ProjectTemplate;
+export default ProjectView;
