@@ -23,6 +23,7 @@ export enum ScrollDirection {
 
 interface ScrollContextInfo {
   scrollWidth: number;
+  scrollHeight: number;
   scrollX: MotionValue;
   scrollY: MotionValue;
   scrollXProgress: MotionValue;
@@ -33,6 +34,7 @@ interface ScrollContextInfo {
 
 export const ScrollContext = createContext<ScrollContextInfo>({
   scrollWidth: 0,
+  scrollHeight: 0,
   scrollX: new MotionValue(),
   scrollY: new MotionValue(),
   scrollXProgress: new MotionValue(),
@@ -45,6 +47,7 @@ export const ScrollContainer = ({ children, zIndex = 0 }: Props) => {
   const scrollContainerRef = useRef() as MutableRefObject<HTMLDivElement>;
   const [canScroll, setCanScroll] = useState(true);
   const [scrollWidth, setScrollWidth] = useState(0);
+  const [scrollHeight, setScrollHeight] = useState(0);
   const [scrollDirection, setScrollDirection] = useState<ScrollDirection>(
     ScrollDirection.DOWN
   );
@@ -55,6 +58,7 @@ export const ScrollContainer = ({ children, zIndex = 0 }: Props) => {
   const windowDim = useWindowDimension();
   useEffect(() => {
     setScrollWidth(scrollContainerRef.current.scrollWidth);
+    setScrollHeight(scrollContainerRef.current.scrollHeight);
   }, [windowDim]);
 
   useEffect(() => {
@@ -75,6 +79,7 @@ export const ScrollContainer = ({ children, zIndex = 0 }: Props) => {
     <ScrollContext.Provider
       value={{
         scrollWidth,
+        scrollHeight,
         scrollX,
         scrollY,
         scrollXProgress,

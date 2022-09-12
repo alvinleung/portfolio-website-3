@@ -49,14 +49,14 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
   const anim = useAnimation();
   const contentContainerRef = useRef() as MutableRefObject<HTMLDivElement>;
   const contentRef = useRef() as MutableRefObject<HTMLDivElement>;
-  const nextRef = useRef() as MutableRefObject<HTMLDivElement>;
-  const [contentHeight, setContentHeight] = useState(0);
+  // const nextRef = useRef() as MutableRefObject<HTMLDivElement>;
+  // const [contentHeight, setContentHeight] = useState(0);
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [shouldShowNextProject, setShouldShowNextProject] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const { prevCardRef } = usePageTransition();
-  const { scrollY, scrollDirection } = useContainerScroll();
+  const { scrollY, scrollDirection, scrollYProgress } = useContainerScroll();
   const windowDimension = useWindowDimension();
 
   const [shouldShowNav, setShouldShowNav] = useState(false);
@@ -89,12 +89,6 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
 
   useEffect(() => {
     const unobserveScrollY = scrollY.onChange((val) => {
-      if (val > contentHeight - window.innerHeight) {
-        setShouldShowNextProject(true);
-      } else {
-        setShouldShowNextProject(false);
-      }
-
       if (val > 0) {
         setIsScrolled(true);
         return;
@@ -105,7 +99,7 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
     return () => {
       unobserveScrollY();
     };
-  }, [scrollY, contentHeight]);
+  }, [scrollY, scrollYProgress]);
 
   useEffect(() => {
     if (!isReady) return;
@@ -117,7 +111,7 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
         scale: 0.965,
         transformOrigin: "bottom center",
         transition: {
-          duration: AnimationConfig.SLOW,
+          duration: AnimationConfig.NORMAL,
           ease: AnimationConfig.EASING,
         },
       });
@@ -126,7 +120,7 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
         scale: 1,
         transformOrigin: "bottom center",
         transition: {
-          duration: AnimationConfig.SLOW,
+          duration: AnimationConfig.NORMAL,
           ease: AnimationConfig.EASING,
         },
       });
@@ -182,22 +176,6 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
     });
   };
 
-  const capturePageHeight = () => {
-    setContentHeight(contentRef.current.getBoundingClientRect().height);
-  };
-
-  // auto match the page content height on resize
-  useEffect(() => {
-    const handlePageResize = () => {
-      // Handle Resize
-      capturePageHeight();
-    };
-    window.addEventListener("resize", handlePageResize);
-    return () => {
-      window.removeEventListener("resize", handlePageResize);
-    };
-  }, []);
-
   return (
     <>
       <motion.div
@@ -218,9 +196,9 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
       <article
         ref={contentContainerRef}
         className="mx-6 z-10"
-        style={{
-          height: contentHeight,
-        }}
+        // style={{
+        //   height: contentHeight,
+        // }}
       >
         {/* Project Content */}
         <motion.div
@@ -236,21 +214,30 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
             },
           }}
           onAnimationComplete={handleAnimationComplete}
-          style={{ backgroundColor: bgColor, color: textColor }}
+          style={{
+            backgroundColor: isReady ? "transparent" : bgColor,
+            borderBottomLeftRadius: 0,
+            borderBottomRightRadius: 0,
+          }}
         >
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            className="relative"
+            className="relative pb-24 rounded-xl"
+            style={{ backgroundColor: bgColor, color: textColor }}
           >
             {children}
           </motion.div>
+          <motion.div
+            className="mt-6"
+            onViewportEnter={() => setShouldShowNextProject(true)}
+            onViewportLeave={() => setShouldShowNextProject(false)}
+          >
+            <ProjectLinkCard isShowing={shouldShowNextProject} />
+          </motion.div>
         </motion.div>
       </article>
-      <div className="overflow-hidden" ref={nextRef}>
-        <ProjectLinkCard isShowing={shouldShowNextProject} />
-      </div>
     </>
   );
 };
