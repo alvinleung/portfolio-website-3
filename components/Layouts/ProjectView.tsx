@@ -1,14 +1,17 @@
 import { motion, useAnimation } from "framer-motion";
+import Link from "next/link";
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import { useWindowDimension } from "../../hooks/useWindowDimension";
 import { AnimationConfig } from "../AnimationConfig";
 import CloseButton from "../CloseButton/CloseButton";
 import { usePageTransition } from "../PageTransition/PageTransitionContext";
 import ProjectLinkButton from "../ProjectLinkButton/ProjectLinkButton";
+import ProjectLinkCard from "../ProjectLinkButton/ProjectLinkCard";
 import {
   ScrollDirection,
   useContainerScroll,
 } from "../ScrollContainer/ScrollContainer";
+import ProjectHeader from "./ProjectHeader";
 
 type Props = {
   children: React.ReactNode;
@@ -45,7 +48,12 @@ const ProjectViewNavBar = ({ scrolled }: any) => {
 const ProjectView = ({ children, bgColor, textColor }: Props) => {
   const anim = useAnimation();
   const contentContainerRef = useRef() as MutableRefObject<HTMLDivElement>;
+  const contentRef = useRef() as MutableRefObject<HTMLDivElement>;
+  const nextRef = useRef() as MutableRefObject<HTMLDivElement>;
+  const [contentHeight, setContentHeight] = useState(0);
+
   const [isScrolled, setIsScrolled] = useState(false);
+  const [shouldShowNextProject, setShouldShowNextProject] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const { prevCardRef } = usePageTransition();
   const { scrollY, scrollDirection } = useContainerScroll();
@@ -81,6 +89,12 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
 
   useEffect(() => {
     const unobserveScrollY = scrollY.onChange((val) => {
+      if (val > contentHeight - window.innerHeight) {
+        setShouldShowNextProject(true);
+      } else {
+        setShouldShowNextProject(false);
+      }
+
       if (val > 0) {
         setIsScrolled(true);
         return;
@@ -91,10 +105,33 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
     return () => {
       unobserveScrollY();
     };
-  }, [scrollY]);
+  }, [scrollY, contentHeight]);
 
   useEffect(() => {
     if (!isReady) return;
+
+    const containerBounds = contentContainerRef.current.getBoundingClientRect();
+
+    if (shouldShowNextProject) {
+      anim.start({
+        scale: 0.965,
+        transformOrigin: "bottom center",
+        transition: {
+          duration: AnimationConfig.SLOW,
+          ease: AnimationConfig.EASING,
+        },
+      });
+    } else {
+      anim.start({
+        scale: 1,
+        transformOrigin: "bottom center",
+        transition: {
+          duration: AnimationConfig.SLOW,
+          ease: AnimationConfig.EASING,
+        },
+      });
+    }
+
     if (isScrolled) {
       anim.start({
         width: document.body.scrollWidth,
@@ -105,10 +142,8 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
           ease: AnimationConfig.EASING,
         },
       });
-
       return;
     }
-    const containerBounds = contentContainerRef.current.getBoundingClientRect();
     anim.start({
       left: containerBounds.left,
       top: containerBounds.top,
@@ -118,7 +153,7 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
         ease: AnimationConfig.EASING,
       },
     });
-  }, [isScrolled, isReady, windowDimension.width]);
+  }, [isScrolled, isReady, windowDimension.width, shouldShowNextProject]);
 
   useEffect(() => {
     let scrolledAmount = 0;
@@ -140,12 +175,28 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
     };
   }, [scrollDirection]);
 
-  const handleAnimationComplete = (endValue: any) => {
+  const handleAnimationComplete = () => {
     setIsReady(true);
     anim.set({
       height: "auto",
     });
   };
+
+  const capturePageHeight = () => {
+    setContentHeight(contentRef.current.getBoundingClientRect().height);
+  };
+
+  // auto match the page content height on resize
+  useEffect(() => {
+    const handlePageResize = () => {
+      // Handle Resize
+      capturePageHeight();
+    };
+    window.addEventListener("resize", handlePageResize);
+    return () => {
+      window.removeEventListener("resize", handlePageResize);
+    };
+  }, []);
 
   return (
     <>
@@ -157,16 +208,23 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
           duration: AnimationConfig.FAST,
           ease: AnimationConfig.EASING,
         }}
-        className="sticky left-0 right-0 top-0 z-10"
+        className="sticky left-0 right-0 top-0 z-20"
         exit={{
           opacity: 0,
         }}
       >
         <ProjectViewNavBar scrolled={isScrolled} />
       </motion.div>
-      <article ref={contentContainerRef} className=" mx-6">
+      <article
+        ref={contentContainerRef}
+        className="mx-6 z-10"
+        style={{
+          height: contentHeight,
+        }}
+      >
         {/* Project Content */}
         <motion.div
+          ref={contentRef}
           className="overflow-hidden rounded-xl absolute"
           animate={anim}
           exit={{
@@ -190,6 +248,9 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
           </motion.div>
         </motion.div>
       </article>
+      <div className="overflow-hidden" ref={nextRef}>
+        <ProjectLinkCard isShowing={shouldShowNextProject} />
+      </div>
     </>
   );
 };

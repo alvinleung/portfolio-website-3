@@ -9,6 +9,7 @@ import FullImage from "../../components/ProjectViewLayouts/FullImage";
 import Team from "../../components/ProjectViewLayouts/Team";
 import Image from "../../components/ProjectViewLayouts/Image";
 import { createParagraphProcessor } from "../../components/ProjectViewLayouts/ParagraphProcessor";
+import ProjectHeader from "../../components/Layouts/ProjectHeader";
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   // Return a list of possible value for id
@@ -46,24 +47,7 @@ export default function Post({ source, meta, slug }: PostProps) {
       textColor={meta.thumbnailTextColor}
     >
       {/* <h1 className="text-6xl">{meta.title}</h1> */}
-      <motion.div className="absolute left-0 right-0 top-0 px-8 py-8 grid grid-cols-[2fr_1fr]">
-        <img src={projectLogoSource} className="h-12" />
-        <div>
-          <p className="text-2xl tracking-tightest leading-none max-w-[432px]">
-            {meta.description}
-          </p>
-          <div className="text-normal mt-8 opacity-50 leading-tight">
-            {meta.scope}
-          </div>
-          {meta.tags && (
-            <div className="text-normal mt-6 opacity-50 leading-tight">
-              {meta.tags.split(",").map((tag: string, index: number) => {
-                return <div key={index}>{tag}</div>;
-              })}
-            </div>
-          )}
-        </div>
-      </motion.div>
+      <ProjectHeader projectLogoSource={projectLogoSource} meta={meta} />
 
       <main className="grid grid-cols-6 text-2xl">
         <MDXRemote
