@@ -5,6 +5,7 @@ import { useWindowDimension } from "../../hooks/useWindowDimension";
 import { AnimationConfig } from "../AnimationConfig";
 import CloseButton from "../CloseButton/CloseButton";
 import { usePageTransition } from "../PageTransition/PageTransitionContext";
+import { ProjectInfo, ProjectStyle } from "../../lib/ProjectInfo";
 import ProjectLinkButton from "../ProjectLinkButton/ProjectLinkButton";
 import ProjectLinkCard from "../ProjectLinkButton/ProjectLinkCard";
 import {
@@ -15,8 +16,8 @@ import ProjectHeader from "./ProjectHeader";
 
 type Props = {
   children: React.ReactNode;
-  bgColor: string;
-  textColor: string;
+  projectStyle: ProjectStyle;
+  projectInfo: ProjectInfo;
   coverImage: string;
 };
 
@@ -46,12 +47,13 @@ const ProjectViewNavBar = ({ scrolled }: any) => {
   );
 };
 
-const ProjectView = ({ children, bgColor, textColor, coverImage }: Props) => {
+const ProjectView = ({ children, projectStyle, coverImage }: Props) => {
   const anim = useAnimation();
   const contentContainerRef = useRef() as MutableRefObject<HTMLDivElement>;
   const contentRef = useRef() as MutableRefObject<HTMLDivElement>;
-  // const nextRef = useRef() as MutableRefObject<HTMLDivElement>;
-  // const [contentHeight, setContentHeight] = useState(0);
+
+  const textColor = projectStyle.getTextColor();
+  const bgColor = projectStyle.getBgColor();
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [shouldShowNextProject, setShouldShowNextProject] = useState(false);
@@ -176,8 +178,6 @@ const ProjectView = ({ children, bgColor, textColor, coverImage }: Props) => {
       height: "auto",
     });
   };
-
-  console.log(coverImage);
 
   return (
     <>

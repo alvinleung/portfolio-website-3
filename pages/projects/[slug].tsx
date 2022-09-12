@@ -10,7 +10,12 @@ import Team from "../../components/ProjectViewLayouts/Team";
 import Image from "../../components/ProjectViewLayouts/Image";
 import { createParagraphProcessor } from "../../components/ProjectViewLayouts/ParagraphProcessor";
 import ProjectHeader from "../../components/Layouts/ProjectHeader";
-import { getProjectCover } from "../../lib/projectInfo";
+import {
+  getProjectCover,
+  getProjectInfo,
+  getProjectLogo,
+  getProjectStyle,
+} from "../../lib/ProjectInfo";
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   // Return a list of possible value for id
@@ -32,22 +37,21 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       source: mdxSource,
       meta: source.meta,
-      slug: source.slug,
     },
   };
 };
 
 // THE TEMPATE
 type PostProps = InferGetStaticPropsType<typeof getStaticProps>;
-export default function Post({ source, meta, slug }: PostProps) {
-  const projectLogoSource = `/project-assets/${slug}/${slug}-logo.png`;
-  const isDarkColorScheme = meta.colorScheme === "dark";
-
+export default function Post({ source, meta }: PostProps) {
+  const projectStyle = getProjectStyle(meta);
+  const projectInfo = getProjectInfo(meta);
+  const projectLogoSource = getProjectLogo(projectInfo.slug);
   return (
     <ProjectView
-      bgColor={isDarkColorScheme ? meta.colorDark : meta.colorLight}
-      textColor={isDarkColorScheme ? meta.colorLight : meta.colorDark}
-      coverImage={getProjectCover(slug)}
+      projectInfo={projectInfo}
+      projectStyle={projectStyle}
+      coverImage={getProjectCover(projectInfo.slug)}
     >
       {/* <h1 className="text-6xl">{meta.title}</h1> */}
       <ProjectHeader projectLogoSource={projectLogoSource} meta={meta} />

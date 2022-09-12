@@ -2,7 +2,11 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { MutableRefObject, useEffect, useRef, useState } from "react";
 import { usePageTransition } from "../PageTransition/PageTransitionContext";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
-import { ProjectInfo, ProjectStyle } from "./Project";
+import {
+  getProjectStyle,
+  ProjectInfo,
+  ProjectStyle,
+} from "../../lib/ProjectInfo";
 import ProjectCard from "./ProjectCard";
 
 interface ProjectGridItemProps {
@@ -13,9 +17,6 @@ interface ProjectGridItemProps {
   projectInfo: ProjectInfo;
   onSelect?: (slug: string) => void;
 }
-
-const INACTIVE_TEXT_COLOR = "#4f5c5f";
-const INACTIVE_BG_COLOR = "#1E2222";
 
 export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   projectStyle,
@@ -81,10 +82,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
         height={boxHeight}
         projectInfo={projectInfo}
         isFirstRow={isFirstRow}
-        projectStyle={{
-          textColor: isActive ? projectStyle.textColor : INACTIVE_TEXT_COLOR,
-          bgColor: isActive ? projectStyle.bgColor : INACTIVE_BG_COLOR,
-        }}
+        projectStyle={projectStyle}
         isActive={isActive}
       ></ProjectCard>
     </motion.div>

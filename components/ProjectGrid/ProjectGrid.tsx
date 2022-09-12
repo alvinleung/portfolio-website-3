@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useWindowDimension } from "../../hooks/useWindowDimension";
 import { AnimationConfig } from "../AnimationConfig";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
+import { getProjectInfo, getProjectStyle } from "../../lib/ProjectInfo";
 import { ProjectGridItem } from "./ProjectGridItem";
 
 type Props = {
@@ -48,15 +49,8 @@ const ProjectGrid = ({ isViewing, projects }: Props) => {
             onSelect={setSelectedProject}
             selectedProject={selectedProject}
             isFirstRow={index < 3}
-            projectInfo={{
-              slug: project.slug,
-              title: project.meta.title,
-              tags: project.meta.tags && project.meta.tags.split(","),
-            }}
-            projectStyle={{
-              bgColor: project.meta.thumbnailBgColor,
-              textColor: project.meta.thumbnailTextColor,
-            }}
+            projectInfo={getProjectInfo(project.meta)}
+            projectStyle={getProjectStyle(project.meta)}
           />
         ))}
       </motion.div>

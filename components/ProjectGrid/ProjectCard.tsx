@@ -4,7 +4,14 @@ import Link from "next/link";
 import React, { MutableRefObject, useState } from "react";
 import { useBoundingBox } from "../../hooks/useBoundingClientRect";
 import { AnimationConfig } from "../AnimationConfig";
-import { ProjectInfo, ProjectStyle } from "./Project";
+import {
+  getProjectCover,
+  ProjectInfo,
+  ProjectStyle,
+} from "../../lib/ProjectInfo";
+
+const INACTIVE_TEXT_COLOR = "#4f5c5f";
+const INACTIVE_BG_COLOR = "#1E2222";
 
 const RoundedCornerSVGLeft = ({ size = 12 }) => (
   <svg
@@ -107,13 +114,17 @@ const ProjectCard = ({
               height: height,
             }}
             initial={{
-              backgroundColor: projectStyle.bgColor,
+              backgroundColor: isActive
+                ? projectStyle.getBgColor()
+                : INACTIVE_BG_COLOR,
             }}
             animate={{
-              backgroundColor: projectStyle.bgColor,
+              backgroundColor: isActive
+                ? projectStyle.getBgColor()
+                : INACTIVE_BG_COLOR,
             }}
             transition={{
-              duration: 0.3,
+              duration: AnimationConfig.NORMAL,
               ease: "linear",
             }}
             ref={cardRef}
@@ -129,7 +140,7 @@ const ProjectCard = ({
               }}
             >
               <Image
-                src={`/project-assets/${projectInfo.slug}/${projectInfo.slug}-cover.jpg`}
+                src={getProjectCover(projectInfo.slug)}
                 width={582}
                 height={767}
               />
@@ -138,14 +149,18 @@ const ProjectCard = ({
             <motion.div
               className="absolute left-0 right-0 top-0"
               initial={{
-                color: projectStyle.textColor,
+                color: isActive
+                  ? projectStyle.getTextColor()
+                  : INACTIVE_TEXT_COLOR,
               }}
               animate={{
                 // backgroundColor: isActive ? bgColor : INACTIVE_BG_COLOR,
-                color: projectStyle.textColor,
+                color: isActive
+                  ? projectStyle.getTextColor()
+                  : INACTIVE_TEXT_COLOR,
               }}
               transition={{
-                duration: 0.3,
+                duration: AnimationConfig.NORMAL,
                 ease: "linear",
               }}
             >
