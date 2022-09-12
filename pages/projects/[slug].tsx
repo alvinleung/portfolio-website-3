@@ -41,11 +41,12 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 type PostProps = InferGetStaticPropsType<typeof getStaticProps>;
 export default function Post({ source, meta, slug }: PostProps) {
   const projectLogoSource = `/project-assets/${slug}/${slug}-logo.png`;
+  const isDarkColorScheme = meta.colorScheme === "dark";
 
   return (
     <ProjectView
-      bgColor={meta.thumbnailBgColor}
-      textColor={meta.thumbnailTextColor}
+      bgColor={isDarkColorScheme ? meta.colorDark : meta.colorLight}
+      textColor={isDarkColorScheme ? meta.colorLight : meta.colorDark}
       coverImage={getProjectCover(slug)}
     >
       {/* <h1 className="text-6xl">{meta.title}</h1> */}
