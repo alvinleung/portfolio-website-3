@@ -30,12 +30,16 @@ const ProjectLinkCard = ({ isShowing }: Props) => {
         }}
       >
         <motion.a
-          className="block h-64 rounded-tl-xl rounded-tr-xl relative cursor-pointer"
+          className="block h-72 rounded-tl-xl rounded-tr-xl relative cursor-pointer"
           style={{ backgroundColor: "#EBFC30", color: "#000" }}
           onClickCapture={handleClick}
           ref={linkRef}
           whileTap={{
             scale: 0.99,
+          }}
+          transition={{
+            duration: AnimationConfig.FAST,
+            ease: AnimationConfig.EASING,
           }}
         >
           <ProjectHeader

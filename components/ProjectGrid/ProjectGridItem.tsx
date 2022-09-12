@@ -70,6 +70,9 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
       ref={containerRef}
       className="sticky top-14 h-[40vw]"
       onClick={() => onSelect?.(projectInfo.slug)}
+      exit={{
+        opacity: selectedProject === projectInfo.slug ? 1 : 0,
+      }}
     >
       {/* background media */}
       <ProjectCard

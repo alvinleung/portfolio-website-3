@@ -10,6 +10,7 @@ import Team from "../../components/ProjectViewLayouts/Team";
 import Image from "../../components/ProjectViewLayouts/Image";
 import { createParagraphProcessor } from "../../components/ProjectViewLayouts/ParagraphProcessor";
 import ProjectHeader from "../../components/Layouts/ProjectHeader";
+import { getProjectCover } from "../../lib/projectInfo";
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   // Return a list of possible value for id
@@ -45,6 +46,7 @@ export default function Post({ source, meta, slug }: PostProps) {
     <ProjectView
       bgColor={meta.thumbnailBgColor}
       textColor={meta.thumbnailTextColor}
+      coverImage={getProjectCover(slug)}
     >
       {/* <h1 className="text-6xl">{meta.title}</h1> */}
       <ProjectHeader projectLogoSource={projectLogoSource} meta={meta} />

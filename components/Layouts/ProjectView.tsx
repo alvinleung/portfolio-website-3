@@ -17,6 +17,7 @@ type Props = {
   children: React.ReactNode;
   bgColor: string;
   textColor: string;
+  coverImage: string;
 };
 
 const ProjectViewNavBar = ({ scrolled }: any) => {
@@ -45,7 +46,7 @@ const ProjectViewNavBar = ({ scrolled }: any) => {
   );
 };
 
-const ProjectView = ({ children, bgColor, textColor }: Props) => {
+const ProjectView = ({ children, bgColor, textColor, coverImage }: Props) => {
   const anim = useAnimation();
   const contentContainerRef = useRef() as MutableRefObject<HTMLDivElement>;
   const contentRef = useRef() as MutableRefObject<HTMLDivElement>;
@@ -176,6 +177,8 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
     });
   };
 
+  console.log(coverImage);
+
   return (
     <>
       <motion.div
@@ -193,13 +196,7 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
       >
         <ProjectViewNavBar scrolled={isScrolled} />
       </motion.div>
-      <article
-        ref={contentContainerRef}
-        className="mx-6 z-10"
-        // style={{
-        //   height: contentHeight,
-        // }}
-      >
+      <article ref={contentContainerRef} className="mx-6 z-10">
         {/* Project Content */}
         <motion.div
           ref={contentRef}
@@ -216,6 +213,8 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
           onAnimationComplete={handleAnimationComplete}
           style={{
             backgroundColor: isReady ? "transparent" : bgColor,
+            backgroundImage: isReady ? "none" : `url("${coverImage}")`,
+            backgroundSize: "cover",
             borderBottomLeftRadius: 0,
             borderBottomRightRadius: 0,
           }}
@@ -223,9 +222,12 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
+            transition={{ delay: 0.1, duration: AnimationConfig.NORMAL }}
             className="relative pb-24 rounded-xl"
-            style={{ backgroundColor: bgColor, color: textColor }}
+            style={{
+              backgroundColor: bgColor,
+              color: textColor,
+            }}
           >
             {children}
           </motion.div>

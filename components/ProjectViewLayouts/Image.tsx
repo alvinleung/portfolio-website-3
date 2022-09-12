@@ -1,5 +1,7 @@
 import React from "react";
 import NextImage from "next/image";
+import { motion } from "framer-motion";
+import { AnimationConfig } from "../AnimationConfig";
 
 type Props = {
   width: number;
@@ -22,7 +24,7 @@ const FullImageWrapper: React.FC<{ children: React.ReactNode }> = ({
 const Image = ({ src, width, height, fullWidth }: Props) => {
   return (
     <FullImageWrapper>
-      <img
+      <motion.img
         className="w-full h-full object-cover"
         src={src}
         width={width}

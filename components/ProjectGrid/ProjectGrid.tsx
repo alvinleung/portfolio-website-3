@@ -34,7 +34,6 @@ const ProjectGrid = ({ isViewing, projects }: Props) => {
           opacity: 1,
         }}
         exit={{
-          opacity: 0,
           scale: 0.9,
         }}
         transition={{
