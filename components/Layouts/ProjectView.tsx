@@ -111,7 +111,7 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
         scale: 0.965,
         transformOrigin: "bottom center",
         transition: {
-          duration: AnimationConfig.SLOW,
+          duration: AnimationConfig.NORMAL,
           ease: AnimationConfig.EASING,
         },
       });
@@ -120,7 +120,7 @@ const ProjectView = ({ children, bgColor, textColor }: Props) => {
         scale: 1,
         transformOrigin: "bottom center",
         transition: {
-          duration: AnimationConfig.SLOW,
+          duration: AnimationConfig.NORMAL,
           ease: AnimationConfig.EASING,
         },
       });
