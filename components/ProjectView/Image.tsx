@@ -2,6 +2,7 @@ import React from "react";
 import NextImage from "next/image";
 import { motion } from "framer-motion";
 import { AnimationConfig } from "../AnimationConfig";
+import { Figure } from "./FigureWrapper";
 
 type Props = {
   width: number;
@@ -11,26 +12,16 @@ type Props = {
   fullWidth?: boolean;
 };
 
-const FullImageWrapper: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
+const Image = ({ src, width, height, fullWidth, caption }: Props) => {
   return (
-    <figure className="col-start-1 col-span-full overflow-hidden rounded-xl mx-6 mt-20 max-h-[95vh]">
-      {children}
-    </figure>
-  );
-};
-
-const Image = ({ src, width, height, fullWidth }: Props) => {
-  return (
-    <FullImageWrapper>
+    <Figure caption={caption}>
       <motion.img
         className="w-full h-full object-cover"
         src={src}
         width={width}
         height={height}
       />
-    </FullImageWrapper>
+    </Figure>
   );
 };
 

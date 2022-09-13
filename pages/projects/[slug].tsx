@@ -20,6 +20,10 @@ import {
   ColorShifter,
   ColorShifterContextProvider,
 } from "../../components/ProjectView/ColorShifter";
+import {
+  LayoutMainContent,
+  LayoutFull,
+} from "../../components/ProjectView/Layout";
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   // Return a list of possible value for id
@@ -68,7 +72,7 @@ export default function Post({ source, meta, nextProjectMeta }: PostProps) {
       >
         {/* <h1 className="text-6xl">{meta.title}</h1> */}
         <ProjectHeader projectInfo={projectInfo} />
-        <main className="grid grid-cols-6 text-2xl">
+        <main className="grid grid-cols-6 gap-x-4 mx-6 text-xl">
           <MDXRemote
             {...source}
             components={{
@@ -87,6 +91,8 @@ export default function Post({ source, meta, nextProjectMeta }: PostProps) {
               Image: Image,
               Team,
               ColorShifter,
+              LayoutFull,
+              LayoutMainContent,
             }}
           />
         </main>
@@ -102,10 +108,12 @@ const ParagraphBig = (children: any) => (
 );
 
 const Paragraph = (children: any) => (
-  <p className="col-start-2 col-span-2 leading-[1.116em] opacity-70 pb-[1em]">
+  <p className="col-start-2 col-span-2 leading-[1.14em] opacity-70 pt-[1em]">
     {children}
   </p>
 );
 const Header2 = ({ children }: any) => (
-  <h2 className="col-start-2 col-span-2 text-2xl pb-8 pt-24">{children}</h2>
+  <h2 className="col-start-2 col-span-2 leading-[1.14em] text-xl pt-24">
+    {children}
+  </h2>
 );
