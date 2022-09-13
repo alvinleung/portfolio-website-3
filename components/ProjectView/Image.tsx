@@ -16,7 +16,7 @@ const Image = ({ src, width, height, fullWidth, caption }: Props) => {
   return (
     <Figure caption={caption}>
       <motion.img
-        className="w-full h-full object-cover"
+        className="w-full object-cover rounded-xl"
         src={src}
         width={width}
         height={height}

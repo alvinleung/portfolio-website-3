@@ -117,7 +117,7 @@ const ProjectView = ({
 
     if (isScrolled) {
       anim.start({
-        width: document.body.scrollWidth,
+        width: "100%",
         left: 0,
         top: 0,
         transition: {
