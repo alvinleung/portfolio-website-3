@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { ReactText, useMemo } from "react";
 
 type Props = {
   children: React.ReactNode;
@@ -10,19 +10,20 @@ export const LayoutFull = ({ children, grid, extraMargin }: Props) => {
   const gridTemplateStringArr =
     grid && grid.split("/").map((str) => str.trim());
 
+  const gridTemplateString = gridTemplateStringArr
+    ? gridTemplateStringArr.join(" ")
+    : "1fr";
+
   return (
     <div
-      className={`col-start-1 col-span-full grid gap-x-4 ${
+      className={`col-start-1 col-span-full grid gap-4 lg:grid-cols-[var(--gridColumnSetup)]  ${
         extraMargin ? "mt-20" : "mt-4"
       }`}
-      style={{
-        gridTemplateColumns: gridTemplateStringArr
-          ? gridTemplateStringArr.reduce(
-              (prev, curr) => `${prev} ${curr}fr`,
-              ""
-            )
-          : "1fr",
-      }}
+      style={
+        {
+          "--gridColumnSetup": gridTemplateString,
+        } as React.CSSProperties
+      }
     >
       {children}
     </div>
@@ -32,20 +33,22 @@ export const LayoutFull = ({ children, grid, extraMargin }: Props) => {
 // grid = 1/2
 export const LayoutMainContent = ({ children, grid, extraMargin }: Props) => {
   const gridTemplateStringArr =
-    grid && grid.split("/").map((str) => str.trim());
+    grid && grid.split("/").map((str) => str.trim() + "fr");
+
+  const gridTemplateString = gridTemplateStringArr
+    ? gridTemplateStringArr.join(" ")
+    : "1fr";
+
   return (
     <div
-      className={`col-start-2 col-span-full grid gap-x-4 ${
-        extraMargin ? "mt-12" : "mt-4"
+      className={`col-start-2 col-span-full grid gap-4 lg:grid-cols-[var(--gridColumnSetup)]  ${
+        extraMargin ? "mt-20" : "mt-4"
       }`}
-      style={{
-        gridTemplateColumns: gridTemplateStringArr
-          ? gridTemplateStringArr.reduce(
-              (prev, curr) => `${prev}${curr}fr `,
-              ""
-            )
-          : "1fr",
-      }}
+      style={
+        {
+          "--gridColumnSetup": gridTemplateString,
+        } as React.CSSProperties
+      }
     >
       {children}
     </div>
