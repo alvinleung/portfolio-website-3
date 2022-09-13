@@ -35,7 +35,7 @@ const ProjectLinkButton = ({ projectStyle, projectInfo, scrolled }: Props) => {
 
   const baseColor = projectStyle.dark;
   const baseColorHover = projectStyle.accent;
-  const textColor = projectStyle.accent;
+  const textColor = projectStyle.light;
   const textColorHover = projectStyle.dark;
   const circleColor = projectStyle.accent;
   const circleColorHover = projectStyle.dark;
