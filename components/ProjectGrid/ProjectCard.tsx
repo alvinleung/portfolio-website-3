@@ -143,6 +143,7 @@ const ProjectCard = ({
                 src={getProjectCover(projectInfo.slug)}
                 width={582}
                 height={767}
+                layout="responsive"
               />
             </motion.div>
             {/* content */}
