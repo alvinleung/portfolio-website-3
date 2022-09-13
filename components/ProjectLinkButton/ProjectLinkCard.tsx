@@ -10,6 +10,7 @@ import {
 import { AnimationConfig } from "../AnimationConfig";
 import ProjectHeader from "../Layouts/ProjectHeader";
 import { usePageTransition } from "../PageTransition/PageTransitionContext";
+import ReactiveTapArea from "../ReactiveTapArea/ReactiveTapArea";
 
 type Props = {
   isShowing: boolean;
@@ -25,38 +26,40 @@ const ProjectLinkCard = ({ isShowing, projectStyle, projectInfo }: Props) => {
   };
 
   return (
-    <Link href={getProjectLink(projectInfo.slug)}>
-      <motion.div
-        exit={{ opacity: 0 }}
-        animate={{
-          scale: isShowing ? 1 : 0.9,
-          opacity: isShowing ? 1 : 0,
-        }}
-        transition={{
-          duration: AnimationConfig.SLOW,
-          ease: AnimationConfig.EASING,
-        }}
-      >
-        <motion.a
-          className="block h-72 rounded-tl-xl rounded-tr-xl relative cursor-pointer"
-          style={{
-            backgroundColor: projectStyle.getBgColor(),
-            color: projectStyle.getTextColor(),
-          }}
-          onClickCapture={handleClick}
-          ref={linkRef}
-          whileTap={{
-            scale: 0.99,
+    <ReactiveTapArea>
+      <Link href={getProjectLink(projectInfo.slug)}>
+        <motion.div
+          exit={{ opacity: 0 }}
+          animate={{
+            scale: isShowing ? 1 : 0.9,
+            opacity: isShowing ? 1 : 0,
           }}
           transition={{
-            duration: AnimationConfig.FAST,
+            duration: AnimationConfig.SLOW,
             ease: AnimationConfig.EASING,
           }}
         >
-          <ProjectHeader projectInfo={projectInfo} />
-        </motion.a>
-      </motion.div>
-    </Link>
+          <motion.a
+            className="block h-72 rounded-tl-xl rounded-tr-xl relative cursor-pointer"
+            style={{
+              backgroundColor: projectStyle.getBgColor(),
+              color: projectStyle.getTextColor(),
+            }}
+            onClickCapture={handleClick}
+            ref={linkRef}
+            whileTap={{
+              scale: 0.99,
+            }}
+            transition={{
+              duration: AnimationConfig.FAST,
+              ease: AnimationConfig.EASING,
+            }}
+          >
+            <ProjectHeader projectInfo={projectInfo} />
+          </motion.a>
+        </motion.div>
+      </Link>
+    </ReactiveTapArea>
   );
 };
 
