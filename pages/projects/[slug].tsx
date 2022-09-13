@@ -93,6 +93,7 @@ export default function Post({ source, meta, nextProjectMeta }: PostProps) {
               ColorShifter,
               LayoutFull,
               LayoutMainContent,
+              Quote,
             }}
           />
         </main>
@@ -105,6 +106,21 @@ const ParagraphBig = (children: any) => (
   <p className="col-start-2 col-span-3 mt-48 mb-32 text-5xl font-normal">
     {children}
   </p>
+);
+const Quote = ({ children, who = "", title = "" }: any) => (
+  <>
+    <blockquote className="col-start-2 2xl:col-start-1 col-span-3 mt-48 mb-12 text-5xl font-normal -indent-4">
+      “{children}”
+    </blockquote>
+    <div className="col-start-2 2xl:col-start-1 col-span-1 text-sm mb-24">
+      {who}
+    </div>
+    <div className="col-start-3 2xl:col-start-2 col-span-1 text-sm mb-24">
+      {title}
+    </div>
+    {/* <div className="col-start-2 col-span-1 text-sm">{from}</div>
+    <div className="col-start-2 col-span-1 text-sm mb-24">{address}</div> */}
+  </>
 );
 
 const Paragraph = (children: any) => (

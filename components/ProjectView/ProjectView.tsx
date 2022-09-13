@@ -97,7 +97,7 @@ const ProjectView = ({
 
     if (shouldShowNextProject) {
       anim.start({
-        scale: 0.965,
+        scale: 0.932,
         transformOrigin: "bottom center",
         transition: {
           duration: AnimationConfig.NORMAL,
