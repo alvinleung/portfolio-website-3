@@ -15,7 +15,7 @@ import {
   getProjectInfo,
   getProjectLogo,
   getProjectStyle,
-} from "../../lib/ProjectInfo";
+} from "../../lib/Project_Info";
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   // Return a list of possible value for id

@@ -8,7 +8,7 @@ import {
   getProjectCover,
   ProjectInfo,
   ProjectStyle,
-} from "../../lib/ProjectInfo";
+} from "../../lib/Project_Info";
 
 const INACTIVE_TEXT_COLOR = "#4f5c5f";
 const INACTIVE_BG_COLOR = "#1E2222";

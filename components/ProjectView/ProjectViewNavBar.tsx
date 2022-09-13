@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
-import { ProjectInfo, ProjectStyle } from "../../lib/ProjectInfo";
+import { ProjectInfo, ProjectStyle } from "../../lib/Project_Info";
 import { AnimationConfig } from "../AnimationConfig";
 import CloseButton from "../CloseButton/CloseButton";
 import ProjectLinkButton from "../ProjectLinkButton/ProjectLinkButton";
@@ -32,8 +32,6 @@ const ProjectViewNavBar = ({
       <div className="flex flex-row items-center text-white">
         <div className="mr-4 text-[rgba(120,120,120,.7)]">Up Next</div>
         <ProjectLinkButton
-          slug={"whatif"}
-          projectName={"What if?"}
           scrolled={scrolled}
           projectStyle={nextProjectStyle}
           projectInfo={nextProjectInfo}

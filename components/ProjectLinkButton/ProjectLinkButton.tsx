@@ -5,7 +5,7 @@ import {
   getProjectLink,
   ProjectInfo,
   ProjectStyle,
-} from "../../lib/ProjectInfo";
+} from "../../lib/Project_Info";
 import { AnimationConfig } from "../AnimationConfig";
 import { usePageTransition } from "../PageTransition/PageTransitionContext";
 

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
-import { getProjectLogo, ProjectInfo } from "../../lib/ProjectInfo";
+import { getProjectLogo, ProjectInfo } from "../../lib/Project_Info";
 
 type Props = {
   projectInfo: ProjectInfo;

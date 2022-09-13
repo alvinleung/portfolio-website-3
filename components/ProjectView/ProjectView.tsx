@@ -5,7 +5,7 @@ import { useWindowDimension } from "../../hooks/useWindowDimension";
 import { AnimationConfig } from "../AnimationConfig";
 import CloseButton from "../CloseButton/CloseButton";
 import { usePageTransition } from "../PageTransition/PageTransitionContext";
-import { ProjectInfo, ProjectStyle } from "../../lib/ProjectInfo";
+import { ProjectInfo, ProjectStyle } from "../../lib/Project_Info";
 import ProjectLinkButton from "../ProjectLinkButton/ProjectLinkButton";
 import ProjectLinkCard from "../ProjectLinkButton/ProjectLinkCard";
 import {
