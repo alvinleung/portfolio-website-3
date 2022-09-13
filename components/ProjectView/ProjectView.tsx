@@ -12,42 +12,25 @@ import {
   ScrollDirection,
   useContainerScroll,
 } from "../ScrollContainer/ScrollContainer";
-import ProjectHeader from "./ProjectHeader";
+import ProjectHeader from "../Layouts/ProjectHeader";
+import ProjectViewNavBar from "./ProjectViewNavBar";
 
 type Props = {
   children: React.ReactNode;
   projectStyle: ProjectStyle;
   projectInfo: ProjectInfo;
+  nextProjectStyle: ProjectStyle;
+  nextProjectInfo: ProjectInfo;
   coverImage: string;
 };
 
-const ProjectViewNavBar = ({ scrolled }: any) => {
-  return (
-    <motion.div
-      className="px-6 pt-6 pb-4 flex justify-between"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 20 }}
-      transition={{
-        delay: 0.3,
-        duration: AnimationConfig.NORMAL,
-        ease: AnimationConfig.EASING,
-      }}
-    >
-      <CloseButton />
-      <div className="flex flex-row items-center text-white">
-        <div className="mr-4 text-[rgba(120,120,120,.7)]">Up Next</div>
-        <ProjectLinkButton
-          slug={"whatif"}
-          projectName={"What if?"}
-          scrolled={scrolled}
-        />
-      </div>
-    </motion.div>
-  );
-};
-
-const ProjectView = ({ children, projectStyle, coverImage }: Props) => {
+const ProjectView = ({
+  children,
+  projectStyle,
+  nextProjectStyle,
+  nextProjectInfo,
+  coverImage,
+}: Props) => {
   const anim = useAnimation();
   const contentContainerRef = useRef() as MutableRefObject<HTMLDivElement>;
   const contentRef = useRef() as MutableRefObject<HTMLDivElement>;
@@ -194,7 +177,11 @@ const ProjectView = ({ children, projectStyle, coverImage }: Props) => {
           opacity: 0,
         }}
       >
-        <ProjectViewNavBar scrolled={isScrolled} />
+        <ProjectViewNavBar
+          scrolled={isScrolled}
+          nextProjectStyle={nextProjectStyle}
+          nextProjectInfo={nextProjectInfo}
+        />
       </motion.div>
       <article ref={contentContainerRef} className="mx-6 z-10">
         {/* Project Content */}
@@ -236,7 +223,11 @@ const ProjectView = ({ children, projectStyle, coverImage }: Props) => {
             onViewportEnter={() => setShouldShowNextProject(true)}
             onViewportLeave={() => setShouldShowNextProject(false)}
           >
-            <ProjectLinkCard isShowing={shouldShowNextProject} />
+            <ProjectLinkCard
+              isShowing={shouldShowNextProject}
+              projectStyle={nextProjectStyle}
+              projectInfo={nextProjectInfo}
+            />
           </motion.div>
         </motion.div>
       </article>

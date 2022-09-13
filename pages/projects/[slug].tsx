@@ -3,12 +3,12 @@ import { serialize } from "next-mdx-remote/serialize";
 import { GetStaticProps, InferGetStaticPropsType, GetStaticPaths } from "next";
 import { getAllPostSlugs, getPostBySlug } from "../../lib/projects";
 import TestingComponent from "../../components/TestingComponent";
-import ProjectView from "../../components/Layouts/ProjectView";
+import ProjectView from "../../components/ProjectView/ProjectView";
 import { motion } from "framer-motion";
-import FullImage from "../../components/ProjectViewLayouts/FullImage";
-import Team from "../../components/ProjectViewLayouts/Team";
-import Image from "../../components/ProjectViewLayouts/Image";
-import { createParagraphProcessor } from "../../components/ProjectViewLayouts/ParagraphProcessor";
+import FullImage from "../../components/ProjectView/FullImage";
+import Team from "../../components/ProjectView/Team";
+import Image from "../../components/ProjectView/Image";
+import { createParagraphProcessor } from "../../components/ProjectView/ParagraphProcessor";
 import ProjectHeader from "../../components/Layouts/ProjectHeader";
 import {
   getProjectCover,
@@ -31,31 +31,38 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   if (!params) throw "params is empty";
 
   const source = getPostBySlug(params.slug as string);
+  const nextProjectSource = getPostBySlug(source.meta.nextProject as string);
   const mdxSource = await serialize(source.content);
 
   return {
     props: {
       source: mdxSource,
       meta: source.meta,
+      nextProjectMeta: nextProjectSource.meta,
     },
   };
 };
 
 // THE TEMPATE
 type PostProps = InferGetStaticPropsType<typeof getStaticProps>;
-export default function Post({ source, meta }: PostProps) {
+export default function Post({ source, meta, nextProjectMeta }: PostProps) {
   const projectStyle = getProjectStyle(meta);
   const projectInfo = getProjectInfo(meta);
   const projectLogoSource = getProjectLogo(projectInfo.slug);
+
+  const nextProjectStyle = getProjectStyle(nextProjectMeta);
+  const nextProjectInfo = getProjectInfo(nextProjectMeta);
+
   return (
     <ProjectView
       projectInfo={projectInfo}
       projectStyle={projectStyle}
+      nextProjectInfo={nextProjectInfo}
+      nextProjectStyle={nextProjectStyle}
       coverImage={getProjectCover(projectInfo.slug)}
     >
       {/* <h1 className="text-6xl">{meta.title}</h1> */}
-      <ProjectHeader projectLogoSource={projectLogoSource} meta={meta} />
-
+      <ProjectHeader projectInfo={projectInfo} />
       <main className="grid grid-cols-6 text-2xl">
         <MDXRemote
           {...source}

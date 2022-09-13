@@ -1,15 +1,23 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import React, { MutableRefObject, useRef } from "react";
+import {
+  getProjectLink,
+  getProjectLogo,
+  ProjectInfo,
+  ProjectStyle,
+} from "../../lib/ProjectInfo";
 import { AnimationConfig } from "../AnimationConfig";
 import ProjectHeader from "../Layouts/ProjectHeader";
 import { usePageTransition } from "../PageTransition/PageTransitionContext";
 
 type Props = {
   isShowing: boolean;
+  projectStyle: ProjectStyle;
+  projectInfo: ProjectInfo;
 };
 
-const ProjectLinkCard = ({ isShowing }: Props) => {
+const ProjectLinkCard = ({ isShowing, projectStyle, projectInfo }: Props) => {
   const linkRef = useRef() as MutableRefObject<HTMLAnchorElement>;
   const { prevCardRef } = usePageTransition();
   const handleClick = () => {
@@ -17,7 +25,7 @@ const ProjectLinkCard = ({ isShowing }: Props) => {
   };
 
   return (
-    <Link href="/projects/whatif">
+    <Link href={getProjectLink(projectInfo.slug)}>
       <motion.div
         exit={{ opacity: 0 }}
         animate={{
@@ -31,7 +39,10 @@ const ProjectLinkCard = ({ isShowing }: Props) => {
       >
         <motion.a
           className="block h-72 rounded-tl-xl rounded-tr-xl relative cursor-pointer"
-          style={{ backgroundColor: "#EBFC30", color: "#000" }}
+          style={{
+            backgroundColor: projectStyle.getBgColor(),
+            color: projectStyle.getTextColor(),
+          }}
           onClickCapture={handleClick}
           ref={linkRef}
           whileTap={{
@@ -42,15 +53,7 @@ const ProjectLinkCard = ({ isShowing }: Props) => {
             ease: AnimationConfig.EASING,
           }}
         >
-          <ProjectHeader
-            projectLogoSource={""}
-            meta={{
-              description:
-                "Expressive post-event microsite for a speculative art exhibition",
-              scope: "8 weeks project",
-              tags: "Interaction Design, Art Direction",
-            }}
-          />
+          <ProjectHeader projectInfo={projectInfo} />
         </motion.a>
       </motion.div>
     </Link>

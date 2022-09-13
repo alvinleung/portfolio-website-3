@@ -1,7 +1,9 @@
 export interface ProjectInfo {
   title: string;
+  description: string;
   tags?: string[];
   slug: string;
+  scope: string;
 }
 
 export function getProjectInfo(meta: any): ProjectInfo {
@@ -9,11 +11,14 @@ export function getProjectInfo(meta: any): ProjectInfo {
     slug: meta.slug,
     title: meta.title,
     tags: meta.tags && meta.tags.split(","),
+    scope: meta.scope,
+    description: meta.description,
   };
 }
 
 export interface ProjectStyle {
   light: string;
+  accent: string;
   dark: string;
   darkest: string;
   isDarkColorScheme: boolean;
@@ -24,12 +29,14 @@ export interface ProjectStyle {
 export function getProjectStyle(meta: any): ProjectStyle {
   const isDarkColorScheme = meta.colorScheme === "dark";
   return {
+    accent: meta.colorAccent,
     light: meta.colorLight,
     dark: meta.colorDark,
     darkest: meta.colorDarkest,
     isDarkColorScheme: isDarkColorScheme,
-    getTextColor: () => (isDarkColorScheme ? meta.colorLight : meta.colorDark),
-    getBgColor: () => (isDarkColorScheme ? meta.colorDark : meta.colorLight),
+    getTextColor: () =>
+      isDarkColorScheme ? meta.colorLight : meta.colorDarkest,
+    getBgColor: () => (isDarkColorScheme ? meta.colorDarkest : meta.colorLight),
   };
 }
 
@@ -39,4 +46,8 @@ export function getProjectCover(slug: string) {
 
 export function getProjectLogo(slug: string) {
   return `/project-assets/${slug}/${slug}-logo.png`;
+}
+
+export function getProjectLink(slug: string) {
+  return `/projects/${slug}`;
 }

@@ -1,25 +1,21 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import React, { MutableRefObject, useRef, useState } from "react";
+import {
+  getProjectLink,
+  ProjectInfo,
+  ProjectStyle,
+} from "../../lib/ProjectInfo";
 import { AnimationConfig } from "../AnimationConfig";
 import { usePageTransition } from "../PageTransition/PageTransitionContext";
 
 type Props = {
-  slug: string;
-  projectName: string;
-  bgColor?: string;
-  onColor?: string;
-
+  projectStyle: ProjectStyle;
+  projectInfo: ProjectInfo;
   scrolled: boolean;
 };
 
-const ProjectLinkButton = ({
-  slug,
-  projectName,
-  bgColor,
-  onColor,
-  scrolled,
-}: Props) => {
+const ProjectLinkButton = ({ projectStyle, projectInfo }: Props) => {
   const [isHovering, setIsHovering] = useState(false);
   const linkRef = useRef() as MutableRefObject<HTMLAnchorElement>;
   const { prevCardRef } = usePageTransition();
@@ -28,8 +24,10 @@ const ProjectLinkButton = ({
     prevCardRef.current = linkRef.current;
   };
 
+  const color = projectStyle.dark;
+
   return (
-    <Link href={`/projects/${slug}`}>
+    <Link href={getProjectLink(projectInfo.slug)}>
       <motion.a
         onClickCapture={handleClick}
         ref={linkRef}
@@ -43,18 +41,23 @@ const ProjectLinkButton = ({
           scale: 0.95,
         }}
         animate={{
-          backgroundColor: isHovering ? "#292C12" : "rgba(50,50,50,.6)",
-          color: isHovering ? "#EBFC30" : "rgba(255,255,255,1)",
+          backgroundColor: isHovering ? projectStyle.accent : color,
+          // : "rgba(50,50,50,.6)",
+          color: isHovering ? color : projectStyle.accent,
         }}
-        className="inline-flex justify-center rounded-full leading-none py-3 px-4 bg-[#292C12] text-[#EBFC30] cursor-pointer backdrop-blur-md"
+        className="inline-flex justify-center rounded-full leading-none py-3 px-4 cursor-pointer backdrop-blur-md"
       >
         <motion.div
           className="w-[1em] h-[1em] mr-3 rounded-full"
           animate={{
-            backgroundColor: "#EBFC30",
+            backgroundColor: isHovering ? color : projectStyle.accent,
+          }}
+          transition={{
+            duration: AnimationConfig.FAST,
+            ease: AnimationConfig.EASING,
           }}
         ></motion.div>
-        {projectName}
+        {projectInfo.title}
       </motion.a>
     </Link>
   );
