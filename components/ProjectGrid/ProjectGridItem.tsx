@@ -6,7 +6,7 @@ import {
   getProjectStyle,
   ProjectInfo,
   ProjectStyle,
-} from "../../lib/Project_Info";
+} from "../../lib/ProjectInfo";
 import ProjectCard from "./ProjectCard";
 
 interface ProjectGridItemProps {

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useWindowDimension } from "../../hooks/useWindowDimension";
 import { AnimationConfig } from "../AnimationConfig";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
-import { getProjectInfo, getProjectStyle } from "../../lib/Project_Info";
+import { getProjectInfo, getProjectStyle } from "../../lib/ProjectInfo";
 import { ProjectGridItem } from "./ProjectGridItem";
 
 type Props = {

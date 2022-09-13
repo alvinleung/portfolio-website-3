@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
-import { ProjectInfo, ProjectStyle } from "../../lib/Project_Info";
+import { ProjectInfo, ProjectStyle } from "../../lib/ProjectInfo";
 import { AnimationConfig } from "../AnimationConfig";
 import CloseButton from "../CloseButton/CloseButton";
 import ProjectLinkButton from "../ProjectLinkButton/ProjectLinkButton";

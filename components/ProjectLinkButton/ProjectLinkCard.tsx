@@ -6,7 +6,7 @@ import {
   getProjectLogo,
   ProjectInfo,
   ProjectStyle,
-} from "../../lib/Project_Info";
+} from "../../lib/ProjectInfo";
 import { AnimationConfig } from "../AnimationConfig";
 import ProjectHeader from "../Layouts/ProjectHeader";
 import { usePageTransition } from "../PageTransition/PageTransitionContext";
