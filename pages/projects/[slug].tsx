@@ -16,6 +16,10 @@ import {
   getProjectLogo,
   getProjectStyle,
 } from "../../lib/ProjectInfo";
+import {
+  ColorShifter,
+  ColorShifterContextProvider,
+} from "../../components/ProjectView/ColorShifter";
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   // Return a list of possible value for id
@@ -54,37 +58,40 @@ export default function Post({ source, meta, nextProjectMeta }: PostProps) {
   const nextProjectInfo = getProjectInfo(nextProjectMeta);
 
   return (
-    <ProjectView
-      projectInfo={projectInfo}
-      projectStyle={projectStyle}
-      nextProjectInfo={nextProjectInfo}
-      nextProjectStyle={nextProjectStyle}
-      coverImage={getProjectCover(projectInfo.slug)}
-    >
-      {/* <h1 className="text-6xl">{meta.title}</h1> */}
-      <ProjectHeader projectInfo={projectInfo} />
-      <main className="grid grid-cols-6 text-2xl">
-        <MDXRemote
-          {...source}
-          components={{
-            TestingComponent,
-            FullImage,
-            p: createParagraphProcessor(
-              [
-                {
-                  token: "--",
-                  output: ParagraphBig,
-                },
-              ],
-              Paragraph
-            ),
-            h2: Header2,
-            Image: Image,
-            Team,
-          }}
-        />
-      </main>
-    </ProjectView>
+    <ColorShifterContextProvider initialColor={projectStyle.getBgColor()}>
+      <ProjectView
+        projectInfo={projectInfo}
+        projectStyle={projectStyle}
+        nextProjectInfo={nextProjectInfo}
+        nextProjectStyle={nextProjectStyle}
+        coverImage={getProjectCover(projectInfo.slug)}
+      >
+        {/* <h1 className="text-6xl">{meta.title}</h1> */}
+        <ProjectHeader projectInfo={projectInfo} />
+        <main className="grid grid-cols-6 text-2xl">
+          <MDXRemote
+            {...source}
+            components={{
+              TestingComponent,
+              FullImage,
+              p: createParagraphProcessor(
+                [
+                  {
+                    token: "--",
+                    output: ParagraphBig,
+                  },
+                ],
+                Paragraph
+              ),
+              h2: Header2,
+              Image: Image,
+              Team,
+              ColorShifter,
+            }}
+          />
+        </main>
+      </ProjectView>
+    </ColorShifterContextProvider>
   );
 }
 

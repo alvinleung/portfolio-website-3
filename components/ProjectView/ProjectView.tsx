@@ -14,6 +14,7 @@ import {
 } from "../ScrollContainer/ScrollContainer";
 import ProjectHeader from "../Layouts/ProjectHeader";
 import ProjectViewNavBar from "./ProjectViewNavBar";
+import { useColorContext } from "./ColorShifter";
 
 type Props = {
   children: React.ReactNode;
@@ -36,7 +37,9 @@ const ProjectView = ({
   const contentRef = useRef() as MutableRefObject<HTMLDivElement>;
 
   const textColor = projectStyle.getTextColor();
-  const bgColor = projectStyle.getBgColor();
+  const { currentColor } = useColorContext();
+  const bgColor = currentColor;
+  // const bgColor = projectStyle.getBgColor();
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [shouldShowNextProject, setShouldShowNextProject] = useState(false);
@@ -207,14 +210,10 @@ const ProjectView = ({
           }}
         >
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, backgroundColor: bgColor, color: textColor }}
+            animate={{ opacity: 1, backgroundColor: bgColor, color: textColor }}
             transition={{ delay: 0.1, duration: AnimationConfig.NORMAL }}
             className="relative pb-24 rounded-xl"
-            style={{
-              backgroundColor: bgColor,
-              color: textColor,
-            }}
           >
             {children}
           </motion.div>
