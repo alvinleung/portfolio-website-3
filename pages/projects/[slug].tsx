@@ -72,7 +72,7 @@ export default function Post({ source, meta, nextProjectMeta }: PostProps) {
       >
         {/* <h1 className="text-6xl">{meta.title}</h1> */}
         <ProjectHeader projectInfo={projectInfo} />
-        <main className="grid grid-cols-6 gap-x-4 mx-6 text-xl">
+        <main className="grid grid-cols-6 gap-x-4 mx-6 2xl:mx-16 text-xl">
           <MDXRemote
             {...source}
             components={{
@@ -108,7 +108,7 @@ const ParagraphBig = (children: any) => (
 );
 
 const Paragraph = (children: any) => (
-  <p className="col-start-2 col-span-2 leading-[1.14em] opacity-70 pt-[1em]">
+  <p className="col-start-2 col-span-2 leading-[1.14em] opacity-60 pt-[1em]">
     {children}
   </p>
 );

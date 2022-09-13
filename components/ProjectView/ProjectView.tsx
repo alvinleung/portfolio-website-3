@@ -186,7 +186,7 @@ const ProjectView = ({
           nextProjectInfo={nextProjectInfo}
         />
       </motion.div>
-      <article ref={contentContainerRef} className="mx-6 z-10">
+      <article ref={contentContainerRef} className="mx-6 2xl:mx-16 z-10">
         {/* Project Content */}
         <motion.div
           ref={contentRef}

@@ -18,7 +18,7 @@ const ProjectViewNavBar = ({
 }: Props) => {
   return (
     <motion.div
-      className="px-6 pt-6 pb-4 flex justify-between"
+      className="px-6 2xl:px-16 pt-6 pb-4 flex justify-between"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
