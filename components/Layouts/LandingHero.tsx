@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
+import { useBoundingBox } from "../../hooks/useBoundingClientRect";
 import { AnimationConfig } from "../AnimationConfig";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 
@@ -11,7 +12,9 @@ const DEFAULT_BG = "#0e1010";
 
 const LandingHero = (props: Props) => {
   const { scrollY } = useContainerScroll();
-  const introSectionHeight = 700;
+  const [boundRef, bounds] = useBoundingBox([]);
+  const introSectionHeight = bounds.height;
+
   const bgColour = useTransform(
     scrollY,
     [0, introSectionHeight],
@@ -31,9 +34,9 @@ const LandingHero = (props: Props) => {
           backgroundColor: DEFAULT_BG,
         }}
       ></motion.div>
-      <motion.section className="relative h-[90vh]">
+      <motion.section className="relative h-[70vh] md:h-[90vh]" ref={boundRef}>
         <motion.div
-          className="fixed px-4 py-4 md:px-6 md:py-6 grid grid-cols-6 grid-rows-[1fr] gap-4 h-[80vh]  -z-10"
+          className="fixed px-4 py-4 md:px-6 md:py-6 grid grid-cols-6 grid-rows-[1fr] gap-4 md:h-[80vh]  -z-10"
           style={{ scale: heroScale, opacity: heroOpacity }}
           initial={{
             opacity: 0,
@@ -57,7 +60,7 @@ const LandingHero = (props: Props) => {
           }}
         >
           <div className="col-start-1 col-span-full 2xl:col-span-4 flex flex-col">
-            <h1 className="text-2xl sm:text-5xl md:text-6xl font-normal tracking-[-.03em]">
+            <h1 className="text-2xl sm:text-4xl lg:text-6xl font-normal tracking-[-.03em]">
               Alvin Leung is an interaction designer. Informed by business and
               user needs, he thrives in using his aesthetic sensibility and
               prototyping wizardry to bring wild concepts from 0 to 1.

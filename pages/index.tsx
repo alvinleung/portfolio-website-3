@@ -37,7 +37,7 @@ const Home: NextPage = ({
       } else {
         setIsViewingGrid(false);
       }
-      if (amount > window.innerHeight) {
+      if (amount > window.innerHeight / 1.2) {
         setIsViewingGridBar(true);
       } else {
         setIsViewingGridBar(false);
