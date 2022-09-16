@@ -16,7 +16,7 @@ const ProjectGridSection = ({
   return (
     <section>
       <motion.div
-        className="fixed top-0 left-0 right-0 pt-4 px-6 grid grid-cols-3"
+        className="fixed top-0 left-0 right-0 pt-4 px-4 lg:px-6 grid grid-cols-3"
         initial={{
           opacity: 0,
         }}

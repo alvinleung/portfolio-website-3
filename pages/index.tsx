@@ -32,12 +32,12 @@ const Home: NextPage = ({
 
   useEffect(() => {
     scrollY.onChange((amount) => {
-      if (amount > 400) {
+      if (amount > window.innerHeight / 3) {
         setIsViewingGrid(true);
       } else {
         setIsViewingGrid(false);
       }
-      if (amount > 800) {
+      if (amount > window.innerHeight) {
         setIsViewingGridBar(true);
       } else {
         setIsViewingGridBar(false);
