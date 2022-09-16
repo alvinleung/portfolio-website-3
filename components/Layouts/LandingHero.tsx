@@ -56,18 +56,18 @@ const LandingHero = (props: Props) => {
             },
           }}
         >
-          <div className="col-start-1 col-end-5 flex flex-col">
-            <h1 className="text-6xl font-normal tracking-[-.03em]">
+          <div className="col-start-1 col-span-full xl:col-span-4 flex flex-col">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-normal tracking-[-.03em]">
               Alvin Leung is an interaction designer. Informed by business and
               user needs, he thrives in using his aesthetic sensibility and
               prototyping wizardry to bring wild concepts from 0 to 1.
             </h1>
-            <p className="mt-4">
+            <p className="mt-4 text-sm sm:text-base">
               Previously designed @ Daybreak Studio & Dossier Creative
             </p>
           </div>
 
-          <div className="col-start-5 row-start-2 col-end-auto flex flex-col opacity-60 pl-4">
+          <div className="col-start-1 col-span-3 lg:col-start-5 lg:col-span-1 row-start-2 lg:row-start-2 flex flex-col opacity-60 lg:mb-0 lg:pl-4 text-sm lg:text-base">
             <h3 className="uppercase mb-3">Previous Clients</h3>
             <ul>
               <li>Pager (backed by Google Venture)</li>
@@ -75,7 +75,7 @@ const LandingHero = (props: Props) => {
               <li>Curated</li>
             </ul>
           </div>
-          <div className="col-start-6 row-start-2 col-end-auto flex flex-col opacity-60">
+          <div className="col-start-4 col-span-3 lg:col-start-6 lg:col-span-1 row-start-2 lg:row-start-2 flex flex-col opacity-60 text-sm lg:text-base">
             <h3 className="uppercase mb-3">Find Me</h3>
             <a href="https://www.instagram.com/alvinn.design/" target="blank">
               Instagram

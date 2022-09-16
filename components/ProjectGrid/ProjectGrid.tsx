@@ -24,7 +24,7 @@ const ProjectGrid = ({ isViewing, projects }: Props) => {
   return (
     <>
       <motion.div
-        className="grid grid-cols-3 gap-4 z-20 px-6 pb-8"
+        className="grid md:grid-cols-3 gap-4 z-20 px-6 pb-8"
         style={{
           transformOrigin: transformOrigin,
         }}

@@ -132,10 +132,10 @@ const ProjectCard = ({
             <motion.div
               initial={{ opacity: 0 }}
               animate={{
-                opacity: isActive ? 1 : 0.05,
+                opacity: isActive ? 1 : 0.0,
               }}
               transition={{
-                duration: AnimationConfig.NORMAL,
+                duration: AnimationConfig.SLOW,
                 ease: "linear",
               }}
             >
