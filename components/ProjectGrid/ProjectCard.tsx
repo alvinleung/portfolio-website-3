@@ -10,8 +10,8 @@ import {
   ProjectStyle,
 } from "../../lib/ProjectInfo";
 
-const INACTIVE_TEXT_COLOR = "#4f5c5f";
-const INACTIVE_BG_COLOR = "#1E2222";
+const INACTIVE_TEXT_COLOR = "#9FEEDC";
+const INACTIVE_BG_COLOR = "#1B2524";
 
 const RoundedCornerSVGLeft = ({ size = 12 }) => (
   <svg

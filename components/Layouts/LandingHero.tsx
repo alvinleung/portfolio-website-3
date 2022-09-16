@@ -6,7 +6,7 @@ import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 
 type Props = {};
 
-const LANDING_THEME_BG = "#1d2b2a";
+const LANDING_THEME_BG = "#192220";
 const DEFAULT_BG = "#0e1010";
 
 const LandingHero = (props: Props) => {
