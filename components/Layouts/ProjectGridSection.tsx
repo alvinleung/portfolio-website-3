@@ -34,11 +34,9 @@ const ProjectGridSection = ({
           ease: "linear",
         }}
       >
-        <div className="text-white text-left hidden md:block">Instagram</div>
+        <div className="text-white text-left">Instagram</div>
         <div className="text-white text-center">Alvin Leung</div>
-        <div className="text-white text-right hidden md:block">
-          alvinleung2009@gmail.com
-        </div>
+        <div className="text-white text-right">Email</div>
       </motion.div>
       <ProjectGrid isViewing={isViewing} projects={projects} />
     </section>

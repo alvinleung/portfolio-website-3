@@ -33,7 +33,7 @@ const LandingHero = (props: Props) => {
       ></motion.div>
       <motion.section className="relative h-[90vh]">
         <motion.div
-          className="fixed px-6 py-6 grid grid-cols-6 grid-rows-[1fr] gap-4 h-[80vh]  -z-10"
+          className="fixed px-4 py-4 md:px-6 md:py-6 grid grid-cols-6 grid-rows-[1fr] gap-4 h-[80vh]  -z-10"
           style={{ scale: heroScale, opacity: heroOpacity }}
           initial={{
             opacity: 0,
@@ -56,27 +56,26 @@ const LandingHero = (props: Props) => {
             },
           }}
         >
-          <div className="col-start-1 col-span-full xl:col-span-4 flex flex-col">
+          <div className="col-start-1 col-span-full 2xl:col-span-4 flex flex-col">
             <h1 className="text-3xl sm:text-5xl md:text-6xl font-normal tracking-[-.03em]">
               Alvin Leung is an interaction designer. Informed by business and
               user needs, he thrives in using his aesthetic sensibility and
               prototyping wizardry to bring wild concepts from 0 to 1.
-            </h1>
-            <p className="mt-4 text-sm sm:text-base">
               Previously designed @ Daybreak Studio & Dossier Creative
-            </p>
+            </h1>
+            <p className="mt-4 text-sm sm:text-base"></p>
           </div>
 
-          <div className="col-start-1 col-span-3 lg:col-start-5 lg:col-span-1 row-start-2 lg:row-start-2 flex flex-col opacity-60 lg:mb-0 lg:pl-4 text-sm lg:text-base">
-            <h3 className="uppercase mb-3">Previous Clients</h3>
+          <div className="col-start-1 col-span-3 lg:col-start-5 lg:col-span-1 row-start-2 lg:row-start-2 flex flex-col opacity-60 lg:mb-0 lg:pl-4 text-sm xl:text-base">
+            <h3 className="uppercase mb-3 text-sm">Previous Clients</h3>
             <ul>
               <li>Pager (backed by Google Venture)</li>
               <li>QuirkChat</li>
               <li>Curated</li>
             </ul>
           </div>
-          <div className="col-start-4 col-span-3 lg:col-start-6 lg:col-span-1 row-start-2 lg:row-start-2 flex flex-col opacity-60 text-sm lg:text-base">
-            <h3 className="uppercase mb-3">Find Me</h3>
+          <div className="col-start-4 col-span-3 lg:col-start-6 lg:col-span-1 row-start-2 lg:row-start-2 flex flex-col opacity-60 text-sm xl:text-base">
+            <h3 className="uppercase mb-3 text-sm">Find Me</h3>
             <a href="https://www.instagram.com/alvinn.design/" target="blank">
               Instagram
             </a>

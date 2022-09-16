@@ -3,6 +3,7 @@ import NextImage from "next/image";
 import { motion } from "framer-motion";
 import { AnimationConfig } from "../AnimationConfig";
 import { Figure } from "./FigureWrapper";
+import ReactiveTapArea from "../ReactiveTapArea/ReactiveTapArea";
 
 type Props = {
   width: number;

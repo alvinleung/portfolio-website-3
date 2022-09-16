@@ -36,7 +36,7 @@ export function useBoundingBox<T extends HTMLElement>(
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [dependency]);
+  }, dependency);
 
   return [containerRef, bounds];
 }

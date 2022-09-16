@@ -5,6 +5,7 @@ import { AnimationConfig } from "../AnimationConfig";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 import { getProjectInfo, getProjectStyle } from "../../lib/ProjectInfo";
 import { ProjectGridItem } from "./ProjectGridItem";
+import { useBoundingBox } from "../../hooks/useBoundingClientRect";
 
 type Props = {
   isViewing: boolean;
@@ -12,9 +13,11 @@ type Props = {
 };
 const ProjectGrid = ({ isViewing, projects }: Props) => {
   const [selectedProject, setSelectedProject] = useState("");
+  const [gridCols, setGridCols] = useState(3);
   const { scrollY } = useContainerScroll();
 
   const windowDimension = useWindowDimension();
+  const [containerRef, bounds] = useBoundingBox<HTMLDivElement>([]);
 
   const transformOrigin = useTransform(
     scrollY,
@@ -24,7 +27,8 @@ const ProjectGrid = ({ isViewing, projects }: Props) => {
   return (
     <>
       <motion.div
-        className="grid md:grid-cols-3 gap-4 z-20 px-6 pb-8"
+        className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 z-20 px-6 pb-8"
+        ref={containerRef}
         style={{
           transformOrigin: transformOrigin,
         }}
@@ -44,11 +48,13 @@ const ProjectGrid = ({ isViewing, projects }: Props) => {
       >
         {projects.map((project, index) => (
           <ProjectGridItem
+            gridBoundTop={bounds.top}
             key={index}
             isActive={isViewing}
             onSelect={setSelectedProject}
             selectedProject={selectedProject}
-            isFirstRow={index < 3}
+            // isFirstRow={index < 3}
+            projectRow={Math.floor(index / gridCols)}
             projectInfo={getProjectInfo(project.meta)}
             projectStyle={getProjectStyle(project.meta)}
           />

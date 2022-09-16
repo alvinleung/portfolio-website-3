@@ -10,8 +10,10 @@ import {
 import ProjectCard from "./ProjectCard";
 
 interface ProjectGridItemProps {
+  gridBoundTop: number;
+  projectRow: number;
   isActive: boolean;
-  isFirstRow: boolean;
+  // isFirstRow: boolean;
   selectedProject: string;
   projectStyle: ProjectStyle;
   projectInfo: ProjectInfo;
@@ -20,9 +22,11 @@ interface ProjectGridItemProps {
 
 export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   projectStyle,
+  projectRow,
   projectInfo,
   isActive,
-  isFirstRow,
+  // isFirstRow,
+  gridBoundTop,
   onSelect,
   selectedProject,
 }) => {
@@ -54,7 +58,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   useEffect(() => {
     const handleResize = () => {
       const bounds = containerRef.current.getBoundingClientRect();
-      const beginShrinkPos = bounds.top - TOP_OFFSET + window.scrollY;
+      const beginShrinkPos = bounds.top - TOP_OFFSET + scrollY.get();
       setBeginShrinkPos(beginShrinkPos);
       setEndShrinkPos(beginShrinkPos + bounds.height);
       setBoxContainerHeight(bounds.height);
@@ -69,7 +73,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   return (
     <motion.div
       ref={containerRef}
-      className="sticky top-14 h-[40vw]"
+      className="sticky top-14 h-[110vw] md:h-[60vw] lg:h-[40vw]"
       onClick={() => onSelect?.(projectInfo.slug)}
       exit={{
         opacity: selectedProject === projectInfo.slug ? 1 : 0,
@@ -81,7 +85,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
         opacity={boxOpacity}
         height={boxHeight}
         projectInfo={projectInfo}
-        isFirstRow={isFirstRow}
+        isFirstRow={projectRow === 0}
         projectStyle={projectStyle}
         isActive={isActive}
       ></ProjectCard>
