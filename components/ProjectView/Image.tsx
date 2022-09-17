@@ -1,5 +1,5 @@
 import React from "react";
-import NextImage from "next/image";
+import NextImage from "next/future/image";
 import { motion } from "framer-motion";
 import { AnimationConfig } from "../AnimationConfig";
 import { Figure } from "./FigureWrapper";
@@ -11,17 +11,19 @@ type Props = {
   src: string;
   caption?: string;
   fullWidth?: boolean;
+  children: React.ReactNode;
 };
 
-const Image = ({ src, width, height, fullWidth, caption }: Props) => {
+const Image = ({ src, width, height, fullWidth, caption, children }: Props) => {
   return (
-    <Figure caption={caption}>
-      <motion.img
+    <Figure>
+      <NextImage
         className="w-full object-cover rounded-xl"
         src={src}
         width={width}
         height={height}
       />
+      {children}
     </Figure>
   );
 };

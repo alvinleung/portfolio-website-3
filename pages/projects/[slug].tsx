@@ -24,6 +24,7 @@ import {
   LayoutMainContent,
   LayoutFull,
 } from "../../components/ProjectView/Layout";
+import { Caption } from "../../components/ProjectView/FigureWrapper";
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   // Return a list of possible value for id
@@ -94,6 +95,7 @@ export default function Post({ source, meta, nextProjectMeta }: PostProps) {
               LayoutFull,
               LayoutMainContent,
               Quote,
+              Caption,
             }}
           />
         </main>
