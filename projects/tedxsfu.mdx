@@ -29,72 +29,127 @@ weight: 6
   ]}
 />
 
-<LayoutFull>
-  <Image src="/project-assets/tedxsfu/screen.jpg" width={1792} height={1053} />
+<LayoutFull extraMargin>
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/tedxsfu/desktop-ui.mp4"
+    width={2780}
+    height={1630}
+    seekOnScroll
+  />
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/tedxsfu/mobile-ui.mp4"
+    width={2780}
+    height={1694}
+    seekOnScroll
+  />
 </LayoutFull>
 
-<LayoutFull grid="3/3">
-  <Image src="/project-assets/tedxsfu/screen.jpg" width={1792} height={1053} />
-  <Image src="/project-assets/tedxsfu/screen.jpg" width={1792} height={1053} />
-</LayoutFull>
+## A Taste of the Conference
 
-<Quote who="University Student" title="User Testing Participant">
-  {
-    "Honestly, I wouldn't have come myself if my friend wasn't speaking on stage... but I am glad that I did, the talks were suprisingly interesting."
-  }
-</Quote>
+Through interviewing stakeholders, we found that speakers and their topics are the major motivating factor for the audience to attend. With that in mind, our content and interaction design explores ways to surface that information in order to entice attendance.
 
-## A taste of the Conference
-
-Through interviewing stakeholders, we found that speakers and their topics are the major motivating factor for the audience to attend. However, it wasn't always communicated properly in previous iterations. With that in mind, our content approach explores ways to surface that information in order to entice attendance.
-
-Informed by user testing result, the final microsite showcases a collection of suspenseful, fast-paced, trailer-style interviews. This lets the viewer sample the speaker's topic while getting to know themselves a little bit more in an engaging format.
+Informed by user testing result, the microsite features a collection of suspenseful, fast-paced, trailer-style interviews. This allows the site visitors sample the speaker's topic while getting to know themselves a little bit more in an engaging format.
 
 <LayoutFull extraMargin>
-  <Image src="/project-assets/tedxsfu/screen.jpg" width={1792} height={1053}>
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/tedxsfu/video-demo.mp4"
+    width={1792}
+    height={1008}
+  >
     <Caption
+      wideSpacing
       label="1"
-      text="Content teaser let audience to have a taste of what the talk was about"
+      text="The immersion of edgeless video interface facilitates a feeling of intimacy between audience and the storyteller."
     />
-  </Image>
+  </Video>
 </LayoutFull>
-<LayoutFull grid="2/4">
-  <Image src="/project-assets/tedxsfu/screen.jpg" width={1792} height={1053}>
-    <Caption label="2" text="Before Iteration" />
-  </Image>
-  <Image src="/project-assets/tedxsfu/screen.jpg" width={1792} height={1053}>
-    <Caption label="3" text="After Iteration" />
-  </Image>
+<LayoutFull grid="2/1">
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/tedxsfu/landing-demo.mp4"
+    width={1792}
+    height={1008}
+  >
+    <Caption
+      label="2"
+      wideSpacing
+      text={`Visitors are greeted with a seamless carousel of speakers and talk information upon landing.`}
+    />
+  </Video>
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/tedxsfu/mobile-landing-small.mp4"
+    width={582}
+    height={730}
+  >
+    <Caption label="3" text="Touch optimised carousel" />
+  </Video>
 </LayoutFull>
-
-## Expressive Interaction
-
-We extended the existing TED branding expressive potential by introducing the “bloom” motion language. When tastefully applied, the gentle staggering motion soften the rather cold and precise modernist visuals.
-
-<LayoutMainContent grid="3/2" extraMargin>
-  <Image src="/project-assets/tedxsfu/screen.jpg" width={1792} height={1053} />
-  <Image src="/project-assets/tedxsfu/screen.jpg" width={1792} height={1053} />
-</LayoutMainContent>
 
 ## Touchpoints
 
 The speaker-focused strategy was maintained across multiple communication channels. Through these external artifacts, curious individuals are encouraged to discover interview content on the website.
 
+<LayoutMainContent grid="2/3" extraMargin>
+  <Image
+    src="/project-assets/tedxsfu/touchpoint-social.jpg"
+    width={583}
+    height={663}
+  >
+    <Caption label="4" />
+  </Image>
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/tedxsfu/touchpoint-poster.mp4"
+    width={882}
+    height={882}
+  >
+    <Caption label="5" />
+  </Video>
+</LayoutMainContent>
+
+## Expressive Interaction
+
+We extended the existing TED branding expressive potential by introducing the “bloom” motion language. When tastefully applied, the gentle staggering motion soften the rather cold and precise modernist visuals.
+
 <LayoutMainContent extraMargin>
-  <Image src="/project-assets/tedxsfu/screen.jpg" width={1792} height={1053} />
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/tedxsfu/transition-demo.mp4"
+    width={1792}
+    height={1008}
+  >
+    <Caption label="6" text={`Motion application on page transition`} />
+  </Video>
 </LayoutMainContent>
 
 <LayoutMainContent grid="2/3">
-  <Image src="/project-assets/tedxsfu/screen.jpg" width={1792} height={1053} />
-  <Image src="/project-assets/tedxsfu/screen.jpg" width={1792} height={1053} />
+  <Image
+    src="/project-assets/tedxsfu/variable-type-placeholder.jpg"
+    width={583}
+    height={407}
+  >
+    <Caption
+      label="7"
+      text={`To achieve font animation, I modified a variable version of Neue Haas Grotesk.`}
+    />
+  </Image>
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/tedxsfu/button-demo.mp4"
+    width={1792}
+    height={1008}
+  >
+    <Caption label="8" text={`Staggering type motion on CTA button`} />
+  </Video>
 </LayoutMainContent>
 
 ## Testing & Iteration
 
-Before development, we ran a formative user research session on the prototype with 6 university students. We also asked a middle aged parent with visual impairment to participate with the intent of stress testing the system usability.
+Before development, I led a formative user research session on the prototype with 6 university students. The study also invited a middle aged parent with visual impairment to participate with the intent of stress testing the system usability.
 
 <LayoutMainContent grid="2/3" extraMargin>
-  <Image src="/project-assets/tedxsfu/screen.jpg" width={1792} height={1053} />
+  <Image src="/project-assets/tedxsfu/screen.jpg" width={1792} height={1053}>
+    <Caption
+      label="1"
+      text="The audience enjoyed the speaker and topic focused approach and are eloquently presented. However, they pointed out the title only-approach was not interesting enough."
+    />
+  </Image>
   <Image src="/project-assets/tedxsfu/screen.jpg" width={1792} height={1053} />
 </LayoutMainContent>
 
@@ -104,4 +159,6 @@ Before development, we ran a formative user research session on the prototype wi
 
 ## Learnings and Takeaways
 
-This is my first outside-of-class project that involve shipping a final product. Collaboration with development -> tight deadline, we have to roll out the design asynchronously to de-risk the development process.
+We have to roll out the design asynchronously to de-risk the development process.
+
+Devil is in the details, the nitty gritty of interaction could make or break an idea. The prototype failed to use the intuitive scrolling, to.

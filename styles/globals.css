@@ -10,6 +10,11 @@
   -webkit-font-smoothing: antialiased;
 }
 
+:root {
+  --select-color: #9feedc;
+  --select-bg: #0e1010;
+}
+
 html,
 body {
   padding: 0;

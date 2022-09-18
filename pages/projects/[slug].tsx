@@ -24,7 +24,8 @@ import {
   LayoutMainContent,
   LayoutFull,
 } from "../../components/ProjectView/Layout";
-import { Caption } from "../../components/ProjectView/FigureWrapper";
+import { Caption } from "../../components/ProjectView/Caption";
+import Video from "../../components/ProjectView/Video";
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   // Return a list of possible value for id
@@ -90,6 +91,7 @@ export default function Post({ source, meta, nextProjectMeta }: PostProps) {
               ),
               h2: Header2,
               Image: Image,
+              Video: Video,
               Team,
               ColorShifter,
               LayoutFull,
@@ -131,7 +133,7 @@ const Paragraph = (children: any) => (
   </p>
 );
 const Header2 = ({ children }: any) => (
-  <h2 className="col-start-2 col-span-2 leading-[1.116em] text-xl pt-32">
+  <h2 className="col-start-2 col-span-2 leading-[1.116em] text-xl pt-48">
     {children}
   </h2>
 );
