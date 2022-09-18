@@ -8,6 +8,7 @@ type Props = {
   width: number;
   height: number;
   seekOnScroll: boolean;
+  fillHeight?: boolean;
   frameRate: number;
   children?: React.ReactNode;
 };
@@ -18,6 +19,7 @@ const Video = ({
   height,
   seekOnScroll,
   frameRate = 12,
+  fillHeight,
   children,
 }: Props) => {
   const [shouldPlay, setShouldPlay] = useState(false);
@@ -59,7 +61,9 @@ const Video = ({
   return (
     <Figure>
       <motion.video
-        className="w-full md:h-full md:object-cover rounded-xl"
+        className={`w-full ${
+          fillHeight ? "md:h-full" : ""
+        } md:object-cover rounded-xl`}
         ref={playerRef}
         onViewportEnter={() => setShouldPlay(true)}
         onViewportLeave={() => setShouldPlay(false)}

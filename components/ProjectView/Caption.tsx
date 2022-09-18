@@ -13,7 +13,7 @@ export const Caption = ({ label, text, wideSpacing }: CaptionProps) => {
     <figcaption className="md:absolute flex flex-row gap-4 text-sm leading-5 top-0 mx-4 mt-3 mb-2">
       {/* one column around 7vw */}
       {label && <div className={labelSpacing}>{label}</div>}
-      <div className="opacity-50 max-w-[70vw] sm:max-w-[49vw] 2xl:max-w-[21vw]">
+      <div className="opacity-60 max-w-[70vw] sm:max-w-[49vw] 2xl:max-w-[21vw]">
         {text}
       </div>
     </figcaption>
