@@ -1,7 +1,7 @@
 ---
 title: TEDxSFU
 description: Speaker introduction microsite for a TEDx conference
-tags: Art Direction, Interaction Design, User Testing
+tags: Visual Design, Interaction Design, User Testing
 type: case-study
 
 colorAccent: rgb(230, 43, 30)
@@ -73,7 +73,7 @@ Informed by user testing result, the microsite features a collection of suspense
     <Caption
       label="2"
       wideSpacing
-      text={`Visitors are greeted with a seamless carousel of speakers and talk information upon landing.`}
+      text={`Upon landing, visitors are greeted with a seamless carousel of speakers and talk information right away.`}
     />
   </Video>
   <Video
@@ -81,13 +81,13 @@ Informed by user testing result, the microsite features a collection of suspense
     width={582}
     height={730}
   >
-    <Caption label="3" text="Touch optimised carousel" />
+    <Caption label="3" text="Mobile optimised carousel navigation" />
   </Video>
 </LayoutFull>
 
 ## Touchpoints
 
-The speaker-focused strategy was maintained across multiple communication channels. Through these external artifacts, curious individuals are encouraged to discover interview content on the website.
+The speaker-focused content strategy was maintained across multiple communication channels. Through these external artifacts, curious individuals are encouraged to learn about the speakers on the website.
 
 <LayoutMainContent grid="2/3" extraMargin>
   <Image
@@ -128,7 +128,7 @@ We extended the existing TED branding expressive potential by introducing the â€
   >
     <Caption
       label="7"
-      text={`To achieve the weight animation, I modified Neue Haas Grotesk into a variable font.`}
+      text={`To achieve the weight animation, I modified Neue Haas Grotesk into a variable typeface.`}
     />
   </Video>
   <Video
@@ -142,23 +142,79 @@ We extended the existing TED branding expressive potential by introducing the â€
 
 ## Testing & Iteration
 
-Before development, I led a formative user research session on the prototype with 6 university students. The study also invited a middle aged parent with visual impairment to participate with the intent of stress testing the system usability.
+Before development, I led a remote formative user research on the prototype with 6 university students. We also asked a middle aged parent with visual impairment to participate with the intent of stress testing the system usability. Major wins include:
+
+<List>
+  <ListItem label="1">
+    Think-aloud exercise indicates that users in general had little trouble
+    understanding the interface and navigating the microsite, which was
+    supported by the decent score of the System Uability Scale (SUS) survey.
+  </ListItem>
+  <ListItem label="2">
+    Overall, the approach of prioritising speakers and topic on the microsite
+    was well received. Users find the presentation attractive and helpful to
+    make a desicion whether the conference interest them or not.
+  </ListItem>
+</List>
+
+<LayoutMainContent grid="3/2" extraMargin>
+  <Image src="/project-assets/tedxsfu/sus-result.jpg" width={884} height={791}>
+    <Caption label="9" text="System Usability Scale survey result" />
+  </Image>
+  <Image
+    src="/project-assets/tedxsfu/content-after.jpg"
+    width={884}
+    height={884}
+  >
+    <Caption
+      label="10"
+      text="Users generally enjoyed the speaker focused approach."
+    />
+  </Image>
+</LayoutMainContent>
 
 <LayoutMainContent grid="2/3" extraMargin>
-  <Image src="/project-assets/tedxsfu/screen.jpg" width={1792} height={1053}>
+  <Image
+    src="/project-assets/tedxsfu/content-before.jpg"
+    width={582}
+    height={582}
+  >
     <Caption label="Before" />
   </Image>
-  <Image src="/project-assets/tedxsfu/screen.jpg" width={1792} height={1053}>
+  <Image
+    src="/project-assets/tedxsfu/content-after.jpg"
+    rowSpan={3}
+    width={884}
+    height={884}
+  >
     <Caption label="After" />
   </Image>
+  <Caption
+    label="11"
+    text="Users raised concern that the speaker bio being too wordy and it is hard to sustain their interests. As a result, it was replace by a snappy speaker interview video in the final design."
+    forImage={false}
+  />
 </LayoutMainContent>
 
-<LayoutMainContent extraMargin>
-  <Image src="/project-assets/tedxsfu/screen.jpg" width={1792} height={1053} />
+<LayoutMainContent grid="2/3" extraMargin>
+  <Image
+    src="/project-assets/tedxsfu/navigation-aid-before.jpg"
+    width={582}
+    height={582}
+  >
+    <Caption label="Before" />
+  </Image>
+  <Image
+    src="/project-assets/tedxsfu/navigation-aid-after.jpg"
+    width={884}
+    height={1303}
+    rowSpan={3}
+  >
+    <Caption label="After" />
+  </Image>
+  <Caption
+    label="12"
+    text="Lacking navigational aid â€” some users find the lack of in-page navigation frustrating, especially a page that involves lengthy content."
+    forImage={false}
+  />
 </LayoutMainContent>
-
-## Learnings and Takeaways
-
-We have to roll out the design asynchronously to de-risk the development process.
-
-Devil is in the details, the nitty gritty of interaction could make or break an idea. The prototype failed to use the intuitive scrolling, to.

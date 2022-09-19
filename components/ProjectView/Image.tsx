@@ -11,12 +11,21 @@ type Props = {
   src: string;
   caption?: string;
   fullWidth?: boolean;
+  rowSpan?: number;
   children: React.ReactNode;
 };
 
-const Image = ({ src, width, height, fullWidth, caption, children }: Props) => {
+const Image = ({
+  src,
+  width,
+  height,
+  fullWidth,
+  caption,
+  children,
+  rowSpan = 1,
+}: Props) => {
   return (
-    <Figure>
+    <Figure rowSpan={rowSpan}>
       <NextImage
         className="w-full object-cover rounded-xl"
         src={src}

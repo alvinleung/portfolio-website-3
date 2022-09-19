@@ -73,6 +73,7 @@ const Video = ({
         autoPlay={seekOnScroll ? false : true}
         muted
         loop
+        preload={"auto"}
       />
       {children}
     </Figure>
