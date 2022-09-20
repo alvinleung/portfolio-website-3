@@ -1,4 +1,9 @@
-import { motion, useAnimation, useTransform } from "framer-motion";
+import {
+  motion,
+  useAnimation,
+  useIsPresent,
+  useTransform,
+} from "framer-motion";
 import Link from "next/link";
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import { useWindowDimension } from "../../hooks/useWindowDimension";
@@ -15,6 +20,7 @@ import {
 import ProjectHeader from "../Layouts/ProjectHeader";
 import ProjectViewNavBar from "./ProjectViewNavBar";
 import { useColorContext } from "./ColorShifter";
+import useIsFirstRender from "../../hooks/useIsFirstRender";
 
 type Props = {
   children: React.ReactNode;
@@ -196,7 +202,23 @@ const ProjectView = ({
     });
   }, []);
 
+  const isAnimInDone = useRef(false);
+
   useEffect(() => {
+    console.log("triggered");
+    if (!isAnimInDone.current) {
+      anim.start({
+        scale: shrinkedScale,
+        y: 0,
+        opacity: 1,
+        transition: {
+          duration: AnimationConfig.VERY_SLOW,
+          ease: AnimationConfig.EASING_IN_OUT,
+        },
+      });
+
+      return;
+    }
     if (shouldShowNextProject) {
       anim.start({
         scale: shrinkedScale,
@@ -246,12 +268,9 @@ const ProjectView = ({
     });
   }, [isScrolled, shouldShowNextProject, shrinkedScale]);
 
-  // const handleAnimationComplete = () => {
-  //   setIsReady(true);
-  //   anim.set({
-  //     height: "auto",
-  //   });
-  // };
+  const handleAnimComplete = () => {
+    isAnimInDone.current = true;
+  };
 
   return (
     <>
@@ -277,6 +296,7 @@ const ProjectView = ({
       {/* <motion.article ref={contentContainerRef} className="mx-6 2xl:mx-16 z-10"> */}
       <article ref={contentContainerRef} className="mx-6 2xl:mx-0 z-10 h-[90%]">
         <motion.div
+          onAnimationComplete={handleAnimComplete}
           style={{
             willChange: "scale, y",
             transformOrigin: transformOrigin,
@@ -296,28 +316,6 @@ const ProjectView = ({
             },
           }}
         >
-          {/* Project Content */}
-          {/* <motion.div
-          ref={contentRef}
-          className="overflow-hidden rounded-xl absolute rounded-bl-none rounded-br-none"
-          animate={anim}
-          exit={{
-            opacity: 0,
-            y: "20vh",
-            transition: {
-              duration: AnimationConfig.NORMAL,
-              ease: AnimationConfig.EASING_IN_OUT,
-            },
-          }}
-          onAnimationComplete={handleAnimationComplete}
-          // style={{
-          //   backgroundColor: isReady ? "transparent" : bgColor,
-          //   backgroundImage: isReady ? "none" : `url("${coverImage}")`,
-          //   backgroundSize: "cover",
-          //   borderBottomLeftRadius: 0,
-          //   borderBottomRightRadius: 0,
-          // }}
-        > */}
           <motion.div
             initial={{ backgroundColor: bgColor, color: textColor }}
             animate={{ backgroundColor: bgColor, color: textColor }}
@@ -338,7 +336,6 @@ const ProjectView = ({
               projectInfo={nextProjectInfo}
             />
           </motion.div>
-          {/* </motion.div> */}
         </motion.div>
       </article>
     </>
