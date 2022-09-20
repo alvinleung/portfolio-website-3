@@ -196,8 +196,8 @@ const ProjectView = ({
 
   useEffect(() => {
     anim.set({
-      scale: 0.7,
-      y: window.innerHeight / 2,
+      scale: 0.8,
+      y: window.innerHeight / 3,
       opacity: 0,
     });
   }, []);
