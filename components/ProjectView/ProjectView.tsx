@@ -151,11 +151,8 @@ const ProjectView = ({
     // const shrinkedScale =
     //   (windowDimension.width - containerBounds.left) / windowDimension.width;
     // console.log(1 - 48 / windowDimension.width);
-    setShrinkedScale(1 - 128 / windowDimension.width);
-  }, [windowDimension.width, contentContainerRef]);
-
-  // console.log(isScrolled && !shouldShowNextProject);
-  // console.log(isScrolled && !shouldShowNextProject);
+    setShrinkedScale(1 - 128 / window.innerWidth);
+  }, [contentContainerRef, windowDimension.width]);
 
   const [transformOrigin, setTransformOrigin] = useState("center top");
   useEffect(() => {
@@ -191,6 +188,64 @@ const ProjectView = ({
     };
   }, [scrollDirection]);
 
+  useEffect(() => {
+    anim.set({
+      scale: 0.8,
+      y: 100,
+      opacity: 0,
+    });
+  }, []);
+
+  useEffect(() => {
+    if (shouldShowNextProject) {
+      anim.start({
+        scale: shrinkedScale,
+        opacity: 1,
+        transition: {
+          duration: AnimationConfig.FAST,
+          ease: AnimationConfig.EASING,
+        },
+      });
+      return;
+    }
+
+    if (isScrolled) {
+      anim.start({
+        scale: isScrolled && !shouldShowNextProject ? 1 : shrinkedScale,
+        y: isScrolled && !shouldShowNextProject ? -100 : 0,
+        opacity: 1,
+        transition: {
+          duration: AnimationConfig.SLOW,
+          ease: AnimationConfig.EASING,
+        },
+      });
+      return;
+    }
+
+    if (!isScrolled) {
+      anim.start({
+        scale: isScrolled && !shouldShowNextProject ? 1 : shrinkedScale,
+        y: isScrolled && !shouldShowNextProject ? -100 : 0,
+        opacity: 1,
+        transition: {
+          duration: AnimationConfig.FAST,
+          ease: AnimationConfig.EASING,
+        },
+      });
+      return;
+    }
+
+    anim.start({
+      scale: isScrolled && !shouldShowNextProject ? 1 : shrinkedScale,
+      y: isScrolled && !shouldShowNextProject ? -100 : 0,
+      opacity: 1,
+      transition: {
+        duration: AnimationConfig.NORMAL,
+        ease: AnimationConfig.EASING,
+      },
+    });
+  }, [isScrolled, shouldShowNextProject, shrinkedScale]);
+
   // const handleAnimationComplete = () => {
   //   setIsReady(true);
   //   anim.set({
@@ -220,7 +275,7 @@ const ProjectView = ({
         />
       </motion.div>
       {/* <motion.article ref={contentContainerRef} className="mx-6 2xl:mx-16 z-10"> */}
-      <article ref={contentContainerRef} className="mx-6 2xl:mx-0 z-10">
+      <article ref={contentContainerRef} className="mx-6 2xl:mx-0 z-10 h-[90%]">
         <motion.div
           style={{
             willChange: "scale, y",
@@ -231,17 +286,8 @@ const ProjectView = ({
             y: 100,
             opacity: 0,
           }}
-          animate={{
-            scale: isScrolled && !shouldShowNextProject ? 1 : shrinkedScale,
-            y: isScrolled && !shouldShowNextProject ? -100 : 0,
-            opacity: 1,
-            transition: {
-              duration: AnimationConfig.NORMAL,
-              ease: AnimationConfig.EASING,
-            },
-          }}
+          animate={anim}
           exit={{
-            // scale: 0.9,
             opacity: 0,
             y: 100,
             transition: {
