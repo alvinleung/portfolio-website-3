@@ -1,4 +1,4 @@
-import { motion, MotionValue, useScroll } from "framer-motion";
+import { motion, MotionValue, useIsPresent, useScroll } from "framer-motion";
 import React, {
   createContext,
   Dispatch,
