@@ -145,7 +145,7 @@ const ProjectView = ({
   //   }
   //   return "center top";
   // });
-  const [shrinkedScale, setShrinkedScale] = useState(0.9);
+  const [shrinkedScale, setShrinkedScale] = useState(1);
   useEffect(() => {
     // const containerBounds = contentContainerRef.current.getBoundingClientRect();
     // const shrinkedScale =
@@ -153,6 +153,9 @@ const ProjectView = ({
     // console.log(1 - 48 / windowDimension.width);
     setShrinkedScale(1 - 128 / windowDimension.width);
   }, [windowDimension.width, contentContainerRef]);
+
+  // console.log(isScrolled && !shouldShowNextProject);
+  // console.log(isScrolled && !shouldShowNextProject);
 
   const [transformOrigin, setTransformOrigin] = useState("center top");
   useEffect(() => {
@@ -183,7 +186,6 @@ const ProjectView = ({
     if (scrollDirection === ScrollDirection.DOWN) {
       setShouldShowNav(false);
     }
-
     return () => {
       unobserveScroll();
     };
@@ -242,6 +244,10 @@ const ProjectView = ({
             // scale: 0.9,
             opacity: 0,
             y: 100,
+            transition: {
+              duration: AnimationConfig.FAST,
+              ease: AnimationConfig.EASING_INVERTED,
+            },
           }}
         >
           {/* Project Content */}
