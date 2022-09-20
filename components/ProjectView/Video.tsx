@@ -41,6 +41,8 @@ const Video = ({
       const adjustedOffset = offset / 2000;
 
       const vidDuration = playerRef.current.duration;
+      if (!vidDuration) return;
+
       const targetTime =
         adjustedOffset / vidDuration - Math.floor(adjustedOffset / vidDuration);
       const targetFrame = Math.floor(targetTime * frameRate);
@@ -91,6 +93,7 @@ const Video = ({
         src={src}
         width={width}
         height={height}
+        preload={shouldPlay ? "auto" : preload}
         // autoPlay={seekOnScroll ? false : true}
         muted
         loop
