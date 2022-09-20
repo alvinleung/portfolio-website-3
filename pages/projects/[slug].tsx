@@ -27,6 +27,7 @@ import {
 import { Caption } from "../../components/ProjectView/Caption";
 import Video from "../../components/ProjectView/Video";
 import { List, ListItem } from "../../components/ProjectView/List";
+import SlideShow from "../../components/ProjectView/SlideShow";
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   // Return a list of possible value for id
@@ -101,6 +102,7 @@ export default function Post({ source, meta, nextProjectMeta }: PostProps) {
               Caption,
               List,
               ListItem,
+              SlideShow,
             }}
           />
         </main>
