@@ -57,6 +57,7 @@ const ProjectView = ({
     }
     const bounds = prevCardRef.current.getBoundingClientRect();
     const containerBounds = contentContainerRef.current.getBoundingClientRect();
+
     anim.set({
       left: bounds.left,
       width: bounds.width,
@@ -190,7 +191,7 @@ const ProjectView = ({
         {/* Project Content */}
         <motion.div
           ref={contentRef}
-          className="overflow-hidden rounded-xl absolute"
+          className="overflow-hidden rounded-xl absolute rounded-bl-none rounded-br-none"
           animate={anim}
           exit={{
             opacity: 0,
@@ -201,13 +202,13 @@ const ProjectView = ({
             },
           }}
           onAnimationComplete={handleAnimationComplete}
-          style={{
-            backgroundColor: isReady ? "transparent" : bgColor,
-            backgroundImage: isReady ? "none" : `url("${coverImage}")`,
-            backgroundSize: "cover",
-            borderBottomLeftRadius: 0,
-            borderBottomRightRadius: 0,
-          }}
+          // style={{
+          //   backgroundColor: isReady ? "transparent" : bgColor,
+          //   backgroundImage: isReady ? "none" : `url("${coverImage}")`,
+          //   backgroundSize: "cover",
+          //   borderBottomLeftRadius: 0,
+          //   borderBottomRightRadius: 0,
+          // }}
         >
           <motion.div
             initial={{ opacity: 0, backgroundColor: bgColor, color: textColor }}
