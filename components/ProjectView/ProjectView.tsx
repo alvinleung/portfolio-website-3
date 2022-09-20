@@ -5,7 +5,13 @@ import {
   useTransform,
 } from "framer-motion";
 import Link from "next/link";
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
+import React, {
+  MutableRefObject,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useWindowDimension } from "../../hooks/useWindowDimension";
 import { AnimationConfig } from "../AnimationConfig";
 import CloseButton from "../CloseButton/CloseButton";
@@ -21,6 +27,7 @@ import ProjectHeader from "../Layouts/ProjectHeader";
 import ProjectViewNavBar from "./ProjectViewNavBar";
 import { useColorContext } from "./ColorShifter";
 import useIsFirstRender from "../../hooks/useIsFirstRender";
+import { breakpoints, useBreakpoint } from "../../hooks/useBreakpoints";
 
 type Props = {
   children: React.ReactNode;
@@ -70,9 +77,21 @@ const ProjectView = ({
   }, [scrollY, scrollYProgress]);
 
   const [shrinkedScale, setShrinkedScale] = useState(1);
+  const is2XLBreakpoint = useBreakpoint(breakpoints["2xl"]);
+  const isMDBreakpoint = useBreakpoint(breakpoints.md);
+  const margin = useMemo(() => {
+    if (is2XLBreakpoint) {
+      return 128;
+    }
+    if (isMDBreakpoint) {
+      return 48;
+    }
+    return 32;
+  }, [is2XLBreakpoint, isMDBreakpoint]);
+
   useEffect(() => {
-    setShrinkedScale(1 - 128 / window.innerWidth);
-  }, [contentContainerRef, windowDimension.width]);
+    setShrinkedScale(1 - margin / window.innerWidth);
+  }, [contentContainerRef, windowDimension.width, margin]);
 
   const [transformOrigin, setTransformOrigin] = useState("center top");
   useEffect(() => {
