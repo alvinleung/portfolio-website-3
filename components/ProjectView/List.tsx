@@ -17,7 +17,9 @@ export const ListItem = ({ children, label }: ListItemProps) => {
   return (
     <li className="flex flex-row mt-[1.1em] leading-[1.116em]">
       <div className="block w-[7vw]">{label}</div>
-      <div className="block w-full">{children.props.children}</div>
+      <div className="block w-full">
+        {typeof children === "string" ? children : children.props.children}
+      </div>
     </li>
   );
 };
