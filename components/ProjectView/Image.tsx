@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import NextImage from "next/future/image";
 import { motion } from "framer-motion";
 import { AnimationConfig } from "../AnimationConfig";

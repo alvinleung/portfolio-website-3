@@ -59,7 +59,7 @@ const ProjectLinkButton = ({ projectStyle, projectInfo, scrolled }: Props) => {
           // : "rgba(50,50,50,.6)",
           color: isHovering ? textColorHover : textColor,
         }}
-        className="inline-flex justify-center rounded-full leading-none py-3 px-4 cursor-pointer backdrop-blur-md"
+        className="inline-flex justify-center rounded-full leading-none py-3 px-4 cursor-pointer"
       >
         <motion.div
           className="w-[1em] h-[1em] mr-3 rounded-full"

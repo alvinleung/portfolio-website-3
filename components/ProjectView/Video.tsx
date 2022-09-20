@@ -12,6 +12,7 @@ type Props = {
   frameRate: number;
   rowSpan?: number;
   children?: React.ReactNode;
+  preload: string;
 };
 
 const Video = ({
@@ -23,6 +24,7 @@ const Video = ({
   fillHeight,
   children,
   rowSpan = 1,
+  preload = "metadata",
 }: Props) => {
   const [shouldPlay, setShouldPlay] = useState(false);
   const [currentFrame, setCurrentFrame] = useState(0);
@@ -54,11 +56,25 @@ const Video = ({
   useEffect(() => {
     if (!seekOnScroll) return;
 
-    // if (animFrame) cancelAnimationFrame(animFrame);
-    requestAnimationFrame(() => {
+    const animFrame = requestAnimationFrame(() => {
+      if (!playerRef.current) return;
+
       playerRef.current.currentTime = currentFrame / frameRate;
     });
+    return () => {
+      cancelAnimationFrame(animFrame);
+    };
   }, [currentFrame, seekOnScroll]);
+
+  useEffect(() => {
+    if (!playerRef.current || seekOnScroll) return;
+
+    if (shouldPlay) {
+      playerRef.current.play();
+      return;
+    }
+    playerRef.current.pause();
+  }, [shouldPlay, playerRef, seekOnScroll]);
 
   return (
     <Figure rowSpan={rowSpan}>
@@ -67,15 +83,17 @@ const Video = ({
           fillHeight ? "md:h-full" : ""
         } md:object-cover rounded-xl`}
         ref={playerRef}
+        style={{
+          visibility: shouldPlay ? "visible" : "hidden",
+        }}
         onViewportEnter={() => setShouldPlay(true)}
         onViewportLeave={() => setShouldPlay(false)}
         src={src}
         width={width}
         height={height}
-        autoPlay={seekOnScroll ? false : true}
+        // autoPlay={seekOnScroll ? false : true}
         muted
         loop
-        preload={"auto"}
       />
       {children}
     </Figure>

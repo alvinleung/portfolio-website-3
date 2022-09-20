@@ -31,7 +31,7 @@ const Home: NextPage = ({
   const [isViewingGridBar, setIsViewingGridBar] = useState(false);
 
   useEffect(() => {
-    scrollY.onChange((amount) => {
+    const cleanupScroll = scrollY.onChange((amount) => {
       if (amount > window.innerHeight / 3) {
         setIsViewingGrid(true);
       } else {
@@ -43,6 +43,9 @@ const Home: NextPage = ({
         setIsViewingGridBar(false);
       }
     });
+    return () => {
+      cleanupScroll();
+    };
   }, []);
 
   return (
