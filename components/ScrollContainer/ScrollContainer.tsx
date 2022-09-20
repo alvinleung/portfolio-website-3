@@ -75,6 +75,8 @@ export const ScrollContainer = ({ children, zIndex = 0 }: Props) => {
     };
   }, []);
 
+  const isPresent = useIsPresent();
+
   return (
     <ScrollContext.Provider
       value={{
@@ -95,6 +97,8 @@ export const ScrollContainer = ({ children, zIndex = 0 }: Props) => {
         ref={scrollContainerRef}
         style={{
           zIndex: zIndex,
+          overflowY: isPresent ? "inherit" : "hidden",
+          pointerEvents: isPresent ? "all" : "none",
         }}
       >
         {children}

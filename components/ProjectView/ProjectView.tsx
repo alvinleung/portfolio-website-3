@@ -143,9 +143,11 @@ const ProjectView = ({
   }, []);
 
   const isAnimInDone = useRef(false);
+  const isPresent = useIsPresent();
 
   useEffect(() => {
-    if (!isAnimInDone.current) {
+    if (!isPresent) return;
+    if (!isAnimInDone.current && !isScrolled) {
       anim.start({
         scale: shrinkedScale,
         y: 0,
@@ -156,7 +158,6 @@ const ProjectView = ({
           ease: AnimationConfig.EASING_IN_OUT,
         },
       });
-
       return;
     }
     if (shouldShowNextProject) {
@@ -206,7 +207,7 @@ const ProjectView = ({
         ease: AnimationConfig.EASING,
       },
     });
-  }, [isScrolled, shouldShowNextProject, shrinkedScale]);
+  }, [isScrolled, shouldShowNextProject, shrinkedScale, isPresent]);
 
   const handleAnimComplete = () => {
     isAnimInDone.current = true;
