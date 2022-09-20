@@ -31,6 +31,8 @@ type Props = {
   coverImage: string;
 };
 
+const USE_SIMPLE_TRANSITION = true;
+
 const ProjectView = ({
   children,
   projectStyle,
@@ -40,48 +42,18 @@ const ProjectView = ({
 }: Props) => {
   const anim = useAnimation();
   const contentContainerRef = useRef() as MutableRefObject<HTMLDivElement>;
-  const contentRef = useRef() as MutableRefObject<HTMLDivElement>;
 
   const textColor = projectStyle.getTextColor();
   const { currentColor } = useColorContext();
   const bgColor = currentColor;
-  // const bgColor = projectStyle.getBgColor();
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [shouldShowNextProject, setShouldShowNextProject] = useState(false);
-  const [isReady, setIsReady] = useState(false);
   const { prevCardRef } = usePageTransition();
   const { scrollY, scrollDirection, scrollYProgress } = useContainerScroll();
   const windowDimension = useWindowDimension();
 
   const [shouldShowNav, setShouldShowNav] = useState(false);
-
-  // useEffect(() => {
-  //   if (!prevCardRef?.current) {
-  //     setIsReady(true);
-  //     return;
-  //   }
-  //   const bounds = prevCardRef.current.getBoundingClientRect();
-  //   const containerBounds = contentContainerRef.current.getBoundingClientRect();
-
-  //   anim.set({
-  //     left: bounds.left,
-  //     width: bounds.width,
-  //     height: bounds.height,
-  //     top: bounds.top,
-  //     overflow: "hidden",
-  //   });
-  //   anim.start({
-  //     left: containerBounds.left,
-  //     top: containerBounds.top,
-  //     width: containerBounds.width,
-  //     height: window.innerHeight * 2,
-  //     transition: {
-  //       duration: AnimationConfig.SLOW,
-  //       ease: AnimationConfig.EASING_IN_OUT,
-  //     },
-  //   });
-  // }, []);
 
   useEffect(() => {
     const unobserveScrollY = scrollY.onChange((val) => {
@@ -97,66 +69,8 @@ const ProjectView = ({
     };
   }, [scrollY, scrollYProgress]);
 
-  // useEffect(() => {
-  //   if (!isReady) return;
-
-  //   const containerBounds = contentContainerRef.current.getBoundingClientRect();
-
-  //   if (shouldShowNextProject) {
-  //     anim.start({
-  //       scale: 0.932,
-  //       transformOrigin: "bottom center",
-  //       transition: {
-  //         duration: AnimationConfig.NORMAL,
-  //         ease: AnimationConfig.EASING,
-  //       },
-  //     });
-  //   } else {
-  //     anim.start({
-  //       scale: 1,
-  //       transformOrigin: "bottom center",
-  //       transition: {
-  //         duration: AnimationConfig.NORMAL,
-  //         ease: AnimationConfig.EASING,
-  //       },
-  //     });
-  //   }
-
-  //   if (isScrolled) {
-  //     anim.start({
-  //       width: "100%",
-  //       left: 0,
-  //       top: 0,
-  //       transition: {
-  //         duration: AnimationConfig.SLOW,
-  //         ease: AnimationConfig.EASING,
-  //       },
-  //     });
-  //     return;
-  //   }
-  //   anim.start({
-  //     left: containerBounds.left,
-  //     top: containerBounds.top,
-  //     width: containerBounds.width,
-  //     transition: {
-  //       duration: AnimationConfig.FAST,
-  //       ease: AnimationConfig.EASING,
-  //     },
-  //   });
-  // }, [isScrolled, isReady, windowDimension.width, shouldShowNextProject]);
-
-  // const transformOrigin = useTransform(scrollY, (value) => {
-  //   if (value > 1000) {
-  //     return "center bottom";
-  //   }
-  //   return "center top";
-  // });
   const [shrinkedScale, setShrinkedScale] = useState(1);
   useEffect(() => {
-    // const containerBounds = contentContainerRef.current.getBoundingClientRect();
-    // const shrinkedScale =
-    //   (windowDimension.width - containerBounds.left) / windowDimension.width;
-    // console.log(1 - 48 / windowDimension.width);
     setShrinkedScale(1 - 128 / window.innerWidth);
   }, [contentContainerRef, windowDimension.width]);
 
@@ -195,9 +109,35 @@ const ProjectView = ({
   }, [scrollDirection]);
 
   useEffect(() => {
+    if (USE_SIMPLE_TRANSITION) {
+      anim.set({
+        scale: 0.8,
+        y: window.innerHeight / 3,
+        opacity: 0,
+      });
+
+      return;
+    }
+
+    if (!prevCardRef.current) {
+      anim.set({
+        scale: 0.8,
+        y: window.innerHeight / 3,
+        opacity: 0,
+      });
+      return;
+    }
+    const containerBounds = prevCardRef.current.getBoundingClientRect();
+    const y = containerBounds.top;
+    const x =
+      containerBounds.left + containerBounds.width / 2 - window.innerWidth / 2;
+    const wScale = containerBounds.width / window.innerWidth;
+
     anim.set({
-      scale: 0.8,
-      y: window.innerHeight / 3,
+      // scale: 0.8,
+      scale: wScale,
+      x: x,
+      y: y,
       opacity: 0,
     });
   }, []);
@@ -205,11 +145,11 @@ const ProjectView = ({
   const isAnimInDone = useRef(false);
 
   useEffect(() => {
-    console.log("triggered");
     if (!isAnimInDone.current) {
       anim.start({
         scale: shrinkedScale,
         y: 0,
+        x: 0,
         opacity: 1,
         transition: {
           duration: AnimationConfig.VERY_SLOW,
