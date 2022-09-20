@@ -234,7 +234,7 @@ const ProjectView = ({
         />
       </motion.div>
       {/* <motion.article ref={contentContainerRef} className="mx-6 2xl:mx-16 z-10"> */}
-      <article ref={contentContainerRef} className="mx-6 2xl:mx-0 z-10 h-[90%]">
+      <article ref={contentContainerRef} className="z-10 h-[90%]">
         <motion.div
           onAnimationComplete={handleAnimComplete}
           style={{
