@@ -1,4 +1,4 @@
-import { motion, useAnimation, useTransform } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import Link from "next/link";
 import React, { MutableRefObject, useEffect, useRef, useState } from "react";
 import { useWindowDimension } from "../../hooks/useWindowDimension";
@@ -50,32 +50,32 @@ const ProjectView = ({
 
   const [shouldShowNav, setShouldShowNav] = useState(false);
 
-  // useEffect(() => {
-  //   if (!prevCardRef?.current) {
-  //     setIsReady(true);
-  //     return;
-  //   }
-  //   const bounds = prevCardRef.current.getBoundingClientRect();
-  //   const containerBounds = contentContainerRef.current.getBoundingClientRect();
+  useEffect(() => {
+    if (!prevCardRef?.current) {
+      setIsReady(true);
+      return;
+    }
+    const bounds = prevCardRef.current.getBoundingClientRect();
+    const containerBounds = contentContainerRef.current.getBoundingClientRect();
 
-  //   anim.set({
-  //     left: bounds.left,
-  //     width: bounds.width,
-  //     height: bounds.height,
-  //     top: bounds.top,
-  //     overflow: "hidden",
-  //   });
-  //   anim.start({
-  //     left: containerBounds.left,
-  //     top: containerBounds.top,
-  //     width: containerBounds.width,
-  //     height: window.innerHeight * 2,
-  //     transition: {
-  //       duration: AnimationConfig.SLOW,
-  //       ease: AnimationConfig.EASING_IN_OUT,
-  //     },
-  //   });
-  // }, []);
+    anim.set({
+      left: bounds.left,
+      width: bounds.width,
+      height: bounds.height,
+      top: bounds.top,
+      overflow: "hidden",
+    });
+    anim.start({
+      left: containerBounds.left,
+      top: containerBounds.top,
+      width: containerBounds.width,
+      height: window.innerHeight * 2,
+      transition: {
+        duration: AnimationConfig.SLOW,
+        ease: AnimationConfig.EASING_IN_OUT,
+      },
+    });
+  }, []);
 
   useEffect(() => {
     const unobserveScrollY = scrollY.onChange((val) => {
@@ -91,83 +91,53 @@ const ProjectView = ({
     };
   }, [scrollY, scrollYProgress]);
 
-  // useEffect(() => {
-  //   if (!isReady) return;
-
-  //   const containerBounds = contentContainerRef.current.getBoundingClientRect();
-
-  //   if (shouldShowNextProject) {
-  //     anim.start({
-  //       scale: 0.932,
-  //       transformOrigin: "bottom center",
-  //       transition: {
-  //         duration: AnimationConfig.NORMAL,
-  //         ease: AnimationConfig.EASING,
-  //       },
-  //     });
-  //   } else {
-  //     anim.start({
-  //       scale: 1,
-  //       transformOrigin: "bottom center",
-  //       transition: {
-  //         duration: AnimationConfig.NORMAL,
-  //         ease: AnimationConfig.EASING,
-  //       },
-  //     });
-  //   }
-
-  //   if (isScrolled) {
-  //     anim.start({
-  //       width: "100%",
-  //       left: 0,
-  //       top: 0,
-  //       transition: {
-  //         duration: AnimationConfig.SLOW,
-  //         ease: AnimationConfig.EASING,
-  //       },
-  //     });
-  //     return;
-  //   }
-  //   anim.start({
-  //     left: containerBounds.left,
-  //     top: containerBounds.top,
-  //     width: containerBounds.width,
-  //     transition: {
-  //       duration: AnimationConfig.FAST,
-  //       ease: AnimationConfig.EASING,
-  //     },
-  //   });
-  // }, [isScrolled, isReady, windowDimension.width, shouldShowNextProject]);
-
-  // const transformOrigin = useTransform(scrollY, (value) => {
-  //   if (value > 1000) {
-  //     return "center bottom";
-  //   }
-  //   return "center top";
-  // });
-  const [shrinkedScale, setShrinkedScale] = useState(0.9);
   useEffect(() => {
-    // const containerBounds = contentContainerRef.current.getBoundingClientRect();
-    // const shrinkedScale =
-    //   (windowDimension.width - containerBounds.left) / windowDimension.width;
-    // console.log(1 - 48 / windowDimension.width);
-    setShrinkedScale(1 - 128 / windowDimension.width);
-  }, [windowDimension.width, contentContainerRef]);
+    if (!isReady) return;
 
-  const [transformOrigin, setTransformOrigin] = useState("center top");
-  useEffect(() => {
-    const unobserveScroll = scrollYProgress.onChange((val) => {
-      if (val > 0.5) {
-        setTransformOrigin("center bottom");
-        return;
-      }
-      setTransformOrigin("center top");
+    const containerBounds = contentContainerRef.current.getBoundingClientRect();
+
+    if (shouldShowNextProject) {
+      anim.start({
+        scale: 0.932,
+        transformOrigin: "bottom center",
+        transition: {
+          duration: AnimationConfig.NORMAL,
+          ease: AnimationConfig.EASING,
+        },
+      });
+    } else {
+      anim.start({
+        scale: 1,
+        transformOrigin: "bottom center",
+        transition: {
+          duration: AnimationConfig.NORMAL,
+          ease: AnimationConfig.EASING,
+        },
+      });
+    }
+
+    if (isScrolled) {
+      anim.start({
+        width: "100%",
+        left: 0,
+        top: 0,
+        transition: {
+          duration: AnimationConfig.SLOW,
+          ease: AnimationConfig.EASING,
+        },
+      });
+      return;
+    }
+    anim.start({
+      left: containerBounds.left,
+      top: containerBounds.top,
+      width: containerBounds.width,
+      transition: {
+        duration: AnimationConfig.FAST,
+        ease: AnimationConfig.EASING,
+      },
     });
-
-    return () => {
-      unobserveScroll();
-    };
-  }, []);
+  }, [isScrolled, isReady, windowDimension.width, shouldShowNextProject]);
 
   useEffect(() => {
     let scrolledAmount = 0;
@@ -189,12 +159,12 @@ const ProjectView = ({
     };
   }, [scrollDirection]);
 
-  // const handleAnimationComplete = () => {
-  //   setIsReady(true);
-  //   anim.set({
-  //     height: "auto",
-  //   });
-  // };
+  const handleAnimationComplete = () => {
+    setIsReady(true);
+    anim.set({
+      height: "auto",
+    });
+  };
 
   return (
     <>
@@ -217,35 +187,9 @@ const ProjectView = ({
           nextProjectInfo={nextProjectInfo}
         />
       </motion.div>
-      {/* <motion.article ref={contentContainerRef} className="mx-6 2xl:mx-16 z-10"> */}
-      <article ref={contentContainerRef} className="mx-6 2xl:mx-0 z-10">
+      <article ref={contentContainerRef} className="mx-6 2xl:mx-16 z-10">
+        {/* Project Content */}
         <motion.div
-          style={{
-            willChange: "scale, y",
-            transformOrigin: transformOrigin,
-          }}
-          initial={{
-            scale: 0.8,
-            y: 100,
-            opacity: 0,
-          }}
-          animate={{
-            scale: isScrolled && !shouldShowNextProject ? 1 : shrinkedScale,
-            y: isScrolled && !shouldShowNextProject ? -100 : 0,
-            opacity: 1,
-            transition: {
-              duration: AnimationConfig.NORMAL,
-              ease: AnimationConfig.EASING,
-            },
-          }}
-          exit={{
-            // scale: 0.9,
-            opacity: 0,
-            y: 100,
-          }}
-        >
-          {/* Project Content */}
-          {/* <motion.div
           ref={contentRef}
           className="overflow-hidden rounded-xl absolute rounded-bl-none rounded-br-none"
           animate={anim}
@@ -265,12 +209,11 @@ const ProjectView = ({
           //   borderBottomLeftRadius: 0,
           //   borderBottomRightRadius: 0,
           // }}
-        > */}
+        >
           <motion.div
-            initial={{ backgroundColor: bgColor, color: textColor }}
-            animate={{ backgroundColor: bgColor, color: textColor }}
-            // exit={{ opacity: 0 }}
-            transition={{ delay: 0, duration: AnimationConfig.NORMAL }}
+            initial={{ opacity: 0, backgroundColor: bgColor, color: textColor }}
+            animate={{ opacity: 1, backgroundColor: bgColor, color: textColor }}
+            transition={{ delay: 0.1, duration: AnimationConfig.NORMAL }}
             className="relative pb-24 rounded-xl"
           >
             {children}
@@ -286,7 +229,6 @@ const ProjectView = ({
               projectInfo={nextProjectInfo}
             />
           </motion.div>
-          {/* </motion.div> */}
         </motion.div>
       </article>
     </>
