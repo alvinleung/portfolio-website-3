@@ -10,6 +10,7 @@ type Props = {
   seekOnScroll: boolean;
   fillHeight?: boolean;
   frameRate: number;
+  rowSpan?: number;
   children?: React.ReactNode;
 };
 
@@ -21,6 +22,7 @@ const Video = ({
   frameRate = 12,
   fillHeight,
   children,
+  rowSpan = 1,
 }: Props) => {
   const [shouldPlay, setShouldPlay] = useState(false);
   const [currentFrame, setCurrentFrame] = useState(0);
@@ -59,7 +61,7 @@ const Video = ({
   }, [currentFrame, seekOnScroll]);
 
   return (
-    <Figure>
+    <Figure rowSpan={rowSpan}>
       <motion.video
         className={`w-full ${
           fillHeight ? "md:h-full" : ""
