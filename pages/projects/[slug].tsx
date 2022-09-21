@@ -83,7 +83,7 @@ export default function Post({ source, meta, nextProjectMeta }: PostProps) {
       >
         {/* <h1 className="text-6xl">{meta.title}</h1> */}
         <ProjectHeader projectInfo={projectInfo} />
-        <main className="grid grid-cols-6 gap-x-4 mx-6 2xl:mx-16 text-xl">
+        <main className="grid grid-cols-6 gap-x-4 mx-6 2xl:mx-16 md:text-xl">
           <MDXRemote
             {...source}
             components={{

@@ -21,13 +21,18 @@ export const Quote = ({ children, who = "", title = "" }: any) => (
   </>
 );
 
+export const paragraphLayout =
+  "col-start-1 col-span-full sm:col-start-3 sm:col-span-4 md:col-start-2 md:col-span-3 lg:col-start-2 lg:col-span-3 xl:col-start-2 xl:col-span-2";
+
 export const Paragraph = (children: any) => (
-  <p className="col-start-1 col-span-full md:col-start-2 md:col-span-2 leading-[1.116em] opacity-60 pt-[1em]">
+  <p
+    className={`${paragraphLayout} leading-[1.2em] md:leading-[1.116em] opacity-60 pt-[1em]`}
+  >
     {children}
   </p>
 );
 export const Header2 = ({ children }: any) => (
-  <h2 className="col-start-1 col-span-full md:col-start-2 md:col-span-2 leading-[1.116em] text-xl pt-48">
+  <h2 className={`${paragraphLayout} md:leading-[1.116em] md:text-xl pt-48`}>
     {children}
   </h2>
 );

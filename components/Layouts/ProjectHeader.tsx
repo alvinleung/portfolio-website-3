@@ -14,7 +14,7 @@ type Props = {
 const ProjectHeader = ({ projectInfo }: Props) => {
   const isBiggerThanMd = useBreakpoint(breakpoints.md);
   return (
-    <motion.div className="xl:absolute left-0 right-0 top-0 px-4 lg:px-8 py-4 lg:py-8 grid gap-4 grid-cols-[1fr_1fr_4fr] md:grid-cols-[1fr_1fr_2fr] lg:grid-cols-[2fr_1fr]">
+    <motion.div className="2xl:absolute left-0 right-0 top-0 px-4 lg:px-8 py-4 lg:py-8 grid gap-4 grid-cols-[1fr_1fr_4fr] md:grid-cols-[1fr_1fr_2fr] lg:grid-cols-[2fr_1fr] z-20">
       <img
         src={getProjectLogo(projectInfo.slug, !isBiggerThanMd)}
         className="lg:max-h-12 mt-1 ml-1 md:mt-0 md:ml-0"

@@ -19,7 +19,7 @@ export const Caption = ({
     <figcaption
       className={`${
         forImage
-          ? "md:absolute mx-4 mt-3"
+          ? "md:absolute md:mx-4 mt-3"
           : "md:col-start-1 row-start-1 md:row-start-auto"
       } flex flex-row gap-4 text-sm leading-5 top-0 mb-2`}
     >

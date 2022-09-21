@@ -1,11 +1,12 @@
 import React from "react";
+import { paragraphLayout } from "./Typography";
 
 type ListProps = {
   children: React.ReactNode;
 };
 
 export const List = ({ children }: ListProps) => {
-  return <ul className="col-start-2 col-span-2 opacity-60">{children}</ul>;
+  return <ul className={paragraphLayout + " opacity-60"}>{children}</ul>;
 };
 
 type ListItemProps = {
@@ -16,7 +17,7 @@ type ListItemProps = {
 export const ListItem = ({ children, label }: ListItemProps) => {
   return (
     <li className="flex flex-row mt-[1.1em] leading-[1.116em]">
-      <div className="block w-[7vw]">{label}</div>
+      <div className="block w-[21vw] md:w-[7vw]">{label}</div>
       <div className="block w-full">
         {typeof children === "string" ? children : children.props.children}
       </div>

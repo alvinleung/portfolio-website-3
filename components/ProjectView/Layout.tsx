@@ -16,7 +16,7 @@ export const LayoutFull = ({ children, grid, extraMargin }: Props) => {
 
   return (
     <div
-      className={`col-start-1 col-span-full grid gap-4 lg:grid-cols-[var(--gridColumnSetup)] grid-flow-col-dense  ${
+      className={`col-start-1 col-span-full grid gap-4 lg:grid-cols-[var(--gridColumnSetup)]  ${
         extraMargin ? "mt-16" : "mt-4"
       }`}
       style={
@@ -41,7 +41,7 @@ export const LayoutMainContent = ({ children, grid, extraMargin }: Props) => {
 
   return (
     <div
-      className={`col-start-2 col-span-full grid gap-4 lg:grid-cols-[var(--gridColumnSetup)] ${
+      className={`md:col-start-2 col-span-full grid gap-4 lg:grid-cols-[var(--gridColumnSetup)] ${
         extraMargin ? "mt-16" : "mt-4"
       }`}
       style={

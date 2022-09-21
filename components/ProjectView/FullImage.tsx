@@ -10,13 +10,17 @@ type Props = {
 
 const FullImage = ({ src, width, height, caption }: Props) => {
   return (
-    <img
-      className="block w-full col-start-1 col-span-full"
-      src={src}
-      width={width}
-      height={height}
-      alt={caption ? caption : ""}
-    />
+    <div className="min-h-[70vh] col-start-1 col-span-full relative z-10">
+      <div className="absolute md:relative -left-6 -right-6">
+        <img
+          className="block w-[100vw] min-h-[70vh] object-cover"
+          src={src}
+          width={width}
+          height={height}
+          alt={caption ? caption : ""}
+        />
+      </div>
+    </div>
   );
 };
 
