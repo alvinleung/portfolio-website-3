@@ -29,6 +29,14 @@ weight: 9
   ]}
 />
 
+<LayoutFull>
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/whatif/artist-page.mp4"
+    width={1920}
+    height={1080}
+  ></Video>
+</LayoutFull>
+
 <ColorShifter color="#FFF" />
 
 ## Microsite Design
@@ -42,20 +50,35 @@ As an online archive for the installation art pieces, the microsite intends to e
   <ListItem label="2">Create intrigue through denial & reward. </ListItem>
 </List>
 
-<LayoutMainContent extraMargin>
+<LayoutMainContent grid="1/2" extraMargin>
   <Video
     src="https://www.sfu.ca/~kkl64/videos/whatif/intro.mp4"
     width={1920}
     height={1080}
-  ></Video>
-</LayoutMainContent>
-
-<LayoutMainContent extraMargin>
+  >
+    <Caption label="1" text="Introduction" forImage={false} />
+  </Video>
   <Video
     src="https://www.sfu.ca/~kkl64/videos/whatif/selection-page.mp4"
     width={1920}
     height={1080}
-  ></Video>
+  >
+    <Caption label="1" text="Browsing Exhibits" forImage={false} />
+  </Video>
+</LayoutMainContent>
+
+<LayoutMainContent extraMargin>
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/whatif/homo-quantis.mp4"
+    width={1920}
+    height={1080}
+  >
+    <Caption
+      label="1"
+      text="Acting as the focal point of the microsite, the exhibit selection page reveals just enough information that entices the visitor to investigate more. This is achieved by tight image cropping and the “what if” prompts."
+      forImage={false}
+    />
+  </Video>
 </LayoutMainContent>
 
 ## Interaction and Art Direction
