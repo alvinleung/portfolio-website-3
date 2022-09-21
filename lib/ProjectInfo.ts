@@ -44,7 +44,8 @@ export function getProjectCover(slug: string) {
   return `/project-assets/${slug}/${slug}-cover.jpg`;
 }
 
-export function getProjectLogo(slug: string) {
+export function getProjectLogo(slug: string, small?: boolean) {
+  if (small) return `/project-assets/${slug}/${slug}-logo-sm.png`;
   return `/project-assets/${slug}/${slug}-logo.png`;
 }
 

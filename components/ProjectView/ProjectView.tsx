@@ -254,7 +254,13 @@ const ProjectView = ({
         />
       </motion.div>
       {/* <motion.article ref={contentContainerRef} className="mx-6 2xl:mx-16 z-10"> */}
-      <article ref={contentContainerRef} className="z-10 h-[90%]">
+      <article
+        ref={contentContainerRef}
+        className="z-10"
+        style={{
+          height: `${shrinkedScale}%`,
+        }}
+      >
         <motion.div
           onAnimationComplete={handleAnimComplete}
           style={{

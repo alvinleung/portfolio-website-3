@@ -1,5 +1,10 @@
 import { motion } from "framer-motion";
 import React from "react";
+import {
+  breakpoints,
+  useBreakpoint,
+  useMobileBreakpoint,
+} from "../../hooks/useBreakpoints";
 import { getProjectLogo, ProjectInfo } from "../../lib/ProjectInfo";
 
 type Props = {
@@ -7,16 +12,22 @@ type Props = {
 };
 
 const ProjectHeader = ({ projectInfo }: Props) => {
+  const isBiggerThanMd = useBreakpoint(breakpoints.md);
   return (
-    <motion.div className="absolute left-0 right-0 top-0 px-8 py-8 grid grid-cols-[2fr_1fr]">
-      <img src={getProjectLogo(projectInfo.slug)} className="h-12" />
-      <div>
-        <h1 className="text-2xl text-normal tracking-tightest leading-[1em] max-w-[432px]">
+    <motion.div className="xl:absolute left-0 right-0 top-0 px-4 lg:px-8 py-4 lg:py-8 grid gap-4 grid-cols-[1fr_1fr_4fr] md:grid-cols-[1fr_1fr_2fr] lg:grid-cols-[2fr_1fr]">
+      <img
+        src={getProjectLogo(projectInfo.slug, !isBiggerThanMd)}
+        className="lg:max-h-12 mt-1 ml-1 md:mt-0 md:ml-0"
+      />
+      <div className="col-start-3 lg:col-start-2">
+        <h1 className="text-lg lg:text-2xl text-normal tracking-tightest leading-none lg:leading-none max-w-[432px]">
           {projectInfo.description}
         </h1>
-        <div className="mt-8 opacity-50 leading-tight">{projectInfo.scope}</div>
+        <div className="text-sm lg:text-base mt-4 lg:mt-8 opacity-50 leading-tight lg:leading-tight">
+          {projectInfo.scope}
+        </div>
         {projectInfo.tags && (
-          <div className="mt-6 opacity-50 leading-tight">
+          <div className="text-sm lg:text-base mt-4 lg:mt-6 opacity-50 leading-tight lg:leading-tight">
             {projectInfo.tags.map((tag: string, index: number) => {
               return <div key={index}>{tag}</div>;
             })}
