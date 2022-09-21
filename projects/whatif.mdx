@@ -18,7 +18,7 @@ weight: 9
 
 <FullImage src="/project-assets/whatif/intro.jpg" width={1920} height={3230} />
 
--- This senior art direction + interaction design project envisions an expressive post-event microsite for what if? — an exhibition hosted by Fabrica. Featuring interactive art installations from 12 international artists, the works capture daring speculations of humanity's future.
+-- Hosted by fabrica, What if? is an interactive art installations exhibition featuring 12 young international artists. Their works captured daring speculations of humanity's future.
 
 <Team
   teammates={[
@@ -30,8 +30,31 @@ weight: 9
 />
 
 <LayoutFull>
-  <Video
+  {/* <Video
+    src="https://www.sfu.ca/~kkl64/videos/whatif/exhibition-interaction.mp4"
+    width={1920}
+    height={1080}
+  ></Video> */}
+  {/* <Video
+    src="https://www.sfu.ca/~kkl64/videos/whatif/intro.mp4"
+    width={1920}
+    height={1080}
+  ></Video> */}
+</LayoutFull>
+<LayoutFull>
+  {/* <Video
     src="https://www.sfu.ca/~kkl64/videos/whatif/artist-page.mp4"
+    width={1920}
+    height={1080}
+  >
+    <Caption
+      label="1"
+      text="Playful credit that highlights the art direction"
+      forImage={false}
+    />
+  </Video> */}
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/whatif/exhibition-interaction.mp4"
     width={1920}
     height={1080}
   ></Video>
@@ -39,7 +62,7 @@ weight: 9
 
 <ColorShifter color="#FFF" />
 
-## Microsite Design
+## Celebrate the works
 
 As an online archive for the installation art pieces, the microsite intends to encapsulate the physical experience of the exhibition by creating a sense of immersion for visitors. It was achieve by:
 
@@ -50,32 +73,51 @@ As an online archive for the installation art pieces, the microsite intends to e
   <ListItem label="2">Create intrigue through denial & reward. </ListItem>
 </List>
 
-<LayoutMainContent grid="1/2" extraMargin>
-  <Video
+<LayoutMainContent grid="2/4" extraMargin>
+  {/* <Video
     src="https://www.sfu.ca/~kkl64/videos/whatif/intro.mp4"
     width={1920}
     height={1080}
   >
-    <Caption label="1" text="Introduction" forImage={false} />
-  </Video>
+    <Caption
+      label="1"
+      text="Introduction that prime user the unique interaction."
+      forImage={false}
+    />
+  </Video> */}
   <Video
     src="https://www.sfu.ca/~kkl64/videos/whatif/selection-page.mp4"
     width={1920}
     height={1080}
   >
-    <Caption label="1" text="Browsing Exhibits" forImage={false} />
+    <Caption
+      label="2"
+      text="The exhibit selection page reveals just enough information that entices the visitor to investigate more. This is achieved by tight image cropping and the “what if” prompts."
+      forImage={false}
+    />
   </Video>
-</LayoutMainContent>
-
-<LayoutMainContent extraMargin>
   <Video
     src="https://www.sfu.ca/~kkl64/videos/whatif/homo-quantis.mp4"
     width={1920}
     height={1080}
   >
     <Caption
-      label="1"
-      text="Acting as the focal point of the microsite, the exhibit selection page reveals just enough information that entices the visitor to investigate more. This is achieved by tight image cropping and the “what if” prompts."
+      label="3"
+      text="Each exhibit page was given its own voice via art direction and interaction. Through the use of unique color, font pairing and custom interaction which is abstracted from the physical exhibit to elicit similar thoughts and emotions."
+      forImage={false}
+    />
+  </Video>
+</LayoutMainContent>
+
+<LayoutMainContent extraMargin>
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/whatif/nav-bar-going-out.mp4"
+    width={1920}
+    height={1080}
+  >
+    <Caption
+      label="4"
+      text="The navigation bar mimics the content layout. As the visitor enters an exhibit, its visual form changes to signify a different viewing mode."
       forImage={false}
     />
   </Video>
