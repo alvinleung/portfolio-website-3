@@ -28,6 +28,13 @@ import { Caption } from "../../components/ProjectView/Caption";
 import Video from "../../components/ProjectView/Video";
 import { List, ListItem } from "../../components/ProjectView/List";
 import SlideShow from "../../components/ProjectView/SlideShow";
+import {
+  Header2,
+  Paragraph,
+  ParagraphBig,
+  paragraphProcessor,
+  Quote,
+} from "../../components/ProjectView/Typography";
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   // Return a list of possible value for id
@@ -82,15 +89,7 @@ export default function Post({ source, meta, nextProjectMeta }: PostProps) {
             components={{
               TestingComponent,
               FullImage,
-              p: createParagraphProcessor(
-                [
-                  {
-                    token: "--",
-                    output: ParagraphBig,
-                  },
-                ],
-                Paragraph
-              ),
+              p: paragraphProcessor,
               h2: Header2,
               Image: Image,
               Video: Video,
@@ -110,35 +109,3 @@ export default function Post({ source, meta, nextProjectMeta }: PostProps) {
     </ColorShifterContextProvider>
   );
 }
-
-const ParagraphBig = (children: any) => (
-  <p className="col-start-2 col-span-3 mt-48 mb-32 text-5xl font-normal">
-    {children}
-  </p>
-);
-const Quote = ({ children, who = "", title = "" }: any) => (
-  <>
-    <blockquote className="col-start-2 2xl:col-start-4 col-span-3 mt-48 mb-12 text-5xl font-normal -indent-4">
-      “{children}”
-    </blockquote>
-    <div className="col-start-2 2xl:col-start-4 col-span-1 text-sm mb-24">
-      {who}
-    </div>
-    <div className="col-start-3 2xl:col-start-5 col-span-1 text-sm mb-24">
-      {title}
-    </div>
-    {/* <div className="col-start-2 col-span-1 text-sm">{from}</div>
-    <div className="col-start-2 col-span-1 text-sm mb-24">{address}</div> */}
-  </>
-);
-
-const Paragraph = (children: any) => (
-  <p className="col-start-2 col-span-2 leading-[1.116em] opacity-60 pt-[1em]">
-    {children}
-  </p>
-);
-const Header2 = ({ children }: any) => (
-  <h2 className="col-start-2 col-span-2 leading-[1.116em] text-xl pt-48">
-    {children}
-  </h2>
-);
