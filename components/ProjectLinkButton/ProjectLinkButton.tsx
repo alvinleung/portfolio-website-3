@@ -21,7 +21,7 @@ const ProjectLinkButton = ({ projectStyle, projectInfo, scrolled }: Props) => {
   const { prevCardRef } = usePageTransition();
 
   const handleClick = () => {
-    prevCardRef.current = linkRef.current;
+    // prevCardRef.current = linkRef.current;
   };
 
   // const baseColor = scrolled ? "rgba(50, 50, 50, 0.4)" : projectStyle.dark;

@@ -57,7 +57,7 @@ type Props = {
   cardRef: MutableRefObject<HTMLDivElement>;
 };
 
-const ProjectCard = ({
+const ProjectGridCard = ({
   isFirstRow,
   projectInfo,
   projectStyle,
@@ -182,4 +182,4 @@ const ProjectCard = ({
   );
 };
 
-export default ProjectCard;
+export default ProjectGridCard;

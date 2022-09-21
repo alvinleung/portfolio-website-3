@@ -128,15 +128,15 @@ const ProjectView = ({
   }, [scrollDirection]);
 
   useEffect(() => {
-    if (USE_SIMPLE_TRANSITION) {
-      anim.set({
-        scale: 0.8,
-        y: window.innerHeight / 3,
-        opacity: 0,
-      });
+    // if (USE_SIMPLE_TRANSITION) {
+    //   anim.set({
+    //     scale: 0.8,
+    //     y: window.innerHeight / 3,
+    //     opacity: 0,
+    //   });
 
-      return;
-    }
+    //   return;
+    // }
 
     if (!prevCardRef.current) {
       anim.set({
@@ -146,6 +146,7 @@ const ProjectView = ({
       });
       return;
     }
+
     const containerBounds = prevCardRef.current.getBoundingClientRect();
     const y = containerBounds.top;
     const x =
@@ -159,6 +160,9 @@ const ProjectView = ({
       y: y,
       opacity: 0,
     });
+
+    // reset the prev card ref
+    // prevCardRef.current = undefined;
   }, []);
 
   const isAnimInDone = useRef(false);
@@ -229,7 +233,9 @@ const ProjectView = ({
   }, [isScrolled, shouldShowNextProject, shrinkedScale, isPresent]);
 
   const handleAnimComplete = () => {
+    // clear enter animation
     isAnimInDone.current = true;
+    prevCardRef.current = undefined;
   };
 
   return (

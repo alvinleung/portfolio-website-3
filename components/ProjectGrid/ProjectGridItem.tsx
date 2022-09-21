@@ -7,7 +7,7 @@ import {
   ProjectInfo,
   ProjectStyle,
 } from "../../lib/ProjectInfo";
-import ProjectCard from "./ProjectCard";
+import ProjectCard from "./ProjectGridCard";
 
 interface ProjectGridItemProps {
   gridBoundTop: number;
@@ -47,13 +47,13 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
     (val) => val * boxContainerHeight
   );
 
-  const { prevCardRef } = usePageTransition();
   const cardRef = useRef() as MutableRefObject<HTMLDivElement>;
-  useEffect(() => {
-    if (prevCardRef && selectedProject === projectInfo.slug) {
-      prevCardRef.current = cardRef.current;
-    }
-  }, [selectedProject]);
+  // const { prevCardRef } = usePageTransition();
+  // useEffect(() => {
+  //   if (prevCardRef && selectedProject === projectInfo.slug) {
+  //     prevCardRef.current = cardRef.current;
+  //   }
+  // }, [selectedProject]);
 
   useEffect(() => {
     const handleResize = () => {
