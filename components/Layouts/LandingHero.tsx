@@ -22,6 +22,7 @@ const LandingHero = (props: Props) => {
   );
   const heroScale = useTransform(scrollY, [0, introSectionHeight], [1, 0.97]);
   const heroOpacity = useTransform(scrollY, [0, introSectionHeight], [1, 0]);
+  const filter = useTransform(scrollY, (v) => `blur(${v / 100}px)`);
 
   return (
     <>
@@ -37,7 +38,7 @@ const LandingHero = (props: Props) => {
       <motion.section className="relative h-[70vh] md:h-[90vh]" ref={boundRef}>
         <motion.div
           className="fixed px-4 py-4 md:px-6 md:py-6 grid grid-cols-6 grid-rows-[1fr] gap-4 md:h-[80vh]  -z-10"
-          style={{ scale: heroScale, opacity: heroOpacity }}
+          style={{ scale: heroScale, opacity: heroOpacity, filter: filter }}
           initial={{
             opacity: 0,
             scale: 0.9,
