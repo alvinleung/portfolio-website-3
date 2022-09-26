@@ -3,9 +3,9 @@ import { useMemo } from "react";
 type CaptionProps = {
   label?: string;
   text: string;
-  wideSpacing: boolean;
-  forImage: boolean;
-  topPadding: boolean;
+  wideSpacing?: boolean;
+  forImage?: boolean;
+  topPadding?: boolean;
 };
 
 export const Caption = ({
