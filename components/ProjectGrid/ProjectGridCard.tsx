@@ -50,6 +50,7 @@ const RoundedCornerSVGRight = ({ size = 12 }) => (
 type Props = {
   isFirstRow: boolean;
   isActive: boolean;
+  index: number;
   projectInfo: ProjectInfo;
   projectStyle: ProjectStyle;
   opacity: MotionValue;
@@ -65,6 +66,7 @@ const ProjectGridCard = ({
   height,
   isActive,
   cardRef,
+  index,
 }: Props) => {
   const [cursorOffsetFromCenter, setCursorOffsetFromCenter] = useState({
     x: 0,
@@ -84,14 +86,14 @@ const ProjectGridCard = ({
           });
         }}
       >
-        {!isFirstRow && (
+        {/* {!isFirstRow && (
           <div
             className={`absolute top-[-1rem] left-0 right-0 h-8 bg-brand-dark`}
           >
             <RoundedCornerSVGLeft />
             <RoundedCornerSVGRight />
           </div>
-        )}
+        )} */}
         <motion.div
           style={{
             transformPerspective: "100vw",
@@ -122,21 +124,25 @@ const ProjectGridCard = ({
               backgroundColor: isActive
                 ? projectStyle.getBgColor()
                 : INACTIVE_BG_COLOR,
+              y: isActive ? 0 : 50,
+              scale: isActive ? 1 : 0.98,
             }}
             transition={{
-              duration: AnimationConfig.NORMAL,
-              ease: "linear",
+              duration: AnimationConfig.SLOW,
+              ease: AnimationConfig.EASING_IN_OUT,
+              delay: index * 0.08,
             }}
             ref={cardRef}
           >
             <motion.div
               initial={{ opacity: 0 }}
               animate={{
-                opacity: isActive ? 1 : 0.0,
+                opacity: isActive ? 1 : 0.1,
               }}
               transition={{
                 duration: AnimationConfig.SLOW,
-                ease: "linear",
+                ease: AnimationConfig.EASING_IN_OUT,
+                delay: index * 0.08,
               }}
             >
               <Image
@@ -149,16 +155,19 @@ const ProjectGridCard = ({
             {/* content */}
             <motion.div
               className="absolute left-0 right-0 top-0"
+              style={{ color: projectStyle.getTextColor() }}
               initial={{
-                color: isActive
-                  ? projectStyle.getTextColor()
-                  : INACTIVE_TEXT_COLOR,
+                // color: isActive
+                //   ? projectStyle.getTextColor()
+                //   : INACTIVE_TEXT_COLOR,
+                opacity: isActive ? 1 : 0,
               }}
               animate={{
+                opacity: isActive ? 1 : 0,
                 // backgroundColor: isActive ? bgColor : INACTIVE_BG_COLOR,
-                color: isActive
-                  ? projectStyle.getTextColor()
-                  : INACTIVE_TEXT_COLOR,
+                // color: isActive
+                //   ? projectStyle.getTextColor()
+                //   : INACTIVE_TEXT_COLOR,
               }}
               transition={{
                 duration: AnimationConfig.NORMAL,

@@ -14,6 +14,7 @@ interface ProjectGridItemProps {
   projectRow: number;
   isActive: boolean;
   // isFirstRow: boolean;
+  index: number;
   selectedProject: string;
   projectStyle: ProjectStyle;
   projectInfo: ProjectInfo;
@@ -29,6 +30,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   gridBoundTop,
   onSelect,
   selectedProject,
+  index,
 }) => {
   const { scrollY } = useContainerScroll();
   const containerRef = useRef() as MutableRefObject<HTMLDivElement>;
@@ -82,6 +84,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
     >
       {/* background media */}
       <ProjectCard
+        index={index}
         cardRef={cardRef}
         opacity={boxOpacity}
         height={boxHeight}

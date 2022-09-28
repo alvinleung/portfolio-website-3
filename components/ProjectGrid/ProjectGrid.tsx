@@ -57,6 +57,7 @@ const ProjectGrid = ({ isViewing, projects }: Props) => {
             projectRow={Math.floor(index / gridCols)}
             projectInfo={getProjectInfo(project.meta)}
             projectStyle={getProjectStyle(project.meta)}
+            index={index}
           />
         ))}
       </motion.div>
