@@ -51,13 +51,13 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
     [1, 0]
   );
 
-  const isSmallerThanMobile = useMobileBreakpoint();
+  const isBiggerThanMobile = useMobileBreakpoint();
   const boxOpacity = useTransform(boxTransitionOutProgress, [0, 0.1], [0, 1]);
   const boxHeight = useTransform(boxTransitionOutProgress, (val) => {
     return val * boxContainerHeight;
   });
   const parallaxY = useTransform(boxTransitionOutProgress, (val) => {
-    return isSmallerThanMobile ? 0 : (1 - val) * -boxContainerHeight * 0.5;
+    return isBiggerThanMobile ? (1 - val) * -boxContainerHeight * 0.5 : 0;
   });
 
   useEffect(() => {
