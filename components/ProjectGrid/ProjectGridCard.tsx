@@ -1,7 +1,13 @@
-import { motion, MotionValue } from "framer-motion";
+import { motion, MotionValue, useTransform } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import React, { MutableRefObject, useMemo, useState } from "react";
+import React, {
+  MutableRefObject,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useBoundingBox } from "../../hooks/useBoundingClientRect";
 import { AnimationConfig } from "../AnimationConfig";
 import {
@@ -9,6 +15,8 @@ import {
   ProjectInfo,
   ProjectStyle,
 } from "../../lib/ProjectInfo";
+import { useHomeScrollPosition } from "../HomeScrollPositionContext";
+import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 
 const INACTIVE_TEXT_COLOR = "#9FEEDC";
 const INACTIVE_BG_COLOR = "#1B2524";
@@ -20,6 +28,7 @@ type Props = {
   projectStyle: ProjectStyle;
   opacity: MotionValue;
   height: MotionValue;
+  parallaxY: MotionValue;
   cardRef: MutableRefObject<HTMLDivElement>;
 };
 
@@ -27,6 +36,7 @@ const ProjectGridCard = ({
   projectInfo,
   projectStyle,
   opacity,
+  parallaxY,
   height,
   isActive,
   cardRef,
@@ -40,6 +50,19 @@ const ProjectGridCard = ({
     if (typeof window === "undefined") return 500;
     return window.innerHeight * 0.7;
   }, []);
+
+  const [isHovering, setIsHovering] = useState(false);
+
+  const videoRef = useRef() as MutableRefObject<HTMLVideoElement>;
+  useEffect(() => {
+    if (!videoRef.current) return;
+    if (isHovering) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play();
+    } else {
+      videoRef.current.pause();
+    }
+  }, [isHovering]);
 
   return (
     <Link href={`projects/${projectInfo.slug}`} scroll={false}>
@@ -57,6 +80,8 @@ const ProjectGridCard = ({
           pointerEvents: isActive ? "all" : "none",
           cursor: isActive ? "pointer" : "auto",
         }}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
       >
         <motion.div
           style={{
@@ -111,12 +136,28 @@ const ProjectGridCard = ({
                 delay: index * 0.06,
               }}
             >
-              <Image
-                src={getProjectCover(projectInfo.slug)}
-                width={582}
-                height={767}
-                layout="responsive"
-              />
+              <motion.div className="relative" style={{ y: parallaxY }}>
+                <Image
+                  src={getProjectCover(projectInfo.slug)}
+                  width={582}
+                  height={767}
+                  layout="responsive"
+                />
+                {projectInfo.previewVideo && (
+                  <motion.video
+                    ref={videoRef}
+                    src={projectInfo.previewVideo}
+                    autoPlay
+                    muted
+                    loop
+                    className="absolute left-0 right-0 top-0 bottom-0 w-full h-full object-cover"
+                    animate={{
+                      opacity: isHovering ? "1" : "0",
+                      backgroundColor: projectStyle.getBgColor(),
+                    }}
+                  />
+                )}
+              </motion.div>
             </motion.div>
             {/* content */}
             <motion.div

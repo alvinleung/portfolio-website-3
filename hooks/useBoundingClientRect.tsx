@@ -1,4 +1,10 @@
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import {
+  MutableRefObject,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 type BoundingBoxInfo = {
   x: number;
@@ -26,7 +32,7 @@ export function useBoundingBox<T extends HTMLElement>(
     bottom: 0,
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handleResize = () => {
       const bounds = containerRef.current.getBoundingClientRect();
       setBounds(bounds);

@@ -4,6 +4,7 @@ export interface ProjectInfo {
   tags?: string[];
   slug: string;
   scope: string;
+  previewVideo: string;
 }
 
 export function getProjectInfo(meta: any): ProjectInfo {
@@ -13,6 +14,7 @@ export function getProjectInfo(meta: any): ProjectInfo {
     tags: meta.tags && meta.tags.split(","),
     scope: meta.scope,
     description: meta.description,
+    previewVideo: meta.previewVideo,
   };
 }
 

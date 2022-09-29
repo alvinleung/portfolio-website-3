@@ -8,6 +8,7 @@ import {
 import React, { useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { useBoundingBox } from "../../hooks/useBoundingClientRect";
+import useIsFirstRender from "../../hooks/useIsFirstRender";
 import { AnimationConfig } from "../AnimationConfig";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 
@@ -42,12 +43,14 @@ const LandingHero = (props: Props) => {
         className="fixed w-full h-full -z-10"
         style={{ backgroundColor: isOutsideScrollArea ? DEFAULT_BG : bgColour }}
         initial={{ backgroundColor: DEFAULT_BG }}
-        animate={{ backgroundColor: LANDING_THEME_BG }}
+        animate={{
+          backgroundColor: LANDING_THEME_BG,
+        }}
         exit={{
           backgroundColor: DEFAULT_BG,
         }}
       ></motion.div>
-      <motion.section className="relative h-[10vh] md:h-[20vh]" ref={boundRef}>
+      <motion.section className="relative h-[20vh]" ref={boundRef}>
         <motion.div
           className="fixed px-4 py-4 md:px-6 md:py-6 grid grid-cols-6 grid-rows-[1fr] gap-4 md:h-[80vh]  -z-10"
           style={{

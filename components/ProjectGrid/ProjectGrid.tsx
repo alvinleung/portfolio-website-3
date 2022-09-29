@@ -7,6 +7,7 @@ import { getProjectInfo, getProjectStyle } from "../../lib/ProjectInfo";
 import { ProjectGridItem } from "./ProjectGridItem";
 import { useBoundingBox } from "../../hooks/useBoundingClientRect";
 import { breakpoints } from "../../hooks/useBreakpoints";
+import { useHomeScrollPosition } from "../HomeScrollPositionContext";
 
 type Props = {
   isViewing: boolean;

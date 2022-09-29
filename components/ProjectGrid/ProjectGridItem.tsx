@@ -54,6 +54,9 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   const boxHeight = useTransform(boxTransitionOutProgress, (val) => {
     return val * boxContainerHeight;
   });
+  const parallaxY = useTransform(boxTransitionOutProgress, (val) => {
+    return (1 - val) * -boxContainerHeight * 0.5;
+  });
 
   useEffect(() => {
     console.log(`scroll ${scrollY.get()}: shrink ${beginShrinkPos}`);
@@ -108,6 +111,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
         index={index}
         cardRef={cardRef}
         opacity={boxOpacity}
+        parallaxY={parallaxY}
         height={boxHeight}
         projectInfo={projectInfo}
         projectStyle={projectStyle}
