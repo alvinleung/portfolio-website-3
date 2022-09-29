@@ -14,6 +14,7 @@ import {
   ProjectStyle,
 } from "../../lib/ProjectInfo";
 import ProjectCard from "./ProjectGridCard";
+import { useMobileBreakpoint } from "../../hooks/useBreakpoints";
 
 interface ProjectGridItemProps {
   gridBoundTop: number;
@@ -38,7 +39,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   selectedProject,
   index,
 }) => {
-  const { scrollY, scrollContainerRef } = useContainerScroll();
+  const { scrollY } = useContainerScroll();
   const containerRef = useRef() as MutableRefObject<HTMLDivElement>;
   const TOP_OFFSET = 58;
   const [beginShrinkPos, setBeginShrinkPos] = useState(100);
@@ -50,12 +51,13 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
     [1, 0]
   );
 
+  const isSmallerThanMobile = useMobileBreakpoint();
   const boxOpacity = useTransform(boxTransitionOutProgress, [0, 0.1], [0, 1]);
   const boxHeight = useTransform(boxTransitionOutProgress, (val) => {
     return val * boxContainerHeight;
   });
   const parallaxY = useTransform(boxTransitionOutProgress, (val) => {
-    return (1 - val) * -boxContainerHeight * 0.5;
+    return isSmallerThanMobile ? 0 : (1 - val) * -boxContainerHeight * 0.5;
   });
 
   useEffect(() => {
