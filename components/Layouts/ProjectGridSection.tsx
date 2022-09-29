@@ -33,7 +33,7 @@ const ProjectGridSection = ({
           ease: AnimationConfig.EASING,
         }}
       >
-        <div className="text-white text-left">He has proudly worked on:</div>
+        <div className="text-white text-left">I am pretty happy with these</div>
         <div className="text-white text-right">
           <a href="mailto:alvinleung2009@gmail.com" className="mr-4">
             Email

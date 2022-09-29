@@ -1,11 +1,12 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useWindowDimension } from "../../hooks/useWindowDimension";
 import { AnimationConfig } from "../AnimationConfig";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 import { getProjectInfo, getProjectStyle } from "../../lib/ProjectInfo";
 import { ProjectGridItem } from "./ProjectGridItem";
 import { useBoundingBox } from "../../hooks/useBoundingClientRect";
+import { breakpoints } from "../../hooks/useBreakpoints";
 
 type Props = {
   isViewing: boolean;
@@ -17,6 +18,14 @@ const ProjectGrid = ({ isViewing, projects }: Props) => {
   const { scrollY } = useContainerScroll();
 
   const windowDimension = useWindowDimension();
+  useEffect(() => {
+    if (windowDimension.width > breakpoints.md) {
+      setGridCols(2);
+      return;
+    }
+    setGridCols(1);
+  }, [windowDimension.width]);
+
   const [containerRef, bounds] = useBoundingBox<HTMLDivElement>([]);
 
   const transformOrigin = useTransform(
@@ -27,7 +36,7 @@ const ProjectGrid = ({ isViewing, projects }: Props) => {
   return (
     <>
       <motion.div
-        className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 z-20 px-4 md:px-6 pb-8"
+        className="grid md:grid-cols-2 lg:grid-cols-2 gap-4 z-20 px-4 md:px-6 pb-8"
         ref={containerRef}
         style={{
           transformOrigin: transformOrigin,

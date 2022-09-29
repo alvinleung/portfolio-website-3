@@ -1,7 +1,7 @@
 import { motion, MotionValue } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import React, { MutableRefObject, useState } from "react";
+import React, { MutableRefObject, useMemo, useState } from "react";
 import { useBoundingBox } from "../../hooks/useBoundingClientRect";
 import { AnimationConfig } from "../AnimationConfig";
 import {
@@ -13,42 +13,7 @@ import {
 const INACTIVE_TEXT_COLOR = "#9FEEDC";
 const INACTIVE_BG_COLOR = "#1B2524";
 
-const RoundedCornerSVGLeft = ({ size = 12 }) => (
-  <svg
-    width="6"
-    height="6"
-    viewBox="0 0 6 6"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="absolute -top-3 left-0"
-    style={{
-      width: size,
-      height: size,
-    }}
-  >
-    <path d="M0 0V6H6C2.68555 6 0 3.31445 0 0Z" fill="#0E1010" />
-  </svg>
-);
-
-const RoundedCornerSVGRight = ({ size = 12 }) => (
-  <svg
-    width="6"
-    height="6"
-    viewBox="0 0 6 6"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className="absolute -top-3 right-0"
-    style={{
-      width: size,
-      height: size,
-    }}
-  >
-    <path d="M0 6L6 6L6 -2.62268e-07C6 3.31445 3.31445 6 0 6Z" fill="#0E1010" />
-  </svg>
-);
-
 type Props = {
-  isFirstRow: boolean;
   isActive: boolean;
   index: number;
   projectInfo: ProjectInfo;
@@ -59,7 +24,6 @@ type Props = {
 };
 
 const ProjectGridCard = ({
-  isFirstRow,
   projectInfo,
   projectStyle,
   opacity,
@@ -72,6 +36,10 @@ const ProjectGridCard = ({
     x: 0,
     y: 0,
   });
+  const cardYOffset = useMemo(() => {
+    if (typeof window === "undefined") return 500;
+    return window.innerHeight * 0.7;
+  }, []);
 
   return (
     <Link href={`projects/${projectInfo.slug}`} scroll={false}>
@@ -85,15 +53,11 @@ const ProjectGridCard = ({
             y: (e.clientY - bounds.y) / bounds.height - 0.5,
           });
         }}
+        style={{
+          pointerEvents: isActive ? "all" : "none",
+          cursor: isActive ? "pointer" : "auto",
+        }}
       >
-        {/* {!isFirstRow && (
-          <div
-            className={`absolute top-[-1rem] left-0 right-0 h-8 bg-brand-dark`}
-          >
-            <RoundedCornerSVGLeft />
-            <RoundedCornerSVGRight />
-          </div>
-        )} */}
         <motion.div
           style={{
             transformPerspective: "100vw",
@@ -124,13 +88,13 @@ const ProjectGridCard = ({
               backgroundColor: isActive
                 ? projectStyle.getBgColor()
                 : INACTIVE_BG_COLOR,
-              y: isActive ? 0 : 50,
+              y: isActive ? 0 : cardYOffset,
               scale: isActive ? 1 : 0.98,
             }}
             transition={{
-              duration: AnimationConfig.SLOW,
-              ease: AnimationConfig.EASING_IN_OUT,
-              delay: index * 0.08,
+              duration: isActive ? 0.4 : AnimationConfig.FAST,
+              ease: isActive ? [0.62, 0, 0.02, 1] : AnimationConfig.EASING,
+              delay: isActive ? index * 0.05 : 0,
             }}
             ref={cardRef}
           >
@@ -140,9 +104,11 @@ const ProjectGridCard = ({
                 opacity: isActive ? 1 : 0.1,
               }}
               transition={{
-                duration: AnimationConfig.SLOW,
-                ease: AnimationConfig.EASING_IN_OUT,
-                delay: index * 0.08,
+                duration: isActive
+                  ? AnimationConfig.SLOW
+                  : AnimationConfig.FAST,
+                ease: AnimationConfig.EASING,
+                delay: index * 0.06,
               }}
             >
               <Image
@@ -157,17 +123,10 @@ const ProjectGridCard = ({
               className="absolute left-0 right-0 top-0"
               style={{ color: projectStyle.getTextColor() }}
               initial={{
-                // color: isActive
-                //   ? projectStyle.getTextColor()
-                //   : INACTIVE_TEXT_COLOR,
                 opacity: isActive ? 1 : 0,
               }}
               animate={{
                 opacity: isActive ? 1 : 0,
-                // backgroundColor: isActive ? bgColor : INACTIVE_BG_COLOR,
-                // color: isActive
-                //   ? projectStyle.getTextColor()
-                //   : INACTIVE_TEXT_COLOR,
               }}
               transition={{
                 duration: AnimationConfig.NORMAL,

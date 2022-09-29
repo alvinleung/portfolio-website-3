@@ -1,4 +1,10 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  useIsPresent,
+  usePresence,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import React, { useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { useBoundingBox } from "../../hooks/useBoundingClientRect";
@@ -11,7 +17,7 @@ const LANDING_THEME_BG = "#192220";
 const DEFAULT_BG = "#0e1010";
 
 const LandingHero = (props: Props) => {
-  const { scrollY } = useContainerScroll();
+  const { scrollY, scrollContainerRef } = useContainerScroll();
   const [boundRef, bounds] = useBoundingBox([]);
   const introSectionHeight = bounds.height;
 
@@ -20,6 +26,11 @@ const LandingHero = (props: Props) => {
     [0, introSectionHeight],
     [LANDING_THEME_BG, DEFAULT_BG]
   );
+
+  const isOutsideScrollArea =
+    scrollContainerRef.current &&
+    scrollContainerRef.current.scrollTop > bounds.height;
+
   const heroScale = useTransform(scrollY, [0, introSectionHeight], [1, 0.97]);
   const heroOpacity = useTransform(scrollY, [0, introSectionHeight], [1, 0]);
   const filter = useTransform(scrollY, (v) => `blur(${v / 100}px)`);
@@ -29,19 +40,19 @@ const LandingHero = (props: Props) => {
     <>
       <motion.div
         className="fixed w-full h-full -z-10"
-        style={{ backgroundColor: bgColour }}
+        style={{ backgroundColor: isOutsideScrollArea ? DEFAULT_BG : bgColour }}
         initial={{ backgroundColor: DEFAULT_BG }}
         animate={{ backgroundColor: LANDING_THEME_BG }}
         exit={{
           backgroundColor: DEFAULT_BG,
         }}
       ></motion.div>
-      <motion.section className="relative h-[70vh] md:h-[90vh]" ref={boundRef}>
+      <motion.section className="relative h-[10vh] md:h-[20vh]" ref={boundRef}>
         <motion.div
           className="fixed px-4 py-4 md:px-6 md:py-6 grid grid-cols-6 grid-rows-[1fr] gap-4 md:h-[80vh]  -z-10"
           style={{
             scale: heroScale,
-            opacity: heroOpacity,
+            opacity: isOutsideScrollArea ? 0 : heroOpacity,
             filter: filter,
             y: yPos,
           }}

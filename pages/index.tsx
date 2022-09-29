@@ -26,18 +26,22 @@ export const getStaticProps: GetStaticProps = () => {
 const Home: NextPage = ({
   projects,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
-  const { scrollY } = useContainerScroll();
+  const { scrollY, scrollContainerRef } = useContainerScroll();
   const [isViewingGrid, setIsViewingGrid] = useState(false);
   const [isViewingGridBar, setIsViewingGridBar] = useState(false);
 
   useEffect(() => {
+    scrollContainerRef.current.scrollTo(0, 300);
+  }, []);
+
+  useEffect(() => {
     const cleanupScroll = scrollY.onChange((amount) => {
-      if (amount > window.innerHeight / 3) {
+      if (amount > window.innerHeight / 8) {
         setIsViewingGrid(true);
       } else {
         setIsViewingGrid(false);
       }
-      if (amount > window.innerHeight / 1.2) {
+      if (amount > window.innerHeight / 6) {
         setIsViewingGridBar(true);
       } else {
         setIsViewingGridBar(false);

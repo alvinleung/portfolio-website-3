@@ -1,5 +1,11 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import {
+  MutableRefObject,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import { usePageTransition } from "../PageTransition/PageTransitionContext";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 import {
@@ -32,22 +38,31 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   selectedProject,
   index,
 }) => {
-  const { scrollY } = useContainerScroll();
+  const { scrollY, scrollContainerRef } = useContainerScroll();
   const containerRef = useRef() as MutableRefObject<HTMLDivElement>;
   const TOP_OFFSET = 58;
   const [beginShrinkPos, setBeginShrinkPos] = useState(100);
   const [endShrinkPos, setEndShrinkPos] = useState(200);
-  const [boxContainerHeight, setBoxContainerHeight] = useState(200);
+  const [boxContainerHeight, setBoxContainerHeight] = useState(1000);
   const boxTransitionOutProgress = useTransform(
     scrollY,
     [beginShrinkPos, endShrinkPos],
     [1, 0]
   );
+
   const boxOpacity = useTransform(boxTransitionOutProgress, [0, 0.1], [0, 1]);
-  const boxHeight = useTransform(
-    boxTransitionOutProgress,
-    (val) => val * boxContainerHeight
-  );
+  const boxHeight = useTransform(boxTransitionOutProgress, (val) => {
+    return val * boxContainerHeight;
+  });
+
+  useEffect(() => {
+    console.log(`scroll ${scrollY.get()}: shrink ${beginShrinkPos}`);
+    const cleanup = boxTransitionOutProgress.onChange((val) => {
+      console.log(`${index}: ${beginShrinkPos}`);
+      console.log(`${val}`);
+    });
+    return () => cleanup();
+  }, [beginShrinkPos]);
 
   const cardRef = useRef() as MutableRefObject<HTMLDivElement>;
   // const { prevCardRef } = usePageTransition();
@@ -57,10 +72,16 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   //   }
   // }, [selectedProject]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handleResize = () => {
+      const projectGridGap = 16;
+      const heroSectionHeightVH = 0.2;
+
       const bounds = containerRef.current.getBoundingClientRect();
-      const beginShrinkPos = bounds.top - TOP_OFFSET + scrollY.get();
+      const beginShrinkPos =
+        window.innerHeight * heroSectionHeightVH +
+        projectRow * (bounds.height + projectGridGap) -
+        TOP_OFFSET;
       setBeginShrinkPos(beginShrinkPos);
       setEndShrinkPos(beginShrinkPos + bounds.height);
       setBoxContainerHeight(bounds.height);
@@ -70,12 +91,12 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [projectRow]);
 
   return (
     <motion.div
       ref={containerRef}
-      className="sticky top-14 h-[110vw] md:h-[60vw] lg:h-[40vw]"
+      className="sticky top-14 h-[110vw] md:h-[60vw] lg:h-[48vw]"
       onClick={() => onSelect?.(projectInfo.slug)}
       exit={{
         opacity: 0,
@@ -89,7 +110,6 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
         opacity={boxOpacity}
         height={boxHeight}
         projectInfo={projectInfo}
-        isFirstRow={projectRow === 0}
         projectStyle={projectStyle}
         isActive={isActive}
       ></ProjectCard>

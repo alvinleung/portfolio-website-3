@@ -30,6 +30,7 @@ interface ScrollContextInfo {
   scrollYProgress: MotionValue;
   scrollDirection: ScrollDirection;
   setCanScroll: Dispatch<SetStateAction<boolean>>;
+  scrollContainerRef: MutableRefObject<HTMLDivElement>;
 }
 
 export const ScrollContext = createContext<ScrollContextInfo>({
@@ -40,6 +41,7 @@ export const ScrollContext = createContext<ScrollContextInfo>({
   scrollXProgress: new MotionValue(),
   scrollYProgress: new MotionValue(),
   scrollDirection: ScrollDirection.DOWN,
+  scrollContainerRef: undefined as unknown as MutableRefObject<HTMLDivElement>,
   setCanScroll: () => {},
 });
 
@@ -88,6 +90,7 @@ export const ScrollContainer = ({ children, zIndex = 0 }: Props) => {
         scrollYProgress,
         setCanScroll,
         scrollDirection,
+        scrollContainerRef,
       }}
     >
       <motion.div
