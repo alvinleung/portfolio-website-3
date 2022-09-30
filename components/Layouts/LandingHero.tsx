@@ -34,8 +34,8 @@ const LandingHero = (props: Props) => {
 
   const heroScale = useTransform(scrollY, [0, introSectionHeight], [1, 0.97]);
   const heroOpacity = useTransform(scrollY, [0, introSectionHeight], [1, 0]);
-  const filter = useTransform(scrollY, (v) => `blur(${v / 100}px)`);
-  const yPos = useTransform(scrollY, (v) => -v * 0.1);
+  // const filter = useTransform(scrollY, (v) => `blur(${v / 100}px)`);
+  // const yPos = useTransform(scrollY, (v) => -v * 0.1);
 
   return (
     <>
@@ -56,8 +56,8 @@ const LandingHero = (props: Props) => {
           style={{
             scale: heroScale,
             opacity: isOutsideScrollArea ? 0 : heroOpacity,
-            filter: filter,
-            y: yPos,
+            // filter: filter,
+            // y: yPos,
           }}
           initial={{
             opacity: 0,
