@@ -31,7 +31,7 @@ const ProjectGrid = ({ isViewing, projects }: Props) => {
 
   const transformOrigin = useTransform(
     scrollY,
-    (value) => `center ${value - windowDimension.height / 2}px`
+    (value) => `center ${value + windowDimension.height / 2}px`
   );
 
   return (

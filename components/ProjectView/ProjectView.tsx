@@ -156,8 +156,8 @@ const ProjectView = ({
     anim.set({
       // scale: 0.8,
       scale: wScale,
-      x: x,
-      y: y,
+      x: x * 0.5,
+      y: y + 24,
       opacity: 0,
     });
 
