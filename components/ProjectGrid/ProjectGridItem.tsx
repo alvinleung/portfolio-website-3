@@ -60,15 +60,6 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
     return isBiggerThanMobile ? (1 - val) * -boxContainerHeight * 0.5 : 0;
   });
 
-  useEffect(() => {
-    console.log(`scroll ${scrollY.get()}: shrink ${beginShrinkPos}`);
-    const cleanup = boxTransitionOutProgress.onChange((val) => {
-      console.log(`${index}: ${beginShrinkPos}`);
-      console.log(`${val}`);
-    });
-    return () => cleanup();
-  }, [beginShrinkPos]);
-
   const cardRef = useRef() as MutableRefObject<HTMLDivElement>;
   // const { prevCardRef } = usePageTransition();
   // useEffect(() => {

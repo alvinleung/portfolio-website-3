@@ -136,7 +136,20 @@ const ProjectGridCard = ({
                 delay: index * 0.06,
               }}
             >
-              <motion.div className="relative" style={{ y: parallaxY }}>
+              <motion.div
+                className="relative"
+                style={{ y: parallaxY }}
+                initial={{
+                  scale: 1,
+                }}
+                whileTap={{
+                  scale: 1.02,
+                }}
+                transition={{
+                  duration: AnimationConfig.FAST,
+                  ease: AnimationConfig.EASING,
+                }}
+              >
                 <Image
                   src={getProjectCover(projectInfo.slug)}
                   width={582}
@@ -161,7 +174,7 @@ const ProjectGridCard = ({
             </motion.div>
             {/* content */}
             <motion.div
-              className="absolute left-0 right-0 top-0"
+              className="absolute left-0 right-0 top-0 pointer-events-none"
               style={{ color: projectStyle.getTextColor() }}
               initial={{
                 opacity: isActive ? 1 : 0,
