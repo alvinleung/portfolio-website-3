@@ -42,7 +42,7 @@ const Home: NextPage = ({
 
   useEffect(() => {
     const cleanupScroll = scrollY.onChange((amount) => {
-      if (amount > window.innerHeight / 8) {
+      if (amount > window.innerHeight / 6) {
         setIsViewingGrid(true);
       } else {
         setIsViewingGrid(false);

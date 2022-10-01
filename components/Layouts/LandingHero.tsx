@@ -50,7 +50,7 @@ const LandingHero = (props: Props) => {
           backgroundColor: DEFAULT_BG,
         }}
       ></motion.div>
-      <motion.section className="relative h-[20vh]" ref={boundRef}>
+      <motion.section className="relative h-[40vh]" ref={boundRef}>
         <motion.div
           className="fixed px-4 py-4 md:px-6 md:py-6 grid grid-cols-6 grid-rows-[1fr] gap-4 md:h-[80vh]  -z-10"
           style={{

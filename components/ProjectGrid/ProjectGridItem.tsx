@@ -71,7 +71,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   useLayoutEffect(() => {
     const handleResize = () => {
       const projectGridGap = 16;
-      const heroSectionHeightVH = 0.2;
+      const heroSectionHeightVH = 0.4;
 
       const bounds = containerRef.current.getBoundingClientRect();
       const beginShrinkPos =

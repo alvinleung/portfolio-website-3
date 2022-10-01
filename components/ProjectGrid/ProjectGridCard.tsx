@@ -48,10 +48,10 @@ const ProjectGridCard = ({
   });
   const cardYOffset = useMemo(() => {
     if (typeof window === "undefined") return 500;
-    return window.innerHeight * 0.7;
+    return window.innerHeight * 0.5;
   }, []);
 
-  const [isHovering, setIsHovering] = useState(false);
+  // const [isHovering, setIsHovering] = useState(false);
 
   const videoRef = useRef() as MutableRefObject<HTMLVideoElement>;
   // useEffect(() => {
@@ -80,8 +80,8 @@ const ProjectGridCard = ({
           pointerEvents: isActive ? "all" : "none",
           cursor: isActive ? "pointer" : "auto",
         }}
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
+        // onMouseEnter={() => setIsHovering(true)}
+        // onMouseLeave={() => setIsHovering(false)}
       >
         <motion.div
           style={{
