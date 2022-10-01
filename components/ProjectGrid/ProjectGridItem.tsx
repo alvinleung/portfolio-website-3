@@ -61,12 +61,12 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   });
 
   const cardRef = useRef() as MutableRefObject<HTMLDivElement>;
-  const { prevCardRef } = usePageTransition();
-  useEffect(() => {
-    if (prevCardRef && selectedProject === projectInfo.slug) {
-      prevCardRef.current = cardRef.current;
-    }
-  }, [selectedProject]);
+  // const { prevCardRef } = usePageTransition();
+  // useEffect(() => {
+  //   if (prevCardRef && selectedProject === projectInfo.slug) {
+  //     prevCardRef.current = cardRef.current;
+  //   }
+  // }, [selectedProject]);
 
   useLayoutEffect(() => {
     const handleResize = () => {

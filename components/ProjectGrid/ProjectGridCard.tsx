@@ -54,15 +54,15 @@ const ProjectGridCard = ({
   const [isHovering, setIsHovering] = useState(false);
 
   const videoRef = useRef() as MutableRefObject<HTMLVideoElement>;
-  useEffect(() => {
-    if (!videoRef.current) return;
-    if (isHovering) {
-      videoRef.current.currentTime = 0;
-      videoRef.current.play();
-    } else {
-      videoRef.current.pause();
-    }
-  }, [isHovering]);
+  // useEffect(() => {
+  //   if (!videoRef.current) return;
+  //   if (isHovering) {
+  //     videoRef.current.currentTime = 0;
+  //     videoRef.current.play();
+  //   } else {
+  //     videoRef.current.pause();
+  //   }
+  // }, [isHovering]);
 
   return (
     <Link href={`projects/${projectInfo.slug}`} scroll={false}>
@@ -124,19 +124,20 @@ const ProjectGridCard = ({
             ref={cardRef}
           >
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{
-                opacity: isActive ? 1 : 0.1,
-              }}
-              transition={{
-                duration: isActive
-                  ? AnimationConfig.SLOW
-                  : AnimationConfig.FAST,
-                ease: AnimationConfig.EASING,
-                delay: index * 0.06,
-              }}
+              className="w-full h-full"
+              initial={{ opacity: 1 }}
+              // animate={{
+              //   opacity: isActive ? 1 : 0.1,
+              // }}
+              // transition={{
+              //   duration: isActive
+              //     ? AnimationConfig.SLOW
+              //     : AnimationConfig.FAST,
+              //   ease: AnimationConfig.EASING,
+              //   delay: index * 0.06,
+              // }}
             >
-              <motion.div
+              {/* <motion.div
                 className="relative"
                 style={{ y: parallaxY }}
                 initial={{
@@ -149,28 +150,39 @@ const ProjectGridCard = ({
                   duration: AnimationConfig.FAST,
                   ease: AnimationConfig.EASING,
                 }}
-              >
-                <Image
+              > */}
+              {/* <Image
                   src={getProjectCover(projectInfo.slug)}
                   width={582}
                   height={767}
                   layout="responsive"
+                /> */}
+              {projectInfo.previewVideo && (
+                <motion.video
+                  style={{ y: parallaxY }}
+                  ref={videoRef}
+                  src={projectInfo.previewVideo}
+                  autoPlay
+                  muted
+                  loop
+                  className="w-full mt-auto mb-auto object-contain object-center"
+                  animate={{
+                    // opacity: isHovering ? "1" : "0",
+                    backgroundColor: projectStyle.getBgColor(),
+                  }}
+                  initial={{
+                    scale: 1,
+                  }}
+                  whileTap={{
+                    scale: 1.02,
+                  }}
+                  transition={{
+                    duration: AnimationConfig.FAST,
+                    ease: AnimationConfig.EASING,
+                  }}
                 />
-                {projectInfo.previewVideo && (
-                  <motion.video
-                    ref={videoRef}
-                    src={projectInfo.previewVideo}
-                    autoPlay
-                    muted
-                    loop
-                    className="absolute left-0 right-0 top-0 bottom-0 w-full h-full object-cover"
-                    animate={{
-                      opacity: isHovering ? "1" : "0",
-                      backgroundColor: projectStyle.getBgColor(),
-                    }}
-                  />
-                )}
-              </motion.div>
+              )}
+              {/* </motion.div> */}
             </motion.div>
             {/* content */}
             <motion.div
