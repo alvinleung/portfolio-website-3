@@ -51,7 +51,7 @@ const ProjectGridCard = ({
     return window.innerHeight * 0.5;
   }, []);
 
-  // const [isHovering, setIsHovering] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   const videoRef = useRef() as MutableRefObject<HTMLVideoElement>;
   // useEffect(() => {
@@ -80,8 +80,8 @@ const ProjectGridCard = ({
           pointerEvents: isActive ? "all" : "none",
           cursor: isActive ? "pointer" : "auto",
         }}
-        // onMouseEnter={() => setIsHovering(true)}
-        // onMouseLeave={() => setIsHovering(false)}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
       >
         <motion.div
           style={{
@@ -184,13 +184,25 @@ const ProjectGridCard = ({
               }}
             >
               <div className="grid grid-cols-2 py-3 px-4">
-                <div className="leading-tight">{projectInfo.title}</div>
-                <div className="leading-tight">
-                  {projectInfo.tags &&
-                    projectInfo.tags.map((tag, index) => {
-                      return <div key={index}>{tag}</div>;
-                    })}
-                </div>
+                {isHovering && (
+                  <>
+                    <div className="leading-tight">{projectInfo.title}</div>
+                    <div className="leading-tight max-w-[32ch]">
+                      {projectInfo.description}
+                    </div>
+                  </>
+                )}
+                {!isHovering && (
+                  <>
+                    <div className="leading-tight">{projectInfo.title}</div>
+                    <div className="leading-tight">
+                      {projectInfo.tags &&
+                        projectInfo.tags.map((tag, index) => {
+                          return <div key={index}>{tag}</div>;
+                        })}
+                    </div>
+                  </>
+                )}
               </div>
             </motion.div>
           </motion.div>
