@@ -60,7 +60,7 @@ const Home: NextPage = ({
 
   return (
     <>
-      <LandingHero />
+      <LandingHero isViewingGrid={isViewingGrid} />
       <ProjectGridSection
         isViewing={isViewingGrid}
         isViewingTopBar={isViewingGridBar}

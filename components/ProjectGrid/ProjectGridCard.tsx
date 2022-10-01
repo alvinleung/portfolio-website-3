@@ -99,7 +99,7 @@ const ProjectGridCard = ({
           }}
         >
           <motion.div
-            className="relative h-full rounded-xl overflow-hidden"
+            className="relative flex flex-col items-center h-full rounded-xl overflow-hidden"
             style={{
               opacity: opacity,
               height: height,
@@ -123,23 +123,14 @@ const ProjectGridCard = ({
             }}
             ref={cardRef}
           >
-            <motion.div
-              className="w-full h-full"
-              initial={{ opacity: 1 }}
-              // animate={{
-              //   opacity: isActive ? 1 : 0.1,
-              // }}
-              // transition={{
-              //   duration: isActive
-              //     ? AnimationConfig.SLOW
-              //     : AnimationConfig.FAST,
-              //   ease: AnimationConfig.EASING,
-              //   delay: index * 0.06,
-              // }}
-            >
-              {/* <motion.div
-                className="relative"
+            {!projectInfo.previewVideo && (
+              <motion.img
                 style={{ y: parallaxY }}
+                src={getProjectCover(projectInfo.slug)}
+                className="w-full object-cover object-center"
+                animate={{
+                  backgroundColor: projectStyle.getBgColor(),
+                }}
                 initial={{
                   scale: 1,
                 }}
@@ -150,40 +141,33 @@ const ProjectGridCard = ({
                   duration: AnimationConfig.FAST,
                   ease: AnimationConfig.EASING,
                 }}
-              > */}
-              {/* <Image
-                  src={getProjectCover(projectInfo.slug)}
-                  width={582}
-                  height={767}
-                  layout="responsive"
-                /> */}
-              {projectInfo.previewVideo && (
-                <motion.video
-                  style={{ y: parallaxY }}
-                  ref={videoRef}
-                  src={projectInfo.previewVideo}
-                  autoPlay
-                  muted
-                  loop
-                  className="w-full mt-auto mb-auto object-contain object-center"
-                  animate={{
-                    // opacity: isHovering ? "1" : "0",
-                    backgroundColor: projectStyle.getBgColor(),
-                  }}
-                  initial={{
-                    scale: 1,
-                  }}
-                  whileTap={{
-                    scale: 1.02,
-                  }}
-                  transition={{
-                    duration: AnimationConfig.FAST,
-                    ease: AnimationConfig.EASING,
-                  }}
-                />
-              )}
-              {/* </motion.div> */}
-            </motion.div>
+              />
+            )}
+            {projectInfo.previewVideo && (
+              <motion.video
+                disablePictureInPicture
+                style={{ y: parallaxY }}
+                ref={videoRef}
+                src={projectInfo.previewVideo}
+                autoPlay
+                muted
+                loop
+                className="w-full object-cover object-center"
+                animate={{
+                  backgroundColor: projectStyle.getBgColor(),
+                }}
+                initial={{
+                  scale: 1,
+                }}
+                whileTap={{
+                  scale: 1.02,
+                }}
+                transition={{
+                  duration: AnimationConfig.FAST,
+                  ease: AnimationConfig.EASING,
+                }}
+              />
+            )}
             {/* content */}
             <motion.div
               className="absolute left-0 right-0 top-0 pointer-events-none"

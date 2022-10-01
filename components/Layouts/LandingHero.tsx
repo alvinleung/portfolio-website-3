@@ -12,12 +12,12 @@ import useIsFirstRender from "../../hooks/useIsFirstRender";
 import { AnimationConfig } from "../AnimationConfig";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 
-type Props = {};
+type Props = { isViewingGrid: boolean };
 
 const LANDING_THEME_BG = "#192220";
 const DEFAULT_BG = "#0e1010";
 
-const LandingHero = (props: Props) => {
+const LandingHero = ({ isViewingGrid }: Props) => {
   const { scrollY, scrollContainerRef } = useContainerScroll();
   const [boundRef, bounds] = useBoundingBox([]);
   const introSectionHeight = bounds.height;
@@ -50,7 +50,11 @@ const LandingHero = (props: Props) => {
           backgroundColor: DEFAULT_BG,
         }}
       ></motion.div>
-      <motion.section className="relative h-[40vh]" ref={boundRef}>
+      <motion.section
+        className="relative h-[40vh]"
+        ref={boundRef}
+        animate={{ opacity: isViewingGrid ? 0 : 1 }}
+      >
         <motion.div
           className="fixed px-4 py-4 md:px-6 md:py-6 grid grid-cols-6 grid-rows-[1fr] gap-4 md:h-[80vh]  -z-10"
           style={{
