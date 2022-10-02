@@ -56,7 +56,7 @@ const LandingHero = ({ isViewingGrid }: Props) => {
         animate={{ opacity: isViewingGrid ? 0 : 1 }}
       >
         <motion.div
-          className="fixed px-4 py-4 md:px-6 md:py-6 grid grid-cols-6 grid-rows-[1fr] gap-4 md:h-[80vh]  -z-10"
+          className="fixed px-4 py-4 md:px-6 md:py-6 grid grid-cols-6 grid-rows-[1fr] gap-4 md:h-[80vh] -z-10"
           style={{
             scale: heroScale,
             opacity: isOutsideScrollArea ? 0 : heroOpacity,
