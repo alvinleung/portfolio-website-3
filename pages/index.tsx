@@ -8,6 +8,7 @@ import ProjectGrid from "../components/ProjectGrid/ProjectGrid";
 import { useContainerScroll } from "../components/ScrollContainer/ScrollContainer";
 import useIsFirstRender from "../hooks/useIsFirstRender";
 import { getAllPostSlugs, getPostBySlug } from "../lib/projects";
+import { NextSeo } from "next-seo";
 
 export const getStaticProps: GetStaticProps = () => {
   const allProjectsSlugs = getAllPostSlugs();
@@ -60,6 +61,13 @@ const Home: NextPage = ({
 
   return (
     <>
+      <NextSeo
+        title={`Alvin Leung`}
+        description={`Alvin Leung is an interaction designer. Informed by business and
+              user needs, he thrives in using his aesthetic sensibility and
+              prototyping wizardry to bring wild concepts from 0 to 1.
+              Previously designed @ Daybreak Studio & Dossier Creative`}
+      />
       <LandingHero isViewingGrid={isViewingGrid} />
       <ProjectGridSection
         isViewing={isViewingGrid}

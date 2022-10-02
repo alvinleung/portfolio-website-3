@@ -10,6 +10,8 @@ import Team from "../../components/ProjectView/Team";
 import Image from "../../components/ProjectView/Image";
 import { createParagraphProcessor } from "../../components/ProjectView/ParagraphProcessor";
 import ProjectHeader from "../../components/Layouts/ProjectHeader";
+import { NextSeo } from "next-seo";
+
 import {
   getProjectCover,
   getProjectInfo,
@@ -73,39 +75,45 @@ export default function Post({ source, meta, nextProjectMeta }: PostProps) {
   const nextProjectInfo = getProjectInfo(nextProjectMeta);
 
   return (
-    <ColorShifterContextProvider initialColor={projectStyle.getBgColor()}>
-      <ProjectView
-        projectInfo={projectInfo}
-        projectStyle={projectStyle}
-        nextProjectInfo={nextProjectInfo}
-        nextProjectStyle={nextProjectStyle}
-        coverImage={getProjectCover(projectInfo.slug)}
-      >
-        {/* <h1 className="text-6xl">{meta.title}</h1> */}
-        <ProjectHeader projectInfo={projectInfo} />
-        <main className="grid grid-cols-6 gap-x-4 mx-6 2xl:mx-16 md:text-xl">
-          <MDXRemote
-            {...source}
-            components={{
-              TestingComponent,
-              FullImage,
-              p: paragraphProcessor,
-              h2: Header2,
-              Image: Image,
-              Video: Video,
-              Team,
-              ColorShifter,
-              LayoutFull,
-              LayoutMainContent,
-              Quote,
-              Caption,
-              List,
-              ListItem,
-              SlideShow,
-            }}
-          />
-        </main>
-      </ProjectView>
-    </ColorShifterContextProvider>
+    <>
+      <NextSeo
+        title={`${projectInfo.title} — Alvin Leung`}
+        description={`${projectInfo.description}`}
+      />
+      <ColorShifterContextProvider initialColor={projectStyle.getBgColor()}>
+        <ProjectView
+          projectInfo={projectInfo}
+          projectStyle={projectStyle}
+          nextProjectInfo={nextProjectInfo}
+          nextProjectStyle={nextProjectStyle}
+          coverImage={getProjectCover(projectInfo.slug)}
+        >
+          {/* <h1 className="text-6xl">{meta.title}</h1> */}
+          <ProjectHeader projectInfo={projectInfo} />
+          <main className="grid grid-cols-6 gap-x-4 mx-6 2xl:mx-16 md:text-xl">
+            <MDXRemote
+              {...source}
+              components={{
+                TestingComponent,
+                FullImage,
+                p: paragraphProcessor,
+                h2: Header2,
+                Image: Image,
+                Video: Video,
+                Team,
+                ColorShifter,
+                LayoutFull,
+                LayoutMainContent,
+                Quote,
+                Caption,
+                List,
+                ListItem,
+                SlideShow,
+              }}
+            />
+          </main>
+        </ProjectView>
+      </ColorShifterContextProvider>
+    </>
   );
 }
