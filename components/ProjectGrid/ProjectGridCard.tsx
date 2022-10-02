@@ -123,7 +123,7 @@ const ProjectGridCard = ({
             }}
             ref={cardRef}
           >
-            {(!projectInfo.previewVideo || !isHovering) && (
+            {!projectInfo.previewVideo && (
               <motion.img
                 style={{ y: parallaxY }}
                 src={getProjectCover(projectInfo.slug)}
@@ -143,7 +143,7 @@ const ProjectGridCard = ({
                 }}
               />
             )}
-            {isHovering && projectInfo.previewVideo && (
+            {projectInfo.previewVideo && (
               <motion.video
                 disablePictureInPicture
                 style={{ y: parallaxY }}
