@@ -29,6 +29,13 @@
     format("opentype");
 }
 
+@font-face {
+  font-family: "real-text-pro";
+  font-weight: 450;
+  src: url("../public/fonts/real-text-pro/RealTextPro-Book.otf")
+    format("opentype");
+}
+
 html,
 body {
   padding: 0;

@@ -20,7 +20,7 @@ const ProjectHeader = ({ projectInfo }: Props) => {
         className="lg:max-h-12 mt-1 ml-1 md:mt-0 md:ml-0"
       />
       <div className="col-start-3 lg:col-start-2">
-        <h1 className="text-lg lg:text-2xl text-normal tracking-tightest leading-tight lg:leading-[1.12] max-w-[32ch]">
+        <h1 className="text-lg lg:text-2xl text-normal lg:tracking-[-.018em] leading-tight lg:leading-[1.12] max-w-[32ch]">
           {projectInfo.description}
         </h1>
         <div className="text-sm lg:text-base mt-4 lg:mt-8 opacity-50 leading-tight lg:leading-tight">

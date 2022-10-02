@@ -1,7 +1,7 @@
 import { createParagraphProcessor } from "./ParagraphProcessor";
 
 export const ParagraphBig = (children: any) => (
-  <p className="col-start-1 sm:col-start-2 col-span-full md:col-start-2 md:col-span-3 mt-48 mb-32 text-3xl leading-[1.16em] -tracking-[.025em] font-normal lg:text-4xl xl:text-5xl">
+  <p className="col-start-1 sm:col-start-2 col-span-full md:col-start-2 md:col-span-3 mt-48 mb-32 text-3xl leading-[1.16em] xl:leading-[1.1em] -tracking-[.025em] font-normal lg:text-4xl xl:text-5xl">
     {children}
   </p>
 );
@@ -26,14 +26,14 @@ export const paragraphLayout =
 
 export const Paragraph = (children: any) => (
   <p
-    className={`${paragraphLayout} leading-[1.3em] md:leading-[1.24em] opacity-60 pt-[1em]`}
+    className={`${paragraphLayout} leading-[1.3em] md:leading-[1.16em] opacity-60 pt-[1em]`}
   >
     {children}
   </p>
 );
 export const Header2 = ({ children }: any) => (
   <h2
-    className={`${paragraphLayout} leading-[1.3em] md:leading-[1.24em] md:text-xl pt-48`}
+    className={`${paragraphLayout} leading-[1.3em] md:leading-[1.16em] md:text-xl pt-48`}
   >
     {children}
   </h2>
