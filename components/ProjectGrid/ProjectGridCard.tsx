@@ -54,28 +54,28 @@ const ProjectGridCard = ({
 
   const [isHovering, setIsHovering] = useState(false);
 
-  const mouseDelta = useRef(0);
-  const prevMousePos = useRef({ x: 0, y: 0 });
-  const handleMouseEnter = (e: React.MouseEvent) => {
-    prevMousePos.current.x = e.clientX;
-    prevMousePos.current.y = e.clientY;
-  };
-  const handleMouseMove = useCallback(
-    (e: React.MouseEvent) => {
-      const currX = e.clientX;
-      const currY = e.clientY;
+  // const mouseDelta = useRef(0);
+  // const prevMousePos = useRef({ x: 0, y: 0 });
+  // const handleMouseEnter = (e: React.MouseEvent) => {
+  //   prevMousePos.current.x = e.clientX;
+  //   prevMousePos.current.y = e.clientY;
+  // };
+  // const handleMouseMove = useCallback(
+  //   (e: React.MouseEvent) => {
+  //     const currX = e.clientX;
+  //     const currY = e.clientY;
 
-      const delta =
-        Math.pow(prevMousePos.current.x - currX, 2) +
-        Math.pow(prevMousePos.current.y - currY, 2);
+  //     const delta =
+  //       Math.pow(prevMousePos.current.x - currX, 2) +
+  //       Math.pow(prevMousePos.current.y - currY, 2);
 
-      if (delta > 30) videoRef.current.currentTime += delta * 0.0005;
+  //     if (delta > 30) videoRef.current.currentTime += delta * 0.0005;
 
-      prevMousePos.current.x = currX;
-      prevMousePos.current.y = currY;
-    },
-    [isHovering]
-  );
+  //     prevMousePos.current.x = currX;
+  //     prevMousePos.current.y = currY;
+  //   },
+  //   [isHovering]
+  // );
 
   const videoRef = useRef() as MutableRefObject<HTMLVideoElement>;
   useEffect(() => {
@@ -103,10 +103,10 @@ const ProjectGridCard = ({
           pointerEvents: isActive ? "all" : "none",
           cursor: isActive ? "pointer" : "auto",
         }}
-        onMouseMove={handleMouseMove}
+        // onMouseMove={handleMouseMove}
         onMouseEnter={(e) => {
           setIsHovering(true);
-          handleMouseEnter(e);
+          // handleMouseEnter(e);
         }}
         onMouseLeave={() => setIsHovering(false)}
       >
