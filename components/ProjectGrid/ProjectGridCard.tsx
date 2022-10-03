@@ -81,6 +81,7 @@ const ProjectGridCard = ({
   useEffect(() => {
     if (!videoRef.current) return;
     if (isHovering) {
+      videoRef.current.currentTime = 0;
       videoRef.current.play();
     } else {
       videoRef.current.pause();
@@ -150,7 +151,7 @@ const ProjectGridCard = ({
             }}
             ref={cardRef}
           >
-            {!projectInfo.previewVideo && (
+            {(!isHovering || !projectInfo.previewVideo) && (
               <motion.img
                 style={{ y: parallaxY }}
                 src={getProjectCover(projectInfo.slug)}
@@ -170,7 +171,7 @@ const ProjectGridCard = ({
                 }}
               />
             )}
-            {projectInfo.previewVideo && (
+            {isHovering && projectInfo.previewVideo && (
               <motion.video
                 disablePictureInPicture
                 style={{ y: parallaxY }}
