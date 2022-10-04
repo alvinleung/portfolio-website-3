@@ -78,15 +78,15 @@ const ProjectGridCard = ({
   // );
 
   const videoRef = useRef() as MutableRefObject<HTMLVideoElement>;
-  useEffect(() => {
-    if (!videoRef.current) return;
-    if (isHovering) {
-      videoRef.current.currentTime = 0;
-      videoRef.current.play();
-    } else {
-      videoRef.current.pause();
-    }
-  }, [isHovering]);
+  // useEffect(() => {
+  //   if (!videoRef.current) return;
+  //   if (isHovering) {
+  //     videoRef.current.currentTime = 0;
+  //     videoRef.current.play();
+  //   } else {
+  //     videoRef.current.pause();
+  //   }
+  // }, [isHovering]);
 
   return (
     <Link href={`projects/${projectInfo.slug}`} scroll={false}>
