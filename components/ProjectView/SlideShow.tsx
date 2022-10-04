@@ -22,12 +22,12 @@ const SlideShow = ({ children, label, text }: Props) => {
   const hasNext = currentPage + 1 < arrayChildren.length;
 
   const handleNext = () => {
-    if (hasNext) setCurrentPage(currentPage + 1);
+    if (hasNext) {
+      setCurrentPage(currentPage + 1);
+      return;
+    }
+    setCurrentPage(0);
   };
-  const handlePrev = () => {
-    if (hasPrev) setCurrentPage(currentPage - 1);
-  };
-
   const EXIT_OFFSET = 50;
 
   return (
@@ -61,18 +61,11 @@ const SlideShow = ({ children, label, text }: Props) => {
           {child}
         </motion.div>
       ))}
-      <div className="absolute top-0 right-0 bottom-0 left-0 flex">
+      <div className="absolute top-0 right-0 bottom-0 left-0 flex flex-row w-full h-full">
         <div
-          className="w-1/2 h-full"
+          className={"w-full h-full"}
           style={{
-            cursor: !hasPrev ? "auto" : "w-resize",
-          }}
-          onClick={handlePrev}
-        />
-        <div
-          className="w-1/2 h-full"
-          style={{
-            cursor: !hasNext ? "auto" : "e-resize",
+            cursor: "e-resize",
           }}
           onClick={handleNext}
         />
