@@ -40,7 +40,7 @@ const SlideShow = ({ children, label, text }: Props) => {
       {arrayChildren.map((child, index) => (
         <motion.div
           key={index}
-          className="absolute left-0 top-0"
+          className={index === 0 ? "" : "absolute left-0 top-0"}
           animate={{
             x:
               currentPage === index
