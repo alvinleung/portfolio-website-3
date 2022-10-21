@@ -147,7 +147,7 @@ const ProjectGridCard = ({
             transition={{
               duration: isActive ? 0.4 : AnimationConfig.FAST,
               ease: isActive ? [0.62, 0, 0.02, 1] : AnimationConfig.EASING,
-              delay: isActive ? index * 0.05 : 0,
+              // delay: isActive ? index * 0.05 : 0,
             }}
             ref={cardRef}
           >
