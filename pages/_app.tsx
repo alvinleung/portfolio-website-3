@@ -5,9 +5,17 @@ import { WindowDimensionContextProvider } from "../hooks/useWindowDimension";
 import { ScrollContainer } from "../components/ScrollContainer/ScrollContainer";
 import { PageTransitionProvider } from "../components/PageTransition/PageTransitionContext";
 import { HomeScrollPositionContextProvider } from "../components/HomeScrollPositionContext";
+import { useImagePreload } from "../hooks/useImagePreload";
+
+const IMAGE_PRELOAD_LIST = [
+  "/project-assets/tedxsfu/intro.jpg",
+  "/project-assets/whatif/intro.jpg",
+  "/project-assets/idagio/intro.jpg",
+];
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const isRouteHome = router.asPath === "/";
+  const isAllImagesLoaded = useImagePreload(IMAGE_PRELOAD_LIST);
 
   return (
     <WindowDimensionContextProvider>
