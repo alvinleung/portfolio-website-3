@@ -15,7 +15,7 @@ const IMAGE_PRELOAD_LIST = [
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const isRouteHome = router.asPath === "/";
-  // const isAllImagesLoaded = useImagePreload(IMAGE_PRELOAD_LIST);
+  const isAllImagesLoaded = useImagePreload(IMAGE_PRELOAD_LIST);
 
   return (
     <WindowDimensionContextProvider>

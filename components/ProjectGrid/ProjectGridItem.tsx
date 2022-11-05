@@ -13,8 +13,8 @@ import {
   ProjectInfo,
   ProjectStyle,
 } from "../../lib/ProjectInfo";
-import ProjectCard from "./ProjectGridCard";
 import { useMobileBreakpoint } from "../../hooks/useBreakpoints";
+import ProjectGridCard from "./ProjectGridCard";
 
 interface ProjectGridItemProps {
   gridBoundTop: number;
@@ -100,7 +100,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
       }}
     >
       {/* background media */}
-      <ProjectCard
+      <ProjectGridCard
         index={index}
         cardRef={cardRef}
         opacity={boxOpacity}
@@ -109,7 +109,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
         projectInfo={projectInfo}
         projectStyle={projectStyle}
         isActive={isActive}
-      ></ProjectCard>
+      ></ProjectGridCard>
     </motion.div>
   );
 };
