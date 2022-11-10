@@ -85,7 +85,7 @@ const LandingHero = ({ isViewingGrid }: Props) => {
           }}
         >
           <div className="col-start-1 col-span-full 2xl:col-span-4 flex flex-col">
-            <h1 className="text-2xl sm:text-4xl lg:text-6xl font-normal tracking-[-.03em]">
+            <h1 className="text-2xl sm:text-4xl lg:text-6xl font-normal tracking-[-.016em] lg:leading-[1.01em]">
               Alvin Leung is an interaction designer. Informed by business and
               user needs, he thrives in using his aesthetic sensibility and
               prototyping wizardry to bring wild concepts from 0 to 1.
