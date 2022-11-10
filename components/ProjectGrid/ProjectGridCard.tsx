@@ -112,17 +112,18 @@ const ProjectGridCard = ({
         onMouseLeave={() => setIsHovering(false)}
       >
         <motion.div
+          className="rounded-xl overflow-hidden"
           style={{
             transformPerspective: "100vw",
             translateZ: "0vw",
           }}
           whileTap={{
-            rotateY: cursorOffsetFromCenter.x * 5,
-            rotateX: -cursorOffsetFromCenter.y * 7,
-            translateZ: "-.5vw",
+            rotateY: cursorOffsetFromCenter.x * 7,
+            rotateX: -cursorOffsetFromCenter.y * 10,
+            translateZ: "-5vw",
           }}
           transition={{
-            duration: AnimationConfig.FAST,
+            duration: AnimationConfig.NORMAL,
             ease: AnimationConfig.EASING,
           }}
         >
