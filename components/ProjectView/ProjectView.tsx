@@ -160,7 +160,7 @@ const ProjectView = ({
     anim.set({
       // scale: 0.8,
       scale: wScale,
-      x: x * 0.5,
+      x: x * 0.7,
       y: y + 24,
       opacity: 0,
     });

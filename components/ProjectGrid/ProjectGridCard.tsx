@@ -18,6 +18,7 @@ import {
 } from "../../lib/ProjectInfo";
 import { useHomeScrollPosition } from "../HomeScrollPositionContext";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
+import { usePageTransition } from "../PageTransition/PageTransitionContext";
 
 const INACTIVE_TEXT_COLOR = "rgb(159, 238, 220)";
 const INACTIVE_BG_COLOR = "rgb(26, 41, 39)";
@@ -53,6 +54,8 @@ const ProjectGridCard = ({
   }, []);
 
   const [isHovering, setIsHovering] = useState(false);
+
+  const { prevCardRef } = usePageTransition();
 
   // const mouseDelta = useRef(0);
   // const prevMousePos = useRef({ x: 0, y: 0 });
@@ -100,6 +103,9 @@ const ProjectGridCard = ({
             y: (e.clientY - bounds.y) / bounds.height - 0.5,
           });
         }}
+        // onClickCapture={(e) => {
+        //   prevCardRef.current = cardRef.current;
+        // }}
         style={{
           pointerEvents: isActive ? "all" : "none",
           cursor: isActive ? "pointer" : "auto",
