@@ -112,7 +112,7 @@ const ProjectGridCard = ({
         onMouseLeave={() => setIsHovering(false)}
       >
         <motion.div
-          className="rounded-xl overflow-hidden"
+          // className="rounded-xl overflow-hidden"
           style={{
             transformPerspective: "100vw",
             translateZ: "0vw",
