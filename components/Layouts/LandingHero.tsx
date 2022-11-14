@@ -95,7 +95,7 @@ const LandingHero = ({ isViewingGrid }: Props) => {
           <div className="col-start-1 col-span-3 lg:col-start-5 lg:col-span-1 row-start-2 lg:row-start-2 flex flex-col opacity-60 lg:mb-0 text-sm xl:text-base">
             <h3 className="uppercase mb-3 text-sm">Previous Clients</h3>
             <ul>
-              <li>Pager (backed by Google Venture)</li>
+              <li>Pager</li>
               <li>QuirkChat</li>
               <li>Curated</li>
             </ul>
