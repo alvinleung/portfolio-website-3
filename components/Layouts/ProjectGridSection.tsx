@@ -24,13 +24,17 @@ const ProjectGridSection = ({
         animate={{
           opacity: isViewingTopBar ? 1 : 0,
           y: isViewingTopBar ? 0 : 10,
+          transition: {
+            duration: AnimationConfig.FAST,
+            ease: AnimationConfig.EASING,
+          },
         }}
         exit={{
           opacity: 0,
-        }}
-        transition={{
-          duration: AnimationConfig.VERY_FAST,
-          ease: AnimationConfig.EASING,
+          transition: {
+            duration: AnimationConfig.NORMAL,
+            ease: AnimationConfig.EASING_INVERTED,
+          },
         }}
       >
         <div className="text-white text-left">Selected Works</div>

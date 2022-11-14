@@ -60,7 +60,7 @@ const LandingHero = ({ isViewingGrid }: Props) => {
         }}
       ></motion.div>
       <motion.section
-        className="relative h-[40vh]"
+        className="relative sm:h-[40vh]"
         ref={boundRef}
         initial={{ opacity: 0 }}
         animate={{ opacity: isFirstRender || isViewingGrid ? 0 : 1 }}
@@ -84,10 +84,10 @@ const LandingHero = ({ isViewingGrid }: Props) => {
         >
           <div className="col-start-1 col-span-full 2xl:col-span-4 flex flex-col">
             <h1 className="text-2xl sm:text-4xl lg:text-6xl font-normal tracking-[-.02em] lg:leading-[1.08em]">
-              Alvin Leung is an interaction designer. <br /> Informed by
-              business and user needs, he thrives in using his aesthetic
-              sensibility and prototyping wizardry to bring wild concepts from 0
-              to 1. Previously designed @ Daybreak Studio & Dossier Creative.
+              Alvin Leung is an interaction designer. Informed by business and
+              user needs, he thrives in using his aesthetic sensibility and
+              prototyping wizardry to bring wild concepts from 0 to 1.
+              Previously designed @ Daybreak Studio & Dossier Creative.
             </h1>
             <p className="mt-4 text-sm sm:text-base"></p>
           </div>
