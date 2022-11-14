@@ -18,7 +18,7 @@ const CloseButton = (props: Props) => {
           rotate: 0,
         }}
         whileHover={{
-          // rotate: 90,
+          rotate: 90,
           backgroundColor: "rgba(60,60,60,.9)",
         }}
         whileTap={{

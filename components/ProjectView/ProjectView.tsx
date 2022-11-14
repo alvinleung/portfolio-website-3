@@ -28,6 +28,7 @@ import ProjectViewNavBar from "./ProjectViewNavBar";
 import { useColorContext } from "./ColorShifter";
 import useIsFirstRender from "../../hooks/useIsFirstRender";
 import { breakpoints, useBreakpoint } from "../../hooks/useBreakpoints";
+import debounce from "../../lib/debounce";
 
 type Props = {
   children: React.ReactNode;
@@ -109,27 +110,26 @@ const ProjectView = ({
   }, []);
 
   useEffect(() => {
-    // let scrolledAmount = 0;
-    // const THRESHOLD = 200;
-    // const unobserveScroll = scrollY.onChange(() => {
-    //   scrolledAmount += scrollY.getVelocity() / 100;
-    //   if (scrolledAmount < -THRESHOLD) {
-    //     setShouldShowNav(true);
-    //     return;
-    //   }
-    // });
-    // if (scrollDirection === ScrollDirection.DOWN) {
-    //   setShouldShowNav(false);
-    // }
-    // return () => {
-    //   unobserveScroll();
-    // };
+    let scrolledAmount = 0;
+    const DIST_THRESHOLD = 200;
+    const VELOCITY_THRESHOLD = 9;
+
+    const unobserveScroll = scrollY.onChange(() => {
+      const velocity = scrollY.getVelocity() / 100;
+      console.log(velocity);
+      scrolledAmount += velocity;
+      if (scrolledAmount < -DIST_THRESHOLD || velocity < -VELOCITY_THRESHOLD) {
+        setShouldShowNav(true);
+        return;
+      }
+    });
 
     if (scrollDirection === ScrollDirection.DOWN) {
       setShouldShowNav(false);
-      return;
     }
-    setShouldShowNav(true);
+    return () => {
+      unobserveScroll();
+    };
   }, [scrollDirection]);
 
   useEffect(() => {
@@ -248,6 +248,7 @@ const ProjectView = ({
       <motion.div
         animate={{
           opacity: shouldShowNav || !isScrolled ? 1 : 0,
+          y: shouldShowNav || !isScrolled ? 0 : -60,
         }}
         transition={{
           duration: AnimationConfig.FAST,

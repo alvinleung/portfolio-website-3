@@ -30,7 +30,7 @@ const ProjectViewNavBar = ({
     >
       <CloseButton />
       <div className="flex flex-row items-center text-white">
-        <div className="mr-4 text-[rgba(120,120,120,.7)]">Up Next</div>
+        <div className="mr-4 text-[rgba(120,120,120,.9)]">Next</div>
         <ProjectLinkButton
           scrolled={scrolled}
           projectStyle={nextProjectStyle}
