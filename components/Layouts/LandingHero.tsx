@@ -40,19 +40,21 @@ const LandingHero = ({ isViewingGrid }: Props) => {
   // const filter = useTransform(scrollY, (v) => `blur(${v / 100}px)`);
   // const yPos = useTransform(scrollY, (v) => -v * 0.1);
 
+  const isFirstRender = useIsFirstRender();
   const isOutsideScrollArea =
-    scrollContainerRef.current &&
-    scrollContainerRef.current.scrollTop > bounds.height;
+    isFirstRender ||
+    (scrollContainerRef.current &&
+      scrollContainerRef.current.scrollTop > bounds.height);
 
   return (
     <>
       <motion.div
         className="fixed w-full h-full -z-10"
         style={{ backgroundColor: isOutsideScrollArea ? DEFAULT_BG : bgColour }}
-        initial={{ backgroundColor: DEFAULT_BG }}
-        animate={{
-          backgroundColor: LANDING_THEME_BG,
-        }}
+        // initial={{ backgroundColor: DEFAULT_BG }}
+        // animate={{
+        //   backgroundColor: LANDING_THEME_BG,
+        // }}
         exit={{
           backgroundColor: DEFAULT_BG,
         }}
@@ -60,7 +62,8 @@ const LandingHero = ({ isViewingGrid }: Props) => {
       <motion.section
         className="relative h-[40vh]"
         ref={boundRef}
-        animate={{ opacity: isViewingGrid ? 0 : 1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isFirstRender || isViewingGrid ? 0 : 1 }}
       >
         <motion.div
           className="fixed px-4 py-4 md:px-6 md:py-6 grid grid-cols-6 grid-rows-[1fr] gap-2 md:h-[80vh] -z-10"
@@ -69,18 +72,6 @@ const LandingHero = ({ isViewingGrid }: Props) => {
             opacity: isOutsideScrollArea ? 0 : heroOpacity,
             // filter: filter,
             // y: yPos,
-          }}
-          initial={{
-            opacity: 0,
-            scale: 0.9,
-          }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-            transition: {
-              ease: AnimationConfig.EASING,
-              duration: AnimationConfig.NORMAL,
-            },
           }}
           exit={{
             opacity: 0,
