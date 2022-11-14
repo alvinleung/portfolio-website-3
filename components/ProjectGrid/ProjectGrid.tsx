@@ -8,6 +8,7 @@ import { ProjectGridItem } from "./ProjectGridItem";
 import { useBoundingBox } from "../../hooks/useBoundingClientRect";
 import { breakpoints } from "../../hooks/useBreakpoints";
 import { useHomeScrollPosition } from "../HomeScrollPositionContext";
+import debounce from "../../lib/debounce";
 
 type Props = {
   isViewing: boolean;
@@ -20,6 +21,10 @@ const ProjectGrid = ({ isViewing, projects }: Props) => {
 
   const windowDimension = useWindowDimension();
   useEffect(() => {
+    if (windowDimension.width > breakpoints.lg) {
+      setGridCols(3);
+      return;
+    }
     if (windowDimension.width > breakpoints.md) {
       setGridCols(2);
       return;
@@ -29,15 +34,26 @@ const ProjectGrid = ({ isViewing, projects }: Props) => {
 
   const [containerRef, bounds] = useBoundingBox<HTMLDivElement>([]);
 
-  const transformOrigin = useTransform(
-    scrollY,
-    (value) => `center ${value + windowDimension.height / 2}px`
-  );
+  const [transformOrigin, setTransformOrigin] = useState("center");
+  useEffect(() => {
+    const updateTransformOrigin = debounce((value: number) => {
+      setTransformOrigin(`center ${value + windowDimension.height / 2}px`);
+    }, 32);
+    const unobserve = scrollY.onChange(updateTransformOrigin);
+    return () => {
+      unobserve();
+    };
+  }, []);
+
+  // const transformOrigin = useTransform(
+  //   scrollY,
+  //   (value) => `center ${value + windowDimension.height / 2}px`
+  // );
 
   return (
     <>
       <motion.div
-        className="grid md:grid-cols-2 lg:grid-cols-2 gap-4 z-20 px-4 md:px-6 pb-8"
+        className="grid md:grid-cols-2 lg:grid-cols-3 gap-2 z-20 px-4 md:px-6 pb-8"
         ref={containerRef}
         style={{
           transformOrigin: transformOrigin,

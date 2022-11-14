@@ -57,7 +57,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
     return val * boxContainerHeight;
   });
   const parallaxY = useTransform(boxTransitionOutProgress, (val) => {
-    return isBiggerThanMobile ? (1 - val) * -boxContainerHeight * 0.5 : 0;
+    return isBiggerThanMobile ? (1 - val) * -boxContainerHeight * 1 : 0;
   });
 
   const cardRef = useRef() as MutableRefObject<HTMLDivElement>;
@@ -70,7 +70,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
 
   useLayoutEffect(() => {
     const handleResize = () => {
-      const projectGridGap = 16;
+      const projectGridGap = 8;
       const heroSectionHeightVH = 0.4;
 
       const bounds = containerRef.current.getBoundingClientRect();
@@ -92,7 +92,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   return (
     <motion.div
       ref={containerRef}
-      className="sticky top-14 h-[110vw] md:h-[60vw] lg:h-[48vw]"
+      className="sticky top-14 h-[110vw] md:h-[60vw] lg:h-[40vw]"
       onClick={() => onSelect?.(projectInfo.slug)}
       exit={{
         opacity: 0,

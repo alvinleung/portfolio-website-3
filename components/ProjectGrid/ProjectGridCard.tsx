@@ -123,7 +123,7 @@ const ProjectGridCard = ({
             translateZ: "-5vw",
           }}
           transition={{
-            duration: AnimationConfig.NORMAL,
+            duration: AnimationConfig.FAST,
             ease: AnimationConfig.EASING,
           }}
         >
@@ -132,6 +132,8 @@ const ProjectGridCard = ({
             style={{
               opacity: opacity,
               height: height,
+              maskImage: "-webkit-radial-gradient(white, black)",
+              willChange: "height",
             }}
             initial={{
               backgroundColor: isActive
@@ -154,7 +156,7 @@ const ProjectGridCard = ({
           >
             {!projectInfo.previewVideo && (
               <motion.img
-                style={{ y: parallaxY }}
+                style={{ y: parallaxY, willChange: "transform" }}
                 src={getProjectCover(projectInfo.slug)}
                 className="w-full object-cover object-center"
                 animate={{
@@ -164,7 +166,7 @@ const ProjectGridCard = ({
                   scale: 1,
                 }}
                 whileTap={{
-                  scale: 1.02,
+                  scale: 1.03,
                 }}
                 transition={{
                   duration: AnimationConfig.FAST,
@@ -175,7 +177,7 @@ const ProjectGridCard = ({
             {projectInfo.previewVideo && (
               <motion.video
                 disablePictureInPicture
-                style={{ y: parallaxY }}
+                style={{ y: parallaxY, willChange: "transform" }}
                 ref={videoRef}
                 src={projectInfo.previewVideo}
                 autoPlay
@@ -189,7 +191,7 @@ const ProjectGridCard = ({
                   scale: 1,
                 }}
                 whileTap={{
-                  scale: 1.02,
+                  scale: 1.03,
                 }}
                 transition={{
                   duration: AnimationConfig.FAST,

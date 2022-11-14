@@ -17,25 +17,32 @@ type Props = { isViewingGrid: boolean };
 const LANDING_THEME_BG = "#192220";
 const DEFAULT_BG = "#0e1010";
 
+const clamp = (num: number, min: number, max: number) =>
+  Math.min(Math.max(num, min), max);
+
 const LandingHero = ({ isViewingGrid }: Props) => {
   const { scrollY, scrollContainerRef } = useContainerScroll();
   const [boundRef, bounds] = useBoundingBox([]);
   const introSectionHeight = bounds.height;
 
+  const progress = useTransform(scrollY, (val) =>
+    clamp(val, 0, introSectionHeight)
+  );
+
   const bgColour = useTransform(
-    scrollY,
+    progress,
     [0, introSectionHeight],
     [LANDING_THEME_BG, DEFAULT_BG]
   );
 
+  const heroScale = useTransform(progress, [0, introSectionHeight], [1, 0.97]);
+  const heroOpacity = useTransform(progress, [0, introSectionHeight], [1, 0]);
+  // const filter = useTransform(scrollY, (v) => `blur(${v / 100}px)`);
+  // const yPos = useTransform(scrollY, (v) => -v * 0.1);
+
   const isOutsideScrollArea =
     scrollContainerRef.current &&
     scrollContainerRef.current.scrollTop > bounds.height;
-
-  const heroScale = useTransform(scrollY, [0, introSectionHeight], [1, 0.97]);
-  const heroOpacity = useTransform(scrollY, [0, introSectionHeight], [1, 0]);
-  // const filter = useTransform(scrollY, (v) => `blur(${v / 100}px)`);
-  // const yPos = useTransform(scrollY, (v) => -v * 0.1);
 
   return (
     <>
@@ -56,7 +63,7 @@ const LandingHero = ({ isViewingGrid }: Props) => {
         animate={{ opacity: isViewingGrid ? 0 : 1 }}
       >
         <motion.div
-          className="fixed px-4 py-4 md:px-6 md:py-6 grid grid-cols-6 grid-rows-[1fr] gap-4 md:h-[80vh] -z-10"
+          className="fixed px-4 py-4 md:px-6 md:py-6 grid grid-cols-6 grid-rows-[1fr] gap-2 md:h-[80vh] -z-10"
           style={{
             scale: heroScale,
             opacity: isOutsideScrollArea ? 0 : heroOpacity,
@@ -94,7 +101,7 @@ const LandingHero = ({ isViewingGrid }: Props) => {
             <p className="mt-4 text-sm sm:text-base"></p>
           </div>
 
-          <div className="col-start-1 col-span-3 lg:col-start-5 lg:col-span-1 row-start-2 lg:row-start-2 flex flex-col opacity-60 lg:mb-0 lg:pl-4 text-sm xl:text-base">
+          <div className="col-start-1 col-span-3 lg:col-start-5 lg:col-span-1 row-start-2 lg:row-start-2 flex flex-col opacity-60 lg:mb-0 text-sm xl:text-base">
             <h3 className="uppercase mb-3 text-sm">Previous Clients</h3>
             <ul>
               <li>Pager (backed by Google Venture)</li>
