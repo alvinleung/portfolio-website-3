@@ -9,6 +9,7 @@ import { useBoundingBox } from "../../hooks/useBoundingClientRect";
 import { breakpoints } from "../../hooks/useBreakpoints";
 import { useHomeScrollPosition } from "../HomeScrollPositionContext";
 import debounce from "../../lib/debounce";
+import useIsFirstRender from "../../hooks/useIsFirstRender";
 
 type Props = {
   isViewing: boolean;
@@ -50,6 +51,8 @@ const ProjectGrid = ({ isViewing, projects }: Props) => {
   //   (value) => `center ${value + windowDimension.height / 2}px`
   // );
 
+  const isTransitioningIn = useIsFirstRender();
+
   return (
     <>
       <motion.div
@@ -59,17 +62,21 @@ const ProjectGrid = ({ isViewing, projects }: Props) => {
           transformOrigin: transformOrigin,
         }}
         initial={{
-          opacity: 1,
+          opacity: 0,
         }}
         animate={{
           opacity: 1,
+          scale: 1,
         }}
         exit={{
-          scale: 0.9,
+          scale: 0.8,
         }}
         transition={{
           duration: AnimationConfig.NORMAL,
-          ease: AnimationConfig.EASING_INVERTED,
+          ease: isTransitioningIn
+            ? AnimationConfig.EASING
+            : AnimationConfig.EASING_INVERTED,
+          delay: isTransitioningIn ? 0.2 : 0,
         }}
       >
         {projects.map((project, index) => (

@@ -1,5 +1,5 @@
 /* load font */
-@import url("https://use.typekit.net/ihp0wvz.css");
+/* @import url("https://use.typekit.net/ihp0wvz.css"); */
 
 @tailwind base;
 @tailwind components;
@@ -19,12 +19,14 @@
   font-family: "larsseit";
   font-weight: 400;
   src: url("../public/fonts/larsseit/Larsseit.woff2") format("woff2");
+  font-display: fallback;
 }
 
 @font-face {
   font-family: "larsseit";
   font-weight: 500;
   src: url("../public/fonts/larsseit/Larsseit-Medium.woff2") format("woff2");
+  font-display: fallback;
 }
 /* @font-face {
   font-family: "real-text-pro";

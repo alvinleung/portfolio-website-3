@@ -116,7 +116,6 @@ const ProjectView = ({
 
     const unobserveScroll = scrollY.onChange(() => {
       const velocity = scrollY.getVelocity() / 100;
-      console.log(velocity);
       scrolledAmount += velocity;
       if (scrolledAmount < -DIST_THRESHOLD || velocity < -VELOCITY_THRESHOLD) {
         setShouldShowNav(true);

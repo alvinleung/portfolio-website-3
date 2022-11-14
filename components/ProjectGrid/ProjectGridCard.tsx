@@ -19,8 +19,8 @@ import {
 import { useHomeScrollPosition } from "../HomeScrollPositionContext";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 
-const INACTIVE_TEXT_COLOR = "#9FEEDC";
-const INACTIVE_BG_COLOR = "#1B2524";
+const INACTIVE_TEXT_COLOR = "rgb(159, 238, 220)";
+const INACTIVE_BG_COLOR = "rgb(26, 41, 39)";
 
 type Props = {
   isActive: boolean;
@@ -133,17 +133,10 @@ const ProjectGridCard = ({
               opacity: opacity,
               height: height,
               maskImage: "-webkit-radial-gradient(white, black)",
-              willChange: "height",
-            }}
-            initial={{
-              backgroundColor: isActive
-                ? projectStyle.getBgColor()
-                : INACTIVE_BG_COLOR,
+              willChange: "height, opacity",
+              // backgroundColor: INACTIVE_BG_COLOR,
             }}
             animate={{
-              backgroundColor: isActive
-                ? projectStyle.getBgColor()
-                : INACTIVE_BG_COLOR,
               y: isActive ? 0 : cardYOffset,
               scale: isActive ? 1 : 0.98,
             }}
@@ -159,9 +152,12 @@ const ProjectGridCard = ({
                 style={{ y: parallaxY, willChange: "transform" }}
                 src={getProjectCover(projectInfo.slug)}
                 className="w-full object-cover object-center"
-                animate={{
-                  backgroundColor: projectStyle.getBgColor(),
-                }}
+                animate={
+                  {
+                    // backgroundColor: projectStyle.getBgColor(),
+                    // opacity: isActive ? 1 : 0.05,
+                  }
+                }
                 initial={{
                   scale: 1,
                 }}
@@ -184,9 +180,12 @@ const ProjectGridCard = ({
                 muted
                 loop
                 className="w-full object-cover object-center"
-                animate={{
-                  backgroundColor: projectStyle.getBgColor(),
-                }}
+                animate={
+                  {
+                    // backgroundColor: projectStyle.getBgColor(),
+                    // opacity: isActive ? 1 : 0.05,
+                  }
+                }
                 initial={{
                   scale: 1,
                 }}
@@ -203,9 +202,9 @@ const ProjectGridCard = ({
             <motion.div
               className="absolute left-0 right-0 top-0 pointer-events-none"
               style={{ color: projectStyle.getTextColor() }}
-              initial={{
-                opacity: isActive ? 1 : 0,
-              }}
+              // initial={{
+              //   opacity: isActive ? 1 : 0,
+              // }}
               animate={{
                 opacity: isActive ? 1 : 0,
               }}
