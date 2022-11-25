@@ -144,7 +144,7 @@ const ProjectGridCard = ({
             }}
             animate={{
               y: isActive ? 0 : cardYOffset,
-              scale: isActive ? 1 : 0.98,
+              // scale: isActive ? 1 : 0.98,
             }}
             transition={{
               duration: isActive ? 0.4 : AnimationConfig.FAST,
