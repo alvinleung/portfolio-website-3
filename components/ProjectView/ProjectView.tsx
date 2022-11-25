@@ -110,25 +110,27 @@ const ProjectView = ({
   }, []);
 
   useEffect(() => {
-    let scrolledAmount = 0;
-    const DIST_THRESHOLD = 200;
-    const VELOCITY_THRESHOLD = 9;
+    // let scrolledAmount = 0;
+    // const DIST_THRESHOLD = 200;
+    // const VELOCITY_THRESHOLD = 9;
 
-    const unobserveScroll = scrollY.onChange(() => {
-      const velocity = scrollY.getVelocity() / 100;
-      scrolledAmount += velocity;
-      if (scrolledAmount < -DIST_THRESHOLD || velocity < -VELOCITY_THRESHOLD) {
-        setShouldShowNav(true);
-        return;
-      }
-    });
+    // const unobserveScroll = scrollY.onChange(() => {
+    //   const velocity = scrollY.getVelocity() / 100;
+    //   scrolledAmount += velocity;
+    //   if (scrolledAmount < -DIST_THRESHOLD || velocity < -VELOCITY_THRESHOLD) {
+    //     setShouldShowNav(true);
+    //     return;
+    //   }
+    // });
 
     if (scrollDirection === ScrollDirection.DOWN) {
       setShouldShowNav(false);
+      return;
     }
-    return () => {
-      unobserveScroll();
-    };
+    setShouldShowNav(true);
+    // return () => {
+    //   unobserveScroll();
+    // };
   }, [scrollDirection]);
 
   useEffect(() => {
