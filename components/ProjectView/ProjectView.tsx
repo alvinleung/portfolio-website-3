@@ -248,8 +248,8 @@ const ProjectView = ({
   };
 
   const { overscrollProgress, isOverscrollComplete } = useOverscroll();
-  const overscrollOffsetY = useTransform(overscrollProgress, [0, 1], [0, 300]);
-  const overscrollScale = useTransform(overscrollProgress, [0, 1], [1, 0.92]);
+  const overscrollOffsetY = useTransform(overscrollProgress, [0, 1], [0, 140]);
+  const overscrollScale = useTransform(overscrollProgress, [0, 1], [1, 0.9]);
   const overscrollOpacity = useTransform(overscrollProgress, [0, 1], [1, 0]);
 
   const router = useRouter();
