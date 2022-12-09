@@ -7,7 +7,7 @@ import debounce from "../lib/debounce";
 export function useOverscroll() {
   const { scrollYProgress, scrollContainerRef } = useContainerScroll();
   const overScroll = useSpring(0, { stiffness: 1500, damping: 200 });
-  const maxDist = 100;
+  const maxDist = 200;
   const overscrollProgress = useTransform(overScroll, [0, maxDist], [0, 1]);
 
   const [isActive, setIsActive] = useState(true);
