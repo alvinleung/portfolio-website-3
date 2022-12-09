@@ -1,20 +1,25 @@
-import { motion } from "framer-motion";
-import React from "react";
+import { motion, MotionValue } from "framer-motion";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import { useOverscroll } from "../../hooks/useOverscroll";
 import { ProjectInfo, ProjectStyle } from "../../lib/ProjectInfo";
 import { AnimationConfig } from "../AnimationConfig";
 import CloseButton from "../CloseButton/CloseButton";
+import OverscrollAction from "../OverscrollAction/OverscrollAction";
 import ProjectLinkButton from "../ProjectLinkButton/ProjectLinkButton";
 
 type Props = {
   scrolled: boolean;
   nextProjectStyle: ProjectStyle;
   nextProjectInfo: ProjectInfo;
+  overscrollProgress: MotionValue<number>;
 };
 
 const ProjectViewNavBar = ({
   scrolled,
   nextProjectStyle,
   nextProjectInfo,
+  overscrollProgress,
 }: Props) => {
   return (
     <motion.div
@@ -28,7 +33,7 @@ const ProjectViewNavBar = ({
         ease: AnimationConfig.EASING,
       }}
     >
-      <CloseButton />
+      <CloseButton overscrollProgress={overscrollProgress} />
       <div className="flex flex-row items-center text-white">
         <div className="mr-4 text-[rgba(120,120,120,.9)]">Next</div>
         <ProjectLinkButton

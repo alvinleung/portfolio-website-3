@@ -29,6 +29,9 @@ import { useColorContext } from "./ColorShifter";
 import useIsFirstRender from "../../hooks/useIsFirstRender";
 import { breakpoints, useBreakpoint } from "../../hooks/useBreakpoints";
 import debounce from "../../lib/debounce";
+import OverscrollAction from "../OverscrollAction/OverscrollAction";
+import { useOverscroll } from "../../hooks/useOverscroll";
+import { useRouter } from "next/router";
 
 type Props = {
   children: React.ReactNode;
@@ -244,6 +247,18 @@ const ProjectView = ({
     prevCardRef.current = undefined;
   };
 
+  const { overscrollProgress, isOverscrollComplete } = useOverscroll();
+  const overscrollOffsetY = useTransform(overscrollProgress, [0, 1], [0, 300]);
+  const overscrollScale = useTransform(overscrollProgress, [0, 1], [1, 0.92]);
+  const overscrollOpacity = useTransform(overscrollProgress, [0, 1], [1, 0]);
+
+  const router = useRouter();
+  useEffect(() => {
+    if (isOverscrollComplete) {
+      router.push("/");
+    }
+  }, [isOverscrollComplete]);
+
   return (
     <>
       <motion.div
@@ -264,14 +279,18 @@ const ProjectView = ({
           scrolled={isScrolled}
           nextProjectStyle={nextProjectStyle}
           nextProjectInfo={nextProjectInfo}
+          overscrollProgress={overscrollProgress}
         />
       </motion.div>
       {/* <motion.article ref={contentContainerRef} className="mx-6 2xl:mx-16 z-10"> */}
-      <article
+      <motion.article
         ref={contentContainerRef}
         className="z-10"
         style={{
           height: `${shrinkedScale}%`,
+          y: overscrollOffsetY,
+          scale: overscrollScale,
+          opacity: overscrollOpacity,
         }}
       >
         <motion.div
@@ -316,7 +335,7 @@ const ProjectView = ({
             />
           </motion.div>
         </motion.div>
-      </article>
+      </motion.article>
     </>
   );
 };
