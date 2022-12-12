@@ -10,6 +10,7 @@ import ProjectLinkButton from "../ProjectLinkButton/ProjectLinkButton";
 
 type Props = {
   scrolled: boolean;
+  isOverscrollStarted: boolean;
   nextProjectStyle: ProjectStyle;
   nextProjectInfo: ProjectInfo;
   overscrollProgress: MotionValue<number>;
@@ -20,6 +21,7 @@ const ProjectViewNavBar = ({
   nextProjectStyle,
   nextProjectInfo,
   overscrollProgress,
+  isOverscrollStarted,
 }: Props) => {
   return (
     <motion.div
@@ -34,14 +36,18 @@ const ProjectViewNavBar = ({
       }}
     >
       <CloseButton overscrollProgress={overscrollProgress} />
-      <div className="flex flex-row items-center text-white">
+      <motion.div
+        className="flex flex-row items-center text-white"
+        animate={{ opacity: isOverscrollStarted ? 0 : 1 }}
+        transition={{ duration: 0.2 }}
+      >
         <div className="mr-4 text-[rgba(120,120,120,.9)]">Next</div>
         <ProjectLinkButton
           scrolled={scrolled}
           projectStyle={nextProjectStyle}
           projectInfo={nextProjectInfo}
         />
-      </div>
+      </motion.div>
     </motion.div>
   );
 };

@@ -13,11 +13,13 @@ export function useOverscroll() {
   const [isActive, setIsActive] = useState(true);
 
   const [isOverscrollComplete, setIsOverscrollComplete] = useState(false);
+  const [isOverscrollStarted, setIsOverscrollStarted] = useState(false);
 
   const resetOverscroll = useMemo(
     () =>
       debounce(() => {
         overScroll.set(0);
+        setIsOverscrollStarted(false);
       }, 100),
     []
   );
@@ -39,6 +41,7 @@ export function useOverscroll() {
     if (!isActive) return;
 
     const handleWheel = (e: WheelEvent) => {
+      setIsOverscrollStarted(true);
       overScroll.set(overScroll.get() - e.deltaY);
       resetOverscroll();
     };
@@ -46,9 +49,9 @@ export function useOverscroll() {
     const unobserve = overscrollProgress.onChange((val) => {
       if (val >= 1) {
         setIsOverscrollComplete(true);
-        return;
+      } else {
+        setIsOverscrollComplete(false);
       }
-      setIsOverscrollComplete(false);
     });
 
     window.addEventListener("wheel", handleWheel);
@@ -60,5 +63,5 @@ export function useOverscroll() {
     };
   }, [isActive, scrollContainerRef, overscrollProgress]);
 
-  return { isOverscrollComplete, overscrollProgress };
+  return { isOverscrollComplete, overscrollProgress, isOverscrollStarted };
 }

@@ -247,7 +247,8 @@ const ProjectView = ({
     prevCardRef.current = undefined;
   };
 
-  const { overscrollProgress, isOverscrollComplete } = useOverscroll();
+  const { overscrollProgress, isOverscrollComplete, isOverscrollStarted } =
+    useOverscroll();
   const overscrollOffsetY = useTransform(overscrollProgress, [0, 1], [0, 140]);
   const overscrollScale = useTransform(overscrollProgress, [0, 1], [1, 0.9]);
   const overscrollOpacity = useTransform(overscrollProgress, [0, 1], [1, 0]);
@@ -280,6 +281,7 @@ const ProjectView = ({
           nextProjectStyle={nextProjectStyle}
           nextProjectInfo={nextProjectInfo}
           overscrollProgress={overscrollProgress}
+          isOverscrollStarted={isOverscrollStarted}
         />
       </motion.div>
       {/* <motion.article ref={contentContainerRef} className="mx-6 2xl:mx-16 z-10"> */}
