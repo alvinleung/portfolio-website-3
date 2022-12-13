@@ -45,7 +45,7 @@ export function useOverscroll(
         setIsActive(true);
         return;
       }
-      if (direction === OverscrollDirection.DOWN && val >= 1) {
+      if (direction === OverscrollDirection.DOWN && val >= 0.999) {
         setIsActive(true);
         return;
       }
@@ -82,7 +82,8 @@ export function useOverscroll(
     return () => {
       window.removeEventListener("wheel", handleWheel);
       unobserve();
-      overScroll.set(0);
+
+      if (!completeRef.current) overScroll.set(0);
     };
   }, [isActive, scrollContainerRef, overscrollProgress, direction]);
 

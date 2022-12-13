@@ -236,7 +236,7 @@ const ProjectView = ({
 
     anim.start({
       scale: isScrolled && !shouldShowNextProject ? 1 : shrinkedScale,
-      y: isScrolled && !shouldShowNextProject ? -100 : 0,
+      y: isScrolled && !shouldShowNextProject ? -0 : 0,
       opacity: 1,
       transition: {
         duration: AnimationConfig.NORMAL,
@@ -254,9 +254,10 @@ const ProjectView = ({
   // ================================================
   // Overscroll interaction
   // ================================================
-  const overscrollUp = useOverscroll(OverscrollDirection.UP, 150);
-  const overscrollDown = useOverscroll(OverscrollDirection.DOWN, 50);
+  const overscrollUp = useOverscroll(OverscrollDirection.UP, 200);
+  const overscrollDown = useOverscroll(OverscrollDirection.DOWN, 200);
 
+  // main body exit
   const overscrollOffsetY = useTransform(
     overscrollUp.overscrollProgress,
     [0, 1],
@@ -273,6 +274,7 @@ const ProjectView = ({
     [1, 0]
   );
 
+  // main body enter
   const overscrollDownY = useTransform(
     overscrollDown.overscrollProgress,
     [0, 1],
@@ -288,10 +290,11 @@ const ProjectView = ({
     [0, 1],
     [1, 0]
   );
+
   const nextProjectY = useTransform(
     overscrollDown.overscrollProgress,
     [0, 1],
-    [0, -100]
+    [0, -200]
   );
   const router = useRouter();
   useEffect(() => {

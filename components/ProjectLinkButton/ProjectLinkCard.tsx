@@ -48,7 +48,7 @@ const ProjectLinkCard = ({
         <motion.div
           exit={{
             opacity: 0,
-            y: -100,
+            // y: -100,
             transition: {
               duration: AnimationConfig.NORMAL,
               ease: AnimationConfig.EASING_INVERTED,
@@ -64,7 +64,7 @@ const ProjectLinkCard = ({
           }}
         >
           <motion.a
-            className="block h-96 rounded-tl-xl rounded-tr-xl relative cursor-pointer"
+            className="block h-[128em] rounded-tl-xl rounded-tr-xl relative cursor-pointer"
             style={{
               backgroundColor: projectStyle.getBgColor(),
               color: projectStyle.getTextColor(),
