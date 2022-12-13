@@ -301,7 +301,7 @@ const ProjectView = ({
   const router = useRouter();
   useEffect(() => {
     if (overscrollUp.isOverscrollComplete) {
-      router.push("/");
+      router.back();
     }
   }, [overscrollUp.isOverscrollComplete]);
 
