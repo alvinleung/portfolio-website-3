@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { MutableRefObject, useEffect, useRef } from "react";
 import { OverscrollDirection, useOverscroll } from "../../hooks/useOverscroll";
+import { useWindowDimension } from "../../hooks/useWindowDimension";
 import {
   getProjectLink,
   getProjectLogo,
@@ -48,7 +49,7 @@ const ProjectLinkCard = ({
         <motion.div
           exit={{
             opacity: 0,
-            // y: -100,
+            // y: -windowSize.height + 800,
             transition: {
               duration: AnimationConfig.NORMAL,
               ease: AnimationConfig.EASING_INVERTED,
@@ -64,7 +65,7 @@ const ProjectLinkCard = ({
           }}
         >
           <motion.a
-            className="block h-[128em] rounded-tl-xl rounded-tr-xl relative cursor-pointer"
+            className="block h-[64em] rounded-tl-xl rounded-tr-xl relative cursor-pointer"
             style={{
               backgroundColor: projectStyle.getBgColor(),
               color: projectStyle.getTextColor(),

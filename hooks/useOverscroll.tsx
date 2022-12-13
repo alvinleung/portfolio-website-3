@@ -1,6 +1,9 @@
 import { useSpring, useTransform } from "framer-motion";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useContainerScroll } from "../components/ScrollContainer/ScrollContainer";
+import {
+  ScrollDirection,
+  useContainerScroll,
+} from "../components/ScrollContainer/ScrollContainer";
 
 import debounce from "../lib/debounce";
 
@@ -17,6 +20,12 @@ export function useOverscroll(
   const overScroll = useSpring(0, { stiffness: 1500, damping: 200 });
   const overscrollProgress = useTransform(overScroll, [0, maxDist], [0, 1]);
 
+  const overscrollReadyDelay = 1000;
+  const [isOverscrollReady, setIsOverscrollReady] = useState(false);
+  useEffect(() => {
+    setTimeout(() => setIsOverscrollReady(true), overscrollReadyDelay);
+  }, []);
+
   const [isActive, setIsActive] = useState(true);
 
   const [isOverscrollComplete, setIsOverscrollComplete] = useState(false);
@@ -31,7 +40,7 @@ export function useOverscroll(
 
         overScroll.set(0);
         setIsOverscrollStarted(false);
-      }, 100),
+      }, 140),
     []
   );
 
@@ -39,7 +48,9 @@ export function useOverscroll(
     if (isOverscrollComplete === true) completeRef.current = true;
   }, [isOverscrollComplete]);
 
+  // effect to set if the overscroll engaged or not
   useEffect(() => {
+    if (!isOverscrollReady) return;
     const unobserve = scrollYProgress.onChange((val) => {
       if (direction === OverscrollDirection.UP && val <= 0) {
         setIsActive(true);
@@ -54,27 +65,32 @@ export function useOverscroll(
     return () => {
       unobserve();
     };
-  }, [scrollYProgress, direction]);
+  }, [scrollYProgress, direction, isOverscrollReady]);
 
   useEffect(() => {
-    if (!isActive) return;
+    if (!isActive || !isOverscrollReady) return;
 
     const handleWheel = (e: WheelEvent) => {
-      if (completeRef.current) return;
-
       setIsOverscrollStarted(true);
 
+      let deltaAmount = 0;
       if (direction === OverscrollDirection.UP)
-        overScroll.set(overScroll.get() - e.deltaY);
-      else overScroll.set(overScroll.get() + e.deltaY);
+        deltaAmount = overScroll.get() - e.deltaY;
+      else deltaAmount = overScroll.get() + e.deltaY;
 
+      if (completeRef.current) {
+        return;
+      }
+      overScroll.set(deltaAmount);
       resetOverscroll();
     };
 
     const unobserve = overscrollProgress.onChange((val) => {
       if (val >= 1) {
         setIsOverscrollComplete(true);
+        return;
       }
+      setIsOverscrollComplete(false);
     });
 
     window.addEventListener("wheel", handleWheel);
@@ -85,7 +101,13 @@ export function useOverscroll(
 
       if (!completeRef.current) overScroll.set(0);
     };
-  }, [isActive, scrollContainerRef, overscrollProgress, direction]);
+  }, [
+    isActive,
+    scrollContainerRef,
+    overscrollProgress,
+    direction,
+    isOverscrollReady,
+  ]);
 
   return { isOverscrollComplete, overscrollProgress, isOverscrollStarted };
 }

@@ -170,8 +170,9 @@ const ProjectView = ({
       // scale: 0.8,
       scale: wScale,
       x: x * 0.7,
-      y: y + 24,
-      opacity: 0,
+      // y: y + 24,
+      y: y - 80,
+      opacity: 1,
     });
 
     // reset the prev card ref
@@ -246,7 +247,8 @@ const ProjectView = ({
   }, [isScrolled, shouldShowNextProject, shrinkedScale, isPresent]);
 
   const handleAnimComplete = () => {
-    // clear enter animation
+    // clear enter animation if it has not done
+    if (isAnimInDone.current) return;
     isAnimInDone.current = true;
     prevCardRef.current = undefined;
   };
@@ -261,7 +263,7 @@ const ProjectView = ({
   const overscrollOffsetY = useTransform(
     overscrollUp.overscrollProgress,
     [0, 1],
-    [0, 140]
+    [0, 120]
   );
   const overscrollScale = useTransform(
     overscrollUp.overscrollProgress,
@@ -278,23 +280,23 @@ const ProjectView = ({
   const overscrollDownY = useTransform(
     overscrollDown.overscrollProgress,
     [0, 1],
-    [0, 1]
+    [0, -100]
   );
   const overscrollDownScale = useTransform(
     overscrollDown.overscrollProgress,
     [0, 1],
-    [1, 0.9]
+    [1, 0.95]
   );
   const overscrollDownOpacity = useTransform(
     overscrollDown.overscrollProgress,
     [0, 1],
-    [1, 0]
+    [1, 0.1]
   );
 
   const nextProjectY = useTransform(
     overscrollDown.overscrollProgress,
     [0, 1],
-    [0, -200]
+    [0, -100]
   );
   const router = useRouter();
   useEffect(() => {
@@ -336,6 +338,7 @@ const ProjectView = ({
           y: overscrollOffsetY,
           scale: overscrollScale,
           opacity: overscrollOpacity,
+          transformOrigin: transformOrigin,
         }}
       >
         <motion.div
@@ -373,7 +376,14 @@ const ProjectView = ({
             animate={{ backgroundColor: bgColor, color: textColor }}
             exit={
               overscrollDown.isOverscrollComplete
-                ? {}
+                ? {
+                    opacity: 0,
+                    y: -windowDimension.height / 4,
+                    transition: {
+                      duration: AnimationConfig.NORMAL,
+                      ease: AnimationConfig.EASING_INVERTED,
+                    },
+                  }
                 : {
                     opacity: 0,
                     y: 100,

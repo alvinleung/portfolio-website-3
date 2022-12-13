@@ -100,7 +100,7 @@ export const ScrollContainer = ({ children, zIndex = 0 }: Props) => {
         ref={scrollContainerRef}
         style={{
           zIndex: zIndex,
-          overflowY: isPresent ? "inherit" : "hidden",
+          // overflowY: isPresent ? "inherit" : "scroll",
           pointerEvents: isPresent ? "all" : "none",
         }}
       >
