@@ -81,15 +81,15 @@ const ProjectGridCard = ({
   // );
 
   const videoRef = useRef() as MutableRefObject<HTMLVideoElement>;
-  // useEffect(() => {
-  //   if (!videoRef.current) return;
-  //   if (isHovering) {
-  //     videoRef.current.currentTime = 0;
-  //     videoRef.current.play();
-  //   } else {
-  //     videoRef.current.pause();
-  //   }
-  // }, [isHovering]);
+  useEffect(() => {
+    if (!videoRef.current) return;
+    if (isHovering) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play();
+    } else {
+      videoRef.current.pause();
+    }
+  }, [isHovering]);
 
   return (
     <Link href={`projects/${projectInfo.slug}`} scroll={false}>
@@ -153,39 +153,42 @@ const ProjectGridCard = ({
             }}
             ref={cardRef}
           >
-            {!projectInfo.previewVideo && (
-              <motion.img
-                style={{ y: parallaxY, willChange: "transform" }}
-                src={getProjectCover(projectInfo.slug)}
-                className="w-full object-cover object-center"
-                animate={
-                  {
-                    // backgroundColor: projectStyle.getBgColor(),
-                    // opacity: isActive ? 1 : 0.05,
-                  }
+            <motion.img
+              style={{ y: parallaxY, willChange: "transform" }}
+              src={getProjectCover(projectInfo.slug)}
+              className="w-full object-cover object-center"
+              animate={
+                {
+                  // backgroundColor: projectStyle.getBgColor(),
+                  // opacity: isActive ? 1 : 0.05,
                 }
-                initial={{
-                  scale: 1,
-                }}
-                whileTap={{
-                  scale: 1.03,
-                }}
-                transition={{
-                  duration: AnimationConfig.FAST,
-                  ease: AnimationConfig.EASING,
-                }}
-              />
-            )}
+              }
+              initial={{
+                scale: 1,
+              }}
+              whileTap={{
+                scale: 1.03,
+              }}
+              transition={{
+                duration: AnimationConfig.FAST,
+                ease: AnimationConfig.EASING,
+              }}
+            />
+
             {projectInfo.previewVideo && (
               <motion.video
                 disablePictureInPicture
-                style={{ y: parallaxY, willChange: "transform" }}
+                style={{
+                  y: parallaxY,
+                  willChange: "transform",
+                  display: isHovering ? "block" : "none",
+                }}
                 ref={videoRef}
                 src={projectInfo.previewVideo}
                 autoPlay
                 muted
                 loop
-                className="w-full object-cover object-center"
+                className="w-full object-cover object-center absolute top-0 left-0 right-0"
                 animate={
                   {
                     // backgroundColor: projectStyle.getBgColor(),
