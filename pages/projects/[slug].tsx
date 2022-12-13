@@ -90,11 +90,7 @@ export default function Post({ source, meta, nextProjectMeta }: PostProps) {
         >
           {/* <h1 className="text-6xl">{meta.title}</h1> */}
           <ProjectHeader projectInfo={projectInfo} />
-          <motion.main
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1, transition: { delay: 0.2 } }}
-            className="grid grid-cols-6 gap-x-4 mx-6 2xl:mx-16 md:text-xl"
-          >
+          <main className="grid grid-cols-6 gap-x-4 mx-6 2xl:mx-16 md:text-xl">
             <MDXRemote
               {...source}
               components={{
@@ -115,7 +111,7 @@ export default function Post({ source, meta, nextProjectMeta }: PostProps) {
                 SlideShow,
               }}
             />
-          </motion.main>
+          </main>
         </ProjectView>
       </ColorShifterContextProvider>
     </>
