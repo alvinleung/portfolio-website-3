@@ -35,7 +35,10 @@ const ProjectViewNavBar = ({
         ease: AnimationConfig.EASING,
       }}
     >
-      <CloseButton overscrollProgress={overscrollProgress} />
+      <CloseButton
+        overscrollProgress={overscrollProgress}
+        isOverscrollStarted={isOverscrollStarted}
+      />
       <motion.div
         className="flex flex-row items-center text-white"
         animate={{ opacity: isOverscrollStarted ? 0 : 1 }}

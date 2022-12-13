@@ -8,38 +8,35 @@ import { CloseIcon } from "./Icon";
 
 type Props = {
   overscrollProgress: MotionValue;
+  isOverscrollStarted: boolean;
 };
 
-const CloseButton = ({ overscrollProgress }: Props) => {
-  const rotation = useTransform(overscrollProgress, [0, 1], [0, 90]);
-  const scale = useTransform(overscrollProgress, [0, 1], [1, 0.9]);
-  const bgColor = useTransform(
-    overscrollProgress,
-    [0, 0.1, 1],
-    ["rgba(50,50,50,.5)", "rgba(60,60,60,.9)", "rgba(60,60,60,.9)"]
-  );
+const CloseButton = ({ overscrollProgress, isOverscrollStarted }: Props) => {
+  // const rotation = useTransform(overscrollProgress, [0, 1], [0, 90]);
+  // const scale = useTransform(overscrollProgress, [0, 1], [1, 0.9]);
+  // const bgColor = useTransform(
+  //   overscrollProgress,
+  //   [0, 0.1, 1],
+  //   ["rgba(50,50,50,.5)", "rgba(60,60,60,.9)", "rgba(60,60,60,.9)"]
+  // );
 
   return (
     <Link href="/">
       <motion.a
         className="inline-block rounded-full p-2 bg-[rgba(50,50,50,.6)] cursor-pointer"
-        style={{
-          rotate: rotation,
-          scale: scale,
-          backgroundColor: bgColor,
+        // style={{
+        //   rotate: rotation,
+        //   scale: scale,
+        //   backgroundColor: bgColor,
+        // }}
+        animate={{
+          // rotate: isOverscrollStarted ? 45 : 0,
+          opacity: isOverscrollStarted ? 0 : 1,
         }}
-        // initial={{
-        //   rotate: 90,
-        // }}
-        // animate={{
-        //   rotate: 0,
-        // }}
-        whileHover={
-          {
-            // rotate: 90,
-            // backgroundColor: "rgba(60,60,60,.9)",
-          }
-        }
+        whileHover={{
+          rotate: 90,
+          backgroundColor: "rgba(60,60,60,.9)",
+        }}
         whileTap={{
           scale: 0.95,
         }}
