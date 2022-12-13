@@ -16,7 +16,11 @@ import { useWindowDimension } from "../../hooks/useWindowDimension";
 import { AnimationConfig } from "../AnimationConfig";
 import CloseButton from "../CloseButton/CloseButton";
 import { usePageTransition } from "../PageTransition/PageTransitionContext";
-import { ProjectInfo, ProjectStyle } from "../../lib/ProjectInfo";
+import {
+  getProjectLink,
+  ProjectInfo,
+  ProjectStyle,
+} from "../../lib/ProjectInfo";
 import ProjectLinkButton from "../ProjectLinkButton/ProjectLinkButton";
 import ProjectLinkCard from "../ProjectLinkButton/ProjectLinkCard";
 import {
@@ -30,7 +34,7 @@ import useIsFirstRender from "../../hooks/useIsFirstRender";
 import { breakpoints, useBreakpoint } from "../../hooks/useBreakpoints";
 import debounce from "../../lib/debounce";
 import OverscrollAction from "../OverscrollAction/OverscrollAction";
-import { useOverscroll } from "../../hooks/useOverscroll";
+import { OverscrollDirection, useOverscroll } from "../../hooks/useOverscroll";
 import { useRouter } from "next/router";
 
 type Props = {
@@ -247,18 +251,54 @@ const ProjectView = ({
     prevCardRef.current = undefined;
   };
 
-  const { overscrollProgress, isOverscrollComplete, isOverscrollStarted } =
-    useOverscroll();
-  const overscrollOffsetY = useTransform(overscrollProgress, [0, 1], [0, 140]);
-  const overscrollScale = useTransform(overscrollProgress, [0, 1], [1, 0.9]);
-  const overscrollOpacity = useTransform(overscrollProgress, [0, 1], [1, 0]);
+  // ================================================
+  // Overscroll interaction
+  // ================================================
+  const overscrollUp = useOverscroll(OverscrollDirection.UP, 150);
+  const overscrollDown = useOverscroll(OverscrollDirection.DOWN, 50);
 
+  const overscrollOffsetY = useTransform(
+    overscrollUp.overscrollProgress,
+    [0, 1],
+    [0, 140]
+  );
+  const overscrollScale = useTransform(
+    overscrollUp.overscrollProgress,
+    [0, 1],
+    [1, 0.9]
+  );
+  const overscrollOpacity = useTransform(
+    overscrollUp.overscrollProgress,
+    [0, 1],
+    [1, 0]
+  );
+
+  const overscrollDownY = useTransform(
+    overscrollDown.overscrollProgress,
+    [0, 1],
+    [0, 1]
+  );
+  const overscrollDownScale = useTransform(
+    overscrollDown.overscrollProgress,
+    [0, 1],
+    [1, 0.9]
+  );
+  const overscrollDownOpacity = useTransform(
+    overscrollDown.overscrollProgress,
+    [0, 1],
+    [1, 0]
+  );
+  const nextProjectY = useTransform(
+    overscrollDown.overscrollProgress,
+    [0, 1],
+    [0, -100]
+  );
   const router = useRouter();
   useEffect(() => {
-    if (isOverscrollComplete) {
-      router.push("/");
+    if (overscrollUp.isOverscrollComplete) {
+      router.back();
     }
-  }, [isOverscrollComplete]);
+  }, [overscrollUp.isOverscrollComplete]);
 
   return (
     <>
@@ -280,8 +320,8 @@ const ProjectView = ({
           scrolled={isScrolled}
           nextProjectStyle={nextProjectStyle}
           nextProjectInfo={nextProjectInfo}
-          overscrollProgress={overscrollProgress}
-          isOverscrollStarted={isOverscrollStarted}
+          overscrollProgress={overscrollUp.overscrollProgress}
+          isOverscrollStarted={overscrollUp.isOverscrollStarted}
         />
       </motion.div>
       {/* <motion.article ref={contentContainerRef} className="mx-6 2xl:mx-16 z-10"> */}
@@ -297,6 +337,7 @@ const ProjectView = ({
       >
         <motion.div
           onAnimationComplete={handleAnimComplete}
+          className="overflow-hidden"
           style={{
             willChange: "scale, y",
             transformOrigin: transformOrigin,
@@ -307,18 +348,38 @@ const ProjectView = ({
             opacity: 0,
           }}
           animate={anim}
-          exit={{
-            opacity: 0,
-            y: 100,
-            transition: {
-              duration: AnimationConfig.FAST,
-              ease: AnimationConfig.EASING_INVERTED,
-            },
-          }}
+          // exit={{
+          //   opacity: 0,
+          //   y: 100,
+          //   transition: {
+          //     duration: AnimationConfig.FAST,
+          //     ease: AnimationConfig.EASING_INVERTED,
+          //   },
+          // }}
         >
           <motion.div
+            style={{
+              y: overscrollDownY,
+              opacity: overscrollDown.isOverscrollComplete
+                ? 0
+                : overscrollDownOpacity,
+              scale: overscrollDownScale,
+              transformOrigin: transformOrigin,
+            }}
             initial={{ backgroundColor: bgColor, color: textColor }}
             animate={{ backgroundColor: bgColor, color: textColor }}
+            exit={
+              overscrollDown.isOverscrollComplete
+                ? {}
+                : {
+                    opacity: 0,
+                    y: 100,
+                    transition: {
+                      duration: AnimationConfig.FAST,
+                      ease: AnimationConfig.EASING_INVERTED,
+                    },
+                  }
+            }
             // exit={{ opacity: 0 }}
             transition={{ delay: 0, duration: AnimationConfig.NORMAL }}
             className="relative pb-24 rounded-xl"
@@ -326,14 +387,18 @@ const ProjectView = ({
             {children}
           </motion.div>
           <motion.div
-            className="mt-6"
+            className="mt-6 h-72"
             onViewportEnter={() => setShouldShowNextProject(true)}
             onViewportLeave={() => setShouldShowNextProject(false)}
+            style={{
+              y: nextProjectY,
+            }}
           >
             <ProjectLinkCard
               isShowing={shouldShowNextProject}
               projectStyle={nextProjectStyle}
               projectInfo={nextProjectInfo}
+              isOverscrollComplete={overscrollDown.isOverscrollComplete}
             />
           </motion.div>
         </motion.div>

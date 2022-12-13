@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
-import React, { MutableRefObject, useRef } from "react";
+import { useRouter } from "next/router";
+import React, { MutableRefObject, useEffect, useRef } from "react";
+import { OverscrollDirection, useOverscroll } from "../../hooks/useOverscroll";
 import {
   getProjectLink,
   getProjectLogo,
@@ -14,33 +16,55 @@ import ReactiveTapArea from "../ReactiveTapArea/ReactiveTapArea";
 
 type Props = {
   isShowing: boolean;
+  isOverscrollComplete: boolean;
   projectStyle: ProjectStyle;
   projectInfo: ProjectInfo;
 };
 
-const ProjectLinkCard = ({ isShowing, projectStyle, projectInfo }: Props) => {
+const ProjectLinkCard = ({
+  isShowing,
+  projectStyle,
+  projectInfo,
+  isOverscrollComplete,
+}: Props) => {
   const linkRef = useRef() as MutableRefObject<HTMLAnchorElement>;
+
   const { prevCardRef } = usePageTransition();
   const handleClick = () => {
     prevCardRef.current = linkRef.current;
   };
 
+  const router = useRouter();
+  useEffect(() => {
+    if (isOverscrollComplete !== true) return;
+
+    handleClick();
+    router.push(getProjectLink(projectInfo.slug));
+  }, [isOverscrollComplete]);
+
   return (
     <ReactiveTapArea>
       <Link href={getProjectLink(projectInfo.slug)}>
         <motion.div
-          exit={{ opacity: 0 }}
+          exit={{
+            opacity: 0,
+            y: -100,
+            transition: {
+              duration: AnimationConfig.NORMAL,
+              ease: AnimationConfig.EASING_INVERTED,
+            },
+          }}
           animate={{
             scale: isShowing ? 1 : 0.9,
             opacity: isShowing ? 1 : 0,
-          }}
-          transition={{
-            duration: AnimationConfig.SLOW,
-            ease: AnimationConfig.EASING,
+            transition: {
+              duration: AnimationConfig.SLOW,
+              ease: AnimationConfig.EASING,
+            },
           }}
         >
           <motion.a
-            className="block h-72 rounded-tl-xl rounded-tr-xl relative cursor-pointer"
+            className="block h-96 rounded-tl-xl rounded-tr-xl relative cursor-pointer"
             style={{
               backgroundColor: projectStyle.getBgColor(),
               color: projectStyle.getTextColor(),
