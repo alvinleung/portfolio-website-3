@@ -19,6 +19,7 @@ import {
 import { useHomeScrollPosition } from "../HomeScrollPositionContext";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 import { usePageTransition } from "../PageTransition/PageTransitionContext";
+import { useWindowDimension } from "../../hooks/useWindowDimension";
 
 const INACTIVE_TEXT_COLOR = "rgb(159, 238, 220)";
 const INACTIVE_BG_COLOR = "rgb(26, 41, 39)";
@@ -48,10 +49,12 @@ const ProjectGridCard = ({
     x: 0,
     y: 0,
   });
+
+  const windowDimension = useWindowDimension();
   const cardYOffset = useMemo(() => {
     if (typeof window === "undefined") return 500;
-    return window.innerHeight * 0.5;
-  }, []);
+    return windowDimension.height * 0.5;
+  }, [windowDimension.height]);
 
   const [isHovering, setIsHovering] = useState(false);
 

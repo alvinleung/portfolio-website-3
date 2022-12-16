@@ -15,6 +15,7 @@ import {
 } from "../../lib/ProjectInfo";
 import { useMobileBreakpoint } from "../../hooks/useBreakpoints";
 import ProjectGridCard from "./ProjectGridCard";
+import { useWindowDimension } from "../../hooks/useWindowDimension";
 
 interface ProjectGridItemProps {
   gridBoundTop: number;
@@ -67,26 +68,20 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   //   }
   // }, [selectedProject]);
 
+  const windowDimension = useWindowDimension();
   useLayoutEffect(() => {
-    const handleResize = () => {
-      const projectGridGap = 8;
-      const heroSectionHeightVH = 0.4;
+    const projectGridGap = 8;
+    const heroSectionHeightVH = 0.4;
 
-      const bounds = containerRef.current.getBoundingClientRect();
-      const beginShrinkPos =
-        window.innerHeight * heroSectionHeightVH +
-        projectRow * (bounds.height + projectGridGap) -
-        TOP_OFFSET;
-      setBeginShrinkPos(beginShrinkPos);
-      setEndShrinkPos(beginShrinkPos + bounds.height);
-      setBoxContainerHeight(bounds.height);
-    };
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [projectRow]);
+    const bounds = containerRef.current.getBoundingClientRect();
+    const beginShrinkPos =
+      window.innerHeight * heroSectionHeightVH +
+      projectRow * (bounds.height + projectGridGap) -
+      TOP_OFFSET;
+    setBeginShrinkPos(beginShrinkPos);
+    setEndShrinkPos(beginShrinkPos + bounds.height);
+    setBoxContainerHeight(bounds.height);
+  }, [projectRow, windowDimension.width]);
 
   return (
     <motion.div
