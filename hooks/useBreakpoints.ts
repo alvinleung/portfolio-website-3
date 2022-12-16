@@ -2,6 +2,7 @@ import { useMemo, useEffect, useState } from "react";
 import resolveConfig from "tailwindcss/resolveConfig";
 //@ts-ignore
 import tailwindConfig from "../tailwind.config.js";
+import { useWindowDimension } from "./useWindowDimension";
 
 // USAGE
 // const isOverBreakpoint = useBreakpoint(breakpointInPixel)
@@ -10,29 +11,30 @@ import tailwindConfig from "../tailwind.config.js";
 const fullConfig = resolveConfig(tailwindConfig);
 
 export function useBreakpoint(breakpointSize: number) {
+  const windowDimension = useWindowDimension();
   const [isOverBreakpoint, setIsOverBreakpoint] = useState(false);
 
-  function forceRefreshBreakpoint() {
-    setIsOverBreakpoint(window.innerWidth > breakpointSize);
-  }
-
   useEffect(() => {
-    function handleResize() {
-      const currentScreenWidth = window.innerWidth;
-      if (currentScreenWidth > breakpointSize) {
-        // only change when it is not the current state
-        !isOverBreakpoint && setIsOverBreakpoint(true);
-        return;
-      }
-      isOverBreakpoint && setIsOverBreakpoint(false);
-    }
-    forceRefreshBreakpoint();
+    setIsOverBreakpoint(windowDimension.width > breakpointSize);
+  }, [windowDimension.width, breakpointSize]);
 
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [isOverBreakpoint]);
+  // useEffect(() => {
+  //   function handleResize() {
+  //     const currentScreenWidth = window.innerWidth;
+  //     if (currentScreenWidth > breakpointSize) {
+  //       // only change when it is not the current state
+  //       !isOverBreakpoint && setIsOverBreakpoint(true);
+  //       return;
+  //     }
+  //     isOverBreakpoint && setIsOverBreakpoint(false);
+  //   }
+  //   forceRefreshBreakpoint();
+
+  //   window.addEventListener("resize", handleResize);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, [isOverBreakpoint]);
   return isOverBreakpoint;
 }
 
