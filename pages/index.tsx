@@ -57,7 +57,7 @@ const Home: NextPage = ({
     return () => {
       cleanupScroll();
     };
-  }, []);
+  }, [scrollY]);
 
   return (
     <>

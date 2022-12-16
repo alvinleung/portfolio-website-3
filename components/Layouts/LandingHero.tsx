@@ -60,7 +60,7 @@ const LandingHero = ({ isViewingGrid }: Props) => {
         }}
       ></motion.div>
       <motion.section
-        className="relative sm:h-[40vh]"
+        className="relative h-[40vh]"
         ref={boundRef}
         initial={{ opacity: 0 }}
         animate={{ opacity: isFirstRender || isViewingGrid ? 0 : 1 }}

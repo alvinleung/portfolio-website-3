@@ -51,13 +51,12 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
     [1, 0]
   );
 
-  const isBiggerThanMobile = useMobileBreakpoint();
   const boxOpacity = useTransform(boxTransitionOutProgress, [0, 0.1], [0, 1]);
   const boxHeight = useTransform(boxTransitionOutProgress, (val) => {
     return val * boxContainerHeight;
   });
   const parallaxY = useTransform(boxTransitionOutProgress, (val) => {
-    return isBiggerThanMobile ? (1 - val) * -boxContainerHeight * 1 : 0;
+    return (1 - val) * -boxContainerHeight * 1;
   });
 
   const cardRef = useRef() as MutableRefObject<HTMLDivElement>;
