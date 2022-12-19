@@ -29,6 +29,14 @@ const ReactiveTapArea = ({
           y: (e.clientY - bounds.y) / bounds.height - 0.5,
         });
       }}
+      onMouseMove={(e) => {
+        const target = e.currentTarget as HTMLDivElement;
+        const bounds = target.getBoundingClientRect();
+        setCursorOffsetFromCenter({
+          x: (e.clientX - bounds.x) / bounds.width - 0.5,
+          y: (e.clientY - bounds.y) / bounds.height - 0.5,
+        });
+      }}
     >
       <motion.div
         style={{
