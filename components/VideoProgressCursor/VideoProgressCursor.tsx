@@ -170,15 +170,56 @@ const VideoProgressCursor = ({
     });
   }, [isScrubbing, vidBounds, playerRef]);
 
+  // the feedback of scrubbing
+
+  const [shouldEmphasiseLeft, setShouldEmphasiseLeft] = useState(false);
+  const [shouldEmphasiseRight, setShouldEmphasiseRight] = useState(false);
+  const lastProgress = useRef(0);
+  const timeout = useRef<ReturnType<typeof setTimeout>>();
+
+  useEffect(() => {
+    function reset() {
+      setShouldEmphasiseLeft(false);
+      setShouldEmphasiseRight(false);
+    }
+
+    if (!isScrubbing) {
+      reset();
+      return;
+    }
+
+    if (timeout.current) {
+      clearTimeout(timeout.current);
+    }
+    timeout.current = setTimeout(reset, 100);
+
+    if (progress > lastProgress.current) {
+      setShouldEmphasiseLeft(false);
+      setShouldEmphasiseRight(true);
+    } else {
+      setShouldEmphasiseLeft(true);
+      setShouldEmphasiseRight(false);
+    }
+    lastProgress.current = progress;
+  }, [isScrubbing, progress]);
+
   return (
     <ClientOnlyPortal selector="body">
       <motion.div
         className="fixed left-0 right-0 z-[100000] pointer-events-none opacity-0"
         animate={anim}
       >
-        <ArrowLeft show={isScrubbing} fill={fill} />
+        <ArrowLeft
+          show={isShowing}
+          fill={fill}
+          shouldEmphasise={shouldEmphasiseLeft}
+        />
         <ProgressRing progress={progress} strokeColor={fill} radius={16} />
-        <ArrowRight show={isScrubbing} fill={fill} />
+        <ArrowRight
+          show={isShowing}
+          fill={fill}
+          shouldEmphasise={shouldEmphasiseRight}
+        />
       </motion.div>
     </ClientOnlyPortal>
   );
@@ -187,39 +228,46 @@ const VideoProgressCursor = ({
 type ArrowProps = {
   show: boolean;
   fill?: string;
+  shouldEmphasise: boolean;
 };
-const ArrowLeft = ({ show, fill }: ArrowProps) => (
-  <motion.svg
-    className="absolute -left-[16px] top-[4px]"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    animate={{
-      opacity: show ? 1 : 0,
-      x: show ? 0 : -8,
-      transition: {
-        ease: AnimationConfig.EASING,
-        duration: AnimationConfig.FAST,
-      },
-    }}
-  >
-    <path
-      d="M12.3004 15.3L9.70039 12.7C9.60039 12.6 9.52539 12.4917 9.47539 12.375C9.42539 12.2583 9.40039 12.1333 9.40039 12C9.40039 11.8667 9.42539 11.7417 9.47539 11.625C9.52539 11.5083 9.60039 11.4 9.70039 11.3L12.3004 8.70001C12.6171 8.38335 12.9794 8.31268 13.3874 8.48801C13.7961 8.66268 14.0004 8.97501 14.0004 9.42501V14.575C14.0004 15.025 13.7961 15.3373 13.3874 15.512C12.9794 15.6873 12.6171 15.6167 12.3004 15.3V15.3Z"
-      fill={fill}
-    />
-  </motion.svg>
-);
-const ArrowRight = ({ show, fill = "#FFF" }: ArrowProps) => (
+const ArrowLeft = ({ show, fill, shouldEmphasise }: ArrowProps) => {
+  return (
+    <motion.svg
+      className="absolute -left-[16px] top-[4px]"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      animate={{
+        opacity: show ? 1 : 0,
+        x: show ? (shouldEmphasise ? -2 : 0) : 12,
+        scale: shouldEmphasise ? 1.3 : 1,
+        transition: {
+          ease: AnimationConfig.EASING,
+          duration: AnimationConfig.FAST,
+          // delay: 0.1,
+        },
+      }}
+    >
+      <path
+        d="M12.3004 15.3L9.70039 12.7C9.60039 12.6 9.52539 12.4917 9.47539 12.375C9.42539 12.2583 9.40039 12.1333 9.40039 12C9.40039 11.8667 9.42539 11.7417 9.47539 11.625C9.52539 11.5083 9.60039 11.4 9.70039 11.3L12.3004 8.70001C12.6171 8.38335 12.9794 8.31268 13.3874 8.48801C13.7961 8.66268 14.0004 8.97501 14.0004 9.42501V14.575C14.0004 15.025 13.7961 15.3373 13.3874 15.512C12.9794 15.6873 12.6171 15.6167 12.3004 15.3V15.3Z"
+        fill={fill}
+      />
+    </motion.svg>
+  );
+};
+const ArrowRight = ({ show, fill = "#FFF", shouldEmphasise }: ArrowProps) => (
   <motion.svg
     className="absolute left-[24px] top-[4px]"
     animate={{
       opacity: show ? 1 : 0,
-      x: show ? 0 : 8,
+      x: show ? (shouldEmphasise ? 2 : 0) : -12,
+      scale: shouldEmphasise ? 1.3 : 1,
       transition: {
         ease: AnimationConfig.EASING,
         duration: AnimationConfig.FAST,
+        // delay: 0.1,
       },
     }}
     width="24"
