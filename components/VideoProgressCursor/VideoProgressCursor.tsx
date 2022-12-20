@@ -1,4 +1,9 @@
-import { motion, useAnimation, useScroll } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useAnimation,
+  useScroll,
+} from "framer-motion";
 import React, {
   createElement,
   MutableRefObject,
@@ -17,9 +22,14 @@ import { ProgressRing } from "./ProgressRing";
 type Props = {
   playerRef: MutableRefObject<HTMLVideoElement>;
   isScrubbing: boolean;
+  fill: string;
 };
 
-const VideoProgressCursor = ({ playerRef, isScrubbing }: Props) => {
+const VideoProgressCursor = ({
+  playerRef,
+  isScrubbing,
+  fill = "#FFF",
+}: Props) => {
   const [progress, setProgress] = useState(0);
 
   const anim = useAnimation();
@@ -140,8 +150,8 @@ const VideoProgressCursor = ({ playerRef, isScrubbing }: Props) => {
   useEffect(() => {
     if (isScrubbing) {
       anim.start({
-        x: vidBounds.left + vidBounds.width / 2,
-        y: vidBounds.top + vidBounds.height / 2,
+        x: vidBounds.left + vidBounds.width / 2 - 16,
+        y: vidBounds.top + vidBounds.height / 2 - 16,
         transition: {
           duration: AnimationConfig.VERY_FAST,
           ease: AnimationConfig.EASING,
@@ -166,17 +176,19 @@ const VideoProgressCursor = ({ playerRef, isScrubbing }: Props) => {
         className="fixed left-0 right-0 z-[100000] pointer-events-none opacity-0"
         animate={anim}
       >
-        <div className="relative">
-          <ArrowLeft show={isScrubbing} />
-          <ProgressRing progress={progress} strokeColor={"#FFF"} radius={16} />
-          <ArrowRight show={isScrubbing} />
-        </div>
+        <ArrowLeft show={isScrubbing} fill={fill} />
+        <ProgressRing progress={progress} strokeColor={fill} radius={16} />
+        <ArrowRight show={isScrubbing} fill={fill} />
       </motion.div>
     </ClientOnlyPortal>
   );
 };
 
-const ArrowLeft = ({ show }: { show: boolean }) => (
+type ArrowProps = {
+  show: boolean;
+  fill?: string;
+};
+const ArrowLeft = ({ show, fill }: ArrowProps) => (
   <motion.svg
     className="absolute -left-[16px] top-[4px]"
     width="24"
@@ -195,11 +207,11 @@ const ArrowLeft = ({ show }: { show: boolean }) => (
   >
     <path
       d="M12.3004 15.3L9.70039 12.7C9.60039 12.6 9.52539 12.4917 9.47539 12.375C9.42539 12.2583 9.40039 12.1333 9.40039 12C9.40039 11.8667 9.42539 11.7417 9.47539 11.625C9.52539 11.5083 9.60039 11.4 9.70039 11.3L12.3004 8.70001C12.6171 8.38335 12.9794 8.31268 13.3874 8.48801C13.7961 8.66268 14.0004 8.97501 14.0004 9.42501V14.575C14.0004 15.025 13.7961 15.3373 13.3874 15.512C12.9794 15.6873 12.6171 15.6167 12.3004 15.3V15.3Z"
-      fill="#FFF"
+      fill={fill}
     />
   </motion.svg>
 );
-const ArrowRight = ({ show }: { show: boolean }) => (
+const ArrowRight = ({ show, fill = "#FFF" }: ArrowProps) => (
   <motion.svg
     className="absolute left-[24px] top-[4px]"
     animate={{
@@ -218,7 +230,7 @@ const ArrowRight = ({ show }: { show: boolean }) => (
   >
     <path
       d="M11.7 15.3C11.3833 15.6167 11.021 15.6873 10.613 15.512C10.2043 15.3373 10 15.025 10 14.575V9.42501C10 8.97501 10.2043 8.66268 10.613 8.48801C11.021 8.31268 11.3833 8.38335 11.7 8.70001L14.3 11.3C14.4 11.4 14.475 11.5083 14.525 11.625C14.575 11.7417 14.6 11.8667 14.6 12C14.6 12.1333 14.575 12.2583 14.525 12.375C14.475 12.4917 14.4 12.6 14.3 12.7L11.7 15.3Z"
-      fill="#FFF"
+      fill={fill}
     />
   </motion.svg>
 );

@@ -16,6 +16,7 @@ type Props = {
   frameRate: number;
   rowSpan?: number;
   children?: React.ReactNode;
+  darkMode: boolean;
   preload: string;
 };
 
@@ -29,6 +30,7 @@ const Video = ({
   children,
   rowSpan = 1,
   preload = "metadata",
+  darkMode,
 }: Props) => {
   const [shouldPlay, setShouldPlay] = useState(false);
   const [isInView, setIsInView] = useState(false);
@@ -132,7 +134,11 @@ const Video = ({
   return (
     <Figure rowSpan={rowSpan}>
       {!seekOnScroll && (
-        <VideoProgressCursor playerRef={playerRef} isScrubbing={isScrubbing} />
+        <VideoProgressCursor
+          playerRef={playerRef}
+          isScrubbing={isScrubbing}
+          fill={"#bebebe"}
+        />
       )}
       <ReactiveTapArea
         className={`w-full ${fillHeight ? "md:h-full" : ""} md:object-cover`}
