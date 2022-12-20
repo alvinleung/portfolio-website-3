@@ -18,7 +18,7 @@ export function useImagePreload(sources: string[]) {
     };
 
     sources.forEach((src) => {
-      const elm = document.createElement("image") as HTMLImageElement;
+      const elm = document.createElement("img") as HTMLImageElement;
       elm.src = src;
       elm.addEventListener("load", handleLoad);
     });
