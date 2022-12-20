@@ -225,7 +225,10 @@ const ProjectGridCard = ({
                 ease: "linear",
               }}
             >
-              <div className="grid grid-cols-2 py-3 px-4">
+              <div
+                className="grid grid-cols-2 py-3 px-4"
+                // style={{ fontWeight: 500 }}
+              >
                 {isHovering && (
                   <>
                     <div className="leading-tight">{projectInfo.title}</div>
