@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     <WindowDimensionContextProvider>
       <HomeScrollPositionContextProvider>
         <PageTransitionProvider>
-          <AnimatePresence initial={false}>
+          <AnimatePresence initial={true}>
             <ScrollContainer
               key={router.asPath}
               zIndex={isRouteHome ? 10 : 100}
