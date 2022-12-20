@@ -9,7 +9,7 @@ type FigureWrapperProps = {
 export const Figure = ({ children, rowSpan }: FigureWrapperProps) => {
   return (
     <figure
-      className={`relative overflow-hidden rounded-xl lg:row-start-1 lg:row-[var(--row-span)]`}
+      className={`relative lg:row-start-1 lg:row-[var(--row-span)]`}
       style={
         {
           "--row-span": `span ${rowSpan}/ span ${rowSpan}`,

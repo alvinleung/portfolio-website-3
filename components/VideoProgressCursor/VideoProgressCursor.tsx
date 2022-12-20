@@ -36,6 +36,12 @@ const VideoProgressCursor = ({ playerRef, isScrubbing }: Props) => {
   const [isShowing, setIsShowing] = useState(false);
 
   const isHovering = useRef(false);
+  const isScrubbingRef = useRef(false);
+  const cursorPosRef = useRef({ x: 0, y: 0 });
+
+  useEffect(() => {
+    isScrubbingRef.current = isScrubbing;
+  }, [isScrubbing]);
 
   useEffect(() => {
     const bound = playerRef.current.getBoundingClientRect();
@@ -47,7 +53,7 @@ const VideoProgressCursor = ({ playerRef, isScrubbing }: Props) => {
       width: bound.width,
       height: bound.height,
     });
-  }, [playerRef.current, windowDimension.width, isShowing]);
+  }, [playerRef.current, windowDimension.width, isShowing, isScrubbing]);
 
   useEffect(() => {
     const handlePointerEnter = (e: MouseEvent) => {
@@ -65,15 +71,13 @@ const VideoProgressCursor = ({ playerRef, isScrubbing }: Props) => {
       });
     };
     const handlePointerMove = (e: MouseEvent) => {
-      if (isHovering.current === false) return;
+      if (isHovering.current === false || isScrubbingRef.current === true)
+        return;
 
-      // console.log(e.pageY);
-
-      // setMouseOffset({
-      //   x: e.clientX,
-      //   // y: e.pageY - vidBounds.top,
-      //   y: e.clientY,
-      // });
+      cursorPosRef.current = {
+        x: e.clientX,
+        y: e.clientY,
+      };
 
       anim.start({
         x: e.clientX - 16,
@@ -133,21 +137,34 @@ const VideoProgressCursor = ({ playerRef, isScrubbing }: Props) => {
     };
   }, [isShowing]);
 
+  useEffect(() => {
+    if (isScrubbing) {
+      anim.start({
+        x: vidBounds.left + vidBounds.width / 2,
+        y: vidBounds.top + vidBounds.height / 2,
+        transition: {
+          duration: AnimationConfig.VERY_FAST,
+          ease: AnimationConfig.EASING,
+        },
+      });
+      return;
+    }
+
+    anim.start({
+      x: cursorPosRef.current.x - 16,
+      y: cursorPosRef.current.y - 16,
+      transition: {
+        duration: AnimationConfig.VERY_FAST,
+        ease: AnimationConfig.EASING,
+      },
+    });
+  }, [isScrubbing, vidBounds, playerRef]);
+
   return (
     <ClientOnlyPortal selector="body">
       <motion.div
         className="fixed left-0 right-0 z-[100000] pointer-events-none opacity-0"
-        // animate={{
-        //   opacity: isShowing ? 1 : 0,
-        //   x: mouseOffset.x - 20,
-        //   y: mouseOffset.y - 20,
-        //   // scale: isShowing ? 1 : 2,
-        // }}
         animate={anim}
-        // transition={{
-        //   duration: 0.2,
-        //   ease: AnimationConfig.EASING,
-        // }}
       >
         <div className="relative">
           <ArrowLeft show={isScrubbing} />

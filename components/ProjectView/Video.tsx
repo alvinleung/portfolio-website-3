@@ -5,6 +5,7 @@ import { Figure } from "./FigureWrapper";
 import VideoProgressCursor from "../VideoProgressCursor/VideoProgressCursor";
 import { ProgressRing } from "../VideoProgressCursor/ProgressRing";
 import ReactiveTapArea from "../ReactiveTapArea/ReactiveTapArea";
+import { useWindowDimension } from "../../hooks/useWindowDimension";
 
 type Props = {
   src: string;
@@ -34,6 +35,7 @@ const Video = ({
   const [currentFrame, setCurrentFrame] = useState(0);
   const playerRef = useRef() as MutableRefObject<HTMLVideoElement>;
   const { scrollY } = useContainerScroll();
+  const windowDimension = useWindowDimension();
 
   useEffect(() => {
     if (!seekOnScroll) return;
@@ -84,22 +86,20 @@ const Video = ({
 
   const [isScrubbing, setIsScrubbing] = useState(false);
   useEffect(() => {
+    if (seekOnScroll) return;
+
     let isDragging = false;
-    let dragBeginX = 0;
-    let initialScrubTime = playerRef.current.currentTime;
 
     const handleDragStart = (e: PointerEvent) => {
       isDragging = true;
-      dragBeginX = e.clientX;
-      initialScrubTime = playerRef.current.currentTime;
       playerRef.current.pause();
       setIsScrubbing(true);
     };
     const handleDragMove = (e: PointerEvent) => {
       if (!isDragging || !playerRef.current) return;
 
-      const offset = e.clientX - dragBeginX;
-      playerRef.current.currentTime = initialScrubTime + offset / 100;
+      const offset = e.movementX;
+      playerRef.current.currentTime += offset / 100;
     };
     const handleDragEnd = () => {
       isDragging = false;
@@ -118,7 +118,16 @@ const Video = ({
       window.removeEventListener("pointermove", handleDragMove);
       playerRef.current.removeEventListener("pointerup", handleDragEnd);
     };
-  }, [playerRef.current]);
+  }, [playerRef.current, windowDimension.width]);
+
+  useEffect(() => {
+    if (!isScrubbing) {
+      document.exitPointerLock();
+      return;
+    }
+
+    playerRef.current.requestPointerLock();
+  }, [isScrubbing]);
 
   return (
     <Figure rowSpan={rowSpan}>
@@ -126,9 +135,8 @@ const Video = ({
         <VideoProgressCursor playerRef={playerRef} isScrubbing={isScrubbing} />
       )}
       <ReactiveTapArea
-        className={`w-full ${
-          fillHeight ? "md:h-full" : ""
-        } md:object-cover rounded-xl overflow-hidden`}
+        className={`w-full ${fillHeight ? "md:h-full" : ""} md:object-cover`}
+        startFromCenter
       >
         <motion.video
           onMouseEnter={() => setShouldPlay(true)}
@@ -141,9 +149,9 @@ const Video = ({
             visibility: isInView ? "visible" : "hidden",
             cursor: seekOnScroll ? "auto" : "none",
           }}
-          // animate={{
-          //   opacity: seekOnScroll || shouldPlay ? 1 : 0.5,
-          // }}
+          animate={{
+            opacity: seekOnScroll || shouldPlay ? 1 : 0.5,
+          }}
           onViewportEnter={() => setIsInView(true)}
           onViewportLeave={() => setIsInView(false)}
           // whileTap={{
