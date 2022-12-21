@@ -8,9 +8,9 @@ import { HomeScrollPositionContextProvider } from "../components/HomeScrollPosit
 import { useImagePreload } from "../hooks/useImagePreload";
 
 const IMAGE_PRELOAD_LIST: string[] = [
-  // "/project-assets/tedxsfu/intro.jpg",
-  // "/project-assets/whatif/intro.jpg",
-  // "/project-assets/idagio/intro.jpg",
+  "/_next/image?url=%2Fproject-assets%2Fwhatif%2Fintro.jpg&w=3840&q=75",
+  "/_next/image?url=%2Fproject-assets%2Ftedxsfu%2Fintro.jpg&w=3840&q=75",
+  "/_next/image?url=%2Fproject-assets%2Fidagio%2Fintro.jpg&w=3840&q=75",
 ];
 
 function MyApp({ Component, pageProps, router }: AppProps) {
