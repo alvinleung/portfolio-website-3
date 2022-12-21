@@ -27,7 +27,7 @@ const Image = ({
   return (
     <Figure rowSpan={rowSpan}>
       <NextImage
-        className="w-full object-cover rounded-xl"
+        className="w-full object-cover rounded-xl pointer-events-none"
         src={src}
         width={width}
         height={height}
