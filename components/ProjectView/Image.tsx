@@ -32,6 +32,7 @@ const Image = ({
         width={width}
         height={height}
         alt={caption || ""}
+        // placeholder="blur"
       />
       {children}
     </Figure>

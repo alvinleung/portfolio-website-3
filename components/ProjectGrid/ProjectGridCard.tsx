@@ -22,7 +22,7 @@ import { usePageTransition } from "../PageTransition/PageTransitionContext";
 import { useWindowDimension } from "../../hooks/useWindowDimension";
 
 const INACTIVE_TEXT_COLOR = "rgb(159, 238, 220)";
-const INACTIVE_BG_COLOR = "rgb(26, 41, 39)";
+const INACTIVE_BG_COLOR = "rgb(37, 55, 52)";
 
 type Props = {
   isActive: boolean;
@@ -57,6 +57,7 @@ const ProjectGridCard = ({
   }, [windowDimension.height]);
 
   const [isHovering, setIsHovering] = useState(false);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const { prevCardRef } = usePageTransition();
 
@@ -121,7 +122,6 @@ const ProjectGridCard = ({
         onMouseLeave={() => setIsHovering(false)}
       >
         <motion.div
-          // className="rounded-xl overflow-hidden"
           style={{
             transformPerspective: "100vw",
             translateZ: "0vw",
@@ -141,9 +141,9 @@ const ProjectGridCard = ({
             style={{
               opacity: opacity,
               height: height,
-              maskImage: "-webkit-radial-gradient(white, black)",
+              // maskImage: "-webkit-radial-gradient(white, black)",
               willChange: "height, opacity",
-              // backgroundColor: INACTIVE_BG_COLOR,
+              backgroundColor: INACTIVE_BG_COLOR,
             }}
             animate={{
               y: isActive ? 0 : cardYOffset,
@@ -160,7 +160,15 @@ const ProjectGridCard = ({
               className="w-full h-full"
               style={{ y: parallaxY, willChange: "transform" }}
               initial={{
+                opacity: 0,
                 scale: 1,
+              }}
+              animate={{
+                opacity: isActive && isImageLoaded ? 1 : 0,
+                transition: {
+                  duration: isActive ? 1 : AnimationConfig.NORMAL,
+                  ease: AnimationConfig.EASING,
+                },
               }}
               whileTap={{
                 scale: 1.03,
@@ -176,42 +184,38 @@ const ProjectGridCard = ({
                 height={767}
                 className="w-full "
                 alt={""}
+                onLoad={() => setIsImageLoaded(true)}
               />
+              {projectInfo.previewVideo && (
+                <motion.video
+                  disablePictureInPicture
+                  style={{
+                    // y: parallaxY,
+                    // willChange: "transform",
+                    // display: isHovering ? "block" : "none",
+                    visibility: isHovering ? "visible" : "hidden",
+                  }}
+                  ref={videoRef}
+                  src={projectInfo.previewVideo}
+                  autoPlay
+                  muted
+                  loop
+                  className="w-full object-cover object-center absolute top-0 left-0 right-0"
+                  initial={{
+                    scale: 1,
+                  }}
+                  whileTap={{
+                    scale: 1.03,
+                  }}
+                  transition={{
+                    duration: AnimationConfig.FAST,
+                    ease: AnimationConfig.EASING,
+                  }}
+                />
+              )}
             </motion.div>
             {/* <motion.img /> */}
 
-            {projectInfo.previewVideo && (
-              <motion.video
-                disablePictureInPicture
-                style={{
-                  y: parallaxY,
-                  willChange: "transform",
-                  display: isHovering ? "block" : "none",
-                }}
-                ref={videoRef}
-                src={projectInfo.previewVideo}
-                autoPlay
-                muted
-                loop
-                className="w-full object-cover object-center absolute top-0 left-0 right-0"
-                animate={
-                  {
-                    // backgroundColor: projectStyle.getBgColor(),
-                    // opacity: isActive ? 1 : 0.05,
-                  }
-                }
-                initial={{
-                  scale: 1,
-                }}
-                whileTap={{
-                  scale: 1.03,
-                }}
-                transition={{
-                  duration: AnimationConfig.FAST,
-                  ease: AnimationConfig.EASING,
-                }}
-              />
-            )}
             {/* content */}
             <motion.div
               className="absolute left-0 right-0 top-0 pointer-events-none"
@@ -220,17 +224,14 @@ const ProjectGridCard = ({
               //   opacity: isActive ? 1 : 0,
               // }}
               animate={{
-                opacity: isActive ? 1 : 0,
-              }}
-              transition={{
-                duration: AnimationConfig.NORMAL,
-                ease: "linear",
+                opacity: isActive && isImageLoaded ? 1 : 0,
+                transition: {
+                  duration: isActive ? 1 : AnimationConfig.NORMAL,
+                  ease: AnimationConfig.EASING,
+                },
               }}
             >
-              <div
-                className="grid grid-cols-2 py-3 px-4"
-                // style={{ fontWeight: 500 }}
-              >
+              <div className="grid grid-cols-2 py-3 px-4">
                 {isHovering && (
                   <>
                     <div className="leading-tight">{projectInfo.title}</div>

@@ -54,6 +54,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
 
   const boxOpacity = useTransform(boxTransitionOutProgress, [0, 0.1], [0, 1]);
   const boxHeight = useTransform(boxTransitionOutProgress, (val) => {
+    console.log(val);
     return val * boxContainerHeight;
   });
   const parallaxY = useTransform(boxTransitionOutProgress, (val) => {
