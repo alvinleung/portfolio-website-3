@@ -156,16 +156,9 @@ const ProjectGridCard = ({
             }}
             ref={cardRef}
           >
-            <motion.img
+            <motion.div
+              className="w-full h-full"
               style={{ y: parallaxY, willChange: "transform" }}
-              src={getProjectCover(projectInfo.slug)}
-              className="w-full object-cover object-center"
-              animate={
-                {
-                  // backgroundColor: projectStyle.getBgColor(),
-                  // opacity: isActive ? 1 : 0.05,
-                }
-              }
               initial={{
                 scale: 1,
               }}
@@ -176,7 +169,16 @@ const ProjectGridCard = ({
                 duration: AnimationConfig.FAST,
                 ease: AnimationConfig.EASING,
               }}
-            />
+            >
+              <Image
+                src={getProjectCover(projectInfo.slug)}
+                width={582}
+                height={767}
+                className="w-full "
+                alt={""}
+              />
+            </motion.div>
+            {/* <motion.img /> */}
 
             {projectInfo.previewVideo && (
               <motion.video
