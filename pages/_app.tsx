@@ -7,10 +7,10 @@ import { PageTransitionProvider } from "../components/PageTransition/PageTransit
 import { HomeScrollPositionContextProvider } from "../components/HomeScrollPositionContext";
 import { useImagePreload } from "../hooks/useImagePreload";
 
-const IMAGE_PRELOAD_LIST = [
-  "/project-assets/tedxsfu/intro.jpg",
-  "/project-assets/whatif/intro.jpg",
-  "/project-assets/idagio/intro.jpg",
+const IMAGE_PRELOAD_LIST: string[] = [
+  // "/project-assets/tedxsfu/intro.jpg",
+  // "/project-assets/whatif/intro.jpg",
+  // "/project-assets/idagio/intro.jpg",
 ];
 
 function MyApp({ Component, pageProps, router }: AppProps) {
