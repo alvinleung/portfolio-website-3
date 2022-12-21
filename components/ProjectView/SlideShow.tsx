@@ -37,40 +37,47 @@ const SlideShow = ({ children, label, text }: Props) => {
       onViewportEnter={() => setIsInView(true)}
       onViewportLeave={() => setIsInView(false)}
     >
-      {arrayChildren.map((child, index) => (
-        <motion.div
-          key={index}
-          className={index === 0 ? "" : "absolute left-0 top-0"}
-          animate={{
-            x:
-              currentPage === index
-                ? 0
-                : currentPage > index
-                ? -EXIT_OFFSET
-                : EXIT_OFFSET,
-            opacity: currentPage === index ? 1 : 0,
-          }}
-          style={{
-            width: bound.width,
-          }}
-          transition={{
-            duration: AnimationConfig.NORMAL,
-            ease: AnimationConfig.EASING,
-          }}
-        >
-          {child}
-        </motion.div>
-      ))}
-      <div className="absolute top-0 right-0 bottom-0 left-0 flex flex-row w-full h-full">
-        <div
-          className={"w-full h-full"}
-          style={{
-            cursor: "e-resize",
-          }}
-          onClick={handleNext}
+      <ReactiveTapArea>
+        {arrayChildren.map((child, index) => (
+          <motion.div
+            key={index}
+            className={index === 0 ? "" : "absolute left-0 top-0"}
+            animate={{
+              x:
+                currentPage === index
+                  ? 0
+                  : currentPage > index
+                  ? -EXIT_OFFSET
+                  : EXIT_OFFSET,
+              opacity: currentPage === index ? 1 : 0,
+            }}
+            style={{
+              width: bound.width,
+            }}
+            transition={{
+              duration: AnimationConfig.NORMAL,
+              ease: AnimationConfig.EASING,
+            }}
+          >
+            {child}
+          </motion.div>
+        ))}
+        <div className="absolute top-0 right-0 bottom-0 left-0 flex flex-row w-full h-full">
+          <div
+            className={"w-full h-full"}
+            style={{
+              cursor: "e-resize",
+            }}
+            onClick={handleNext}
+          />
+        </div>
+        <Caption
+          label={label}
+          text={text}
+          wideSpacing={false}
+          forImage={true}
         />
-      </div>
-      <Caption label={label} text={text} wideSpacing={false} forImage={true} />
+      </ReactiveTapArea>
     </motion.figure>
   );
 };
