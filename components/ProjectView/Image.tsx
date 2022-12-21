@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import NextImage from "next/future/image";
+import NextImage from "next/image";
 import { motion } from "framer-motion";
 import { AnimationConfig } from "../AnimationConfig";
 import { Figure } from "./FigureWrapper";
@@ -31,6 +31,7 @@ const Image = ({
         src={src}
         width={width}
         height={height}
+        alt={caption || ""}
       />
       {children}
     </Figure>

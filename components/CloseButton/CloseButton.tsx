@@ -21,7 +21,7 @@ const CloseButton = ({ overscrollProgress, isOverscrollStarted }: Props) => {
   // );
 
   return (
-    <Link href="/">
+    <Link href="/" legacyBehavior>
       <motion.a
         className="inline-block rounded-full p-2 bg-[rgba(50,50,50,.6)] cursor-pointer"
         // style={{

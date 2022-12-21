@@ -95,7 +95,7 @@ const ProjectGridCard = ({
   }, [isHovering]);
 
   return (
-    <Link href={`projects/${projectInfo.slug}`} scroll={false}>
+    <Link href={`projects/${projectInfo.slug}`} scroll={false} legacyBehavior>
       <a
         className="relative block h-full"
         onMouseDown={(e) => {

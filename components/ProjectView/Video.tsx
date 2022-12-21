@@ -170,6 +170,7 @@ const Video = ({
           autoPlay={seekOnScroll ? false : true}
           muted
           loop
+          playsInline
         />
         {children}
       </ReactiveTapArea>

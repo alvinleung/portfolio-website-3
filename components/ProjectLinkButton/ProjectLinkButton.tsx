@@ -41,7 +41,7 @@ const ProjectLinkButton = ({ projectStyle, projectInfo, scrolled }: Props) => {
   const circleColorHover = projectStyle.dark;
 
   return (
-    <Link href={getProjectLink(projectInfo.slug)}>
+    <Link href={getProjectLink(projectInfo.slug)} legacyBehavior>
       <motion.a
         onClickCapture={handleClick}
         ref={linkRef}

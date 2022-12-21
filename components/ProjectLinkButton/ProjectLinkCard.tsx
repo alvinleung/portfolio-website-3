@@ -45,7 +45,7 @@ const ProjectLinkCard = ({
 
   return (
     <ReactiveTapArea>
-      <Link href={getProjectLink(projectInfo.slug)}>
+      <Link href={getProjectLink(projectInfo.slug)} legacyBehavior>
         <motion.div
           exit={{
             opacity: 0,
