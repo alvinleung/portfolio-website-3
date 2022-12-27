@@ -232,25 +232,23 @@ const ProjectGridCard = ({
               }}
             >
               <div className="grid grid-cols-2 py-3 px-4">
-                {isHovering && (
-                  <>
-                    <div className="leading-tight">{projectInfo.title}</div>
-                    <div className="leading-tight max-w-[32ch]">
-                      {projectInfo.description}
-                    </div>
-                  </>
-                )}
-                {!isHovering && (
-                  <>
-                    <div className="leading-tight">{projectInfo.title}</div>
-                    <div className="leading-tight">
-                      {projectInfo.tags &&
-                        projectInfo.tags.map((tag, index) => {
-                          return <div key={index}>{tag}</div>;
-                        })}
-                    </div>
-                  </>
-                )}
+                {/* 
+                
+                  Removing hover state:
+                  - Viewer cares about your contribution more
+                  - The visual intriuging enough
+                  - Text not giving much to be a deciding factor
+              
+                */}
+                <div className="leading-tight">{projectInfo.title}</div>
+                <div className="leading-tight">
+                  {projectInfo.tags &&
+                    projectInfo.tags.map((tag, index) => {
+                      return <div key={index}>{tag}</div>;
+                    })}
+                </div>
+                {/* </>
+                )} */}
               </div>
             </motion.div>
           </motion.div>
