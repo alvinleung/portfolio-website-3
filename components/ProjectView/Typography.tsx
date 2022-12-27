@@ -1,13 +1,13 @@
 import { createParagraphProcessor } from "./ParagraphProcessor";
 
 export const ParagraphBig = (children: any) => (
-  <p className="col-start-1 sm:col-start-2 col-span-full md:col-start-2 md:col-span-3 mt-48 mb-32 text-3xl leading-[1.16em] xl:leading-[1.16em] -tracking-[.037em] font-normal lg:text-4xl xl:text-5xl">
+  <p className="col-start-1 sm:col-start-2 col-span-full md:col-start-2 md:col-span-3 mt-48 mb-32 text-3xl leading-[1.16em] xl:leading-[1.16em] -tracking-[.037em] font-light lg:text-4xl xl:text-5xl">
     {children}
   </p>
 );
 export const Quote = ({ children, who = "", title = "" }: any) => (
   <>
-    <blockquote className="col-start-2 2xl:col-start-4 col-span-3 mt-48 mb-12 text-5xl font-normal -indent-4">
+    <blockquote className="col-start-2 2xl:col-start-4 col-span-3 mt-48 mb-12 text-5xl font-light -indent-4">
       “{children}”
     </blockquote>
     <div className="col-start-2 2xl:col-start-4 col-span-1 text-sm mb-24">

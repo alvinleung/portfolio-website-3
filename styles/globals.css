@@ -1,5 +1,5 @@
 /* load font */
-/* @import url("https://use.typekit.net/ihp0wvz.css"); */
+@import url("https://use.typekit.net/ihp0wvz.css");
 
 @tailwind base;
 @tailwind components;
@@ -28,7 +28,7 @@
   src: url("../public/fonts/larsseit/Larsseit-Medium.woff2") format("woff2");
   font-display: block;
 } */
-@font-face {
+/* @font-face {
   font-family: "real-text-pro";
   font-weight: 300;
   src: url("../public/fonts/real-text-pro/RealTextPro-Semilight.otf")
@@ -53,7 +53,7 @@
   font-weight: 450;
   src: url("../public/fonts/real-text-pro/RealTextPro-Book.otf")
     format("opentype");
-}
+} */
 
 html,
 body {
@@ -61,12 +61,12 @@ body {
   margin: 0;
   /* font-family: "larsseit", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
-  font-family: "real-text-pro", -apple-system, BlinkMacSystemFont, Segoe UI,
+  font-family: "ff-real-text-pro", -apple-system, BlinkMacSystemFont, Segoe UI,
     Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
     sans-serif;
   /* medium by default */
   letter-spacing: -0.01em;
-  font-weight: 450;
+  font-weight: 400;
   font-size: 16px;
 
   /* font-feature-settings: "zero" on, "tnum" on, "ss02" on; */
