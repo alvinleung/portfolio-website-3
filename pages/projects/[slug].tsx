@@ -55,18 +55,33 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const nextProjectSource = getPostBySlug(source.meta.nextProject as string);
   const mdxSource = await serialize(source.content);
 
+  const paths = getAllPostSlugs();
+  const slugTitleMap = paths.map((path) => {
+    const post = getPostBySlug(path.params.slug);
+    return {
+      title: post.meta.title,
+      slug: path.params.slug,
+    };
+  });
+
   return {
     props: {
       source: mdxSource,
       meta: source.meta,
       nextProjectMeta: nextProjectSource.meta,
+      slugTitleMap: slugTitleMap,
     },
   };
 };
 
 // THE TEMPATE
 type PostProps = InferGetStaticPropsType<typeof getStaticProps>;
-export default function Post({ source, meta, nextProjectMeta }: PostProps) {
+export default function Post({
+  source,
+  meta,
+  nextProjectMeta,
+  slugTitleMap,
+}: PostProps) {
   const projectStyle = getProjectStyle(meta);
   const projectInfo = getProjectInfo(meta);
   const projectLogoSource = getProjectLogo(projectInfo.slug);
@@ -87,6 +102,7 @@ export default function Post({ source, meta, nextProjectMeta }: PostProps) {
           nextProjectInfo={nextProjectInfo}
           nextProjectStyle={nextProjectStyle}
           coverImage={getProjectCover(projectInfo.slug)}
+          slugTitleMap={slugTitleMap}
         >
           {/* <h1 className="text-6xl">{meta.title}</h1> */}
           <ProjectHeader projectInfo={projectInfo} />

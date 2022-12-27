@@ -36,6 +36,7 @@ import debounce from "../../lib/debounce";
 import OverscrollAction from "../OverscrollAction/OverscrollAction";
 import { OverscrollDirection, useOverscroll } from "../../hooks/useOverscroll";
 import { useRouter } from "next/router";
+import { useHistory } from "../../contexts/History";
 
 type Props = {
   children: React.ReactNode;
@@ -44,6 +45,7 @@ type Props = {
   nextProjectStyle: ProjectStyle;
   nextProjectInfo: ProjectInfo;
   coverImage: string;
+  slugTitleMap: [{ title: string; slug: string }];
 };
 
 const USE_SIMPLE_TRANSITION = true;
@@ -54,6 +56,7 @@ const ProjectView = ({
   nextProjectStyle,
   nextProjectInfo,
   coverImage,
+  slugTitleMap,
 }: Props) => {
   const anim = useAnimation();
   const contentContainerRef = useRef() as MutableRefObject<HTMLDivElement>;
@@ -298,12 +301,35 @@ const ProjectView = ({
     [0, 1],
     [0, -100]
   );
-  const router = useRouter();
+  const { history, back } = useHistory();
+
   useEffect(() => {
     if (overscrollUp.isOverscrollComplete) {
-      router.back();
+      // router.back();
+      back();
     }
   }, [overscrollUp.isOverscrollComplete]);
+
+  const lastPage = history.length >= 2 ? history[history.length - 2] : "/";
+  const [lastPageTitle, setLastPageTitle] = useState("");
+  useEffect(() => {
+    if (!isPresent) return;
+
+    const lastPageCleaned = lastPage.substring(
+      "/projects/".length,
+      lastPage.length
+    );
+    const titleMap = slugTitleMap.find((item) => item.slug === lastPageCleaned);
+
+    if (!titleMap) {
+      setLastPageTitle("");
+      return;
+    }
+
+    setTimeout(() => setLastPageTitle(titleMap?.title), 500);
+  }, [lastPage, isPresent]);
+
+  // const lastePageName;
 
   return (
     <>
@@ -328,6 +354,46 @@ const ProjectView = ({
           overscrollProgress={overscrollUp.overscrollProgress}
           isOverscrollStarted={overscrollUp.isOverscrollStarted}
         />
+      </motion.div>
+      <motion.div
+        className="fixed left-0 right-0 top-0 z-0 text-white"
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: overscrollUp.isOverscrollStarted
+            ? overscrollUp.isOverscrollComplete
+              ? 0
+              : 1
+            : 0,
+          y: overscrollUp.isOverscrollStarted
+            ? overscrollUp.isOverscrollComplete
+              ? 5
+              : 0
+            : -50,
+          // scale: overscrollUp.isOverscrollComplete ? 2 : 1,
+        }}
+        exit={{
+          opacity: 0,
+        }}
+        transition={{
+          bounce: 0,
+          // stiffness: 1000,
+          // damping: 10,
+        }}
+      >
+        <div className="w-full text-center mt-8 flex flex-col">
+          {!lastPageTitle && (
+            <>
+              <span className="opacity-70 text-[12px] leading-3 ">Back to</span>{" "}
+              <span>All Projects</span>
+            </>
+          )}
+          {lastPageTitle && (
+            <>
+              <span className="opacity-70 text-[12px] leading-3 ">Back to</span>{" "}
+              <span>{lastPageTitle}</span>
+            </>
+          )}
+        </div>
       </motion.div>
       {/* <motion.article ref={contentContainerRef} className="mx-6 2xl:mx-16 z-10"> */}
       <motion.article
