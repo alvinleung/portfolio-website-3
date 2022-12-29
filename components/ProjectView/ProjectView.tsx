@@ -37,6 +37,7 @@ import OverscrollAction from "../OverscrollAction/OverscrollAction";
 import { OverscrollDirection, useOverscroll } from "../../hooks/useOverscroll";
 import { useRouter } from "next/router";
 import { useHistory } from "../../contexts/History";
+import { BackIcon } from "../CloseButton/Icon";
 
 type Props = {
   children: React.ReactNode;
@@ -205,7 +206,7 @@ const ProjectView = ({
         scale: shrinkedScale,
         opacity: 1,
         transition: {
-          duration: AnimationConfig.FAST,
+          duration: AnimationConfig.NORMAL,
           ease: AnimationConfig.EASING,
         },
       });
@@ -259,8 +260,8 @@ const ProjectView = ({
   // ================================================
   // Overscroll interaction
   // ================================================
-  const overscrollUp = useOverscroll(OverscrollDirection.UP, 200);
-  const overscrollDown = useOverscroll(OverscrollDirection.DOWN, 200);
+  const overscrollUp = useOverscroll(OverscrollDirection.UP, 600);
+  const overscrollDown = useOverscroll(OverscrollDirection.DOWN, 400);
 
   // main body exit
   const overscrollOffsetY = useTransform(
@@ -330,6 +331,11 @@ const ProjectView = ({
   }, [lastPage, isPresent]);
 
   // const lastePageName;
+  const scrollUpHintPos = useTransform(
+    overscrollUp.overscrollProgress,
+    [0, 1],
+    [0, 20]
+  );
 
   return (
     <>
@@ -358,6 +364,9 @@ const ProjectView = ({
       <motion.div
         className="fixed left-0 right-0 top-0 z-0 text-white"
         initial={{ opacity: 0 }}
+        // style={{
+        //   y: scrollUpHintPos,
+        // }}
         animate={{
           opacity: overscrollUp.isOverscrollStarted
             ? overscrollUp.isOverscrollComplete
@@ -366,34 +375,47 @@ const ProjectView = ({
             : 0,
           y: overscrollUp.isOverscrollStarted
             ? overscrollUp.isOverscrollComplete
-              ? 5
+              ? 0
               : 0
-            : -50,
-          // scale: overscrollUp.isOverscrollComplete ? 2 : 1,
+            : -30,
+          // scale: overscrollUp.isOverscrollStarted ? 1 : 0.9,
         }}
         exit={{
           opacity: 0,
         }}
         transition={{
-          bounce: 0,
+          duration: AnimationConfig.FAST,
+          ease: AnimationConfig.EASING,
+          // bounce: 0,
           // stiffness: 1000,
           // damping: 10,
         }}
       >
-        <div className="w-full text-center mt-8 flex flex-col">
+        <motion.div
+          style={{
+            y: scrollUpHintPos,
+          }}
+          className="w-full text-center mt-8 flex flex-col opacity-60"
+        >
           {!lastPageTitle && (
             <>
-              <span className="opacity-70 text-[12px] leading-3 ">Back to</span>{" "}
-              <span>All Projects</span>
+              {/* <span className="opacity-70 text-[12px] leading-3 ">Back to</span>{" "} */}
+              <span>
+                <BackIcon />
+                All Projects
+              </span>
             </>
           )}
           {lastPageTitle && (
             <>
-              <span className="opacity-70 text-[12px] leading-3 ">Back to</span>{" "}
-              <span>{lastPageTitle}</span>
+              {/* <span className="opacity-70 text-[12px] leading-3 ">Back to</span>{" "} */}
+              <span>
+                <BackIcon />
+                {lastPageTitle}
+              </span>
             </>
           )}
-        </div>
+        </motion.div>
       </motion.div>
       {/* <motion.article ref={contentContainerRef} className="mx-6 2xl:mx-16 z-10"> */}
       <motion.article
