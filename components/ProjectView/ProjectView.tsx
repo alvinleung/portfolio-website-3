@@ -261,7 +261,7 @@ const ProjectView = ({
   // Overscroll interaction
   // ================================================
   const overscrollUp = useOverscroll(OverscrollDirection.UP, 600);
-  const overscrollDown = useOverscroll(OverscrollDirection.DOWN, 400);
+  const overscrollDown = useOverscroll(OverscrollDirection.DOWN, 300);
 
   // main body exit
   const overscrollOffsetY = useTransform(
