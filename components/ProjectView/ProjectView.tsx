@@ -37,7 +37,12 @@ import OverscrollAction from "../OverscrollAction/OverscrollAction";
 import { OverscrollDirection, useOverscroll } from "../../hooks/useOverscroll";
 import { useRouter } from "next/router";
 import { useHistory } from "../../contexts/History";
-import { BackIcon } from "../CloseButton/Icon";
+import {
+  BackIcon,
+  ScrollUpArrow,
+  ScrollUpDot,
+  ScrollUpIcon,
+} from "../CloseButton/Icon";
 
 type Props = {
   children: React.ReactNode;
@@ -402,7 +407,8 @@ const ProjectView = ({
               <>
                 {/* <span className="opacity-70 text-[12px] leading-3 ">Back to</span>{" "} */}
                 <span>
-                  <BackIcon />
+                  {/* <BackIcon /> */}
+                  <ScrollUpIcon progress={overscrollUp.overscrollProgress} />
                   All Projects
                 </span>
               </>
@@ -411,7 +417,8 @@ const ProjectView = ({
               <>
                 {/* <span className="opacity-70 text-[12px] leading-3 ">Back to</span>{" "} */}
                 <span>
-                  <BackIcon />
+                  {/* <BackIcon /> */}
+                  <ScrollUpIcon progress={overscrollUp.overscrollProgress} />
                   {lastPageTitle}
                 </span>
               </>
