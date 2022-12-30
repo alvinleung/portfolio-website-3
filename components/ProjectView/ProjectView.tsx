@@ -322,12 +322,12 @@ const ProjectView = ({
     );
     const titleMap = slugTitleMap.find((item) => item.slug === lastPageCleaned);
 
-    if (!titleMap) {
-      setLastPageTitle("");
-      return;
-    }
-
-    setTimeout(() => setLastPageTitle(titleMap?.title), 500);
+    // if (!titleMap) {
+    //   setLastPageTitle("");
+    //   return;
+    // }
+    //@ts-ignore
+    setTimeout(() => setLastPageTitle(titleMap?.title), 700);
   }, [lastPage, isPresent]);
 
   // const lastePageName;
@@ -377,7 +377,7 @@ const ProjectView = ({
             ? overscrollUp.isOverscrollComplete
               ? 0
               : 0
-            : -30,
+            : 30,
           // scale: overscrollUp.isOverscrollStarted ? 1 : 0.9,
         }}
         exit={{
@@ -395,26 +395,28 @@ const ProjectView = ({
           style={{
             y: scrollUpHintPos,
           }}
-          className="w-full text-center mt-8 flex flex-col opacity-60"
+          className="w-full text-center mt-8 flex flex-col"
         >
-          {!lastPageTitle && (
-            <>
-              {/* <span className="opacity-70 text-[12px] leading-3 ">Back to</span>{" "} */}
-              <span>
-                <BackIcon />
-                All Projects
-              </span>
-            </>
-          )}
-          {lastPageTitle && (
-            <>
-              {/* <span className="opacity-70 text-[12px] leading-3 ">Back to</span>{" "} */}
-              <span>
-                <BackIcon />
-                {lastPageTitle}
-              </span>
-            </>
-          )}
+          <div className="flex mx-auto px-4 py-2 rounded-full bg-[rgba(50,50,50,.6)] opacity-1">
+            {!lastPageTitle && (
+              <>
+                {/* <span className="opacity-70 text-[12px] leading-3 ">Back to</span>{" "} */}
+                <span>
+                  <BackIcon />
+                  All Projects
+                </span>
+              </>
+            )}
+            {lastPageTitle && (
+              <>
+                {/* <span className="opacity-70 text-[12px] leading-3 ">Back to</span>{" "} */}
+                <span>
+                  <BackIcon />
+                  {lastPageTitle}
+                </span>
+              </>
+            )}
+          </div>
         </motion.div>
       </motion.div>
       {/* <motion.article ref={contentContainerRef} className="mx-6 2xl:mx-16 z-10"> */}
