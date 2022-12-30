@@ -265,7 +265,7 @@ const ProjectView = ({
   // ================================================
   // Overscroll interaction
   // ================================================
-  const overscrollUp = useOverscroll(OverscrollDirection.UP, 600);
+  const overscrollUp = useOverscroll(OverscrollDirection.UP, 500);
   const overscrollDown = useOverscroll(OverscrollDirection.DOWN, 300);
 
   // main body exit
