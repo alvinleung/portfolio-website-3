@@ -15,7 +15,11 @@ const ProjectGridSection = ({
   isViewing,
 }: Props) => {
   return (
-    <section>
+    <section
+      style={{
+        pointerEvents: isViewing ? "all" : "none",
+      }}
+    >
       <motion.div
         className="fixed top-0 left-0 right-0 pt-4 px-4 lg:px-6 grid grid-cols-2"
         initial={{

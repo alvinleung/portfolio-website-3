@@ -54,7 +54,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
 
   const boxOpacity = useTransform(boxTransitionOutProgress, [0, 0.1], [0, 1]);
   const boxHeight = useTransform(boxTransitionOutProgress, (val) => {
-    console.log(val);
+    // console.log(val);
     return val * boxContainerHeight;
   });
   const parallaxY = useTransform(boxTransitionOutProgress, (val) => {
@@ -87,7 +87,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   return (
     <motion.div
       ref={containerRef}
-      className="sticky top-14 h-[110vw] md:h-[60vw] lg:h-[40vw]"
+      className="sticky top-14 h-[110vw] md:h-[60vw] lg:h-[40vw] "
       onClick={() => onSelect?.(projectInfo.slug)}
       exit={{
         opacity: 0,

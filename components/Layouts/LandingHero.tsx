@@ -64,7 +64,13 @@ const LandingHero = ({ isViewingGrid }: Props) => {
         animate={{ opacity: isFirstRender || isViewingGrid ? 0 : 1 }}
       >
         <motion.div
-          className="fixed px-4 py-4 md:px-6 md:py-6 grid grid-cols-6 grid-rows-[1fr] gap-2 md:h-[80vh] -z-10"
+          className="fixed px-4 py-4 md:px-6 md:py-6 grid grid-cols-6 grid-rows-[1fr] gap-2 md:h-[100vh] "
+          onWheel={(e) => {
+            scrollContainerRef.current.scrollTop =
+              scrollContainerRef.current.scrollTop + e.deltaY;
+
+            console.log("scroll");
+          }}
           style={{
             scale: heroScale,
             opacity: isOutsideScrollArea ? 0 : heroOpacity,
@@ -90,7 +96,7 @@ const LandingHero = ({ isViewingGrid }: Props) => {
             <p className="mt-4 text-sm sm:text-base"></p>
           </div>
 
-          <div className="col-start-1 col-span-3 lg:col-start-5 lg:col-span-1 row-start-2 lg:row-start-2 flex flex-col opacity-60 lg:mb-0 text-sm xl:text-base">
+          <div className="col-start-1 col-span-3 lg:col-start-5 lg:col-span-1 row-start-2 lg:row-start-2 flex flex-col opacity-60 lg:mb-64 text-sm xl:text-base">
             <h3 className="uppercase mb-3 text-sm">Previous Clients</h3>
             <ul>
               <li>Pager</li>

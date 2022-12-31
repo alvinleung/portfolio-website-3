@@ -34,7 +34,7 @@ const OverscrollAction = ({ onTrigger }: Props) => {
 
     const handleWheel = (e: WheelEvent) => {
       overScroll.set(overScroll.get() - e.deltaY);
-      console.log(overScroll.get());
+      // console.log(overScroll.get());
     };
     window.addEventListener("wheel", handleWheel);
 
