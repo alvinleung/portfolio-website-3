@@ -4,6 +4,7 @@ import {
   ScrollDirection,
   useContainerScroll,
 } from "../components/ScrollContainer/ScrollContainer";
+import { clamp } from "../lib/clamp";
 
 import debounce from "../lib/debounce";
 
@@ -11,6 +12,8 @@ export enum OverscrollDirection {
   UP,
   DOWN,
 }
+
+const MAX_STEP = 50;
 
 export function useOverscroll(
   direction: OverscrollDirection = OverscrollDirection.UP,
@@ -74,9 +77,10 @@ export function useOverscroll(
       setIsOverscrollStarted(true);
 
       let deltaAmount = 0;
+      const delta = clamp(e.deltaY, -MAX_STEP, MAX_STEP);
       if (direction === OverscrollDirection.UP)
-        deltaAmount = overScroll.get() - e.deltaY;
-      else deltaAmount = overScroll.get() + e.deltaY;
+        deltaAmount = overScroll.get() - delta;
+      else deltaAmount = overScroll.get() + delta;
 
       if (completeRef.current) {
         return;

@@ -9,6 +9,7 @@ import React, { useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { useBoundingBox } from "../../hooks/useBoundingClientRect";
 import useIsFirstRender from "../../hooks/useIsFirstRender";
+import { clamp } from "../../lib/clamp";
 import { AnimationConfig } from "../AnimationConfig";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 
@@ -16,9 +17,6 @@ type Props = { isViewingGrid: boolean };
 
 const LANDING_THEME_BG = "#192220";
 const DEFAULT_BG = "#0e1010";
-
-const clamp = (num: number, min: number, max: number) =>
-  Math.min(Math.max(num, min), max);
 
 const LandingHero = ({ isViewingGrid }: Props) => {
   const { scrollY, scrollContainerRef } = useContainerScroll();
