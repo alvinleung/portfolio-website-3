@@ -40,6 +40,14 @@ const Video = ({
   const windowDimension = useWindowDimension();
 
   useEffect(() => {
+    if (isInView) {
+      setShouldPlay(true);
+      return;
+    }
+    setShouldPlay(false);
+  }, [isInView]);
+
+  useEffect(() => {
     if (!seekOnScroll) return;
     if (!shouldPlay) return;
 
@@ -145,8 +153,8 @@ const Video = ({
         startFromCenter
       >
         <motion.video
-          onMouseEnter={() => setShouldPlay(true)}
-          onMouseLeave={() => setShouldPlay(false)}
+          // onMouseEnter={() => setShouldPlay(true)}
+          // onMouseLeave={() => setShouldPlay(false)}
           className={`w-full ${
             fillHeight ? "md:h-full" : ""
           } md:object-cover rounded-xl`}
