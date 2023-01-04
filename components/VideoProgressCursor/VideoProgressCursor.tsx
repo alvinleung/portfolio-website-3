@@ -25,6 +25,8 @@ type Props = {
   fill: string;
 };
 
+const RADIUS = 24;
+
 const VideoProgressCursor = ({
   playerRef,
   isScrubbing,
@@ -73,8 +75,8 @@ const VideoProgressCursor = ({
       anim.set({
         // x: vidBounds.left + vidBounds.width / 2,
         // y: vidBounds.top + vidBounds.height / 2,
-        x: e.clientX - 20,
-        y: e.clientY - 20,
+        x: e.clientX - RADIUS,
+        y: e.clientY - RADIUS,
       });
       anim.start({
         opacity: 1,
@@ -90,8 +92,8 @@ const VideoProgressCursor = ({
       };
 
       anim.start({
-        x: e.clientX - 16,
-        y: e.clientY - 16,
+        x: e.clientX - RADIUS,
+        y: e.clientY - RADIUS,
         transition: {
           duration: 0.1,
           ease: AnimationConfig.EASING,
@@ -149,20 +151,20 @@ const VideoProgressCursor = ({
 
   useEffect(() => {
     if (isScrubbing) {
-      anim.start({
-        x: vidBounds.left + vidBounds.width / 2 - 16,
-        y: vidBounds.top + vidBounds.height / 2 - 16,
-        transition: {
-          duration: AnimationConfig.VERY_FAST,
-          ease: AnimationConfig.EASING,
-        },
-      });
+      // anim.start({
+      //   x: vidBounds.left + vidBounds.width / 2 - 16,
+      //   y: vidBounds.top + vidBounds.height / 2 - 16,
+      //   transition: {
+      //     duration: AnimationConfig.VERY_FAST,
+      //     ease: AnimationConfig.EASING,
+      //   },
+      // });
       return;
     }
 
     anim.start({
-      x: cursorPosRef.current.x - 16,
-      y: cursorPosRef.current.y - 16,
+      x: cursorPosRef.current.x - RADIUS,
+      y: cursorPosRef.current.y - RADIUS,
       transition: {
         duration: AnimationConfig.VERY_FAST,
         ease: AnimationConfig.EASING,
@@ -214,7 +216,7 @@ const VideoProgressCursor = ({
           fill={fill}
           shouldEmphasise={shouldEmphasiseLeft}
         />
-        <ProgressRing progress={progress} strokeColor={fill} radius={16} />
+        <ProgressRing progress={progress} strokeColor={fill} radius={RADIUS} />
         <ArrowRight
           show={isShowing}
           fill={fill}
@@ -233,7 +235,7 @@ type ArrowProps = {
 const ArrowLeft = ({ show, fill, shouldEmphasise }: ArrowProps) => {
   return (
     <motion.svg
-      className="absolute -left-[16px] top-[4px]"
+      className="absolute -left-[14px] top-[12px]"
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -259,7 +261,7 @@ const ArrowLeft = ({ show, fill, shouldEmphasise }: ArrowProps) => {
 };
 const ArrowRight = ({ show, fill = "#FFF", shouldEmphasise }: ArrowProps) => (
   <motion.svg
-    className="absolute left-[24px] top-[4px]"
+    className="absolute left-[38px] top-[12px]"
     animate={{
       opacity: show ? 1 : 0,
       x: show ? (shouldEmphasise ? 2 : 0) : -12,

@@ -150,7 +150,7 @@ const Video = ({
       )}
       <ReactiveTapArea
         className={`w-full ${fillHeight ? "md:h-full" : ""} md:object-cover`}
-        startFromCenter
+        // startFromCenter
       >
         <motion.video
           // onMouseEnter={() => setShouldPlay(true)}
@@ -161,7 +161,7 @@ const Video = ({
           ref={playerRef}
           style={{
             visibility: isInView ? "visible" : "hidden",
-            cursor: seekOnScroll ? "auto" : "none",
+            cursor: seekOnScroll ? "auto" : "grab",
           }}
           animate={{
             opacity: seekOnScroll || shouldPlay ? 1 : 0.5,
