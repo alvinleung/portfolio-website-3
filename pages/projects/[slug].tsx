@@ -37,6 +37,7 @@ import {
   paragraphProcessor,
   Quote,
 } from "../../components/ProjectView/Typography";
+import { EditableContextProvider } from "../../components/Editor/EditableContext";
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   // Return a list of possible value for id
@@ -96,39 +97,41 @@ export default function Post({
         description={`${projectInfo.description}`}
       />
       <ColorShifterContextProvider initialColor={projectStyle.getBgColor()}>
-        <ProjectView
-          projectInfo={projectInfo}
-          projectStyle={projectStyle}
-          nextProjectInfo={nextProjectInfo}
-          nextProjectStyle={nextProjectStyle}
-          coverImage={getProjectCover(projectInfo.slug)}
-          slugTitleMap={slugTitleMap}
-        >
-          {/* <h1 className="text-6xl">{meta.title}</h1> */}
-          <ProjectHeader projectInfo={projectInfo} />
-          <main className="grid grid-cols-6 gap-x-4 mx-6 2xl:mx-16 md:text-xl -tracking-[.016em]">
-            <MDXRemote
-              {...source}
-              components={{
-                TestingComponent,
-                FullImage,
-                p: paragraphProcessor,
-                h2: Header2,
-                Image: Image,
-                Video: Video,
-                Team,
-                ColorShifter,
-                LayoutFull,
-                LayoutMainContent,
-                Quote,
-                Caption,
-                List,
-                ListItem,
-                SlideShow,
-              }}
-            />
-          </main>
-        </ProjectView>
+        <EditableContextProvider>
+          <ProjectView
+            projectInfo={projectInfo}
+            projectStyle={projectStyle}
+            nextProjectInfo={nextProjectInfo}
+            nextProjectStyle={nextProjectStyle}
+            coverImage={getProjectCover(projectInfo.slug)}
+            slugTitleMap={slugTitleMap}
+          >
+            {/* <h1 className="text-6xl">{meta.title}</h1> */}
+            <ProjectHeader projectInfo={projectInfo} />
+            <main className="grid grid-cols-6 gap-x-4 mx-6 2xl:mx-16 md:text-xl -tracking-[.016em]">
+              <MDXRemote
+                {...source}
+                components={{
+                  TestingComponent,
+                  FullImage,
+                  p: paragraphProcessor,
+                  h2: Header2,
+                  Image: Image,
+                  Video: Video,
+                  Team,
+                  ColorShifter,
+                  LayoutFull,
+                  LayoutMainContent,
+                  Quote,
+                  Caption,
+                  List,
+                  ListItem,
+                  SlideShow,
+                }}
+              />
+            </main>
+          </ProjectView>
+        </EditableContextProvider>
       </ColorShifterContextProvider>
     </>
   );

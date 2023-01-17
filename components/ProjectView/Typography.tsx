@@ -1,3 +1,4 @@
+import EditableText from "../Editor/EditableText";
 import { createParagraphProcessor } from "./ParagraphProcessor";
 
 export const ParagraphBig = (children: any) => (
@@ -28,7 +29,7 @@ export const Paragraph = (children: any) => (
   <p
     className={`${paragraphLayout} leading-[1.3em] md:leading-[1.16em] opacity-60 pt-[1em]`}
   >
-    {children}
+    <EditableText>{children}</EditableText>
   </p>
 );
 export const Header2 = ({ children }: any) => (
