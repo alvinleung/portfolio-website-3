@@ -10,7 +10,7 @@ type Props = {
 
 const EditableText = ({ children }: Props) => {
   const editableContext = useEditableContext();
-  if (!editableContext || !editableContext.editable) return <>{children}</>;
+  // if (!editableContext || !editableContext.editable) return <>{children}</>;
 
   const textAreaRef = useRef() as MutableRefObject<HTMLTextAreaElement>;
   const [textAreaValue, setTextAreaValue] = useState(children || "");
