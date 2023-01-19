@@ -127,9 +127,9 @@ const ProjectGridCard = ({
             translateZ: "0vw",
           }}
           whileTap={{
-            rotateY: cursorOffsetFromCenter.x * 7,
+            rotateY: cursorOffsetFromCenter.x * 10,
             rotateX: -cursorOffsetFromCenter.y * 10,
-            translateZ: "-5vw",
+            translateZ: "-2vw",
           }}
           transition={{
             duration: AnimationConfig.FAST,
@@ -170,9 +170,11 @@ const ProjectGridCard = ({
                   ease: AnimationConfig.EASING,
                 },
               }}
-              whileTap={{
-                scale: 1.03,
-              }}
+              whileTap={
+                {
+                  // scale: 1.03,
+                }
+              }
               transition={{
                 duration: AnimationConfig.FAST,
                 ease: AnimationConfig.EASING,
@@ -201,12 +203,16 @@ const ProjectGridCard = ({
                   muted
                   loop
                   className="w-full object-cover object-center absolute top-0 left-0 right-0"
-                  initial={{
-                    scale: 1,
-                  }}
-                  whileTap={{
-                    scale: 1.03,
-                  }}
+                  initial={
+                    {
+                      // scale: 1,
+                    }
+                  }
+                  whileTap={
+                    {
+                      // scale: 1.03,
+                    }
+                  }
                   transition={{
                     duration: AnimationConfig.FAST,
                     ease: AnimationConfig.EASING,
