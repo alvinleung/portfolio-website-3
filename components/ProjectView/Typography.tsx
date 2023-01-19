@@ -29,7 +29,7 @@ export const Paragraph = (children: any) => (
   <p
     className={`${paragraphLayout} leading-[1.3em] md:leading-[1.16em] opacity-60 pt-[1em]`}
   >
-    <EditableText>{children}</EditableText>
+    {children}
   </p>
 );
 export const Header2 = ({ children }: any) => (
