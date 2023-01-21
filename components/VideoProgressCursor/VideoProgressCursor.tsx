@@ -212,13 +212,13 @@ const VideoProgressCursor = ({
         animate={anim}
       >
         <ArrowLeft
-          show={isShowing}
+          show={isScrubbing}
           fill={fill}
           shouldEmphasise={shouldEmphasiseLeft}
         />
         <ProgressRing progress={progress} strokeColor={fill} radius={RADIUS} />
         <ArrowRight
-          show={isShowing}
+          show={isScrubbing}
           fill={fill}
           shouldEmphasise={shouldEmphasiseRight}
         />
@@ -242,9 +242,10 @@ const ArrowLeft = ({ show, fill, shouldEmphasise }: ArrowProps) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       animate={{
-        opacity: show ? 1 : 0,
+        // opacity: show ? 1 : 0,
+        opacity: show ? (shouldEmphasise ? 1 : 0.6) : 0,
         x: show ? (shouldEmphasise ? -2 : 0) : 12,
-        scale: shouldEmphasise ? 1.3 : 1,
+        // scale: shouldEmphasise ? 1.3 : 1,
         transition: {
           ease: AnimationConfig.EASING,
           duration: AnimationConfig.FAST,
@@ -263,9 +264,10 @@ const ArrowRight = ({ show, fill = "#FFF", shouldEmphasise }: ArrowProps) => (
   <motion.svg
     className="absolute left-[38px] top-[12px]"
     animate={{
-      opacity: show ? 1 : 0,
+      // opacity: show ? 1 : 0,
+      opacity: show ? (shouldEmphasise ? 1 : 0.6) : 0,
       x: show ? (shouldEmphasise ? 2 : 0) : -12,
-      scale: shouldEmphasise ? 1.3 : 1,
+      // scale: shouldEmphasise ? 1.3 : 1,
       transition: {
         ease: AnimationConfig.EASING,
         duration: AnimationConfig.FAST,

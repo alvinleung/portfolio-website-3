@@ -161,7 +161,7 @@ const Video = ({
           ref={playerRef}
           style={{
             visibility: isInView ? "visible" : "hidden",
-            cursor: seekOnScroll ? "auto" : "grab",
+            cursor: seekOnScroll ? "auto" : "ew-resize",
           }}
           animate={{
             opacity: seekOnScroll || shouldPlay ? 1 : 0.5,
