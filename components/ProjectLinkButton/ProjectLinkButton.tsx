@@ -1,6 +1,13 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
-import React, { MutableRefObject, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import React, {
+  MutableRefObject,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   getProjectLink,
   ProjectInfo,
@@ -19,6 +26,7 @@ const ProjectLinkButton = ({ projectStyle, projectInfo, scrolled }: Props) => {
   const [isHovering, setIsHovering] = useState(false);
   const linkRef = useRef() as MutableRefObject<HTMLAnchorElement>;
   const { prevCardRef } = usePageTransition();
+  const router = useRouter();
 
   const handleClick = () => {
     // prevCardRef.current = linkRef.current;
@@ -40,8 +48,18 @@ const ProjectLinkButton = ({ projectStyle, projectInfo, scrolled }: Props) => {
   const circleColor = projectStyle.accent;
   const circleColorHover = projectStyle.dark;
 
+  const link = useMemo(
+    () => getProjectLink(projectInfo.slug),
+    [projectInfo.slug]
+  );
+
+  // preload the next page
+  useEffect(() => {
+    router.prefetch(link);
+  }, [link]);
+
   return (
-    <Link href={getProjectLink(projectInfo.slug)} legacyBehavior>
+    <Link href={link} legacyBehavior>
       <motion.a
         onClickCapture={handleClick}
         ref={linkRef}
