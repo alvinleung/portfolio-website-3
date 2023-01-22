@@ -492,7 +492,7 @@ const ProjectView = ({
             }
             // exit={{ opacity: 0 }}
             transition={{ delay: 0, duration: AnimationConfig.NORMAL }}
-            className="relative pb-24 rounded-xl"
+            className="relative pb-24 rounded-[1.25rem]"
           >
             {children}
           </motion.div>

@@ -65,7 +65,7 @@ const ProjectLinkCard = ({
           }}
         >
           <motion.a
-            className="block h-[64em] rounded-tl-xl rounded-tr-xl relative cursor-pointer"
+            className="block h-[64em] rounded-tl-[1.25rem] rounded-tr-[1.25rem] relative cursor-pointer"
             style={{
               backgroundColor: projectStyle.getBgColor(),
               color: projectStyle.getTextColor(),
