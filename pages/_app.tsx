@@ -7,6 +7,7 @@ import { PageTransitionProvider } from "../components/PageTransition/PageTransit
 import { HomeScrollPositionContextProvider } from "../components/HomeScrollPositionContext";
 import { useImagePreload } from "../hooks/useImagePreload";
 import { HistoryProvider } from "../contexts/History";
+import Head from "next/head";
 
 const IMAGE_PRELOAD_LIST: string[] = [
   "/_next/image?url=%2Fproject-assets%2Fwhatif%2Fintro.jpg&w=3840&q=75",
@@ -22,22 +23,27 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   const isAllImagesLoaded = useImagePreload(IMAGE_PRELOAD_LIST);
 
   return (
-    <HistoryProvider>
-      <WindowDimensionContextProvider>
-        <HomeScrollPositionContextProvider>
-          <PageTransitionProvider>
-            <AnimatePresence initial={true}>
-              <ScrollContainer
-                key={router.asPath}
-                zIndex={isRouteHome ? 10 : 100}
-              >
-                <Component {...pageProps} />
-              </ScrollContainer>
-            </AnimatePresence>
-          </PageTransitionProvider>
-        </HomeScrollPositionContextProvider>
-      </WindowDimensionContextProvider>
-    </HistoryProvider>
+    <>
+      <Head>
+        <meta name="pinterest" content="nopin" />
+      </Head>
+      <HistoryProvider>
+        <WindowDimensionContextProvider>
+          <HomeScrollPositionContextProvider>
+            <PageTransitionProvider>
+              <AnimatePresence initial={true}>
+                <ScrollContainer
+                  key={router.asPath}
+                  zIndex={isRouteHome ? 10 : 100}
+                >
+                  <Component {...pageProps} />
+                </ScrollContainer>
+              </AnimatePresence>
+            </PageTransitionProvider>
+          </HomeScrollPositionContextProvider>
+        </WindowDimensionContextProvider>
+      </HistoryProvider>
+    </>
   );
 }
 
