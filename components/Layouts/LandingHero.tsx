@@ -173,7 +173,7 @@ const LandingHero = ({ isViewingGrid }: Props) => {
             </ul>
           </div>
           <div className="col-start-4 col-span-3 lg:col-start-6 lg:col-span-1 row-start-2 lg:row-start-2 flex flex-col opacity-60 text-sm xl:text-base">
-            <h3 className="uppercase mb-3 text-sm">Let's be in Touch</h3>
+            <h3 className="uppercase mb-3 text-sm">Let&apos;s be in Touch</h3>
             <ExternalLink
               href={"https://read.cv/alvinleung"}
               icon={"icon/icon-cv.svg"}
