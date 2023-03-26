@@ -43,12 +43,32 @@ const ProjectGridSection = ({
       >
         <div className="text-white text-left">Selected Works</div>
         <div className="text-white text-right">
-          <a href="mailto:alvinleung2009@gmail.com" className="mr-4">
+          <motion.a
+            href="mailto:alvinleung2009@gmail.com"
+            className="mr-4"
+            whileHover={{
+              opacity: 0.5,
+              transition: {
+                ease: AnimationConfig.EASING,
+                duration: AnimationConfig.VERY_FAST,
+              },
+            }}
+          >
             Email
-          </a>
-          <a href="https://www.instagram.com/alvinn.design" target="blank">
+          </motion.a>
+          <motion.a
+            href="https://www.instagram.com/alvinn.design"
+            target="blank"
+            whileHover={{
+              opacity: 0.5,
+              transition: {
+                ease: AnimationConfig.EASING,
+                duration: AnimationConfig.VERY_FAST,
+              },
+            }}
+          >
             Instagram
-          </a>
+          </motion.a>
         </div>
       </motion.div>
       <ProjectGrid isViewing={isViewing} projects={projects} />

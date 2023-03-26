@@ -36,6 +36,7 @@ import {
   ParagraphBig,
   paragraphProcessor,
   Quote,
+  Emphasis,
 } from "../../components/ProjectView/Typography";
 import { EditableContextProvider } from "../../components/Editor/EditableContext";
 
@@ -116,6 +117,7 @@ export default function Post({
                   FullImage,
                   p: paragraphProcessor,
                   h2: Header2,
+                  em: Emphasis,
                   Image: Image,
                   Video: Video,
                   Team,

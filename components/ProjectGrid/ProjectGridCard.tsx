@@ -151,7 +151,9 @@ const ProjectGridCard = ({
             }}
             transition={{
               duration: isActive ? 0.4 : AnimationConfig.FAST,
-              ease: isActive ? [0.62, 0, 0.02, 1] : AnimationConfig.EASING,
+              ease: isActive
+                ? AnimationConfig.EASING_DRAMATIC
+                : AnimationConfig.EASING,
               // delay: isActive ? index * 0.05 : 0,
             }}
             ref={cardRef}
@@ -180,22 +182,39 @@ const ProjectGridCard = ({
                 ease: AnimationConfig.EASING,
               }}
             >
-              <Image
-                src={getProjectCover(projectInfo.slug)}
-                width={582}
-                height={767}
-                className="w-full "
-                alt={""}
-                onLoad={() => setIsImageLoaded(true)}
-              />
+              <motion.div
+                animate={{
+                  opacity: 1,
+                  scale: isHovering ? 1.1 : 1,
+                }}
+                transition={{
+                  duration: AnimationConfig.SLOW,
+                  ease: AnimationConfig.EASING_DRAMATIC,
+                }}
+              >
+                <Image
+                  src={getProjectCover(projectInfo.slug)}
+                  width={582}
+                  height={767}
+                  className="w-full "
+                  alt={""}
+                  onLoad={() => setIsImageLoaded(true)}
+                />
+              </motion.div>
               {projectInfo.previewVideo && (
                 <motion.video
                   disablePictureInPicture
-                  style={{
+                  transition={{
+                    duration: AnimationConfig.SLOW,
+                    ease: AnimationConfig.EASING_DRAMATIC,
+                  }}
+                  animate={{
                     // y: parallaxY,
                     // willChange: "transform",
                     // display: isHovering ? "block" : "none",
-                    visibility: isHovering ? "visible" : "hidden",
+                    // visibility: isHovering ? "visible" : "hidden",
+                    opacity: isHovering ? 1 : 0,
+                    scale: isHovering ? 1.05 : 1,
                   }}
                   ref={videoRef}
                   src={projectInfo.previewVideo}
@@ -203,20 +222,6 @@ const ProjectGridCard = ({
                   muted
                   loop
                   className="w-full object-cover object-center absolute top-0 left-0 right-0"
-                  initial={
-                    {
-                      // scale: 1,
-                    }
-                  }
-                  whileTap={
-                    {
-                      // scale: 1.03,
-                    }
-                  }
-                  transition={{
-                    duration: AnimationConfig.FAST,
-                    ease: AnimationConfig.EASING,
-                  }}
                 />
               )}
             </motion.div>
@@ -248,10 +253,12 @@ const ProjectGridCard = ({
                 */}
                 <div className="leading-tight">{projectInfo.title}</div>
                 <div className="leading-tight">
-                  {projectInfo.tags &&
+                  {!isHovering &&
+                    projectInfo.tags &&
                     projectInfo.tags.map((tag, index) => {
                       return <div key={index}>{tag}</div>;
                     })}
+                  {isHovering && projectInfo.description}
                 </div>
                 {/* </>
                 )} */}

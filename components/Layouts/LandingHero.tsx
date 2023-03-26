@@ -18,6 +18,68 @@ type Props = { isViewingGrid: boolean };
 const LANDING_THEME_BG = "#192220";
 const DEFAULT_BG = "#0e1010";
 
+const ExternalLinkAnimation = {
+  default: {
+    opacity: 1,
+  },
+  hover: { opacity: 0.6 },
+  active: {
+    opacity: 1,
+  },
+};
+const ExternalLinkIconAnimation = {
+  default: {
+    rotate: 1,
+  },
+  hover: {
+    rotate: 10,
+  },
+};
+
+const ExternalLink = ({
+  children,
+  href,
+  icon = "icon/icon-link.svg",
+  alt,
+}: {
+  children: string;
+  alt?: string;
+  href?: string;
+  icon?: string;
+}) =>
+  href ? (
+    <motion.a
+      href={href}
+      target="blank"
+      className="flex relative items-center"
+      initial={"default"}
+      whileHover={"hover"}
+      whileTap={"active"}
+      variants={ExternalLinkAnimation}
+      transition={{
+        ease: AnimationConfig.EASING,
+        duration: AnimationConfig.VERY_FAST,
+      }}
+    >
+      <motion.img
+        className="mr-2 -left-[2em] w-[1.2em] h-[1.2em]"
+        src={icon}
+        alt={alt}
+        variants={ExternalLinkIconAnimation}
+      />
+      <div>{children}</div>
+    </motion.a>
+  ) : (
+    <div className="flex relative items-center">
+      <img
+        className="mr-2 -left-[2em] w-[1.2em] h-[1.2em]"
+        src="icon/icon-empty.svg"
+        alt={alt}
+      />
+      <div>{children}</div>
+    </div>
+  );
+
 const LandingHero = ({ isViewingGrid }: Props) => {
   const { scrollY, scrollContainerRef } = useContainerScroll();
   const [boundRef, bounds] = useBoundingBox([]);
@@ -68,8 +130,6 @@ const LandingHero = ({ isViewingGrid }: Props) => {
           onWheel={(e) => {
             scrollContainerRef.current.scrollTop =
               scrollContainerRef.current.scrollTop + e.deltaY;
-
-            console.log("scroll");
           }}
           style={{
             scale: heroScale,
@@ -88,10 +148,10 @@ const LandingHero = ({ isViewingGrid }: Props) => {
         >
           <div className="col-start-1 col-span-full 2xl:col-span-4 flex flex-col">
             <h1 className="text-2xl sm:text-4xl lg:text-6xl font-light tracking-[-.047em] lg:leading-[1.08em]">
-              Alvin Leung is an interaction designer. Informed by business and
-              user needs, he thrives in using his aesthetic sensibility and
-              prototyping wizardry to bring wild concepts from 0 to 1.
-              Previously designed @ Daybreak Studio & Dossier Creative.
+              Alvin Leung is an interaction designer. He thrives in bringing
+              wild concepts from 0 to 1 using his prototyping wizardry and
+              aesthetic sensibility. Previously designed @ Daybreak Studio &
+              Dossier Creative.
             </h1>
             <p className="mt-4 text-sm sm:text-base"></p>
           </div>
@@ -99,19 +159,42 @@ const LandingHero = ({ isViewingGrid }: Props) => {
           <div className="col-start-1 col-span-3 lg:col-start-5 lg:col-span-1 row-start-2 lg:row-start-2 flex flex-col opacity-60 lg:mb-64 text-sm xl:text-base">
             <h3 className="uppercase mb-3 text-sm">Previous Clients</h3>
             <ul>
-              <li>Pager</li>
-              <li>QuirkChat</li>
-              <li>Curated</li>
+              <li>
+                <ExternalLink href={"https://pager.xyz/"}>Pager</ExternalLink>
+              </li>
+              <li>
+                <ExternalLink href={"https://www.curated.xyz/"}>
+                  Curated
+                </ExternalLink>
+              </li>
+              <li>
+                <ExternalLink>QuirkChat</ExternalLink>
+              </li>
             </ul>
           </div>
           <div className="col-start-4 col-span-3 lg:col-start-6 lg:col-span-1 row-start-2 lg:row-start-2 flex flex-col opacity-60 text-sm xl:text-base">
-            <h3 className="uppercase mb-3 text-sm">Find Me</h3>
-            <a href="https://www.instagram.com/alvinn.design/" target="blank">
+            <h3 className="uppercase mb-3 text-sm">Let's be in Touch</h3>
+            <ExternalLink
+              href={"https://read.cv/alvinleung"}
+              icon={"icon/icon-cv.svg"}
+              alt={"My Resume"}
+            >
+              My CV
+            </ExternalLink>
+            <ExternalLink
+              href={"https://www.instagram.com/alvinn.design/"}
+              icon={"icon/icon-instagram.svg"}
+              alt={"Visit alvin's instagram"}
+            >
               Instagram
-            </a>
-            <a href="mailto:alvinleung2009@gmail.com">
-              alvinleung2009@gmail.com
-            </a>
+            </ExternalLink>
+            <ExternalLink
+              href={"mailto:alvinleung2009@gmail.com"}
+              icon={"icon/icon-mail.svg"}
+              alt={"Say Hello!"}
+            >
+              Email
+            </ExternalLink>
           </div>
         </motion.div>
       </motion.section>

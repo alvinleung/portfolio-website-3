@@ -15,4 +15,5 @@ export const AnimationConfig = {
   EASING: easing.EASE_OUT_CUBIC,
   EASING_INVERTED: easing.EASE_IN_CUBIC,
   EASING_IN_OUT: [0.81, 0.03, 0.06, 1],
+  EASING_DRAMATIC: [0.62, 0, 0.02, 1],
 };
