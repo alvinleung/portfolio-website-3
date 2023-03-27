@@ -53,7 +53,7 @@ const ProjectGridCard = ({
   const windowDimension = useWindowDimension();
   const cardYOffset = useMemo(() => {
     if (typeof window === "undefined") return 500;
-    return windowDimension.height * 0.5;
+    return windowDimension.height * 0;
   }, [windowDimension.height]);
 
   const [isHovering, setIsHovering] = useState(false);

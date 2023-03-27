@@ -72,7 +72,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   const windowDimension = useWindowDimension();
   useLayoutEffect(() => {
     const projectGridGap = 8;
-    const heroSectionHeightVH = 0.4;
+    const heroSectionHeightVH = 0.8;
 
     const bounds = containerRef.current.getBoundingClientRect();
     const beginShrinkPos =
@@ -87,7 +87,7 @@ export const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
   return (
     <motion.div
       ref={containerRef}
-      className="sticky top-14 h-[110vw] md:h-[60vw] lg:h-[40vw] "
+      className="sticky top-14 h-[110vw] md:h-[60vw] lg:h-[40vw]"
       onClick={() => onSelect?.(projectInfo.slug)}
       exit={{
         opacity: 0,

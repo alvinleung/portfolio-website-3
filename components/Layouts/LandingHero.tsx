@@ -12,73 +12,12 @@ import useIsFirstRender from "../../hooks/useIsFirstRender";
 import { clamp } from "../../lib/clamp";
 import { AnimationConfig } from "../AnimationConfig";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
+import { ExternalLink } from "./ExternalLink";
 
 type Props = { isViewingGrid: boolean };
 
 const LANDING_THEME_BG = "#192220";
 const DEFAULT_BG = "#0e1010";
-
-const ExternalLinkAnimation = {
-  default: {
-    opacity: 1,
-  },
-  hover: { opacity: 0.6 },
-  active: {
-    opacity: 1,
-  },
-};
-const ExternalLinkIconAnimation = {
-  default: {
-    rotate: 1,
-  },
-  hover: {
-    rotate: 10,
-  },
-};
-
-const ExternalLink = ({
-  children,
-  href,
-  icon = "icon/icon-link.svg",
-  alt,
-}: {
-  children: string;
-  alt?: string;
-  href?: string;
-  icon?: string;
-}) =>
-  href ? (
-    <motion.a
-      href={href}
-      target="blank"
-      className="flex relative items-center"
-      initial={"default"}
-      whileHover={"hover"}
-      whileTap={"active"}
-      variants={ExternalLinkAnimation}
-      transition={{
-        ease: AnimationConfig.EASING,
-        duration: AnimationConfig.VERY_FAST,
-      }}
-    >
-      <motion.img
-        className="mr-2 -left-[2em] w-[1.2em] h-[1.2em]"
-        src={icon}
-        alt={alt}
-        variants={ExternalLinkIconAnimation}
-      />
-      <div>{children}</div>
-    </motion.a>
-  ) : (
-    <div className="flex relative items-center">
-      <img
-        className="mr-2 -left-[2em] w-[1.2em] h-[1.2em]"
-        src="icon/icon-empty.svg"
-        alt={alt}
-      />
-      <div>{children}</div>
-    </div>
-  );
 
 const LandingHero = ({ isViewingGrid }: Props) => {
   const { scrollY, scrollContainerRef } = useContainerScroll();
@@ -106,6 +45,8 @@ const LandingHero = ({ isViewingGrid }: Props) => {
     (scrollContainerRef.current &&
       scrollContainerRef.current.scrollTop > bounds.height);
 
+  const hideLinks = useTransform(scrollY, [0, 100], [1, 0]);
+
   return (
     <>
       <motion.div
@@ -120,7 +61,7 @@ const LandingHero = ({ isViewingGrid }: Props) => {
         }}
       ></motion.div>
       <motion.section
-        className="relative h-[40vh]"
+        className="relative h-[80vh]"
         ref={boundRef}
         initial={{ opacity: 0 }}
         animate={{ opacity: isFirstRender || isViewingGrid ? 0 : 1 }}
@@ -156,7 +97,12 @@ const LandingHero = ({ isViewingGrid }: Props) => {
             <p className="mt-4 text-sm sm:text-base"></p>
           </div>
 
-          <div className="col-start-1 col-span-3 lg:col-start-5 lg:col-span-1 row-start-2 lg:row-start-2 flex flex-col opacity-60 lg:mb-64 text-sm xl:text-base">
+          <motion.div
+            style={{
+              opacity: hideLinks,
+            }}
+            className="col-start-1 col-span-3 lg:col-start-5 lg:col-span-1 row-start-2 lg:row-start-2 flex flex-col opacity-60 lg:mb-64 text-sm xl:text-base"
+          >
             <h3 className="uppercase mb-3 text-sm">Previous Clients</h3>
             <ul>
               <li>
@@ -171,8 +117,11 @@ const LandingHero = ({ isViewingGrid }: Props) => {
                 <ExternalLink>QuirkChat</ExternalLink>
               </li>
             </ul>
-          </div>
-          <div className="col-start-4 col-span-3 lg:col-start-6 lg:col-span-1 row-start-2 lg:row-start-2 flex flex-col opacity-60 text-sm xl:text-base">
+          </motion.div>
+          <motion.div
+            style={{ opacity: hideLinks }}
+            className="col-start-4 col-span-3 lg:col-start-6 lg:col-span-1 row-start-2 lg:row-start-2 flex flex-col opacity-60 text-sm xl:text-base"
+          >
             <h3 className="uppercase mb-3 text-sm">Let&apos;s be in Touch</h3>
             <ExternalLink
               href={"https://read.cv/alvinleung"}
@@ -195,7 +144,7 @@ const LandingHero = ({ isViewingGrid }: Props) => {
             >
               Email
             </ExternalLink>
-          </div>
+          </motion.div>
         </motion.div>
       </motion.section>
     </>

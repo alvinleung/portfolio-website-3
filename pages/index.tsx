@@ -1,6 +1,6 @@
 import { useScroll } from "framer-motion";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
-import { useEffect, useState } from "react";
+import { MutableRefObject, useEffect, useMemo, useRef, useState } from "react";
 import { useHomeScrollPosition } from "../components/HomeScrollPositionContext";
 import LandingHero from "../components/Layouts/LandingHero";
 import ProjectGridSection from "../components/Layouts/ProjectGridSection";
@@ -9,6 +9,8 @@ import { useContainerScroll } from "../components/ScrollContainer/ScrollContaine
 import useIsFirstRender from "../hooks/useIsFirstRender";
 import { getAllPostSlugs, getPostBySlug } from "../lib/projects";
 import { NextSeo } from "next-seo";
+import debounce from "../lib/debounce";
+import { useBoundingBox } from "../hooks/useBoundingClientRect";
 
 export const getStaticProps: GetStaticProps = () => {
   const allProjectsSlugs = getAllPostSlugs();
@@ -34,6 +36,8 @@ const Home: NextPage = ({
   const [isViewingGridBar, setIsViewingGridBar] = useState(false);
   const homeScroll = useHomeScrollPosition();
 
+  const [projectRef, projectSectionBound] = useBoundingBox<HTMLDivElement>([]);
+
   useEffect(() => {
     scrollContainerRef.current.scrollTo(0, homeScroll.scrollY);
     return () => {
@@ -54,10 +58,60 @@ const Home: NextPage = ({
         setIsViewingGridBar(false);
       }
     });
+
     return () => {
       cleanupScroll();
     };
   }, [scrollY]);
+
+  useEffect(() => {
+    const scrollToProject = () => {
+      // done reset if done
+      scrollContainerRef.current.scrollTo({
+        top: projectSectionBound.top,
+        behavior: "smooth",
+      });
+    };
+
+    const scrollToTop = () => {
+      // done reset if done
+      scrollContainerRef.current.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    };
+
+    let isPrevDirectionDown = false;
+    const handleSnap = debounce((amount: number) => {
+      const inSnapRange =
+        amount > window.innerHeight / 6 && amount < projectSectionBound.top;
+      const scrollDiff = projectSectionBound.top - amount;
+
+      if (!inSnapRange) {
+        console.log("in snap range");
+        return;
+      }
+
+      if (!isPrevDirectionDown) {
+        console.log("up");
+        scrollToTop();
+        return;
+      }
+
+      console.log("user scrolling down");
+      scrollToProject();
+    }, 50);
+
+    const cleanUpSnap = scrollY.onChange((amount) => {
+      isPrevDirectionDown = scrollY.getVelocity() > 0;
+      handleSnap(amount);
+      return;
+    });
+
+    return () => {
+      cleanUpSnap();
+    };
+  }, [isViewingGrid, projectSectionBound.top]);
 
   return (
     <>
@@ -69,6 +123,7 @@ const Home: NextPage = ({
               Previously designed @ Daybreak Studio & Dossier Creative`}
       />
       <LandingHero isViewingGrid={isViewingGrid} />
+      <div ref={projectRef} />
       <ProjectGridSection
         isViewing={isViewingGrid}
         isViewingTopBar={isViewingGridBar}

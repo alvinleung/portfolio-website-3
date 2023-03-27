@@ -16,6 +16,7 @@ const ProjectGridSection = ({
 }: Props) => {
   return (
     <section
+      id="projects"
       style={{
         pointerEvents: isViewing ? "all" : "none",
       }}
