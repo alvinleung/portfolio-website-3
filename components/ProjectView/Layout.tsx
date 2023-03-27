@@ -54,3 +54,5 @@ export const LayoutMainContent = ({ children, grid, extraMargin }: Props) => {
     </div>
   );
 };
+
+export const Spacer = () => <div className="h-64 col-span-full" />;

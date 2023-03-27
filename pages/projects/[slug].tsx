@@ -25,6 +25,7 @@ import {
 import {
   LayoutMainContent,
   LayoutFull,
+  Spacer
 } from "../../components/ProjectView/Layout";
 import { Caption } from "../../components/ProjectView/Caption";
 import Video from "../../components/ProjectView/Video";
@@ -36,7 +37,7 @@ import {
   ParagraphBig,
   paragraphProcessor,
   Quote,
-  Emphasis,
+  Emphasis
 } from "../../components/ProjectView/Typography";
 import { EditableContextProvider } from "../../components/Editor/EditableContext";
 
@@ -129,6 +130,7 @@ export default function Post({
                   List,
                   ListItem,
                   SlideShow,
+                  Spacer
                 }}
               />
             </main>

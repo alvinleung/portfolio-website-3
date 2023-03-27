@@ -148,40 +148,40 @@ const Video = ({
           fill={"#bebebe"}
         />
       )}
-      <ReactiveTapArea
+      {/* <ReactiveTapArea
         className={`w-full ${fillHeight ? "md:h-full" : ""} md:object-cover`}
         // startFromCenter
-      >
-        <motion.video
-          // onMouseEnter={() => setShouldPlay(true)}
-          // onMouseLeave={() => setShouldPlay(false)}
-          className={`w-full ${
-            fillHeight ? "md:h-full" : ""
-          } md:object-cover rounded-xl`}
-          ref={playerRef}
-          style={{
-            visibility: isInView ? "visible" : "hidden",
-            cursor: seekOnScroll ? "auto" : "none",
-          }}
-          animate={{
-            opacity: seekOnScroll || shouldPlay ? 1 : 0.5,
-          }}
-          onViewportEnter={() => setIsInView(true)}
-          onViewportLeave={() => setIsInView(false)}
-          // whileTap={{
-          //   scale: 1.01,
-          // }}
-          src={src}
-          width={width}
-          height={height}
-          preload={shouldPlay || seekOnScroll ? "auto" : preload}
-          autoPlay={seekOnScroll ? false : true}
-          muted
-          loop
-          playsInline
-        />
-        {children}
-      </ReactiveTapArea>
+      > */}
+      <motion.video
+        // onMouseEnter={() => setShouldPlay(true)}
+        // onMouseLeave={() => setShouldPlay(false)}
+        className={`w-full ${
+          fillHeight ? "md:h-full" : ""
+        } md:object-cover rounded-xl`}
+        ref={playerRef}
+        style={{
+          visibility: isInView ? "visible" : "hidden",
+          cursor: seekOnScroll ? "auto" : "none",
+        }}
+        animate={{
+          opacity: seekOnScroll || shouldPlay ? 1 : 0.5,
+        }}
+        onViewportEnter={() => setIsInView(true)}
+        onViewportLeave={() => setIsInView(false)}
+        // whileTap={{
+        //   scale: 1.01,
+        // }}
+        src={src}
+        width={width}
+        height={height}
+        preload={shouldPlay || seekOnScroll ? "auto" : preload}
+        autoPlay={seekOnScroll ? false : true}
+        muted
+        loop
+        playsInline
+      />
+      {children}
+      {/* </ReactiveTapArea> */}
     </Figure>
   );
 };
