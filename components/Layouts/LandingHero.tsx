@@ -22,7 +22,7 @@ const DEFAULT_BG = "#0e1010";
 const LandingHero = ({ isViewingGrid }: Props) => {
   const { scrollY, scrollContainerRef } = useContainerScroll();
   const [boundRef, bounds] = useBoundingBox([]);
-  const introSectionHeight = bounds.height;
+  const introSectionHeight = bounds.height * 0.6;
 
   const progress = useTransform(scrollY, (val) =>
     clamp(val, 0, introSectionHeight)
@@ -34,7 +34,7 @@ const LandingHero = ({ isViewingGrid }: Props) => {
     [LANDING_THEME_BG, DEFAULT_BG]
   );
 
-  const heroScale = useTransform(progress, [0, introSectionHeight], [1, 0.97]);
+  const heroScale = useTransform(progress, [0, introSectionHeight], [1, 0.95]);
   const heroOpacity = useTransform(progress, [0, introSectionHeight], [1, 0]);
   // const filter = useTransform(scrollY, (v) => `blur(${v / 100}px)`);
   // const yPos = useTransform(scrollY, (v) => -v * 0.1);
@@ -64,7 +64,7 @@ const LandingHero = ({ isViewingGrid }: Props) => {
         className="relative h-[80vh]"
         ref={boundRef}
         initial={{ opacity: 0 }}
-        animate={{ opacity: isFirstRender || isViewingGrid ? 0 : 1 }}
+        animate={{ opacity: isFirstRender ? 0 : 1 }}
       >
         <motion.div
           className="fixed px-4 py-4 md:px-6 md:py-6 grid grid-cols-6 grid-rows-[1fr] gap-2 md:h-[100vh] "
@@ -89,10 +89,10 @@ const LandingHero = ({ isViewingGrid }: Props) => {
         >
           <div className="col-start-1 col-span-full 2xl:col-span-4 flex flex-col">
             <h1 className="text-2xl sm:text-4xl lg:text-6xl font-light tracking-[-.047em] lg:leading-[1.08em]">
-              Alvin Leung is an interaction designer. He thrives in bringing
-              wild concepts from 0 to 1 using his prototyping wizardry and
-              aesthetic sensibility. Previously designed @ Daybreak Studio &
-              Dossier Creative.
+              Alvin Leung is an interaction designer living in Vancouver. He
+              thrives in bringing wild concepts from 0 to 1 using his
+              prototyping wizardry and aesthetic sensibility. Previously
+              designed @ Daybreak Studio & Dossier Creative.
             </h1>
             <p className="mt-4 text-sm sm:text-base"></p>
           </div>

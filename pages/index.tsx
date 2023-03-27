@@ -52,7 +52,7 @@ const Home: NextPage = ({
       } else {
         setIsViewingGrid(false);
       }
-      if (amount > window.innerHeight / 6) {
+      if (amount > window.innerHeight * 0.7) {
         setIsViewingGridBar(true);
       } else {
         setIsViewingGridBar(false);
@@ -65,6 +65,7 @@ const Home: NextPage = ({
   }, [scrollY]);
 
   useEffect(() => {
+    console.log("setting scroll snap");
     const scrollToProject = () => {
       // done reset if done
       scrollContainerRef.current.scrollTo({
@@ -82,29 +83,28 @@ const Home: NextPage = ({
     };
 
     let isPrevDirectionDown = false;
-    const handleSnap = debounce((amount: number) => {
-      const inSnapRange =
-        amount > window.innerHeight / 6 && amount < projectSectionBound.top;
-      const scrollDiff = projectSectionBound.top - amount;
+    const handleSnap = debounce(() => {
+      const position = scrollY.get();
+      const inSnapRange = position < projectSectionBound.top;
+      const scrollDiff = projectSectionBound.top - position;
 
       if (!inSnapRange) {
-        console.log("in snap range");
         return;
       }
 
-      if (!isPrevDirectionDown) {
-        console.log("up");
+      console.log(scrollDiff);
+
+      if (!isPrevDirectionDown && scrollDiff > 500) {
         scrollToTop();
         return;
       }
 
-      console.log("user scrolling down");
       scrollToProject();
-    }, 50);
+    }, 100);
 
     const cleanUpSnap = scrollY.onChange((amount) => {
       isPrevDirectionDown = scrollY.getVelocity() > 0;
-      handleSnap(amount);
+      handleSnap();
       return;
     });
 

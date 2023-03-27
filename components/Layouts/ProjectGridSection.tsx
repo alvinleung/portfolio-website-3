@@ -28,10 +28,15 @@ const ProjectGridSection = ({
         }}
         animate={{
           opacity: isViewingTopBar ? 1 : 0,
-          y: isViewingTopBar ? 0 : 10,
+          y: isViewingTopBar ? 0 : -10,
           transition: {
-            duration: AnimationConfig.FAST,
-            ease: AnimationConfig.EASING,
+            duration: isViewingTopBar
+              ? AnimationConfig.NORMAL
+              : AnimationConfig.FAST,
+            ease: isViewingTopBar
+              ? AnimationConfig.EASING
+              : AnimationConfig.EASING_INVERTED,
+            delay: isViewingTopBar ? 0 : 0.0, // delay for only scroll down
           },
         }}
         exit={{
