@@ -64,54 +64,54 @@ const Home: NextPage = ({
     };
   }, [scrollY]);
 
-  useEffect(() => {
-    console.log("setting scroll snap");
-    const scrollToProject = () => {
-      // done reset if done
-      scrollContainerRef.current.scrollTo({
-        top: projectSectionBound.top,
-        behavior: "smooth",
-      });
-    };
+  // useEffect(() => {
+  //   console.log("setting scroll snap");
+  //   const scrollToProject = () => {
+  //     // done reset if done
+  //     scrollContainerRef.current.scrollTo({
+  //       top: projectSectionBound.top,
+  //       behavior: "smooth",
+  //     });
+  //   };
 
-    const scrollToTop = () => {
-      // done reset if done
-      scrollContainerRef.current.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    };
+  //   const scrollToTop = () => {
+  //     // done reset if done
+  //     scrollContainerRef.current.scrollTo({
+  //       top: 0,
+  //       behavior: "smooth",
+  //     });
+  //   };
 
-    let isPrevDirectionDown = false;
-    const handleSnap = debounce(() => {
-      const position = scrollY.get();
-      const inSnapRange = position < projectSectionBound.top;
-      const scrollDiff = projectSectionBound.top - position;
+  //   let isPrevDirectionDown = false;
+  //   const handleSnap = debounce(() => {
+  //     const position = scrollY.get();
+  //     const inSnapRange = position < projectSectionBound.top;
+  //     const scrollDiff = projectSectionBound.top - position;
 
-      if (!inSnapRange) {
-        return;
-      }
+  //     if (!inSnapRange) {
+  //       return;
+  //     }
 
-      console.log(scrollDiff);
+  //     console.log(scrollDiff);
 
-      if (!isPrevDirectionDown && scrollDiff > 500) {
-        scrollToTop();
-        return;
-      }
+  //     if (!isPrevDirectionDown && scrollDiff > 500) {
+  //       scrollToTop();
+  //       return;
+  //     }
 
-      scrollToProject();
-    }, 100);
+  //     scrollToProject();
+  //   }, 100);
 
-    const cleanUpSnap = scrollY.onChange((amount) => {
-      isPrevDirectionDown = scrollY.getVelocity() > 0;
-      handleSnap();
-      return;
-    });
+  //   const cleanUpSnap = scrollY.onChange((amount) => {
+  //     isPrevDirectionDown = scrollY.getVelocity() > 0;
+  //     handleSnap();
+  //     return;
+  //   });
 
-    return () => {
-      cleanUpSnap();
-    };
-  }, [isViewingGrid, projectSectionBound.top]);
+  //   return () => {
+  //     cleanUpSnap();
+  //   };
+  // }, [isViewingGrid, projectSectionBound.top]);
 
   return (
     <>
