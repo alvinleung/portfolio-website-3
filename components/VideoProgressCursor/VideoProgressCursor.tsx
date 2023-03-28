@@ -216,7 +216,32 @@ const VideoProgressCursor = ({
           fill={fill}
           shouldEmphasise={shouldEmphasiseLeft}
         />
-        <ProgressRing progress={progress} strokeColor={fill} radius={RADIUS} />
+        <motion.div
+          animate={{
+            opacity: isScrubbing ? 1 : 0,
+            transition: {
+              duration: isScrubbing ? 0.3 : 0.01,
+            },
+          }}
+        >
+          <ProgressRing
+            progress={progress}
+            strokeColor={fill}
+            radius={RADIUS}
+          />
+        </motion.div>
+        <motion.div
+          className="w-full h-full top-0 left-0 absolute rounded-full"
+          style={{
+            backgroundColor: fill,
+            width: RADIUS * 2,
+            height: RADIUS * 2,
+          }}
+          animate={{
+            scale: isScrubbing ? 0.7 : 0.3,
+            opacity: isScrubbing ? 0.3 : 1,
+          }}
+        />
         <ArrowRight
           show={isScrubbing}
           fill={fill}
@@ -243,9 +268,9 @@ const ArrowLeft = ({ show, fill, shouldEmphasise }: ArrowProps) => {
       xmlns="http://www.w3.org/2000/svg"
       animate={{
         // opacity: show ? 1 : 0,
-        opacity: show ? (shouldEmphasise ? 1 : 0.6) : 0,
+        opacity: show ? (shouldEmphasise ? 1 : 0.6) : 0.5,
         x: show ? (shouldEmphasise ? -2 : 0) : 12,
-        // scale: shouldEmphasise ? 1.3 : 1,
+        // scale: shouldEmphasise ? 1.3 :   1,
         transition: {
           ease: AnimationConfig.EASING,
           duration: AnimationConfig.FAST,
@@ -265,7 +290,7 @@ const ArrowRight = ({ show, fill = "#FFF", shouldEmphasise }: ArrowProps) => (
     className="absolute left-[38px] top-[12px]"
     animate={{
       // opacity: show ? 1 : 0,
-      opacity: show ? (shouldEmphasise ? 1 : 0.6) : 0,
+      opacity: show ? (shouldEmphasise ? 1 : 0.6) : 0.5,
       x: show ? (shouldEmphasise ? 2 : 0) : -12,
       // scale: shouldEmphasise ? 1.3 : 1,
       transition: {

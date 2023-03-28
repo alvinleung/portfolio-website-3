@@ -145,6 +145,7 @@ const Video = ({
         <VideoProgressCursor
           playerRef={playerRef}
           isScrubbing={isScrubbing}
+          // fill={"#bebebe"}
           fill={"#bebebe"}
         />
       )}
