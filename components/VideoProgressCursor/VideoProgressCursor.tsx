@@ -268,7 +268,7 @@ const ArrowLeft = ({ show, fill, shouldEmphasise }: ArrowProps) => {
       xmlns="http://www.w3.org/2000/svg"
       animate={{
         // opacity: show ? 1 : 0,
-        opacity: show ? (shouldEmphasise ? 1 : 0.6) : 0.5,
+        opacity: show ? (shouldEmphasise ? 1 : 0.6) : 1,
         x: show ? (shouldEmphasise ? -2 : 0) : 12,
         // scale: shouldEmphasise ? 1.3 :   1,
         transition: {
@@ -290,7 +290,7 @@ const ArrowRight = ({ show, fill = "#FFF", shouldEmphasise }: ArrowProps) => (
     className="absolute left-[38px] top-[12px]"
     animate={{
       // opacity: show ? 1 : 0,
-      opacity: show ? (shouldEmphasise ? 1 : 0.6) : 0.5,
+      opacity: show ? (shouldEmphasise ? 1 : 0.6) : 1,
       x: show ? (shouldEmphasise ? 2 : 0) : -12,
       // scale: shouldEmphasise ? 1.3 : 1,
       transition: {
