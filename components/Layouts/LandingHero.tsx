@@ -5,7 +5,7 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { useBoundingBox } from "../../hooks/useBoundingClientRect";
 import useIsFirstRender from "../../hooks/useIsFirstRender";
@@ -37,7 +37,7 @@ const LandingHero = ({ isViewingGrid }: Props) => {
   const heroScale = useTransform(progress, [0, introSectionHeight], [1, 0.95]);
   const heroOpacity = useTransform(progress, [0, introSectionHeight], [1, 0]);
   // const filter = useTransform(scrollY, (v) => `blur(${v / 100}px)`);
-  // const yPos = useTransform(scrollY, (v) => -v * 0.1);
+  const yPos = useTransform(scrollY, (v) => -v * 0.4);
 
   const isFirstRender = useIsFirstRender();
   const isOutsideScrollArea =
@@ -45,7 +45,7 @@ const LandingHero = ({ isViewingGrid }: Props) => {
     (scrollContainerRef.current &&
       scrollContainerRef.current.scrollTop > bounds.height);
 
-  const hideLinks = useTransform(scrollY, [0, 100], [1, 0]);
+  const hideLinks = useTransform(scrollY, [0, 200], [1, 0]);
 
   return (
     <>
@@ -61,22 +61,18 @@ const LandingHero = ({ isViewingGrid }: Props) => {
         }}
       ></motion.div>
       <motion.section
-        className="relative h-[80vh]"
+        className="sticky top-0 h-[80vh]"
         ref={boundRef}
         initial={{ opacity: 0 }}
         animate={{ opacity: isFirstRender ? 0 : 1 }}
       >
         <motion.div
-          className="fixed px-4 py-4 md:px-6 md:py-6 grid grid-cols-6 grid-rows-[1fr] gap-2 md:h-[100vh] "
-          onWheel={(e) => {
-            scrollContainerRef.current.scrollTop =
-              scrollContainerRef.current.scrollTop + e.deltaY;
-          }}
+          className="px-4 py-4 md:px-6 md:py-6 grid grid-cols-6 grid-rows-[1fr] gap-2 md:h-[100vh] "
           style={{
             scale: heroScale,
             opacity: isOutsideScrollArea ? 0 : heroOpacity,
             // filter: filter,
-            // y: yPos,
+            y: yPos,
           }}
           exit={{
             opacity: 0,

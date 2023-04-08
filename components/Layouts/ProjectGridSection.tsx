@@ -17,9 +17,10 @@ const ProjectGridSection = ({
   return (
     <section
       id="projects"
-      style={{
-        pointerEvents: isViewing ? "all" : "none",
-      }}
+      className="z-10"
+      // style={{
+      //   pointerEvents: isViewing ? "all" : "none",
+      // }}
     >
       <motion.div
         className="fixed top-0 left-0 right-0 pt-4 px-4 lg:px-6 grid grid-cols-2"
