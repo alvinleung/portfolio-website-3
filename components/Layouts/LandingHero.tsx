@@ -85,10 +85,10 @@ const LandingHero = ({ isViewingGrid }: Props) => {
         >
           <div className="col-start-1 col-span-full 2xl:col-span-4 flex flex-col">
             <h1 className="text-2xl sm:text-4xl lg:text-6xl font-light tracking-[-.047em] lg:leading-[1.08em]">
-              Alvin Leung is an interaction designer living in Vancouver. He
-              thrives in bringing wild concepts from 0 to 1 using his
-              prototyping wizardry and aesthetic sensibility. Previously
-              designed @ Daybreak Studio & Dossier Creative.
+              Alvin Leung is an interaction designer. He thrives in bringing
+              wild concepts from 0 to 1 using his prototyping wizardry and
+              aesthetic sensibility. Previously designed @ Daybreak Studio &
+              Dossier Creative.
             </h1>
             <p className="mt-4 text-sm sm:text-base"></p>
           </div>
