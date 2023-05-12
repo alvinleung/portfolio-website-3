@@ -27,6 +27,8 @@ type Props = {
   isWide: boolean;
 };
 
+const INACTIVE_BG_COLOR = "rgb(37, 55, 52)";
+
 const ProjectGridItem = ({
   projectInfo,
   projectStyle,
@@ -98,9 +100,10 @@ const ProjectGridItem = ({
       <ReactiveTapArea>
         <motion.div
           ref={containerRef}
-          className="relative h-[50vw] overflow-hidden rounded-lg bg-gray-800"
+          className="relative h-[50vw] overflow-hidden rounded-lg"
           style={{
             height: boxHeight,
+            backgroundColor: INACTIVE_BG_COLOR,
           }}
         >
           <Link
