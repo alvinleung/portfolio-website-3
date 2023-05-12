@@ -1,32 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProjectGrid from "./ProjectGrid";
 import { motion } from "framer-motion";
 import { AnimationConfig } from "../AnimationConfig";
 import { ExternalLink } from "../Layouts/ExternalLink";
+import debounce from "../../lib/debounce";
+import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
+import { useWindowDimension } from "../../hooks/useWindowDimension";
 
 type Props = {
   projects: any[];
 };
 
 const HomeLayout = ({ projects }: Props) => {
+  const windowDimension = useWindowDimension();
+  const [transformOrigin, setTransformOrigin] = useState("center");
+  const { scrollY } = useContainerScroll();
+  useEffect(() => {
+    const updateTransformOrigin = debounce((value: number) => {
+      setTransformOrigin(`center ${value + windowDimension.height / 2}px`);
+    }, 32);
+    const unobserve = scrollY.onChange(updateTransformOrigin);
+    return () => {
+      unobserve();
+    };
+  }, []);
+
   return (
     <motion.div
+      style={{ transformOrigin: transformOrigin }}
       className="grid lg:grid-cols-3 grid-flow-dense gap-4 mx-6 text-cyan-50"
-      initial={{ opacity: 0 }}
+      initial={{ opacity: 0, scale: 0.95, y: 0 }}
       animate={{
         opacity: 1,
+        scale: 1,
         y: 0,
         transition: {
           delay: 0.25,
-          duration: AnimationConfig.FAST,
-          ease: AnimationConfig.EASING,
+          duration: AnimationConfig.VERY_SLOW,
+          ease: AnimationConfig.EASING_DRAMATIC,
         },
       }}
       exit={{
         opacity: 0,
+        scale: 0.9,
+        // y: 100,
         transition: {
-          delay: 0.25,
-          duration: AnimationConfig.FAST,
+          // delay: 0,
+          duration: AnimationConfig.SLOW,
           ease: AnimationConfig.EASING_INVERTED,
         },
       }}

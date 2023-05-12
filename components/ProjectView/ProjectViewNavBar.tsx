@@ -31,7 +31,7 @@ const ProjectViewNavBar = ({
       exit={{ opacity: 0, y: 20 }}
       transition={{
         delay: 0.3,
-        duration: AnimationConfig.NORMAL,
+        duration: AnimationConfig.SLOW,
         ease: AnimationConfig.EASING,
       }}
     >

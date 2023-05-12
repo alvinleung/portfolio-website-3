@@ -163,8 +163,8 @@ const ProjectView = ({
     if (!prevCardRef.current) {
       anim.set({
         scale: 0.9,
-        y: window.innerHeight / 3,
-        opacity: 0,
+        y: windowDimension.height,
+        opacity: 1,
       });
       return;
     }
@@ -277,7 +277,7 @@ const ProjectView = ({
   const overscrollScale = useTransform(
     overscrollUp.overscrollProgress,
     [0, 1],
-    [1, 0.95]
+    [1, 1]
   );
   const overscrollOpacity = useTransform(
     overscrollUp.overscrollProgress,
