@@ -29,11 +29,10 @@ const HomeLayout = ({ projects }: Props) => {
     <motion.div
       style={{ transformOrigin: transformOrigin }}
       className="grid lg:grid-cols-3 grid-flow-dense gap-4 mx-6 text-cyan-50"
-      initial={{ opacity: 0, scale: 0.95, y: 0 }}
+      initial={{ opacity: 0, scale: 0.95 }}
       animate={{
         opacity: 1,
         scale: 1,
-        y: 0,
         transition: {
           delay: 0.25,
           duration: AnimationConfig.VERY_SLOW,
@@ -43,7 +42,6 @@ const HomeLayout = ({ projects }: Props) => {
       exit={{
         opacity: 0,
         scale: 0.9,
-        // y: 100,
         transition: {
           // delay: 0,
           duration: AnimationConfig.SLOW,
