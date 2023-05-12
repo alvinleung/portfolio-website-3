@@ -98,7 +98,7 @@ const ProjectGridItem = ({
       <ReactiveTapArea>
         <motion.div
           ref={containerRef}
-          className="relative h-[50vw] overflow-hidden rounded-lg bg-zinc-900"
+          className="relative h-[50vw] overflow-hidden rounded-lg bg-gray-800"
           style={{
             height: boxHeight,
           }}
