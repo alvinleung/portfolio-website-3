@@ -59,11 +59,11 @@ const ProjectGridItem = ({
   const cardHeight = useMemo(() => {
     return windowDimension.width * 0.4;
   }, [windowDimension.width]);
+
   useLayoutEffect(() => {
     const projectGridGap = 16;
     const heroSectionHeightVH = 0;
     const TOP_OFFSET = 16;
-    const bounds = containerRef.current.getBoundingClientRect();
 
     const beginShrinkPos =
       window.innerHeight * heroSectionHeightVH +
@@ -98,13 +98,9 @@ const ProjectGridItem = ({
       <ReactiveTapArea>
         <motion.div
           ref={containerRef}
-          className="relative h-[50vw] overflow-hidden rounded-lg"
-          initial={{ opacity: 0 }}
+          className="relative h-[50vw] overflow-hidden rounded-lg bg-zinc-900"
           style={{
             height: boxHeight,
-          }}
-          animate={{
-            opacity: isImageLoaded ? 1 : 0,
           }}
         >
           <Link
@@ -114,9 +110,12 @@ const ProjectGridItem = ({
             onMouseLeave={() => setIsHovering(false)}
           >
             <motion.div
+              initial={{ opacity: 0 }}
               style={{
-                opacity: 1,
                 y: parallaxY,
+              }}
+              animate={{
+                opacity: isImageLoaded ? 1 : 0,
               }}
               transition={{
                 duration: AnimationConfig.NORMAL,
@@ -150,15 +149,21 @@ const ProjectGridItem = ({
                 />
               )}
             </motion.div>
-            <div
+            <motion.div
               className="absolute top-0 m-3 text-xl leading-none tracking-tight"
+              initial={{
+                opacity: 0,
+              }}
+              animate={{
+                opacity: isImageLoaded ? 1 : 0,
+              }}
               style={{
                 color: projectStyle.getTextColor(),
               }}
             >
               <div className="mb-1">{projectInfo.title}</div>
               <div className="opacity-40">{projectInfo.description}</div>
-            </div>
+            </motion.div>
           </Link>
         </motion.div>
       </ReactiveTapArea>
