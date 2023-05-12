@@ -10,6 +10,70 @@ import { useWindowDimension } from "./useWindowDimension";
 
 const fullConfig = resolveConfig(tailwindConfig);
 
+interface BreakpointValues {
+  default: number | string | Function;
+  sm?: number | string | Function;
+  md?: number | string | Function;
+  lg?: number | string | Function;
+  xl?: number | string | Function;
+  "2xl"?: number | string | Function;
+}
+
+export function useBreakpointValues(
+  breakpointValues: BreakpointValues,
+  deps: any[]
+) {
+  const currBreakpoint = useAllBreakpoints();
+  const [value, setValue] = useState<any>(breakpoints.sm);
+  const allBreakpointsNames = useMemo(() => Object.keys(breakpoints), []);
+
+  useEffect(() => {
+    let newBreakpointValue: any = breakpointValues.default;
+    let breakpointName = "";
+    for (let i = 0; i < allBreakpointsNames.length; i++) {
+      breakpointName = allBreakpointsNames[i];
+      const breakpointSize = breakpoints[breakpointName];
+      if (
+        currBreakpoint >= breakpointSize &&
+        breakpointValues[breakpointName as keyof BreakpointValues]
+      ) {
+        newBreakpointValue =
+          breakpointValues[breakpointName as keyof BreakpointValues];
+      }
+    }
+
+    if (typeof newBreakpointValue === "function") {
+      setValue(newBreakpointValue());
+      return;
+    }
+    setValue(newBreakpointValue);
+  }, [currBreakpoint, deps]);
+
+  return value;
+}
+
+export function useAllBreakpoints() {
+  const windowDimension = useWindowDimension();
+  const [currentBreakpoint, setCurrentBreakpoint] = useState(0);
+  const allBreakpoints = useMemo(() => Object.values(breakpoints), []);
+
+  useEffect(() => {
+    let newBreakpoint = 0;
+    for (let i = 0; i < allBreakpoints.length; i++) {
+      if (allBreakpoints[i] < windowDimension.width) {
+        newBreakpoint = allBreakpoints[i];
+        continue;
+      }
+      if (allBreakpoints[i] > windowDimension.width) {
+        break;
+      }
+    }
+    setCurrentBreakpoint(newBreakpoint);
+  }, [windowDimension.width]);
+
+  return currentBreakpoint;
+}
+
 export function useBreakpoint(breakpointSize: number) {
   const windowDimension = useWindowDimension();
   const [isOverBreakpoint, setIsOverBreakpoint] = useState(false);
@@ -44,7 +108,10 @@ export function useMobileBreakpoint() {
   return useBreakpoint(parseInt(fullConfig.theme.screens.sm));
 }
 
-export const breakpoints = {
+interface BreakpointTable {
+  [key: string]: number;
+}
+export const breakpoints: BreakpointTable = {
   //@ts-ignore
   sm: parseInt(fullConfig.theme.screens.sm),
   //@ts-ignore

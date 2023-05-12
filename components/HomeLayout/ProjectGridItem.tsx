@@ -25,6 +25,8 @@ type Props = {
   projectInfo: ProjectInfo;
   projectRow: number;
   isWide: boolean;
+  cardHeight: number;
+  topOffset: number;
 };
 
 const INACTIVE_BG_COLOR = "rgb(37, 55, 52)";
@@ -33,6 +35,8 @@ const ProjectGridItem = ({
   projectInfo,
   projectStyle,
   projectRow,
+  cardHeight,
+  topOffset,
   isWide,
 }: Props) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -57,25 +61,17 @@ const ProjectGridItem = ({
     return (1 - val) * -boxContainerHeight * 1;
   });
 
-  const windowDimension = useWindowDimension();
-  const cardHeight = useMemo(() => {
-    return windowDimension.width * 0.4;
-  }, [windowDimension.width]);
-
   useLayoutEffect(() => {
     const projectGridGap = 16;
-    const heroSectionHeightVH = 0;
-    const TOP_OFFSET = 16;
+    const marginTop = 16;
 
     const beginShrinkPos =
-      window.innerHeight * heroSectionHeightVH +
-      projectRow * (cardHeight + projectGridGap) -
-      TOP_OFFSET;
+      projectRow * (cardHeight + projectGridGap) - marginTop + topOffset;
 
     setBeginShrinkPos(beginShrinkPos);
     setEndShrinkPos(beginShrinkPos + cardHeight);
     setBoxContainerHeight(cardHeight);
-  }, [projectRow, cardHeight]);
+  }, [projectRow, cardHeight, topOffset]);
 
   const videoRef = useRef() as MutableRefObject<HTMLVideoElement>;
   useEffect(() => {
