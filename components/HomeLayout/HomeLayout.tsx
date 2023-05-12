@@ -73,14 +73,14 @@ const HomeLayout = ({ projects }: Props) => {
               icon={"icon/icon-instagram.svg"}
               alt={"Visit alvin's instagram"}
             >
-              Instagram
+              @alvinn.design
             </ExternalLink>
             <ExternalLink
               href={"mailto:alvinleung2009@gmail.com"}
               icon={"icon/icon-mail.svg"}
               alt={"Say Hello!"}
             >
-              Email
+              alvinleung2009@gmail.com
             </ExternalLink>
           </div>
         </div>
