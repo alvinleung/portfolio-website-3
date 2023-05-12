@@ -2,6 +2,7 @@ import React, {
   MutableRefObject,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -47,18 +48,17 @@ const ProjectGridItem = ({
     [1, 0]
   );
 
-  const boxOpacity = useTransform(boxTransitionOutProgress, [0, 0.1], [0, 1]);
   const boxHeight = useTransform(boxTransitionOutProgress, (val) => {
-    // console.log(val);
     return val * boxContainerHeight;
   });
   const parallaxY = useTransform(boxTransitionOutProgress, (val) => {
     return (1 - val) * -boxContainerHeight * 1;
   });
 
-  const cardHeight = 500;
-
   const windowDimension = useWindowDimension();
+  const cardHeight = useMemo(() => {
+    return windowDimension.width * 0.4;
+  }, [windowDimension.width]);
   useLayoutEffect(() => {
     const projectGridGap = 16;
     const heroSectionHeightVH = 0;
@@ -70,12 +70,10 @@ const ProjectGridItem = ({
       projectRow * (cardHeight + projectGridGap) -
       TOP_OFFSET;
 
-    console.log(beginShrinkPos);
-    console.log(beginShrinkPos + cardHeight);
     setBeginShrinkPos(beginShrinkPos);
     setEndShrinkPos(beginShrinkPos + cardHeight);
     setBoxContainerHeight(cardHeight);
-  }, [projectRow, windowDimension.width]);
+  }, [projectRow, cardHeight]);
 
   const videoRef = useRef() as MutableRefObject<HTMLVideoElement>;
   useEffect(() => {
@@ -103,7 +101,6 @@ const ProjectGridItem = ({
           className="relative h-[50vw] overflow-hidden rounded-lg"
           initial={{ opacity: 0 }}
           style={{
-            // y: parallaxY,
             height: boxHeight,
           }}
           animate={{
@@ -119,6 +116,7 @@ const ProjectGridItem = ({
             <motion.div
               style={{
                 opacity: 1,
+                y: parallaxY,
               }}
               transition={{
                 duration: AnimationConfig.NORMAL,
@@ -133,25 +131,25 @@ const ProjectGridItem = ({
                 alt={""}
                 onLoad={() => setIsImageLoaded(true)}
               />
+              {projectInfo.previewVideo && (
+                <motion.video
+                  disablePictureInPicture
+                  transition={{
+                    duration: AnimationConfig.NORMAL,
+                    ease: AnimationConfig.EASING_DRAMATIC,
+                  }}
+                  style={{
+                    opacity: isHovering ? 1 : 0,
+                  }}
+                  ref={videoRef}
+                  src={projectInfo.previewVideo}
+                  autoPlay
+                  muted
+                  loop
+                  className="w-full object-cover object-center absolute top-0 left-0 right-0"
+                />
+              )}
             </motion.div>
-            {projectInfo.previewVideo && (
-              <motion.video
-                disablePictureInPicture
-                transition={{
-                  duration: AnimationConfig.NORMAL,
-                  ease: AnimationConfig.EASING_DRAMATIC,
-                }}
-                style={{
-                  opacity: isHovering ? 1 : 0,
-                }}
-                ref={videoRef}
-                src={projectInfo.previewVideo}
-                autoPlay
-                muted
-                loop
-                className="w-full object-cover object-center absolute top-0 left-0 right-0"
-              />
-            )}
             <div
               className="absolute top-0 m-3 text-xl leading-none tracking-tight"
               style={{
