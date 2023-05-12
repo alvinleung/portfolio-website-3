@@ -11,6 +11,7 @@ import { getAllPostSlugs, getPostBySlug } from "../lib/projects";
 import { NextSeo } from "next-seo";
 import debounce from "../lib/debounce";
 import { useBoundingBox } from "../hooks/useBoundingClientRect";
+import HomeLayout from "../components/HomeLayout/HomeLayout";
 
 export const getStaticProps: GetStaticProps = () => {
   const allProjectsSlugs = getAllPostSlugs();
@@ -35,8 +36,6 @@ const Home: NextPage = ({
   const [isViewingGrid, setIsViewingGrid] = useState(false);
   const [isViewingGridBar, setIsViewingGridBar] = useState(false);
   const homeScroll = useHomeScrollPosition();
-
-  const [projectRef, projectSectionBound] = useBoundingBox<HTMLDivElement>([]);
 
   useEffect(() => {
     scrollContainerRef.current.scrollTo(0, homeScroll.scrollY);
@@ -64,55 +63,6 @@ const Home: NextPage = ({
     };
   }, [scrollY]);
 
-  // useEffect(() => {
-  //   console.log("setting scroll snap");
-  //   const scrollToProject = () => {
-  //     // done reset if done
-  //     scrollContainerRef.current.scrollTo({
-  //       top: projectSectionBound.top,
-  //       behavior: "smooth",
-  //     });
-  //   };
-
-  //   const scrollToTop = () => {
-  //     // done reset if done
-  //     scrollContainerRef.current.scrollTo({
-  //       top: 0,
-  //       behavior: "smooth",
-  //     });
-  //   };
-
-  //   let isPrevDirectionDown = false;
-  //   const handleSnap = debounce(() => {
-  //     const position = scrollY.get();
-  //     const inSnapRange = position < projectSectionBound.top;
-  //     const scrollDiff = projectSectionBound.top - position;
-
-  //     if (!inSnapRange) {
-  //       return;
-  //     }
-
-  //     console.log(scrollDiff);
-
-  //     if (!isPrevDirectionDown && scrollDiff > 500) {
-  //       scrollToTop();
-  //       return;
-  //     }
-
-  //     scrollToProject();
-  //   }, 100);
-
-  //   const cleanUpSnap = scrollY.onChange((amount) => {
-  //     isPrevDirectionDown = scrollY.getVelocity() > 0;
-  //     handleSnap();
-  //     return;
-  //   });
-
-  //   return () => {
-  //     cleanUpSnap();
-  //   };
-  // }, [isViewingGrid, projectSectionBound.top]);
-
   return (
     <>
       <NextSeo
@@ -122,13 +72,14 @@ const Home: NextPage = ({
               prototyping wizardry to bring wild concepts from 0 to 1.
               Previously designed @ Daybreak Studio & Dossier Creative`}
       />
-      <LandingHero isViewingGrid={isViewingGrid} />
-      <div ref={projectRef} />
-      <ProjectGridSection
+      {/* <LandingHero isViewingGrid={isViewingGrid} /> */}
+      {/* <div ref={projectRef} /> */}
+      {/* <ProjectGridSection
         isViewing={isViewingGrid}
         isViewingTopBar={isViewingGridBar}
         projects={projects}
-      />
+      /> */}
+      <HomeLayout projects={projects} />
     </>
   );
 };
