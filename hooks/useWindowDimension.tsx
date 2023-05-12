@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 
 const WindowDimensionContext = createContext({ width: 0, height: 0 });
@@ -8,7 +8,7 @@ type Props = { children: React.ReactNode };
 export const WindowDimensionContextProvider = ({ children }: Props) => {
   const [dim, setDim] = useState({ width: 0, height: 0 });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const updateDim = () => {
       setDim({
         width: window.innerWidth,

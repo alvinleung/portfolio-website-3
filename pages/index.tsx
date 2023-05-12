@@ -33,8 +33,8 @@ const Home: NextPage = ({
   projects,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const { scrollY, scrollContainerRef } = useContainerScroll();
-  const [isViewingGrid, setIsViewingGrid] = useState(false);
-  const [isViewingGridBar, setIsViewingGridBar] = useState(false);
+  // const [isViewingGrid, setIsViewingGrid] = useState(false);
+  // const [isViewingGridBar, setIsViewingGridBar] = useState(false);
   const homeScroll = useHomeScrollPosition();
 
   useEffect(() => {
@@ -44,24 +44,24 @@ const Home: NextPage = ({
     };
   }, [scrollY]);
 
-  useEffect(() => {
-    const cleanupScroll = scrollY.onChange((amount) => {
-      if (amount > window.innerHeight / 6) {
-        setIsViewingGrid(true);
-      } else {
-        setIsViewingGrid(false);
-      }
-      if (amount > window.innerHeight * 0.7) {
-        setIsViewingGridBar(true);
-      } else {
-        setIsViewingGridBar(false);
-      }
-    });
+  // useEffect(() => {
+  //   const cleanupScroll = scrollY.onChange((amount) => {
+  //     if (amount > window.innerHeight / 6) {
+  //       setIsViewingGrid(true);
+  //     } else {
+  //       setIsViewingGrid(false);
+  //     }
+  //     if (amount > window.innerHeight * 0.7) {
+  //       setIsViewingGridBar(true);
+  //     } else {
+  //       setIsViewingGridBar(false);
+  //     }
+  //   });
 
-    return () => {
-      cleanupScroll();
-    };
-  }, [scrollY]);
+  //   return () => {
+  //     cleanupScroll();
+  //   };
+  // }, [scrollY]);
 
   return (
     <>

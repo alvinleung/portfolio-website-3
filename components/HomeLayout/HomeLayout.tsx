@@ -52,7 +52,7 @@ const HomeLayout = ({ projects }: Props) => {
       }}
     >
       <div className="lg:col-start-3">
-        <div className="sticky top-0 py-4 flex flex-col lg:h-screen">
+        <div className="sticky top-0 py-4 flex flex-col h-80 lg:h-screen">
           <div className="text-xl sm:text-2xl lg:text-4xl font-light tracking-[-.047em] lg:leading-[1.08em] ">
             Alvin Leung is an interaction designer. He thrives in bringing wild
             concepts from 0 to 1 using his prototyping wizardry and aesthetic

@@ -1,6 +1,7 @@
 import React, {
   MutableRefObject,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -35,33 +36,24 @@ const ProjectGrid = ({ projects }: Props) => {
   const windowDimension = useWindowDimension();
   const gridBeginRef = useRef() as MutableRefObject<HTMLDivElement>;
   const [topOffset, setTopOffset] = useState(0);
-  const gridItemHeight = useBreakpointValues(
-    {
-      md: windowDimension.width * 0.55,
-      lg: windowDimension.width * 0.37,
-      default: windowDimension.width * 0.9,
-    },
-    [windowDimension.width]
-  );
+  const [gridItemHeight, setGridItemHeight] = useState(550);
 
   useEffect(() => {
-    const bound = gridBeginRef.current?.getBoundingClientRect();
-    setTopOffset(bound?.top as number);
+    if (currentBreakpoint >= breakpoints.lg) {
+      setGridItemHeight(windowDimension.width * 0.37);
+      return;
+    }
+    if (currentBreakpoint >= breakpoints.md) {
+      setGridItemHeight(windowDimension.width * 0.55);
+      return;
+    }
+
+    setGridItemHeight(windowDimension.width * 0.9);
+  }, [windowDimension.width, currentBreakpoint]);
+
+  useEffect(() => {
+    setTopOffset(currentBreakpoint < breakpoints.lg ? 336 : 0);
   }, [currentBreakpoint]);
-
-  // console.log(gridItemHeight == windowDimension.width * 0.37);
-
-  // const gridItemHeight = useMemo(() => {
-  //   if (currentBreakpoint > breakpoints.md) return windowDimension.width * 0.37;
-  //   if (currentBreakpoint > breakpoints.sm) return windowDimension.width * 0.55;
-  //   return 550;
-  // }, [currentBreakpoint]);
-
-  // const gridTopOffset = useMemo(() => {
-  //   if (currentBreakpoint > breakpoints.md) return 50;
-  //   if (currentBreakpoint > breakpoints.sm) return 50;
-  //   return 550;
-  // }, [currentBreakpoint]);
 
   return (
     <div className="flex gap-4">
