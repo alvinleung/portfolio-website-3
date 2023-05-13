@@ -192,7 +192,9 @@ const ProjectView = ({
   const isPresent = useIsPresent();
 
   useEffect(() => {
-    if (!isPresent) return;
+    if (!isPresent) {
+      return;
+    }
     if (!isAnimInDone.current && !isScrolled) {
       anim.start({
         scale: shrinkedScale,
@@ -451,14 +453,14 @@ const ProjectView = ({
             opacity: 0,
           }}
           animate={anim}
-          // exit={{
-          //   opacity: 0,
-          //   y: 100,
-          //   transition: {
-          //     duration: AnimationConfig.FAST,
-          //     ease: AnimationConfig.EASING_INVERTED,
-          //   },
-          // }}
+          exit={{
+            opacity: 0,
+            y: 100,
+            transition: {
+              duration: AnimationConfig.NORMAL,
+              ease: AnimationConfig.EASING_INVERTED,
+            },
+          }}
         >
           <motion.div
             style={{
