@@ -74,13 +74,21 @@ export function useOverscroll(
     if (!isActive || !isOverscrollReady) return;
 
     const handleWheel = (e: WheelEvent) => {
-      setIsOverscrollStarted(true);
-
       let deltaAmount = 0;
       const delta = clamp(e.deltaY, -MAX_STEP, MAX_STEP);
-      if (direction === OverscrollDirection.UP)
+
+      const isGoingOppositeDirection =
+        (direction === OverscrollDirection.UP && delta < 0) ||
+        (direction === OverscrollDirection.DOWN && delta > 0);
+      if (isGoingOppositeDirection) {
+        setIsOverscrollStarted(true);
+      }
+
+      if (direction === OverscrollDirection.UP) {
         deltaAmount = overScroll.get() - delta;
-      else deltaAmount = overScroll.get() + delta;
+      } else {
+        deltaAmount = overScroll.get() + delta;
+      }
 
       if (completeRef.current) {
         return;
