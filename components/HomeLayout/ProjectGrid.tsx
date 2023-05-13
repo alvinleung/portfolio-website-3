@@ -16,6 +16,8 @@ import {
 } from "../../hooks/useBreakpoints";
 import { useWindowDimension } from "../../hooks/useWindowDimension";
 import { useBoundingBox } from "../../hooks/useBoundingClientRect";
+import { motion } from "framer-motion";
+import { AnimationConfig } from "../AnimationConfig";
 
 type Props = {
   projects: any[];
@@ -58,9 +60,12 @@ const ProjectGrid = ({ projects }: Props) => {
   return (
     <div className="flex gap-4">
       <div>
-        <div className="sticky top-4" style={{ writingMode: "vertical-rl" }}>
+        <motion.div
+          className="sticky top-4"
+          style={{ writingMode: "vertical-rl" }}
+        >
           Selected Works
-        </div>
+        </motion.div>
       </div>
       <div
         className="grid gap-4 w-full"

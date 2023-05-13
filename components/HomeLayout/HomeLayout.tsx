@@ -50,7 +50,20 @@ const HomeLayout = ({ projects }: Props) => {
       }}
     >
       <div className="lg:col-start-3">
-        <div className="sticky top-0 py-4 flex flex-col h-80 lg:h-screen">
+        <motion.div
+          className="sticky top-0 py-4 flex flex-col h-80 lg:h-screen"
+          initial={{ opacity: 0, scale: 0.97 }}
+          animate={{
+            transformOrigin: "center left",
+            opacity: 1,
+            scale: 1,
+            transition: {
+              delay: 0.25,
+              duration: AnimationConfig.VERY_SLOW,
+              ease: AnimationConfig.EASING_DRAMATIC,
+            },
+          }}
+        >
           <div className="text-xl sm:text-2xl lg:text-4xl font-light tracking-[-.047em] lg:leading-[1.08em] ">
             Alvin Leung is an interaction designer. He thrives in bringing wild
             concepts from 0 to 1 using his prototyping wizardry and aesthetic
@@ -83,7 +96,7 @@ const HomeLayout = ({ projects }: Props) => {
               alvinleung2009@gmail.com
             </ExternalLink>
           </div>
-        </div>
+        </motion.div>
       </div>
       <div className="lg:col-span-2 mb-4">
         <ProjectGrid projects={projects} />
