@@ -64,15 +64,37 @@ const HomeLayout = ({ projects }: Props) => {
             },
           }}
         >
-          <div className="text-xl sm:text-2xl lg:text-4xl font-light tracking-[-.047em] lg:leading-[1.08em] ">
+          <motion.div
+            className="text-xl sm:text-2xl lg:text-4xl font-light tracking-[-.047em] lg:leading-[1.08em] "
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: 1,
+              transition: {
+                delay: 0.3,
+                duration: AnimationConfig.VERY_SLOW,
+                ease: AnimationConfig.EASING_DRAMATIC,
+              },
+            }}
+          >
             Alvin Leung is an interaction designer. He thrives in bringing wild
             concepts from 0 to 1 using his prototyping wizardry and aesthetic
             sensibility. Previously designed @ Daybreak Studio & Dossier
             Creative.
-          </div>
-          <div className="mt-4">
+          </motion.div>
+          <motion.div
+            className="mt-4"
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: 1,
+              transition: {
+                delay: 0.2,
+                duration: AnimationConfig.NORMAL,
+                ease: AnimationConfig.EASING,
+              },
+            }}
+          >
             He has worked with clients like <a>Pager</a> and <a>Quirk Chat</a>
-          </div>
+          </motion.div>
           <div className="mt-auto">
             <ExternalLink
               href={"https://read.cv/alvinleung"}
