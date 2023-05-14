@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProjectGrid from "./ProjectGrid";
-import { motion } from "framer-motion";
+import { motion, transform } from "framer-motion";
 import { AnimationConfig } from "../AnimationConfig";
 import { ExternalLink } from "../Layouts/ExternalLink";
 import debounce from "../../lib/debounce";
@@ -13,17 +13,17 @@ type Props = {
 
 const HomeLayout = ({ projects }: Props) => {
   const windowDimension = useWindowDimension();
-  const [transformOrigin, setTransformOrigin] = useState("center");
+  const [transformOrigin, setTransformOrigin] = useState("center center");
   const { scrollY } = useContainerScroll();
   useEffect(() => {
     const updateTransformOrigin = debounce((value: number) => {
       setTransformOrigin(`center ${value + windowDimension.height / 2}px`);
-    }, 32);
+    }, 200);
     const unobserve = scrollY.onChange(updateTransformOrigin);
     return () => {
       unobserve();
     };
-  }, []);
+  }, [windowDimension.width]);
 
   return (
     <motion.div
@@ -53,8 +53,10 @@ const HomeLayout = ({ projects }: Props) => {
         <motion.div
           className="sticky top-0 py-4 flex flex-col h-80 lg:h-screen"
           initial={{ opacity: 0, scale: 0.97 }}
-          animate={{
+          style={{
             transformOrigin: "center left",
+          }}
+          animate={{
             opacity: 1,
             scale: 1,
             transition: {
