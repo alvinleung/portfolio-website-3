@@ -11,7 +11,7 @@ export function getProjectInfo(meta: any): ProjectInfo {
   return {
     slug: meta.slug,
     title: meta.title,
-    tags: meta.tags && meta.tags.split(","),
+    tags: meta.tags && meta.tags.split(",").map((tag: string) => tag.trim()),
     scope: meta.scope,
     description: meta.description,
     previewVideo: meta.previewVideo,

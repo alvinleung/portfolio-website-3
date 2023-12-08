@@ -95,7 +95,9 @@ const HomeLayout = ({ projects }: Props) => {
               },
             }}
           >
-            He has worked with clients like <a>Pager</a> and <a>Quirk Chat</a>
+            He has worked with start up clients like{" "}
+            <a href="https://pager.xyz/">Pager</a> (Google Venture backed) and{" "}
+            <a>Quirk Chat</a>
           </motion.div>
           <div className="mt-auto">
             <ExternalLink

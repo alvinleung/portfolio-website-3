@@ -96,7 +96,7 @@ const ProjectGridItem = ({
       <ReactiveTapArea>
         <motion.div
           ref={containerRef}
-          className="relative h-[50vw] overflow-hidden rounded-lg"
+          className="relative h-[50vw] overflow-hidden rounded-xl"
           style={{
             height: boxHeight,
             backgroundColor: INACTIVE_BG_COLOR,
@@ -149,7 +149,7 @@ const ProjectGridItem = ({
               )}
             </motion.div>
             <motion.div
-              className="absolute top-0 m-3 text-xl leading-none tracking-tight"
+              className="absolute top-0 m-3 text-l leading-none tracking-tight"
               initial={{
                 opacity: 0,
               }}
@@ -161,7 +161,11 @@ const ProjectGridItem = ({
               }}
             >
               <div className="mb-1">{projectInfo.title}</div>
-              <div className="opacity-40">{projectInfo.description}</div>
+              <div className="opacity-60">
+                {!isHovering
+                  ? projectInfo.tags?.join(", ")
+                  : projectInfo.description}
+              </div>
             </motion.div>
           </Link>
         </motion.div>
