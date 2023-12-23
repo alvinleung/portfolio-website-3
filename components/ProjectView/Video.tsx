@@ -154,8 +154,8 @@ const Video = ({
         // startFromCenter
       > */}
       <motion.video
-        // onMouseEnter={() => setShouldPlay(true)}
-        // onMouseLeave={() => setShouldPlay(false)}
+        onMouseEnter={() => setShouldPlay(true)}
+        onMouseLeave={() => setShouldPlay(false)}
         className={`w-full ${
           fillHeight ? "md:h-full" : ""
         } md:object-cover rounded-xl`}

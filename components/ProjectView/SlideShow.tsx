@@ -71,12 +71,7 @@ const SlideShow = ({ children, label, text }: Props) => {
             onClick={handleNext}
           />
         </div>
-        <Caption
-          label={label}
-          text={text}
-          wideSpacing={false}
-          forImage={true}
-        />
+        <Caption label={label} text={text} wideSpacing={false} overlay={true} />
       </ReactiveTapArea>
     </motion.figure>
   );

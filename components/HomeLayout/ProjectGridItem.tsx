@@ -61,8 +61,14 @@ const ProjectGridItem = ({
     return (1 - val) * -boxContainerHeight * 1;
   });
 
+  const headingOpacity = useTransform(
+    boxTransitionOutProgress,
+    [0.2, 0.1],
+    [1, 0]
+  );
+
   useLayoutEffect(() => {
-    const projectGridGap = 16;
+    const projectGridGap = 16 / 2;
     const marginTop = 16;
 
     const beginShrinkPos =
@@ -149,7 +155,7 @@ const ProjectGridItem = ({
               )}
             </motion.div>
             <motion.div
-              className="absolute top-0 m-3 text-l leading-none tracking-tight"
+              className="absolute top-0 left-0 right-0 mx-4 my-3 text-l tracking-tight grid grid-cols-2"
               initial={{
                 opacity: 0,
               }}
@@ -158,12 +164,15 @@ const ProjectGridItem = ({
               }}
               style={{
                 color: projectStyle.getTextColor(),
+                opacity: headingOpacity,
               }}
             >
-              <div className="mb-1">{projectInfo.title}</div>
-              <div className="opacity-60">
+              <div className="mb-1 leading-tight">{projectInfo.title}</div>
+              <div className="opacity-60 leading-tight">
                 {!isHovering
-                  ? projectInfo.tags?.join(", ")
+                  ? projectInfo.tags?.map((tag) => (
+                      <div className="">{tag}</div>
+                    ))
                   : projectInfo.description}
               </div>
             </motion.div>

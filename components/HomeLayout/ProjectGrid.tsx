@@ -68,7 +68,7 @@ const ProjectGrid = ({ projects }: Props) => {
         </motion.div>
       </div>
       <div
-        className="grid gap-4 w-full"
+        className="grid gap-2 w-full"
         ref={gridBeginRef}
         style={{
           gridTemplateColumns: isTwoColumns ? "1fr 1fr" : "1fr",
