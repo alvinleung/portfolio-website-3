@@ -18,11 +18,13 @@ import { useWindowDimension } from "../../hooks/useWindowDimension";
 import { AnimationConfig } from "../AnimationConfig";
 import ClientOnlyPortal from "../ClientOnlyPortal/ClientOnlyPortal";
 import { ProgressRing } from "./ProgressRing";
+import useStateRef from "../../hooks/useStateRef";
 
 type Props = {
   playerRef: MutableRefObject<HTMLVideoElement>;
   isScrubbing: boolean;
   fill: string;
+  idleTimer?: number;
 };
 
 const RADIUS = 24;
@@ -31,8 +33,9 @@ const VideoProgressCursor = ({
   playerRef,
   isScrubbing,
   fill = "#FFF",
+  idleTimer = 500,
 }: Props) => {
-  const [progress, setProgress] = useState(0);
+  const [progress, setProgress] = useState<number>(0);
 
   const anim = useAnimation();
 
@@ -45,14 +48,34 @@ const VideoProgressCursor = ({
     width: 0,
     height: 0,
   });
-  const [isShowing, setIsShowing] = useState(false);
+  const [isActive, setIsActive] = useState(false);
+  const [isHovering, setIsHovering, isHoveringRef] = useStateRef(false);
 
-  const isHovering = useRef(false);
   const isScrubbingRef = useRef(false);
   const cursorPosRef = useRef({ x: 0, y: 0 });
 
+  const debounceHideTimer = useRef<ReturnType<typeof setTimeout>>();
+
+  const startHideCursorTimerDebounced = () => {
+    setIsActive(true);
+    // auto hide
+    if (debounceHideTimer.current) {
+      clearTimeout(debounceHideTimer.current);
+    }
+    debounceHideTimer.current = setTimeout(() => {
+      // don't hide when it is scurbbing
+      if (isScrubbingRef.current) {
+        startHideCursorTimerDebounced();
+        return;
+      }
+      setIsActive(false);
+    }, idleTimer);
+  };
+
   useEffect(() => {
     isScrubbingRef.current = isScrubbing;
+
+    if (isScrubbing) setIsActive(true);
   }, [isScrubbing]);
 
   useEffect(() => {
@@ -65,31 +88,51 @@ const VideoProgressCursor = ({
       width: bound.width,
       height: bound.height,
     });
-  }, [playerRef.current, windowDimension.width, isShowing, isScrubbing]);
+  }, [playerRef.current, windowDimension.width, isActive, isScrubbing]);
+
+  useEffect(() => {
+    if (isActive || isHovering) {
+      anim.start({
+        opacity: 1,
+      });
+      return;
+    }
+
+    clearTimeout(debounceHideTimer.current);
+    anim.start({
+      opacity: 0,
+      // x: vidBounds.left + vidBounds.width / 2,
+      // y: vidBounds.top + vidBounds.height / 2,
+      transition: {
+        duration: 0.2,
+        ease: AnimationConfig.EASING,
+      },
+    });
+  }, [isActive, isHovering]);
 
   useEffect(() => {
     const handlePointerEnter = (e: MouseEvent) => {
-      isHovering.current = true;
-      setIsShowing(true);
+      setIsActive(true);
+      setIsHovering(true);
 
       anim.set({
         // x: vidBounds.left + vidBounds.width / 2,
         // y: vidBounds.top + vidBounds.height / 2,
         x: e.clientX - RADIUS,
         y: e.clientY - RADIUS,
-      });
-      anim.start({
-        opacity: 1,
+        opacity: 0,
       });
     };
     const handlePointerMove = (e: MouseEvent) => {
-      if (isHovering.current === false || isScrubbingRef.current === true)
-        return;
-
       cursorPosRef.current = {
         x: e.clientX,
         y: e.clientY,
       };
+
+      if (isHoveringRef.current === false || isScrubbingRef.current === true)
+        return;
+
+      startHideCursorTimerDebounced();
 
       anim.start({
         x: e.clientX - RADIUS,
@@ -101,27 +144,22 @@ const VideoProgressCursor = ({
       });
     };
     const handlePointerLeave = (e: MouseEvent) => {
-      isHovering.current = false;
-      setIsShowing(false);
+      setIsHovering(false);
+      setIsActive(false);
 
       // setMouseOffset({
       //   x: vidBounds.width / 2,
       //   y: vidBounds.height / 2,
       // });
+    };
 
-      anim.start({
-        opacity: 0,
-        // x: vidBounds.left + vidBounds.width / 2,
-        // y: vidBounds.top + vidBounds.height / 2,
-        transition: {
-          duration: 0.2,
-          ease: AnimationConfig.EASING,
-        },
-      });
+    const handleScroll = () => {
+      startHideCursorTimerDebounced();
     };
 
     playerRef.current.addEventListener("pointerenter", handlePointerEnter);
     window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("scroll", handleScroll);
     playerRef.current.addEventListener("pointerleave", handlePointerLeave);
 
     return () => {
@@ -129,12 +167,13 @@ const VideoProgressCursor = ({
 
       playerRef.current.removeEventListener("pointerenter", handlePointerEnter);
       window.removeEventListener("pointermove", handlePointerMove);
+      window.addEventListener("scroll", handleScroll);
       playerRef.current.removeEventListener("pointerleave", handlePointerLeave);
     };
   }, [playerRef.current, vidBounds]);
 
   useEffect(() => {
-    if (!isShowing) return;
+    if (!isActive) return;
 
     const interval = setInterval(
       () =>
@@ -147,7 +186,7 @@ const VideoProgressCursor = ({
     return () => {
       clearInterval(interval);
     };
-  }, [isShowing]);
+  }, [isActive]);
 
   useEffect(() => {
     if (isScrubbing) {
@@ -208,19 +247,20 @@ const VideoProgressCursor = ({
   return (
     <ClientOnlyPortal selector="body">
       <motion.div
-        className="fixed left-0 right-0 z-[100000] pointer-events-none opacity-0"
+        className="fixed left-0 z-[100000] pointer-events-none opacity-0"
         animate={anim}
       >
         <ArrowLeft
-          show={isScrubbing}
+          isExpanded={isScrubbing}
+          isActive={isActive}
           fill={fill}
           shouldEmphasise={shouldEmphasiseLeft}
         />
         <motion.div
           animate={{
-            opacity: isScrubbing ? 1 : 0,
+            opacity: isActive ? 1 : 0,
             transition: {
-              duration: isScrubbing ? 0.3 : 0.01,
+              duration: isActive ? 0.3 : 0.01,
             },
           }}
         >
@@ -238,13 +278,18 @@ const VideoProgressCursor = ({
             height: RADIUS * 2,
           }}
           animate={{
-            scale: isScrubbing ? 0.7 : 0.3,
-            opacity: isScrubbing ? 0.3 : 1,
+            scale: isActive ? 0.7 : 0.1,
+            opacity: isActive ? 0.3 : 1,
+            transition: {
+              // duration: AnimationConfig.FAST,
+              // ease: AnimationConfig.EASING,
+            },
           }}
         />
         <ArrowRight
-          show={isScrubbing}
+          isExpanded={isScrubbing}
           fill={fill}
+          isActive={isActive}
           shouldEmphasise={shouldEmphasiseRight}
         />
       </motion.div>
@@ -253,11 +298,17 @@ const VideoProgressCursor = ({
 };
 
 type ArrowProps = {
-  show: boolean;
+  isExpanded: boolean;
+  isActive: boolean;
   fill?: string;
   shouldEmphasise: boolean;
 };
-const ArrowLeft = ({ show, fill, shouldEmphasise }: ArrowProps) => {
+const ArrowLeft = ({
+  isExpanded,
+  isActive: isShowing,
+  fill,
+  shouldEmphasise,
+}: ArrowProps) => {
   return (
     <motion.svg
       className="absolute -left-[14px] top-[12px]"
@@ -267,9 +318,9 @@ const ArrowLeft = ({ show, fill, shouldEmphasise }: ArrowProps) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       animate={{
-        // opacity: show ? 1 : 0,
-        opacity: show ? (shouldEmphasise ? 1 : 0.6) : 1,
-        x: show ? (shouldEmphasise ? -2 : 0) : 12,
+        // opacity: isExpanded ? 1 : 0,
+        opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0.6,
+        x: isShowing ? (isExpanded ? (shouldEmphasise ? -2 : 0) : 0) : 14,
         // scale: shouldEmphasise ? 1.3 :   1,
         transition: {
           ease: AnimationConfig.EASING,
@@ -285,13 +336,18 @@ const ArrowLeft = ({ show, fill, shouldEmphasise }: ArrowProps) => {
     </motion.svg>
   );
 };
-const ArrowRight = ({ show, fill = "#FFF", shouldEmphasise }: ArrowProps) => (
+const ArrowRight = ({
+  isExpanded,
+  isActive: isShowing,
+  fill = "#FFF",
+  shouldEmphasise,
+}: ArrowProps) => (
   <motion.svg
     className="absolute left-[38px] top-[12px]"
     animate={{
-      // opacity: show ? 1 : 0,
-      opacity: show ? (shouldEmphasise ? 1 : 0.6) : 1,
-      x: show ? (shouldEmphasise ? 2 : 0) : -12,
+      // opacity: isExpanded ? 1 : 0,
+      opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0.6,
+      x: isShowing ? (isExpanded ? (shouldEmphasise ? 2 : 0) : -0) : -14,
       // scale: shouldEmphasise ? 1.3 : 1,
       transition: {
         ease: AnimationConfig.EASING,
@@ -310,6 +366,29 @@ const ArrowRight = ({ show, fill = "#FFF", shouldEmphasise }: ArrowProps) => (
       fill={fill}
     />
   </motion.svg>
+);
+
+const pauseIcon = ({ fill = "#FFF" }) => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M14 19V5H18V19H14ZM6 19V5H10V19H6Z" fill={fill} />
+  </svg>
+);
+const playIcon = ({ fill = "#FFF" }) => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M8 5.14062V19.1406L19 12.1406L8 5.14062Z" fill={fill} />
+  </svg>
 );
 
 export default VideoProgressCursor;

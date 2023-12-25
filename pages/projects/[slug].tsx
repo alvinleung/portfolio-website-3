@@ -25,10 +25,12 @@ import {
 import {
   LayoutMainContent,
   LayoutFull,
-  Spacer
+  Spacer,
 } from "../../components/ProjectView/Layout";
 import { Caption } from "../../components/ProjectView/Caption";
-import Video from "../../components/ProjectView/Video";
+import Video, {
+  VideoHoverContextProvider,
+} from "../../components/ProjectView/Video";
 import { List, ListItem } from "../../components/ProjectView/List";
 import SlideShow from "../../components/ProjectView/SlideShow";
 import {
@@ -37,7 +39,7 @@ import {
   ParagraphBig,
   paragraphProcessor,
   Quote,
-  Emphasis
+  Emphasis,
 } from "../../components/ProjectView/Typography";
 import { EditableContextProvider } from "../../components/Editor/EditableContext";
 
@@ -98,45 +100,47 @@ export default function Post({
         title={`${projectInfo.title} — Alvin Leung`}
         description={`${projectInfo.description}`}
       />
-      <ColorShifterContextProvider initialColor={projectStyle.getBgColor()}>
-        <EditableContextProvider>
-          <ProjectView
-            projectInfo={projectInfo}
-            projectStyle={projectStyle}
-            nextProjectInfo={nextProjectInfo}
-            nextProjectStyle={nextProjectStyle}
-            coverImage={getProjectCover(projectInfo.slug)}
-            slugTitleMap={slugTitleMap}
-          >
-            {/* <h1 className="text-6xl">{meta.title}</h1> */}
-            <ProjectHeader projectInfo={projectInfo} />
-            <main className="grid grid-cols-6 gap-x-4 mx-6 2xl:mx-16 md:text-xl -tracking-[.016em]">
-              <MDXRemote
-                {...source}
-                components={{
-                  TestingComponent,
-                  FullImage,
-                  p: paragraphProcessor,
-                  h2: Header2,
-                  em: Emphasis,
-                  Image: Image,
-                  Video: Video,
-                  Team,
-                  ColorShifter,
-                  LayoutFull,
-                  LayoutMainContent,
-                  Quote,
-                  Caption,
-                  List,
-                  ListItem,
-                  SlideShow,
-                  Spacer
-                }}
-              />
-            </main>
-          </ProjectView>
-        </EditableContextProvider>
-      </ColorShifterContextProvider>
+      <VideoHoverContextProvider>
+        <ColorShifterContextProvider initialColor={projectStyle.getBgColor()}>
+          <EditableContextProvider>
+            <ProjectView
+              projectInfo={projectInfo}
+              projectStyle={projectStyle}
+              nextProjectInfo={nextProjectInfo}
+              nextProjectStyle={nextProjectStyle}
+              coverImage={getProjectCover(projectInfo.slug)}
+              slugTitleMap={slugTitleMap}
+            >
+              {/* <h1 className="text-6xl">{meta.title}</h1> */}
+              <ProjectHeader projectInfo={projectInfo} />
+              <main className="grid grid-cols-6 gap-x-4 mx-6 2xl:mx-16 md:text-xl -tracking-[.016em]">
+                <MDXRemote
+                  {...source}
+                  components={{
+                    TestingComponent,
+                    FullImage,
+                    p: paragraphProcessor,
+                    h2: Header2,
+                    em: Emphasis,
+                    Image: Image,
+                    Video: Video,
+                    Team,
+                    ColorShifter,
+                    LayoutFull,
+                    LayoutMainContent,
+                    Quote,
+                    Caption,
+                    List,
+                    ListItem,
+                    SlideShow,
+                    Spacer,
+                  }}
+                />
+              </main>
+            </ProjectView>
+          </EditableContextProvider>
+        </ColorShifterContextProvider>
+      </VideoHoverContextProvider>
     </>
   );
 }

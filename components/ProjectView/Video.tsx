@@ -1,11 +1,47 @@
 import { motion } from "framer-motion";
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
+import React, {
+  MutableRefObject,
+  SetStateAction,
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 import { Figure } from "./FigureWrapper";
 import VideoProgressCursor from "../VideoProgressCursor/VideoProgressCursor";
 import { ProgressRing } from "../VideoProgressCursor/ProgressRing";
 import ReactiveTapArea from "../ReactiveTapArea/ReactiveTapArea";
 import { useWindowDimension } from "../../hooks/useWindowDimension";
+
+type HoveringVideoTarget = HTMLVideoElement | null;
+type VideoContextProps = {
+  hoveringVideo: HoveringVideoTarget;
+  setHoveringVideo: (target: HoveringVideoTarget) => void;
+  clearHoveringVideo: () => void;
+};
+export const VideoHoverContext = createContext<VideoContextProps>({
+  hoveringVideo: null,
+  setHoveringVideo: () => {},
+  clearHoveringVideo: () => {},
+});
+export const VideoHoverContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [hoveringVideo, setHoveringVideo] = useState<HoveringVideoTarget>(null);
+  const clearHoveringVideo = () => setHoveringVideo(null);
+
+  return (
+    <VideoHoverContext.Provider
+      value={{ hoveringVideo, setHoveringVideo, clearHoveringVideo }}
+    >
+      {children}
+    </VideoHoverContext.Provider>
+  );
+};
 
 type Props = {
   src: string;
@@ -18,6 +54,7 @@ type Props = {
   children?: React.ReactNode;
   darkMode: boolean;
   preload: string;
+  cursorColor?: string;
 };
 
 const Video = ({
@@ -31,6 +68,7 @@ const Video = ({
   rowSpan = 1,
   preload = "metadata",
   darkMode,
+  cursorColor = "#8c8c8c",
 }: Props) => {
   const [shouldPlay, setShouldPlay] = useState(false);
   const [isInView, setIsInView] = useState(false);
@@ -39,13 +77,25 @@ const Video = ({
   const { scrollY } = useContainerScroll();
   const windowDimension = useWindowDimension();
 
+  const { clearHoveringVideo, setHoveringVideo, hoveringVideo } =
+    useContext(VideoHoverContext);
+
   useEffect(() => {
-    if (isInView) {
+    if (hoveringVideo === null) {
+      if (isInView) {
+        setShouldPlay(true);
+        return;
+      }
+      setShouldPlay(false);
+    }
+
+    if (!isInView) return;
+    if (hoveringVideo === playerRef.current) {
       setShouldPlay(true);
       return;
     }
     setShouldPlay(false);
-  }, [isInView]);
+  }, [isInView, hoveringVideo]);
 
   useEffect(() => {
     if (!seekOnScroll) return;
@@ -145,8 +195,9 @@ const Video = ({
         <VideoProgressCursor
           playerRef={playerRef}
           isScrubbing={isScrubbing}
-          // fill={"#bebebe"}
-          fill={"#bebebe"}
+          // fill={"rgb(242, 84, 16)"}
+          fill={cursorColor}
+          idleTimer={500}
         />
       )}
       {/* <ReactiveTapArea
@@ -154,8 +205,8 @@ const Video = ({
         // startFromCenter
       > */}
       <motion.video
-        onMouseEnter={() => setShouldPlay(true)}
-        onMouseLeave={() => setShouldPlay(false)}
+        onMouseEnter={() => setHoveringVideo(playerRef.current)}
+        onMouseLeave={() => clearHoveringVideo()}
         className={`w-full ${
           fillHeight ? "md:h-full" : ""
         } md:object-cover rounded-xl`}

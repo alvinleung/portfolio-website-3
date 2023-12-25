@@ -77,7 +77,7 @@ const ProjectView = ({
   const { scrollY, scrollDirection, scrollYProgress } = useContainerScroll();
   const windowDimension = useWindowDimension();
 
-  const [shouldShowNav, setShouldShowNav] = useState(false);
+  const [shouldShowNav, setShouldShowNav] = useState(true);
 
   useEffect(() => {
     const unobserveScrollY = scrollY.onChange((val) => {
@@ -125,29 +125,29 @@ const ProjectView = ({
     };
   }, []);
 
-  useEffect(() => {
-    // let scrolledAmount = 0;
-    // const DIST_THRESHOLD = 200;
-    // const VELOCITY_THRESHOLD = 9;
+  // useEffect(() => {
+  //   // let scrolledAmount = 0;
+  //   // const DIST_THRESHOLD = 200;
+  //   // const VELOCITY_THRESHOLD = 9;
 
-    // const unobserveScroll = scrollY.onChange(() => {
-    //   const velocity = scrollY.getVelocity() / 100;
-    //   scrolledAmount += velocity;
-    //   if (scrolledAmount < -DIST_THRESHOLD || velocity < -VELOCITY_THRESHOLD) {
-    //     setShouldShowNav(true);
-    //     return;
-    //   }
-    // });
+  //   // const unobserveScroll = scrollY.onChange(() => {
+  //   //   const velocity = scrollY.getVelocity() / 100;
+  //   //   scrolledAmount += velocity;
+  //   //   if (scrolledAmount < -DIST_THRESHOLD || velocity < -VELOCITY_THRESHOLD) {
+  //   //     setShouldShowNav(true);
+  //   //     return;
+  //   //   }
+  //   // });
 
-    if (scrollDirection === ScrollDirection.DOWN) {
-      setShouldShowNav(false);
-      return;
-    }
-    setShouldShowNav(true);
-    // return () => {
-    //   unobserveScroll();
-    // };
-  }, [scrollDirection]);
+  //   if (scrollDirection === ScrollDirection.DOWN) {
+  //     setShouldShowNav(false);
+  //     return;
+  //   }
+  //   setShouldShowNav(true);
+  //   // return () => {
+  //   //   unobserveScroll();
+  //   // };
+  // }, [scrollDirection]);
 
   useEffect(() => {
     // if (USE_SIMPLE_TRANSITION) {
