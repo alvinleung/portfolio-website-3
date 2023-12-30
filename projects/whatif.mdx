@@ -50,27 +50,22 @@ weight: 9
 
 ## Celebrate the works
 
-As an online archive for the installation art pieces, the microsite intends to encapsulate the physical experience of the exhibition by creating a sense of immersion for visitors. It was achieve by:
+As an online archive for the installation art pieces, the microsite intends to encapsulate the physical experience of the exhibition by creating a sense of immersion for visitors. The following are the major design features of the microsite:
 
-<List>
-  <ListItem label="I">
-    Unique identity for each exhibit through visual and interaction design
-  </ListItem>
-  <ListItem label="II">Create intrigue through denial & reward. </ListItem>
-</List>
-
-<LayoutMainContent grid="2/4" extraMargin>
-  {/* <Video
+<LayoutMainContent grid="2/3" extraMargin>
+  <Video
     src="https://www.sfu.ca/~kkl64/videos/whatif/intro.mp4"
     width={1920}
     height={1080}
   >
     <Caption
       label="1"
-      text="Introduction that prime user the unique interaction."
+      title="Priming Unique Interaction Pattern"
+      text="The landing and introductory section act as primers to get visitors accustomed to our use of distortion to reveal content."
       overlay={false}
+      topPadding
     />
-  </Video> */}
+  </Video>
   <Video
     src="https://www.sfu.ca/~kkl64/videos/whatif/selection-page.mp4"
     width={1920}
@@ -78,19 +73,8 @@ As an online archive for the installation art pieces, the microsite intends to e
   >
     <Caption
       label="2"
-      text="The exhibit selection page reveals just enough information that entices the visitor to investigate more. This is achieved by tight image cropping and the “what if” prompts."
-      overlay={false}
-      topPadding
-    />
-  </Video>
-  <Video
-    src="https://www.sfu.ca/~kkl64/videos/whatif/homo-quantis.mp4"
-    width={1920}
-    height={1080}
-  >
-    <Caption
-      label="3"
-      text="Each exhibit page was given its own voice via unique color, font pairing and custom interaction which were inspired by the physical exhibit."
+      title="Denial & Reward to Encourage Content Discovery"
+      text="The exhibit selection section reveals just enough information that entices the visitor to investigate more. This is achieved by tight image cropping and the “what if” prompts."
       overlay={false}
       topPadding
     />
@@ -99,13 +83,59 @@ As an online archive for the installation art pieces, the microsite intends to e
 
 <LayoutMainContent extraMargin>
   <Video
+    src="https://www.sfu.ca/~kkl64/videos/whatif/homo-quantis.mp4"
+    width={1920}
+    height={1080}
+  >
+    <Caption
+      label="3"
+      title="Individual Voices for Each Exhibit"
+      text="Each exhibit page was given its own voice via unique color, font pairing and custom interaction which were inspired by its physical experience."
+      overlay={false}
+      topPadding
+    />
+  </Video>
+</LayoutMainContent>
+
+<LayoutMainContent grid="2/4" extraMargin>
+  <Video
     src="https://www.sfu.ca/~kkl64/videos/whatif/nav-bar-going-out.mp4"
     width={1920}
     height={1080}
   >
     <Caption
       label="4"
-      text="The navigation bar mimics the content layout. As the visitor enters an exhibit, its visual form changes to signify a different viewing mode."
+      title="Adaptive Navigation"
+      text="Visual form of the navigation bar mimics the content layout. As the visitor enters an exhibit, its visual form changes to signify a different viewing mode."
+      overlay={false}
+      topPadding
+    />
+  </Video>
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/whatif/resistive-scroll.mp4"
+    width={1920}
+    height={1080}
+  >
+    <Caption
+      label="4"
+      title="Resistive Scroll as Punctuation"
+      text="On the exhibit page, resistive scrolling connects one exhibition article to another. Working with the user expectation of scrolling on websites, it subtly draws attention to a page turn at the end of an exhibit article"
+      overlay={false}
+      topPadding
+    />
+  </Video>
+</LayoutMainContent>
+
+<LayoutMainContent extraMargin>
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/whatif/artist-page.mp4"
+    width={1920}
+    height={1080}
+  >
+    <Caption
+      label="4"
+      title="Draw to Reveal Artist"
+      text="Below the exhibit selection page is the artist page, which is an open space where visitors can click & drag anywhere to reveal the name and portrait of all the artists involved in the exhibition."
       overlay={false}
       topPadding
     />
@@ -124,7 +154,8 @@ Taking inspiration from Ellen Lupton, Woflgang Weingart and Chris Ashworth, the 
   >
     <Caption
       label="10"
-      text={`3 directions were explored before choosing the final one`}
+      title="Converging from 3 Directions"
+      text={`The approach I responsible for was chosen for its cohesive use of the principles and its versatility across different media.`}
       wideSpacing
     />
   </Image>
@@ -137,7 +168,8 @@ Taking inspiration from Ellen Lupton, Woflgang Weingart and Chris Ashworth, the 
     height={949}
   >
     <Caption
-      label="10"
+      label="11"
+      title="Wrist band"
       text={`Event wrist band demonstrates the ability of this direction to both remain intact upon, and compliment various shapes`}
       wideSpacing
     />
@@ -152,7 +184,19 @@ Taking inspiration from Ellen Lupton, Woflgang Weingart and Chris Ashworth, the 
   >
     <Caption
       label="11"
+      title="Site Map"
       text={`The application of a large scale site map installation illustrates how th direction adapts in large scale, functional application.`}
+      wideSpacing
+    />
+  </Image>
+</LayoutFull>
+
+<LayoutFull>
+  <Image src="/project-assets/whatif/typescale.jpg" width={1920} height={1080}>
+    <Caption
+      label="12"
+      title="Type System with a Purpose"
+      text={`I constructed a typographic system to ensure effortless alignment of cap-height and baseline across multiple type sizes, creating a structured appearance through consistent vertical rhythm.`}
       wideSpacing
     />
   </Image>
@@ -177,7 +221,19 @@ Taking inspiration from Ellen Lupton, Woflgang Weingart and Chris Ashworth, the 
 
 ## Towards an Interactive Identity
 
-Driven by a process that focuses on creating tangible artifacts, we iteratively explored interaction and motion possibilities that were afforded by the art direction.
+Driven by a process that focuses on creating tangible artifacts, we iteratively explored interaction and motion possibilities.
+
+To begin, we formulate 3 initial lines of investigations to see what the art direction affords us:
+
+<List>
+  <ListItem label="I">Distortion as a way to guide visitor attention</ListItem>
+  <ListItem label="II">
+    Denial and reward through high effort interactions
+  </ListItem>
+  <ListItem label="III">
+    Playing with distortion for personal expression
+  </ListItem>
+</List>
 
 After collecting and curating an extensive list of distortion techniques, hover interactions, animations, navigation, and methods of implementing dynamic grids, three distinct approaches was emerged as a way to surface content through interactivity.
 
@@ -191,7 +247,8 @@ Seeing how they could potentially compliment each other, the three approaches ar
   >
     <Caption
       label="5"
-      text="Three initial interaction design approaches that emerge from precedent research and hands-on exploration."
+      title="Three Approaches"
+      text="Three interactions approaches emerged from precedent research and hands-on exploration."
     />
   </Video>
 </LayoutMainContent>
@@ -232,7 +289,8 @@ Seeing how they could potentially compliment each other, the three approaches ar
   >
     <Caption
       label="9"
-      text={`Prototyping with Code — My processing sketch gave our team confidence to further pursue the idea of "Playful Agency"`}
+      title="Prototyping with Code"
+      text={`To test out the idea of "drawing to reveal content", I created an isolated study of the interaction on the process to give ourselves a sense of how it feels. This tangible artefact gave our team confidence to further pursue the idea.`}
       overlay={false}
       topPadding
     />
