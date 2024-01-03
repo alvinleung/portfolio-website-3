@@ -170,8 +170,10 @@ const ProjectGridItem = ({
               <div className="mb-1 leading-tight">{projectInfo.title}</div>
               <div className="opacity-60 leading-tight">
                 {!isHovering
-                  ? projectInfo.tags?.map((tag) => (
-                      <div className="">{tag}</div>
+                  ? projectInfo.tags?.map((tag, index) => (
+                      <div className="" key={index}>
+                        {tag}
+                      </div>
                     ))
                   : projectInfo.description}
               </div>
