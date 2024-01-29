@@ -34,7 +34,7 @@ weight: 1
   </Video>
 </LayoutFull>
 
-<LayoutFull>
+<LayoutFull grid="1/2">
   <Video
     src="https://www.sfu.ca/~kkl64/videos/creative-coding/fluid.mp4"
     width={2780}
@@ -44,12 +44,9 @@ weight: 1
     <Caption
       label="2"
       text="Shader experiment: Stylised fluid simulation WebGL."
-      wideSpacing
+      overlay={true}
     />
   </Video>
-</LayoutFull>
-
-<LayoutFull>
   <Video
     src="https://www.sfu.ca/~kkl64/videos/creative-coding/shooter.mp4"
     width={2780}
@@ -59,12 +56,12 @@ weight: 1
     <Caption
       label="3"
       text="A passion project space shooter written in processing with unique physics and particle system. ✨ We love camera shakes and particle effects ✨"
-      wideSpacing
+      overlay={true}
     />
   </Video>
 </LayoutFull>
 
-<LayoutFull>
+<LayoutFull grid="2/1" extraMargin>
   <Video
     src="https://www.sfu.ca/~kkl64/videos/creative-coding/generative-pattern.mp4"
     width={2780}
@@ -74,12 +71,8 @@ weight: 1
     <Caption
       label="4"
       text="A procedural grid based pattern generator that is extensible by code. Written in Typescript and React using HTML Canvas API"
-      wideSpacing
     />
   </Video>
-</LayoutFull>
-
-<LayoutFull extraMargin>
   <Video
     src="https://www.sfu.ca/~kkl64/videos/creative-coding/game-engine.mp4"
     width={2780}
@@ -88,8 +81,7 @@ weight: 1
   >
     <Caption
       label="5"
-      text="A game engine project working with my comp-sci brother after he took a graphics rendering course. My first time working with WebGL."
-      wideSpacing
+      text="My very first time working with WebGL. A game engine project working with my comp-sci brother after he took a graphics rendering course. "
       overlay={false}
       topPadding
     />
