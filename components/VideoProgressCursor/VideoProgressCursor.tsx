@@ -177,7 +177,7 @@ const VideoProgressCursor = ({
         x: newPosX - RADIUS,
         y: newPosY - RADIUS,
         transition: {
-          duration: 0.3,
+          duration: 0.25,
           ease: AnimationConfig.EASING,
         },
       });
