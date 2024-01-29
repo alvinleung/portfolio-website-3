@@ -19,6 +19,8 @@ import { AnimationConfig } from "../AnimationConfig";
 import ClientOnlyPortal from "../ClientOnlyPortal/ClientOnlyPortal";
 import { ProgressRing } from "./ProgressRing";
 import useStateRef from "../../hooks/useStateRef";
+import { clamp } from "../../lib/clamp";
+import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 
 type Props = {
   playerRef: MutableRefObject<HTMLVideoElement>;
@@ -36,6 +38,8 @@ const VideoProgressCursor = ({
   idleTimer = 500,
 }: Props) => {
   const [progress, setProgress] = useState<number>(0);
+
+  const { scrollY } = useContainerScroll();
 
   const anim = useAnimation();
 
@@ -91,6 +95,16 @@ const VideoProgressCursor = ({
   }, [playerRef.current, windowDimension.width, isActive, isScrubbing]);
 
   useEffect(() => {
+    const cleanup = scrollY.onChange(() => {
+      setIsActive(false);
+    });
+
+    return () => {
+      cleanup();
+    };
+  }, [scrollY]);
+
+  useEffect(() => {
     if (isActive || isHovering) {
       anim.start({
         opacity: 1,
@@ -111,15 +125,28 @@ const VideoProgressCursor = ({
   }, [isActive, isHovering]);
 
   useEffect(() => {
+    const edgeMargin = RADIUS * 1.2;
+
     const handlePointerEnter = (e: MouseEvent) => {
       setIsActive(true);
       setIsHovering(true);
 
+      const vidBounds = playerRef.current.getBoundingClientRect();
+      const newPosX = clamp(
+        e.clientX,
+        vidBounds.left + edgeMargin,
+        vidBounds.right - edgeMargin
+      );
+
+      const newPosY = clamp(
+        e.clientY,
+        vidBounds.top + edgeMargin,
+        vidBounds.bottom - edgeMargin
+      );
+
       anim.set({
-        // x: vidBounds.left + vidBounds.width / 2,
-        // y: vidBounds.top + vidBounds.height / 2,
-        x: e.clientX - RADIUS,
-        y: e.clientY - RADIUS,
+        x: newPosX - RADIUS,
+        y: newPosY - RADIUS,
         opacity: 0,
       });
     };
@@ -134,11 +161,23 @@ const VideoProgressCursor = ({
 
       startHideCursorTimerDebounced();
 
+      const newPosX = clamp(
+        e.clientX,
+        vidBounds.left + edgeMargin,
+        vidBounds.right - edgeMargin
+      );
+
+      const newPosY = clamp(
+        e.clientY,
+        vidBounds.top + edgeMargin,
+        vidBounds.bottom - edgeMargin
+      );
+
       anim.start({
-        x: e.clientX - RADIUS,
-        y: e.clientY - RADIUS,
+        x: newPosX - RADIUS,
+        y: newPosY - RADIUS,
         transition: {
-          duration: 0.1,
+          duration: 0.3,
           ease: AnimationConfig.EASING,
         },
       });
@@ -318,8 +357,8 @@ const ArrowLeft = ({
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       animate={{
-        // opacity: isExpanded ? 1 : 0,
-        opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0.6,
+        opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0,
+        // opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0.6,
         x: isShowing ? (isExpanded ? (shouldEmphasise ? -2 : 0) : 0) : 14,
         // scale: shouldEmphasise ? 1.3 :   1,
         transition: {
@@ -345,8 +384,8 @@ const ArrowRight = ({
   <motion.svg
     className="absolute left-[38px] top-[12px]"
     animate={{
-      // opacity: isExpanded ? 1 : 0,
-      opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0.6,
+      opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0,
+      // opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0.6,
       x: isShowing ? (isExpanded ? (shouldEmphasise ? 2 : 0) : -0) : -14,
       // scale: shouldEmphasise ? 1.3 : 1,
       transition: {

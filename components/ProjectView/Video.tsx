@@ -213,7 +213,7 @@ const Video = ({
         ref={playerRef}
         style={{
           visibility: isInView ? "visible" : "hidden",
-          cursor: seekOnScroll ? "auto" : "none",
+          cursor: seekOnScroll ? "auto" : "ew-resize",
         }}
         animate={{
           opacity: seekOnScroll || shouldPlay ? 1 : 0.5,
@@ -231,6 +231,8 @@ const Video = ({
         muted
         loop
         playsInline
+        disablePictureInPicture
+        disableRemotePlayback
       />
       {children}
       {/* </ReactiveTapArea> */}
