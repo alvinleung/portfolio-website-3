@@ -26,6 +26,7 @@ type Props = {
   projectRow: number;
   isWide: boolean;
   cardHeight: number;
+  firstRowHeight: number;
   topOffset: number;
 };
 
@@ -35,6 +36,7 @@ const ProjectGridItem = ({
   projectInfo,
   projectStyle,
   projectRow,
+  firstRowHeight,
   cardHeight,
   topOffset,
   isWide,
@@ -71,13 +73,17 @@ const ProjectGridItem = ({
     const projectGridGap = 16 / 2;
     const marginTop = 16;
 
+    const firstRow = firstRowHeight + projectGridGap;
     const beginShrinkPos =
-      projectRow * (cardHeight + projectGridGap) - marginTop + topOffset;
+      firstRow +
+      (projectRow - 1) * (cardHeight + projectGridGap) -
+      marginTop +
+      topOffset;
 
     setBeginShrinkPos(beginShrinkPos);
     setEndShrinkPos(beginShrinkPos + cardHeight);
     setBoxContainerHeight(cardHeight);
-  }, [projectRow, cardHeight, topOffset]);
+  }, [projectRow, cardHeight, topOffset, firstRowHeight]);
 
   const videoRef = useRef() as MutableRefObject<HTMLVideoElement>;
   useEffect(() => {

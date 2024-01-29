@@ -39,19 +39,23 @@ const ProjectGrid = ({ projects }: Props) => {
   const gridBeginRef = useRef() as MutableRefObject<HTMLDivElement>;
   const [topOffset, setTopOffset] = useState(0);
   const [gridItemHeight, setGridItemHeight] = useState(550);
+  const [firstItemHeight, setFirstItemHeight] = useState(550);
 
   useEffect(() => {
     if (currentBreakpoint >= breakpoints.lg) {
       setGridItemHeight(windowDimension.width * 0.37);
+      setFirstItemHeight(windowDimension.height * 0.85);
       return;
     }
     if (currentBreakpoint >= breakpoints.md) {
       setGridItemHeight(windowDimension.width * 0.55);
+      setFirstItemHeight(windowDimension.width * 0.55);
       return;
     }
 
+    setFirstItemHeight(windowDimension.width * 0.9);
     setGridItemHeight(windowDimension.width * 0.9);
-  }, [windowDimension.width, currentBreakpoint]);
+  }, [windowDimension.width, windowDimension.height, currentBreakpoint]);
 
   useEffect(() => {
     setTopOffset(currentBreakpoint < breakpoints.lg ? 336 : 0);
@@ -83,8 +87,9 @@ const ProjectGrid = ({ projects }: Props) => {
 
           return (
             <ProjectGridItem
-              cardHeight={gridItemHeight}
+              cardHeight={index === 0 ? firstItemHeight : gridItemHeight}
               projectRow={currentRow}
+              firstRowHeight={firstItemHeight}
               projectStyle={projectStyle}
               projectInfo={projectInfo}
               topOffset={topOffset}
