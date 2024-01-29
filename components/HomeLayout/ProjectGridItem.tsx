@@ -82,13 +82,19 @@ const ProjectGridItem = ({
   const videoRef = useRef() as MutableRefObject<HTMLVideoElement>;
   useEffect(() => {
     if (!videoRef.current) return;
+
+    if (isWide) {
+      videoRef.current.play();
+      return;
+    }
+
     if (isHovering) {
       videoRef.current.currentTime = 0;
       videoRef.current.play();
     } else {
       videoRef.current.pause();
     }
-  }, [isHovering]);
+  }, [isHovering, isWide]);
 
   return (
     <motion.div
@@ -134,6 +140,7 @@ const ProjectGridItem = ({
                 className="w-full "
                 alt={""}
                 onLoad={() => setIsImageLoaded(true)}
+                onError={() => setIsImageLoaded(true)}
               />
               {projectInfo.previewVideo && (
                 <motion.video
@@ -143,7 +150,8 @@ const ProjectGridItem = ({
                     ease: AnimationConfig.EASING_DRAMATIC,
                   }}
                   style={{
-                    opacity: isHovering ? 1 : 0,
+                    opacity: isHovering || isWide ? 1 : 0,
+                    height: cardHeight,
                   }}
                   ref={videoRef}
                   src={projectInfo.previewVideo}
