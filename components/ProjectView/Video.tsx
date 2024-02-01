@@ -48,6 +48,7 @@ type Props = {
   width: number;
   height: number;
   seekOnScroll: boolean;
+  canScrub?: boolean;
   fillHeight?: boolean;
   frameRate: number;
   rowSpan?: number;
@@ -62,6 +63,7 @@ const Video = ({
   width,
   height,
   seekOnScroll,
+  canScrub = true,
   frameRate = 12,
   fillHeight,
   children,
@@ -146,7 +148,7 @@ const Video = ({
 
   const [isScrubbing, setIsScrubbing] = useState(false);
   useEffect(() => {
-    if (seekOnScroll) return;
+    if (seekOnScroll || !canScrub) return;
 
     let isDragging = false;
 
@@ -178,7 +180,7 @@ const Video = ({
       window.removeEventListener("pointermove", handleDragMove);
       playerRef.current.removeEventListener("pointerup", handleDragEnd);
     };
-  }, [playerRef.current, windowDimension.width]);
+  }, [playerRef.current, windowDimension.width, seekOnScroll, canScrub]);
 
   useEffect(() => {
     if (!isScrubbing) {
@@ -191,7 +193,7 @@ const Video = ({
 
   return (
     <Figure rowSpan={rowSpan}>
-      {!seekOnScroll && (
+      {!seekOnScroll && canScrub && (
         <VideoProgressCursor
           playerRef={playerRef}
           isScrubbing={isScrubbing}
@@ -213,7 +215,7 @@ const Video = ({
         ref={playerRef}
         style={{
           visibility: isInView ? "visible" : "hidden",
-          cursor: seekOnScroll ? "auto" : "ew-resize",
+          cursor: seekOnScroll || !canScrub ? "auto" : "ew-resize",
         }}
         animate={{
           opacity: seekOnScroll || shouldPlay ? 1 : 0.5,

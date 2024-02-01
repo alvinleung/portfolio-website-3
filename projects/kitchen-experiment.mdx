@@ -42,7 +42,10 @@ weight: 10
 />
 
 <LayoutFull extraMargin>
-  <Video src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/assembly-top-down.mp4" />
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/assembly-top-down.mp4"
+    canScrub={false}
+  />
 </LayoutFull>
 
 <ColorShifter background="#FFF" color="#444" />
@@ -56,7 +59,10 @@ However during cooking, the pain of navigating such digital recipes—video or t
 Because of this, we see the oppoutinity to _challenge the dominant touch paradigm_ of modern mobile devices.
 
 <LayoutMainContent grid="2/3" extraMargin>
-  <Video src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/getting-dirty.mp4" />
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/getting-dirty.mp4"
+    canScrub={false}
+  />
 </LayoutMainContent>
 
 ## A multi-modal interaction proposal
@@ -66,6 +72,7 @@ Our solution uses a combination of voice and air gesture interaction to navigate
 <LayoutMainContent extraMargin>
   <Video
     src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/	kitchen-experiment-cover.mp4"
+    canScrub={false}
     width={1920}
     height={1080}
   >
@@ -87,16 +94,21 @@ To observe how homecooks navigate digital recipes, we conducted contextual inqui
     src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/elbow-interaction.mp4"
     width={1920}
     height={1080}
+    canScrub={false}
   >
     <Caption
       label="4"
       title="Elbow Interaction"
       text="Elbow interaction force user into an awkward position while only provide limited interaction precision."
       overlay={false}
+      canScrub={false}
       topPadding
     />
   </Video>
-  <Video src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/	knuckle-interaction_2.mp4">
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/	knuckle-interaction_2.mp4"
+    canScrub={false}
+  >
     <Caption
       label="4"
       title="Knuckle Interaction"
