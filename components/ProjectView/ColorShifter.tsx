@@ -2,15 +2,15 @@ import { motion } from "framer-motion";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 const ColorContext = createContext({
-  currentColor: "#FFF",
+  currentColor: "#000",
+  currentBackground: "#FFF",
   pushColor: (str: string) => {},
   popColor: () => {},
+  pushBackground: (str: string) => {},
+  popBackground: () => {},
 });
 
-export const ColorShifterContextProvider = ({
-  children,
-  initialColor,
-}: any) => {
+const useColorStack = (initialColor: string) => {
   const [colorStack, setColorStack] = useState([initialColor]);
 
   const pushColor = (color: string) => {
@@ -21,12 +21,28 @@ export const ColorShifterContextProvider = ({
     setColorStack(colorStack.slice(0, -1));
   };
 
+  const currentColor = colorStack[colorStack.length - 1];
+
+  return { popColor, pushColor, currentColor };
+};
+
+export const ColorShifterContextProvider = ({
+  children,
+  initialColor,
+  initalBackground,
+}: any) => {
+  const font = useColorStack(initialColor);
+  const background = useColorStack(initalBackground);
+
   return (
     <ColorContext.Provider
       value={{
-        currentColor: colorStack[colorStack.length - 1],
-        pushColor,
-        popColor,
+        currentColor: font.currentColor,
+        currentBackground: background.currentColor,
+        pushColor: font.pushColor,
+        popColor: font.popColor,
+        pushBackground: background.pushColor,
+        popBackground: background.popColor,
       }}
     >
       {children}
@@ -40,17 +56,27 @@ export const useColorContext = () => {
 
 type Props = {
   color: string;
+  background: string;
 };
 export const ColorShifter = (props: Props) => {
-  const { pushColor, popColor } = useContext(ColorContext);
+  const {
+    pushColor,
+    popColor,
+    pushBackground,
+    popBackground,
+    currentBackground,
+    currentColor,
+  } = useContext(ColorContext);
   const [isOverThreshold, setIsOverThreshold] = useState(false);
 
   useEffect(() => {
     if (isOverThreshold) {
       pushColor(props.color);
+      pushBackground(props.background);
       return;
     }
     popColor();
+    popBackground();
   }, [isOverThreshold]);
 
   const handleViewportEnter = (e: IntersectionObserverEntry | null) => {

@@ -67,10 +67,7 @@ const ProjectView = ({
   const anim = useAnimation();
   const contentContainerRef = useRef() as MutableRefObject<HTMLDivElement>;
 
-  const textColor = projectStyle.getTextColor();
-  const { currentColor } = useColorContext();
-  const bgColor = currentColor;
-
+  const { currentColor, currentBackground } = useColorContext();
   const [isScrolled, setIsScrolled] = useState(false);
   const [shouldShowNextProject, setShouldShowNextProject] = useState(false);
   const { prevCardRef } = usePageTransition();
@@ -344,6 +341,8 @@ const ProjectView = ({
     [0, 20]
   );
 
+  console.log(currentColor);
+
   return (
     <>
       <motion.div
@@ -471,8 +470,14 @@ const ProjectView = ({
               scale: overscrollDownScale,
               transformOrigin: transformOrigin,
             }}
-            initial={{ backgroundColor: bgColor, color: textColor }}
-            animate={{ backgroundColor: bgColor, color: textColor }}
+            initial={{
+              backgroundColor: projectStyle.getBgColor(),
+              color: projectStyle.getTextColor(),
+            }}
+            animate={{
+              backgroundColor: currentBackground,
+              color: currentColor,
+            }}
             exit={
               overscrollDown.isOverscrollComplete
                 ? {

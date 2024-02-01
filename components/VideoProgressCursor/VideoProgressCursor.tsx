@@ -29,7 +29,8 @@ type Props = {
   idleTimer?: number;
 };
 
-const RADIUS = 24;
+// const RADIUS = 24; // default is 24
+const RADIUS = 36;
 
 const VideoProgressCursor = ({
   playerRef,
@@ -124,29 +125,36 @@ const VideoProgressCursor = ({
     });
   }, [isActive, isHovering]);
 
-  useEffect(() => {
-    const edgeMargin = RADIUS * 1.2;
+  const getClampedMousePosition = (
+    vidBounds: { left: number; top: number; right: number; bottom: number },
+    positionX: number,
+    positionY: number,
+    edgeMargin = RADIUS + 12
+  ) => {
+    return {
+      x: clamp(
+        positionX,
+        vidBounds.left + edgeMargin,
+        vidBounds.right - edgeMargin
+      ),
+      y: clamp(
+        positionY,
+        vidBounds.top + edgeMargin,
+        vidBounds.bottom - edgeMargin
+      ),
+    };
+  };
 
+  useEffect(() => {
     const handlePointerEnter = (e: MouseEvent) => {
       setIsActive(true);
       setIsHovering(true);
 
       const vidBounds = playerRef.current.getBoundingClientRect();
-      const newPosX = clamp(
-        e.clientX,
-        vidBounds.left + edgeMargin,
-        vidBounds.right - edgeMargin
-      );
-
-      const newPosY = clamp(
-        e.clientY,
-        vidBounds.top + edgeMargin,
-        vidBounds.bottom - edgeMargin
-      );
-
+      const newPos = getClampedMousePosition(vidBounds, e.clientX, e.clientY);
       anim.set({
-        x: newPosX - RADIUS,
-        y: newPosY - RADIUS,
+        x: newPos.x - RADIUS,
+        y: newPos.y - RADIUS,
         opacity: 0,
       });
     };
@@ -161,21 +169,11 @@ const VideoProgressCursor = ({
 
       startHideCursorTimerDebounced();
 
-      const newPosX = clamp(
-        e.clientX,
-        vidBounds.left + edgeMargin,
-        vidBounds.right - edgeMargin
-      );
-
-      const newPosY = clamp(
-        e.clientY,
-        vidBounds.top + edgeMargin,
-        vidBounds.bottom - edgeMargin
-      );
+      const newPos = getClampedMousePosition(vidBounds, e.clientX, e.clientY);
 
       anim.start({
-        x: newPosX - RADIUS,
-        y: newPosY - RADIUS,
+        x: newPos.x - RADIUS,
+        y: newPos.y - RADIUS,
         transition: {
           duration: 0.25,
           ease: AnimationConfig.EASING,
@@ -229,20 +227,27 @@ const VideoProgressCursor = ({
 
   useEffect(() => {
     if (isScrubbing) {
-      // anim.start({
-      //   x: vidBounds.left + vidBounds.width / 2 - 16,
-      //   y: vidBounds.top + vidBounds.height / 2 - 16,
-      //   transition: {
-      //     duration: AnimationConfig.VERY_FAST,
-      //     ease: AnimationConfig.EASING,
-      //   },
-      // });
+      anim.start({
+        // x: vidBounds.left + vidBounds.width / 2 - RADIUS,
+        // y: vidBounds.top + vidBounds.height / 2 - RADIUS,
+        scale: 1,
+        transition: {
+          duration: AnimationConfig.VERY_FAST,
+          ease: AnimationConfig.EASING,
+        },
+      });
       return;
     }
 
+    // const newPos = getClampedMousePosition(
+    //   vidBounds,
+    //   cursorPosRef.current.x,
+    //   cursorPosRef.current.y
+    // );
     anim.start({
-      x: cursorPosRef.current.x - RADIUS,
-      y: cursorPosRef.current.y - RADIUS,
+      // x: newPos.x - RADIUS,
+      // y: newPos.y - RADIUS,
+      scale: 1.1,
       transition: {
         duration: AnimationConfig.VERY_FAST,
         ease: AnimationConfig.EASING,
@@ -317,11 +322,11 @@ const VideoProgressCursor = ({
             height: RADIUS * 2,
           }}
           animate={{
-            scale: isActive ? 0.7 : 0.1,
-            opacity: isActive ? 0.3 : 1,
+            scale: isActive ? 0.9 : 0,
+            opacity: isActive ? 0.2 : 0.2,
             transition: {
-              // duration: AnimationConfig.FAST,
-              // ease: AnimationConfig.EASING,
+              duration: AnimationConfig.FAST,
+              ease: AnimationConfig.EASING,
             },
           }}
         />
@@ -342,6 +347,9 @@ type ArrowProps = {
   fill?: string;
   shouldEmphasise: boolean;
 };
+
+const ARROW_OFFSET = 32;
+
 const ArrowLeft = ({
   isExpanded,
   isActive: isShowing,
@@ -350,16 +358,22 @@ const ArrowLeft = ({
 }: ArrowProps) => {
   return (
     <motion.svg
-      className="absolute -left-[14px] top-[12px]"
+      // className="absolute -left-[14px] top-[12px]"
+      className="absolute"
       width="24"
       height="24"
       viewBox="0 0 24 24"
       fill="none"
+      style={{
+        left: -12 + ARROW_OFFSET,
+        top: RADIUS - 12,
+      }}
       xmlns="http://www.w3.org/2000/svg"
       animate={{
         opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0,
         // opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0.6,
         x: isShowing ? (isExpanded ? (shouldEmphasise ? -2 : 0) : 0) : 14,
+
         // scale: shouldEmphasise ? 1.3 :   1,
         transition: {
           ease: AnimationConfig.EASING,
@@ -382,7 +396,12 @@ const ArrowRight = ({
   shouldEmphasise,
 }: ArrowProps) => (
   <motion.svg
-    className="absolute left-[38px] top-[12px]"
+    // className="absolute left-[38px] top-[12px]"
+    className="absolute"
+    style={{
+      left: RADIUS * 2 - 12 - ARROW_OFFSET,
+      top: RADIUS - 12,
+    }}
     animate={{
       opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0,
       // opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0.6,

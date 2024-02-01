@@ -101,7 +101,10 @@ export default function Post({
         description={`${projectInfo.description}`}
       />
       <VideoHoverContextProvider>
-        <ColorShifterContextProvider initialColor={projectStyle.getBgColor()}>
+        <ColorShifterContextProvider
+          initialColor={projectStyle.getTextColor()}
+          initalBackground={projectStyle.getBgColor()}
+        >
           <EditableContextProvider>
             <ProjectView
               projectInfo={projectInfo}
