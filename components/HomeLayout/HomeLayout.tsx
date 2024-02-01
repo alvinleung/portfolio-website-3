@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import ProjectGrid from "./ProjectGrid";
 import { motion, transform } from "framer-motion";
 import { AnimationConfig } from "../AnimationConfig";
@@ -6,6 +6,8 @@ import { ExternalLink } from "../Layouts/ExternalLink";
 import debounce from "../../lib/debounce";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 import { useWindowDimension } from "../../hooks/useWindowDimension";
+import fluidFont from "../../lib/fluidFont";
+import { breakpoints } from "../../hooks/useBreakpoints";
 
 type Props = {
   projects: any[];
@@ -24,6 +26,13 @@ const HomeLayout = ({ projects }: Props) => {
       unobserve();
     };
   }, [windowDimension.width]);
+
+  const fluidHeader = useMemo(
+    () => fluidFont(breakpoints.lg, breakpoints["2xl"], 2.3, 2.5),
+    []
+  );
+
+  console.log(fluidHeader);
 
   return (
     <motion.div
@@ -67,7 +76,8 @@ const HomeLayout = ({ projects }: Props) => {
           }}
         >
           <motion.div
-            className="text-xl sm:text-2xl lg:text-4xl font-light tracking-[-.047em] lg:leading-[1.08em] "
+            // className="text-xl sm:text-2xl lg:text-4xl font-light tracking-[-.047em] lg:leading-[1.08em] "
+            className={`text-xl sm:text-2xl 2xl:text-4xl font-light tracking-[-.047em] sm:leading-[1.3em] 2xl:leading-[1.15em]`}
             initial={{ opacity: 0 }}
             animate={{
               opacity: 1,
@@ -124,7 +134,7 @@ const HomeLayout = ({ projects }: Props) => {
           </div>
         </motion.div>
       </div>
-      <div className="lg:col-span-2 mb-4">
+      <div className="lg:col-span-2  mb-4">
         <ProjectGrid projects={projects} />
       </div>
     </motion.div>

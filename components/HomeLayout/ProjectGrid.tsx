@@ -42,8 +42,15 @@ const ProjectGrid = ({ projects }: Props) => {
   const [firstItemHeight, setFirstItemHeight] = useState(550);
 
   useEffect(() => {
+    if (currentBreakpoint >= breakpoints["2xl"]) {
+      setGridItemHeight(windowDimension.width * 0.37);
+      setFirstItemHeight(windowDimension.height * 0.85);
+      return;
+    }
+
     if (currentBreakpoint >= breakpoints.lg) {
       setGridItemHeight(windowDimension.width * 0.37);
+      // setGridItemHeight(windowDimension.width * 0.45);
       setFirstItemHeight(windowDimension.height * 0.85);
       return;
     }
