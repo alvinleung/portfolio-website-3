@@ -322,8 +322,8 @@ const VideoProgressCursor = ({
             height: RADIUS * 2,
           }}
           animate={{
-            scale: isActive ? 0.9 : 0,
-            opacity: isActive ? 0.2 : 0.2,
+            scale: isActive ? 0.9 : 0.7,
+            opacity: isActive ? 0.2 : 0,
             transition: {
               duration: AnimationConfig.FAST,
               ease: AnimationConfig.EASING,
