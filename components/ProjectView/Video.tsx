@@ -219,6 +219,10 @@ const Video = ({
         }}
         animate={{
           opacity: seekOnScroll || shouldPlay ? 1 : 0.5,
+          transition: {
+            duration: 0.2,
+            ease: "linear",
+          },
         }}
         onViewportEnter={() => setIsInView(true)}
         onViewportLeave={() => setIsInView(false)}
