@@ -1,10 +1,11 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import React, {
   MutableRefObject,
   SetStateAction,
   createContext,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -14,6 +15,8 @@ import VideoProgressCursor from "../VideoProgressCursor/VideoProgressCursor";
 import { ProgressRing } from "../VideoProgressCursor/ProgressRing";
 import ReactiveTapArea from "../ReactiveTapArea/ReactiveTapArea";
 import { useWindowDimension } from "../../hooks/useWindowDimension";
+import { clamp } from "../../lib/clamp";
+import useOverflowResponse from "../../lib/useOverflowResponse";
 
 type HoveringVideoTarget = HTMLVideoElement | null;
 type VideoContextProps = {
@@ -147,6 +150,7 @@ const Video = ({
   }, [shouldPlay, playerRef, seekOnScroll]);
 
   const [isScrubbing, setIsScrubbing] = useState(false);
+
   useEffect(() => {
     if (seekOnScroll || !canScrub) return;
 
@@ -161,7 +165,24 @@ const Video = ({
       if (!isDragging || !playerRef.current) return;
 
       const offset = e.movementX;
-      playerRef.current.currentTime += offset / 100;
+      const newTime = playerRef.current.currentTime + offset / 100;
+      // const overflowTime = newTime - playerRef.current.duration;
+
+      // if (overflowTime > 0) {
+      //   playerRef.current.currentTime = overflowTime;
+      //   return;
+      // }
+
+      // if (newTime < 0) {
+      //   playerRef.current.currentTime = playerRef.current.duration + newTime;
+      //   return;
+      // }
+
+      playerRef.current.currentTime = clamp(
+        newTime,
+        0,
+        playerRef.current.duration
+      );
     };
     const handleDragEnd = () => {
       isDragging = false;

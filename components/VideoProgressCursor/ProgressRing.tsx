@@ -1,5 +1,6 @@
 import React from "react";
 import { motion, useIsPresent } from "framer-motion";
+import { AnimationConfig } from "../AnimationConfig";
 
 export const ProgressRing = ({
   strokeColor = "black",
