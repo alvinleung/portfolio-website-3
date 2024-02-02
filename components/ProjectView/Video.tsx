@@ -228,7 +228,7 @@ const Video = ({
         src={src}
         width={width}
         height={height}
-        preload={shouldPlay || seekOnScroll ? "auto" : preload}
+        preload={seekOnScroll ? "auto" : preload}
         autoPlay={seekOnScroll ? false : true}
         muted
         loop
