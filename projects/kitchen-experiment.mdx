@@ -41,29 +41,60 @@ weight: 10
   ]}
 />
 
-<LayoutFull extraMargin>
-  <Video
-    src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/assembly-top-down.mp4"
-    canScrub={false}
-  />
-</LayoutFull>
-
 <ColorShifter background="#FFF" color="#444" />
 
 ## A Sticky Situation
 
-With popular cooking channels like Binging with Babish boasting over 10.1 million subscribers, the influence of online recipes is undeniable.
+With popular cooking channels like Binging with Babish gaining over 10.1 million subscribers, the influence of online recipes is undeniable.
 
 However during cooking, the pain of navigating such digital recipes—video or textural—with dirty hands is all too familiar. Slimy raw meat, dusty flour, there are million of things in the kitchen that makes you think twice before touching your devices.
 
 Because of this, we see the oppoutinity to _challenge the dominant touch paradigm_ of modern mobile devices.
 
-<LayoutMainContent grid="2/3" extraMargin>
+<LayoutMainContent extraMargin>
   <Video
-    src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/getting-dirty.mp4"
+    src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/assembly-montage.mp4"
     canScrub={false}
   />
 </LayoutMainContent>
+
+## Undersirable workarounds
+
+To observe how homecooks navigate digital recipes, we conducted contextual inquiry with 5 participants with varying cooking proficiency. While users are generally able to complete the tasks through workarounds, the operations were less the desirable.
+
+<LayoutMainContent grid="2/3" extraMargin>
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/elbow-interaction.mp4"
+    width={1920}
+    height={1080}
+  >
+    <Caption
+      label="4"
+      title="Elbow Interaction"
+      text="Elbow interaction force user into an awkward position while only provide limited interaction precision."
+      overlay={false}
+      canScrub={false}
+      topPadding
+    />
+  </Video>
+  <Video src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/	knuckle-interaction_2.mp4">
+    <Caption
+      label="4"
+      title="Knuckle Interaction"
+      text="While affording higher precision, the digital device is prone to contamination because of its proximity with the dirty fingers."
+      overlay={false}
+      topPadding
+    />
+  </Video>
+</LayoutMainContent>
+
+## Design principles
+
+We explored air gesture as an interaction paradigm to
+
+Cooking could be a cognitively intensive activity, recipe could put more to the strain.
+
+Participants move around the kitchen, meaning they don’t necessarily has line of sight with the digital device — especially tablet.
 
 ## A multi-modal interaction proposal
 
@@ -84,47 +115,3 @@ Our solution uses a combination of voice and air gesture interaction to navigate
     />
   </Video>
 </LayoutMainContent>
-
-## Undersirable workarounds
-
-To observe how homecooks navigate digital recipes, we conducted contextual inquiry with 5 participants with varying cooking proficiency. While users are generally able to complete the tasks through workarounds, the operations were less the desirable.
-
-<LayoutMainContent grid="2/3" extraMargin>
-  <Video
-    src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/elbow-interaction.mp4"
-    width={1920}
-    height={1080}
-    canScrub={false}
-  >
-    <Caption
-      label="4"
-      title="Elbow Interaction"
-      text="Elbow interaction force user into an awkward position while only provide limited interaction precision."
-      overlay={false}
-      canScrub={false}
-      topPadding
-    />
-  </Video>
-  <Video
-    src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/	knuckle-interaction_2.mp4"
-    canScrub={false}
-  >
-    <Caption
-      label="4"
-      title="Knuckle Interaction"
-      text="While affording higher precision, the digital device is prone to contamination because of its proximity with the dirty fingers."
-      overlay={false}
-      topPadding
-    />
-  </Video>
-</LayoutMainContent>
-
-## Design principles
-
-We explored air gesture as an interaction paradigm to
-
-Cooking could be a cognitively intensive activity, recipe could put more to the strain.
-
-Participants move around the kitchen, meaning they don’t necessarily has line of sight with the digital device — especially tablet.
-
-##
