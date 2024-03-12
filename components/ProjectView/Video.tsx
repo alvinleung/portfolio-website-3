@@ -228,8 +228,8 @@ const Video = ({
         // startFromCenter
       > */}
       <motion.video
-        onMouseEnter={() => setHoveringVideo(playerRef.current)}
-        onMouseLeave={() => clearHoveringVideo()}
+        onMouseEnter={() => canScrub && setHoveringVideo(playerRef.current)}
+        onMouseLeave={() => canScrub && clearHoveringVideo()}
         className={`w-full ${
           fillHeight ? "md:h-full" : ""
         } md:object-cover rounded-xl`}
