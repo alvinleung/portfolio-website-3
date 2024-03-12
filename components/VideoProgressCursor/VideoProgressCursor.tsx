@@ -375,7 +375,7 @@ const ArrowLeft = ({
       }}
       xmlns="http://www.w3.org/2000/svg"
       animate={{
-        opacity: isExpanded ? (shouldEmphasise ? 1 : 0.5) : 0,
+        opacity: isExpanded ? (shouldEmphasise ? 1 : 0.3) : 0,
         // opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0.6,
         x: isShowing ? (isExpanded ? (shouldEmphasise ? -1 : 0) : 0) : 12,
 
@@ -408,7 +408,7 @@ const ArrowRight = ({
       top: RADIUS - 12,
     }}
     animate={{
-      opacity: isExpanded ? (shouldEmphasise ? 1 : 0.5) : 0,
+      opacity: isExpanded ? (shouldEmphasise ? 1 : 0.3) : 0,
       // opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0.6,
       x: isShowing ? (isExpanded ? (shouldEmphasise ? 1 : 0) : -0) : -12,
       // scale: shouldEmphasise ? 1.3 : 1,
