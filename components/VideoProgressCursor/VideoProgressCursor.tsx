@@ -45,15 +45,6 @@ const VideoProgressCursor = ({
 
   const anim = useAnimation();
 
-  const windowDimension = useWindowDimension();
-  const [vidBounds, setVidBounds] = useState({
-    left: 0,
-    top: 0,
-    right: 0,
-    bottom: 0,
-    width: 0,
-    height: 0,
-  });
   const [isActive, setIsActive] = useState(false);
   const [isHovering, setIsHovering, isHoveringRef] = useStateRef(false);
 
@@ -83,18 +74,6 @@ const VideoProgressCursor = ({
 
     if (isScrubbing) setIsActive(true);
   }, [isScrubbing]);
-
-  useEffect(() => {
-    const bound = playerRef.current.getBoundingClientRect();
-    setVidBounds({
-      left: bound.left,
-      right: bound.right,
-      top: bound.top,
-      bottom: bound.bottom,
-      width: bound.width,
-      height: bound.height,
-    });
-  }, [playerRef.current, windowDimension.width, isActive, isScrubbing]);
 
   useEffect(() => {
     const cleanup = scrollY.onChange(() => {
@@ -153,6 +132,7 @@ const VideoProgressCursor = ({
 
       const vidBounds = playerRef.current.getBoundingClientRect();
       const newPos = getClampedMousePosition(vidBounds, e.clientX, e.clientY);
+
       anim.set({
         x: newPos.x - RADIUS,
         y: newPos.y - RADIUS,
@@ -170,6 +150,7 @@ const VideoProgressCursor = ({
 
       startHideCursorTimerDebounced();
 
+      const vidBounds = playerRef.current.getBoundingClientRect();
       const newPos = getClampedMousePosition(vidBounds, e.clientX, e.clientY);
 
       anim.start({
@@ -208,7 +189,7 @@ const VideoProgressCursor = ({
       window.addEventListener("scroll", handleScroll);
       playerRef.current.removeEventListener("pointerleave", handlePointerLeave);
     };
-  }, [playerRef.current, vidBounds]);
+  }, [playerRef.current]);
 
   useEffect(() => {
     if (!isActive) return;
@@ -254,7 +235,7 @@ const VideoProgressCursor = ({
         ease: AnimationConfig.EASING,
       },
     });
-  }, [isScrubbing, vidBounds, playerRef]);
+  }, [isScrubbing, playerRef]);
 
   // the feedback of scrubbing
 
