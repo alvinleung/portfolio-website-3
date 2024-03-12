@@ -4,8 +4,8 @@ description: Beyond touch interaction in the kitchen
 tags: Human Computer Interaction, Research Through Design
 type: case-study
 
-colorAccent: rgb(241, 241, 241)
-colorLight: rgb(241, 241, 241)
+colorAccent: rgb(235,237,232)
+colorLight: rgb(235,237,232)
 colorDark: rgb(28, 30, 38)
 colorDarkest: rgb(28, 30, 38)
 colorScheme: dark
@@ -41,7 +41,14 @@ weight: 10
   ]}
 />
 
-<ColorShifter background="#FFF" color="#444" />
+<ColorShifter background="rgb(235,237,232)" color="#444" />
+
+<LayoutFull extraMargin>
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/assembly-montage.mp4"
+    canScrub={false}
+  />
+</LayoutFull>
 
 ## A Sticky Situation
 
@@ -50,13 +57,6 @@ With popular cooking channels like Binging with Babish gaining over 10.1 million
 However during cooking, the pain of navigating such digital recipes—video or textural—with dirty hands is all too familiar. Slimy raw meat, dusty flour, there are million of things in the kitchen that makes you think twice before touching your devices.
 
 Because of this, we see the oppoutinity to _challenge the dominant touch paradigm_ of modern mobile devices.
-
-<LayoutMainContent extraMargin>
-  <Video
-    src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/assembly-montage.mp4"
-    canScrub={false}
-  />
-</LayoutMainContent>
 
 ## Undersirable workarounds
 
@@ -77,7 +77,10 @@ To observe how homecooks navigate digital recipes, we conducted contextual inqui
       topPadding
     />
   </Video>
-  <Video src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/	knuckle-interaction_2.mp4">
+  <Video
+    src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/	knuckle-interaction_2.mp4"
+    fillHeight
+  >
     <Caption
       label="4"
       title="Knuckle Interaction"
@@ -111,7 +114,8 @@ Our solution uses a combination of voice and air gesture interaction to navigate
       label="4"
       title="Workaround: Elbow Interaction"
       text="Elbow interaction force user into an awkward position while only provide limited interaction precision."
-      overlay={true}
+      overlay={false}
+      topPadding
     />
   </Video>
 </LayoutMainContent>
