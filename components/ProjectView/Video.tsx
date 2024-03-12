@@ -73,7 +73,7 @@ const Video = ({
   rowSpan = 1,
   preload = "metadata",
   darkMode,
-  cursorColor = "#b7b7b7",
+  cursorColor = "#EEE",
 }: Props) => {
   const [shouldPlay, setShouldPlay] = useState(false);
   const [isInView, setIsInView] = useState(false);

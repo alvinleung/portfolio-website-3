@@ -86,20 +86,27 @@ const VideoProgressCursor = ({
   }, [scrollY]);
 
   useEffect(() => {
-    if (isActive || isHovering) {
+    if (isActive) {
       anim.start({
         opacity: 1,
+        // scale: 1,
+        transition: {
+          duration: AnimationConfig.NORMAL,
+          ease: AnimationConfig.EASING,
+        },
       });
+
       return;
     }
 
     clearTimeout(debounceHideTimer.current);
     anim.start({
       opacity: 0,
+      // scale: 0.9,
       // x: vidBounds.left + vidBounds.width / 2,
       // y: vidBounds.top + vidBounds.height / 2,
       transition: {
-        duration: 0.2,
+        duration: AnimationConfig.NORMAL,
         ease: AnimationConfig.EASING,
       },
     });
@@ -273,7 +280,10 @@ const VideoProgressCursor = ({
   return (
     <ClientOnlyPortal selector="body">
       <motion.div
-        className="fixed left-0 z-[100000] pointer-events-none opacity-0"
+        className="fixed left-0 z-[100000] pointer-events-none opacity-0 backdrop-blur rounded-full "
+        style={{
+          backgroundColor: "rgba(60,60,60,.4)",
+        }}
         animate={anim}
       >
         <ArrowLeft
@@ -282,22 +292,15 @@ const VideoProgressCursor = ({
           fill={fill}
           shouldEmphasise={shouldEmphasiseLeft}
         />
-        <motion.div
-          animate={{
-            opacity: isActive ? 1 : 0,
-            transition: {
-              duration: isActive ? 0.3 : 0.01,
-            },
-          }}
-        >
+        <div>
           <ProgressRing
             progress={progress}
             strokeColor={fill}
             radius={RADIUS}
           />
-        </motion.div>
-        <motion.div
-          className="w-full h-full top-0 left-0 absolute rounded-full"
+        </div>
+        {/* <motion.div
+          className="w-full h-full top-0 left-0 absolute rounded-full backdrop-blur-lg"
           style={{
             backgroundColor: fill,
             width: RADIUS * 2,
@@ -311,7 +314,7 @@ const VideoProgressCursor = ({
               ease: AnimationConfig.EASING,
             },
           }}
-        />
+        /> */}
         <ArrowRight
           isExpanded={isScrubbing}
           fill={fill}
