@@ -341,8 +341,6 @@ const ProjectView = ({
     [0, 20]
   );
 
-  console.log(currentColor);
-
   return (
     <>
       <motion.div

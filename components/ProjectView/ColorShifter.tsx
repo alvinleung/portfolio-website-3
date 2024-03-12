@@ -81,13 +81,11 @@ export const ColorShifter = (props: Props) => {
 
   const handleViewportEnter = (e: IntersectionObserverEntry | null) => {
     if (!e) return;
-    console.log(e?.boundingClientRect);
     if (e?.boundingClientRect.y > 0) {
       setIsOverThreshold(true);
     }
   };
   const handleViewportLeave = (e: IntersectionObserverEntry | null) => {
-    console.log(e?.boundingClientRect);
     if (!e) return;
     // console.log(e?.boundingClientRect);
     if (e?.boundingClientRect.y > 0) {
