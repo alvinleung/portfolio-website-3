@@ -22,6 +22,7 @@ import { ProgressRing } from "./ProgressRing";
 import useStateRef from "../../hooks/useStateRef";
 import { clamp } from "../../lib/clamp";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
+import { fancyTimeFormat } from "../../lib/fancyTimeFormat";
 
 type Props = {
   playerRef: MutableRefObject<HTMLVideoElement>;
@@ -40,6 +41,8 @@ const VideoProgressCursor = ({
   idleTimer = 500,
 }: Props) => {
   const [progress, setProgress] = useState<number>(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const timeString = useMemo(() => fancyTimeFormat(currentTime), [currentTime]);
 
   const { scrollY } = useContainerScroll();
 
@@ -134,6 +137,8 @@ const VideoProgressCursor = ({
 
   useEffect(() => {
     const handlePointerEnter = (e: MouseEvent) => {
+      if (!playerRef.current) return;
+
       setIsActive(true);
       setIsHovering(true);
 
@@ -147,6 +152,8 @@ const VideoProgressCursor = ({
       });
     };
     const handlePointerMove = (e: MouseEvent) => {
+      if (!playerRef.current) return;
+
       cursorPosRef.current = {
         x: e.clientX,
         y: e.clientY,
@@ -170,6 +177,8 @@ const VideoProgressCursor = ({
       });
     };
     const handlePointerLeave = (e: MouseEvent) => {
+      if (!playerRef.current) return;
+
       setIsHovering(false);
       setIsActive(false);
 
@@ -201,13 +210,12 @@ const VideoProgressCursor = ({
   useEffect(() => {
     if (!isActive) return;
 
-    const interval = setInterval(
-      () =>
-        setProgress(
-          (playerRef.current.currentTime / playerRef.current.duration) * 100
-        ),
-      32
-    );
+    const interval = setInterval(() => {
+      setProgress(
+        (playerRef.current.currentTime / playerRef.current.duration) * 100
+      );
+      setCurrentTime(playerRef.current.currentTime);
+    }, 32);
 
     return () => {
       clearInterval(interval);
@@ -282,7 +290,7 @@ const VideoProgressCursor = ({
       <motion.div
         className="fixed left-0 z-[100000] pointer-events-none opacity-0 backdrop-blur rounded-full "
         style={{
-          backgroundColor: "rgba(60,60,60,.4)",
+          backgroundColor: "rgba(100,100,100,.4)",
         }}
         animate={anim}
       >
@@ -315,6 +323,18 @@ const VideoProgressCursor = ({
             },
           }}
         /> */}
+        <motion.div
+          animate={{
+            opacity: isScrubbing ? 1 : 0,
+            transition: {
+              duration: AnimationConfig.FAST,
+              ease: AnimationConfig.EASING,
+            },
+          }}
+          className="w-full text-white text-xs text-center absolute top-7"
+        >
+          {timeString}
+        </motion.div>
         <ArrowRight
           isExpanded={isScrubbing}
           fill={fill}
@@ -333,7 +353,7 @@ type ArrowProps = {
   shouldEmphasise: boolean;
 };
 
-const ARROW_OFFSET = 32;
+const ARROW_OFFSET = 18;
 
 const ArrowLeft = ({
   isExpanded,
@@ -355,9 +375,9 @@ const ArrowLeft = ({
       }}
       xmlns="http://www.w3.org/2000/svg"
       animate={{
-        opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0,
+        opacity: isExpanded ? (shouldEmphasise ? 1 : 0.5) : 0,
         // opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0.6,
-        x: isShowing ? (isExpanded ? (shouldEmphasise ? -2 : 0) : 0) : 14,
+        x: isShowing ? (isExpanded ? (shouldEmphasise ? -1 : 0) : 0) : 12,
 
         // scale: shouldEmphasise ? 1.3 :   1,
         transition: {
@@ -388,9 +408,9 @@ const ArrowRight = ({
       top: RADIUS - 12,
     }}
     animate={{
-      opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0,
+      opacity: isExpanded ? (shouldEmphasise ? 1 : 0.5) : 0,
       // opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0.6,
-      x: isShowing ? (isExpanded ? (shouldEmphasise ? 2 : 0) : -0) : -14,
+      x: isShowing ? (isExpanded ? (shouldEmphasise ? 1 : 0) : -0) : -12,
       // scale: shouldEmphasise ? 1.3 : 1,
       transition: {
         ease: AnimationConfig.EASING,

@@ -162,7 +162,8 @@ const Video = ({
       setIsScrubbing(true);
     };
     const handleDragMove = (e: PointerEvent) => {
-      if (!isDragging || !playerRef.current) return;
+      if (!isDragging || !playerRef.current || !playerRef.current.duration)
+        return;
 
       const offset = e.movementX;
       const newTime = playerRef.current.currentTime + offset / 100;
@@ -236,7 +237,7 @@ const Video = ({
         ref={playerRef}
         style={{
           visibility: isInView ? "visible" : "hidden",
-          cursor: seekOnScroll || !canScrub ? "auto" : "ew-resize",
+          cursor: seekOnScroll || !canScrub ? "auto" : "grab",
         }}
         animate={{
           opacity: seekOnScroll || shouldPlay ? 1 : 0.5,
