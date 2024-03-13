@@ -204,18 +204,18 @@ const Video = ({
     };
   }, [playerRef.current, windowDimension.width, seekOnScroll, canScrub]);
 
-  useEffect(() => {
-    if (!isScrubbing) {
-      document.exitPointerLock();
-      return;
-    }
+  // useEffect(() => {
+  //   if (!isScrubbing) {
+  //     document.exitPointerLock();
+  //     return;
+  //   }
 
-    playerRef.current.requestPointerLock();
-  }, [isScrubbing]);
+  //   playerRef.current.requestPointerLock();
+  // }, [isScrubbing]);
 
   return (
     <Figure rowSpan={rowSpan}>
-      {/* {!seekOnScroll && canScrub && (
+      {!seekOnScroll && canScrub && (
         <VideoProgressCursor
           playerRef={playerRef}
           isScrubbing={isScrubbing}
@@ -223,7 +223,7 @@ const Video = ({
           fill={cursorColor}
           idleTimer={500}
         />
-      )} */}
+      )}
       {/* <ReactiveTapArea
         className={`w-full ${fillHeight ? "md:h-full" : ""} md:object-cover`}
         // startFromCenter
