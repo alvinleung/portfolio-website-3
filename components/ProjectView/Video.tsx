@@ -152,6 +152,8 @@ const Video = ({
   const [isScrubbing, setIsScrubbing] = useState(false);
 
   useEffect(() => {
+    return;
+
     if (seekOnScroll || !canScrub) return;
 
     let isDragging = false;
