@@ -204,14 +204,16 @@ const Video = ({
     };
   }, [playerRef.current, windowDimension.width, seekOnScroll, canScrub]);
 
-  // useEffect(() => {
-  //   if (!isScrubbing) {
-  //     document.exitPointerLock();
-  //     return;
-  //   }
+  useEffect(() => {
+    if (!playerRef.current?.requestPointerLock || !document.exitPointerLock)
+      return;
 
-  //   playerRef.current.requestPointerLock();
-  // }, [isScrubbing]);
+    if (!isScrubbing) {
+      document.exitPointerLock();
+      return;
+    }
+    playerRef.current.requestPointerLock();
+  }, [isScrubbing]);
 
   return (
     <Figure rowSpan={rowSpan}>
