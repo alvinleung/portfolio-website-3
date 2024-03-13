@@ -378,7 +378,6 @@ const ArrowLeft = ({
         opacity: isExpanded ? (shouldEmphasise ? 1 : 0.3) : 0,
         // opacity: isExpanded ? (shouldEmphasise ? 1 : 0.6) : 0.6,
         x: isShowing ? (isExpanded ? (shouldEmphasise ? -1 : 0) : 0) : 12,
-
         // scale: shouldEmphasise ? 1.3 :   1,
         transition: {
           ease: AnimationConfig.EASING,
