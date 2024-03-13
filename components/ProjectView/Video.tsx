@@ -152,8 +152,6 @@ const Video = ({
   const [isScrubbing, setIsScrubbing] = useState(false);
 
   useEffect(() => {
-    return;
-
     if (seekOnScroll || !canScrub) return;
 
     let isDragging = false;
@@ -217,7 +215,7 @@ const Video = ({
 
   return (
     <Figure rowSpan={rowSpan}>
-      {!seekOnScroll && canScrub && (
+      {/* {!seekOnScroll && canScrub && (
         <VideoProgressCursor
           playerRef={playerRef}
           isScrubbing={isScrubbing}
@@ -225,7 +223,7 @@ const Video = ({
           fill={cursorColor}
           idleTimer={500}
         />
-      )}
+      )} */}
       {/* <ReactiveTapArea
         className={`w-full ${fillHeight ? "md:h-full" : ""} md:object-cover`}
         // startFromCenter
