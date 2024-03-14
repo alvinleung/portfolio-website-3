@@ -32,6 +32,8 @@ type Props = {
 
 const INACTIVE_BG_COLOR = "rgb(37, 55, 52)";
 
+const TRANSPARENT_IMAGE = `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=`;
+
 const ProjectGridItem = ({
   projectInfo,
   projectStyle,
@@ -42,6 +44,11 @@ const ProjectGridItem = ({
   isWide,
 }: Props) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const isLoading = useMemo(
+    () => !isImageLoaded && !isWide,
+    [isImageLoaded, isWide]
+  );
+
   const [isHovering, setIsHovering] = useState(false);
 
   const { scrollY } = useContainerScroll();
@@ -132,7 +139,7 @@ const ProjectGridItem = ({
                 y: parallaxY,
               }}
               animate={{
-                opacity: isImageLoaded ? 1 : 0,
+                opacity: !isLoading ? 1 : 0,
               }}
               transition={{
                 duration: AnimationConfig.NORMAL,
@@ -146,9 +153,8 @@ const ProjectGridItem = ({
                 className="w-full "
                 alt={""}
                 onLoad={() => setIsImageLoaded(true)}
-                onError={() => setIsImageLoaded(true)}
               />
-              {projectInfo.previewVideo && (
+              {projectInfo.previewVideo !== undefined && (
                 <motion.video
                   disablePictureInPicture
                   transition={{
