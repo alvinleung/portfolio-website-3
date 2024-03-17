@@ -104,30 +104,32 @@ const Video = ({
 
   useEffect(() => {
     if (!seekOnScroll) return;
-    if (!shouldPlay) return;
 
-    const initialScrollPos = scrollY.get();
     const unobserveScroll = scrollY.onChange((scrollPos) => {
-      const offset = Math.abs(initialScrollPos - scrollPos);
-      const adjustedOffset = offset / 2000;
+      // const offset = Math.abs(initialScrollPos - scrollPos);
+      // const adjustedOffset = offset / 3000;
 
       const vidDuration = playerRef.current.duration;
       if (!vidDuration) return;
 
-      const targetTime =
-        adjustedOffset / vidDuration - Math.floor(adjustedOffset / vidDuration);
-      const targetFrame = Math.floor(targetTime * frameRate);
+      const totalFrames = Math.ceil(vidDuration / (1 / frameRate));
 
-      setCurrentFrame(targetFrame);
+      // const totalScroll = window.innerHeight * 2;
+      const pixelPerFrame = 200;
+
+      const targetFrame = Math.round(scrollPos / pixelPerFrame);
+
+      setCurrentFrame(targetFrame % totalFrames);
     });
 
     return () => {
       unobserveScroll();
     };
-  }, [shouldPlay, frameRate, seekOnScroll]);
+  }, [seekOnScroll, frameRate]);
 
   useEffect(() => {
     if (!seekOnScroll) return;
+    if (!isInView) return;
 
     const animFrame = requestAnimationFrame(() => {
       if (!playerRef.current) return;
@@ -137,7 +139,7 @@ const Video = ({
     return () => {
       cancelAnimationFrame(animFrame);
     };
-  }, [currentFrame, seekOnScroll]);
+  }, [currentFrame, seekOnScroll, isInView]);
 
   useEffect(() => {
     if (!playerRef.current || seekOnScroll) return;
