@@ -27,12 +27,12 @@ const HomeLayout = ({ projects }: Props) => {
     };
   }, [windowDimension.width]);
 
-  const fluidHeader = useMemo(
-    () => fluidFont(breakpoints.lg, breakpoints["2xl"], 2.3, 2.5),
-    []
-  );
+  // const fluidHeader = useMemo(
+  //   () => fluidFont(breakpoints.lg, breakpoints["2xl"], 2.3, 2.5),
+  //   []
+  // );
 
-  console.log(fluidHeader);
+  // console.log(fluidHeader);
 
   return (
     <motion.div

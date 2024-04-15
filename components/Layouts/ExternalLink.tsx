@@ -12,10 +12,10 @@ const ExternalLinkAnimation = {
 };
 const ExternalLinkIconAnimation = {
   default: {
-    rotate: 1,
+    // rotate: 1,
   },
   hover: {
-    rotate: 10,
+    // rotate: 10,
   },
 };
 
@@ -45,7 +45,7 @@ export const ExternalLink = ({
       }}
     >
       <motion.img
-        className="mr-2 -left-[2em] w-[1.2em] h-[1.2em]"
+        className="mr-6 lg:mr-2 -left-[2em] w-[1.2em] h-[1.2em]"
         src={icon}
         alt={alt}
         variants={ExternalLinkIconAnimation}
