@@ -105,22 +105,22 @@ Aside from that, we also notice the following:
     user’s attention to perform their actual cooking task. Our design
     intervention needs to be as lightweight as possible.
   </ListItem>
-  <ListItem label="2">
+  <ListItem label="3">
     _Participants move around the kitchen_, meaning they don’t necessarily have
     line of sight with the digital device — especially tablet.
   </ListItem>
 </List>
 
-Informed by the insights, we decided to take a multi-modal approach and established the following lines of investigation:
+With more user context, we decided to take a multi-modal approach and established the following lines of investigation:
 
 <List>
   <ListItem label="1">Video as primary recipe medium</ListItem>
   <ListItem label="2">
-    Voice query as a omni-directional mode of interaction to retrieve recipe
-    information
+    Camera feed as user input to enable air gestures
   </ListItem>
   <ListItem label="3">
-    Camera feed as user input to enable air gestures
+    Voice query as a omni-directional mode of interaction to retrieve recipe
+    information
   </ListItem>
 </List>
 
@@ -170,13 +170,44 @@ As a result of our own experiment and secondary research, here are a few princip
   </ListItem>
 </List>
 
-That lead us to experimenting with air gesture based “drag to scrub” interaction
+That lead us to experimenting with air gesture based “_drag to scrub_” interaction.
 
-Insert exploration images here
+<LayoutMainContent grid="2/3" extraMargin>
+  <Video
+    src="https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/elxDbGufYVdRx2SBPOeM2V30vWr2/QocppSyo5cTqixN0OOaR/58dc8648-a6a8-4976-93f5-9c18d216448d.mp4?_a=DATAdtAAZAA0"
+    width={1920}
+    height={1080}
+    canScrub={true}
+  />
+</LayoutMainContent>
+
+While the scrubbing system was easy to understand, it suffer a few drawbacks. It was particularly tricky to make “drag to scrub” a viable path
+forward.
+
+<List>
+  <ListItem label="1">
+    The enter and exit motion may accidentally trigger scrubbing action. And
+    this is difficault to address with software gesture rejection without
+    sacrificing too much responsiveness.
+  </ListItem>
+  <ListItem label="2">
+    This interaction also introduces a very awkward in-between state of jumping
+    back as the user run out of the scrubbing area.
+  </ListItem>
+</List>
 
 So we tried again. After a lot of sketching(and air gesturing), we arrived at this second promising line of investigation. This iteration was utilize a circular dialling motion as video scrubbing.
 
-However, Users find it physically fatiguing to use this gesture for a prolonged period of time.
+<LayoutMainContent grid="2/3" extraMargin>
+  <Video
+    src="https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/elxDbGufYVdRx2SBPOeM2V30vWr2/QocppSyo5cTqixN0OOaR/15a10979-b424-4fe3-806d-046f503a55d6.mp4?_a=DATAdtAAZAA0"
+    width={1920}
+    height={1080}
+    canScrub={true}
+  />
+</LayoutMainContent>
+However it suffer from ergonomic issues. Users find it physically fatiguing to use
+this gesture for a prolonged period of time.
 
 ## A deceptively simple solution
 
