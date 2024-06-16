@@ -35,6 +35,7 @@ import { List, ListItem } from "../../components/ProjectView/List";
 import SlideShow from "../../components/ProjectView/SlideShow";
 import {
   Header2,
+  Header3,
   Paragraph,
   ParagraphBig,
   paragraphProcessor,
@@ -124,6 +125,7 @@ export default function Post({
                     FullImage,
                     p: paragraphProcessor,
                     h2: Header2,
+                    h3: Header3,
                     em: Emphasis,
                     Image: Image,
                     Video: Video,

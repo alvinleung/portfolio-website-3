@@ -54,13 +54,11 @@ weight: 10
 
 The pain of navigating such digital recipes—video or textural—with dirty hands is all too familiar. Slimy raw meat, dusty flour, there are million of things in the kitchen that makes you think twice before touching your devices. Because of this, we see the oppoutinity to _challenge the dominant touch paradigm_ of modern mobile devices.
 
-The project began by surveying the domain of spatial computing and domestic computing. In academia(HCI), we have found intriguing exploration such as on-skin gesture control, but that relies on custom hardware. At app store, recipe apps typically focus on pre-cooking phases like recipe management and discovery. Voice enabled solutions are typically very primitive and clunky to operate.
-
-Simply put, there is an unmet need for a consumer-oriented, touch-free cooking experience.
+The project began by surveying the domain of spatial computing and domestic computing. We have found intriguing exploration such as _[on-skin gesture control](https://www.tandfonline.com/doi/full/10.1080/14606925.2022.2058444)_, but that relies on custom hardware. On the consumer market, recipe apps typically focus on pre-cooking phases like recipe management and discovery. Voice enabled solutions are typically very primitive and clunky to navigate.
 
 ## Insights from Contextual Inquiries
 
-To probe deeper, we conducted contextual inquiries with five home cooks of varying skill levels to observe how they navigate digital recipes. While users are generally able to complete the tasks through workarounds, the operations were less the desirable.
+To probe deeper, we conducted contextual inquiries with 5 home cooks of varying skill levels to observe how they navigate digital recipes. While users are generally able to complete the tasks through workarounds, the operations were less the desirable.
 
 <LayoutMainContent grid="2/3" extraMargin>
   <Video
@@ -126,9 +124,7 @@ With more user context, we decided to take a multi-modal approach and establishe
 
 ## Iterating with design engineering
 
-I needed to tinker around with the code to observe what can be done with the technology—this is the essence of the "research through design" methodology.
-
-In order to experiment with hand gestures, I developed a unique technique to process depth sensor feed which captures and smooth out the user’s movement. This provided a platform where we can try and iterate on different gesture approaches rapidly.
+Traditional prototyping software like figma or even origami are often too restricting when dealing with novel interactions. To experiment with air gesture, I picked up swift and developed an unique technique to process depth sensor feed which captures and smoothes out the user’s movement. This provided a platform where we can try and iterate on different gesture approaches rapidly.
 
 <LayoutFull extraMargin>
   <Image
@@ -170,9 +166,11 @@ As a result of our own experiment and secondary research, here are a few princip
   </ListItem>
 </List>
 
+### Experiment 1: Drag to scrub
+
 That lead us to experimenting with air gesture based “_drag to scrub_” interaction.
 
-<LayoutMainContent grid="2/3" extraMargin>
+<LayoutMainContent grid="1/3" extraMargin>
   <Video
     src="https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/elxDbGufYVdRx2SBPOeM2V30vWr2/QocppSyo5cTqixN0OOaR/58dc8648-a6a8-4976-93f5-9c18d216448d.mp4?_a=DATAdtAAZAA0"
     width={1920}
@@ -181,8 +179,7 @@ That lead us to experimenting with air gesture based “_drag to scrub_” inter
   />
 </LayoutMainContent>
 
-While the scrubbing system was easy to understand, it suffer a few drawbacks. It was particularly tricky to make “drag to scrub” a viable path
-forward.
+While the scrubbing system was easy to understand, it suffer a few drawbacks that makes it particularly tricky to move forward with the direction.
 
 <List>
   <ListItem label="1">
@@ -196,9 +193,11 @@ forward.
   </ListItem>
 </List>
 
-So we tried again. After a lot of sketching(and air gesturing), we arrived at this second promising line of investigation. This iteration was utilize a circular dialling motion as video scrubbing.
+### Experiment 2: Dial to scrub
 
-<LayoutMainContent grid="2/3" extraMargin>
+This iteration was utilize a circular dialling motion as video scrubbing. The gesture was intentionally referencing the knob-turning motion to appeal to the user's existing mental model.
+
+<LayoutMainContent grid="1/3" extraMargin>
   <Video
     src="https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/elxDbGufYVdRx2SBPOeM2V30vWr2/QocppSyo5cTqixN0OOaR/15a10979-b424-4fe3-806d-046f503a55d6.mp4?_a=DATAdtAAZAA0"
     width={1920}
@@ -206,9 +205,38 @@ So we tried again. After a lot of sketching(and air gesturing), we arrived at th
     canScrub={true}
   />
 </LayoutMainContent>
+
 However it suffer from ergonomic issues. Users find it physically fatiguing to use
-this gesture for a prolonged period of time.
+this gesture for a prolonged period of time because of the fine motor movement.
 
-## A deceptively simple solution
+### Experiment 3: Lean to scrub
 
-Then we were stuck, but then we reminded a user behaviour we observed in of our study. A participant dash around a youtube video instruction. This got us the idea of using “leaning” to capture user’s intent of video scrubbing.
+Then we were stuck, but then we reminded a user behaviour we observed in of our study a participant dash around a youtube video instruction just by holding down the arrow keys. This got us the idea of using “leaning” to capture user’s intent of video scrubbing.
+
+<LayoutMainContent grid="1/3" extraMargin>
+  <Video
+    src="https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/elxDbGufYVdRx2SBPOeM2V30vWr2/QocppSyo5cTqixN0OOaR/15a10979-b424-4fe3-806d-046f503a55d6.mp4?_a=DATAdtAAZAA0"
+    width={1920}
+    height={1080}
+    canScrub={true}
+  />
+</LayoutMainContent>
+
+<List>
+  <ListItem label="1">
+    Physically not taxing to perform as the user just need to hold down a
+    spatial position.
+  </ListItem>
+  <ListItem label="2">
+    Provide continuous feedback with the subtle following motion that
+    acknowledge user's input
+  </ListItem>
+  <ListItem label="3">
+    With the additional hold state, it seemlessly incorporate the play, pause
+    state into the design.
+  </ListItem>
+</List>
+
+This was chosen to be included in the final solution.
+
+## Putting everything together

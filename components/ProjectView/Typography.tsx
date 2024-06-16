@@ -40,6 +40,12 @@ export const Header2 = ({ children }: any) => (
   </h2>
 );
 
+export const Header3 = ({ children }: any) => (
+  <h3 className={`${paragraphLayout} text-sm tracking-wider uppercase pt-20`}>
+    {children}
+  </h3>
+);
+
 export const Emphasis = ({ children }: any) => {
   return <em className="not-italic bg-[rgba(200,200,200)] px-1">{children}</em>;
 };
