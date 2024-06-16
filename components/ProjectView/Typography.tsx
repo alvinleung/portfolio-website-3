@@ -41,7 +41,9 @@ export const Header2 = ({ children }: any) => (
 );
 
 export const Header3 = ({ children }: any) => (
-  <h3 className={`${paragraphLayout} text-sm tracking-wider uppercase pt-20`}>
+  <h3
+    className={`${paragraphLayout} opacity-70 text-sm tracking-wider uppercase pt-20`}
+  >
     {children}
   </h3>
 );
