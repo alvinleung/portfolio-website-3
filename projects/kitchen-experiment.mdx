@@ -20,9 +20,9 @@ weight: 10
 
 <LayoutFull>
   <FullImage
-    src="/project-assets/tedxsfu/intro.jpg"
-    width={1904}
-    height={1128}
+    src="/project-assets/kitchen-experiment/intro.jpg"
+    width={1792}
+    height={926}
   />
 </LayoutFull>
 
@@ -52,15 +52,15 @@ weight: 10
 
 ## A Sticky Situation
 
-With popular cooking channels like Binging with Babish gaining over 10.1 million subscribers, the influence of online recipes is undeniable.
+The pain of navigating such digital recipes—video or textural—with dirty hands is all too familiar. Slimy raw meat, dusty flour, there are million of things in the kitchen that makes you think twice before touching your devices. Because of this, we see the oppoutinity to _challenge the dominant touch paradigm_ of modern mobile devices.
 
-However during cooking, the pain of navigating such digital recipes—video or textural—with dirty hands is all too familiar. Slimy raw meat, dusty flour, there are million of things in the kitchen that makes you think twice before touching your devices.
+The project began by surveying the domain of spatial computing and domestic computing. In academia(HCI), we have found intriguing exploration such as on-skin gesture control, but that relies on custom hardware. At app store, recipe apps typically focus on pre-cooking phases like recipe management and discovery. Voice enabled solutions are typically very primitive and clunky to operate.
 
-Because of this, we see the oppoutinity to _challenge the dominant touch paradigm_ of modern mobile devices.
+Simply put, there is an unmet need for a consumer-oriented, touch-free cooking experience.
 
-## Undersirable workarounds
+## Insights from Contextual Inquiries
 
-To observe how homecooks navigate digital recipes, we conducted contextual inquiry with 5 participants with varying cooking proficiency. While users are generally able to complete the tasks through workarounds, the operations were less the desirable.
+To probe deeper, we conducted contextual inquiries with five home cooks of varying skill levels to observe how they navigate digital recipes. While users are generally able to complete the tasks through workarounds, the operations were less the desirable.
 
 <LayoutMainContent grid="2/3" extraMargin>
   <Video
@@ -72,9 +72,8 @@ To observe how homecooks navigate digital recipes, we conducted contextual inqui
     <Caption
       label="4"
       title="Elbow Interaction"
-      text="Elbow interaction force user into an awkward position while only provide limited interaction precision."
+      text="Elbow interaction force user into an awkward position, leading them moving the devices accidntally on up-right positions."
       overlay={false}
-      canScrub={false}
       topPadding
     />
   </Video>
@@ -92,31 +91,93 @@ To observe how homecooks navigate digital recipes, we conducted contextual inqui
   </Video>
 </LayoutMainContent>
 
-## Exploration of
+Aside from that, we also notice the following:
 
-We explored air gesture and voice as an interaction paradigm to touch based interaction.
+<List>
+  <ListItem label="1">
+    _Pictures speak a thousand word_. Participants emphasised the importance of
+    having visual reference in the instruction. Videos or images, unlike text,
+    let learners match their cooking intuitively. This is especially useful for
+    novice cooks or those unfamiliar with the recipe.
+  </ListItem>
+  <ListItem label="2">
+    _Cooking and recipe lookup introduces high cognitive load_ as it take away
+    user’s attention to perform their actual cooking task. Our design
+    intervention needs to be as lightweight as possible.
+  </ListItem>
+  <ListItem label="2">
+    _Participants move around the kitchen_, meaning they don’t necessarily have
+    line of sight with the digital device — especially tablet.
+  </ListItem>
+</List>
 
-Cooking could be a cognitively intensive activity, recipe could put more to the strain.
+Informed by the insights, we decided to take a multi-modal approach and established the following lines of investigation:
 
-Participants move around the kitchen, meaning they don’t necessarily has line of sight with the digital device — especially tablet.
+<List>
+  <ListItem label="1">Video as primary recipe medium</ListItem>
+  <ListItem label="2">
+    Voice query as a omni-directional mode of interaction to retrieve recipe
+    information
+  </ListItem>
+  <ListItem label="3">
+    Camera feed as user input to enable air gestures
+  </ListItem>
+</List>
 
-## A multi-modal interaction proposal
+## Iterating with design engineering
 
-Our solution uses a combination of voice and air gesture interaction to navigate the recipe. Together, they complement each other
+I needed to tinker around with the code to observe what can be done with the technology—this is the essence of the "research through design" methodology.
 
-<LayoutMainContent extraMargin>
-  <Video
-    src="https://www.sfu.ca/~kkl64/videos/kitchen-experiment/kitchen-experiment-cover-3.mp4"
-    canScrub={false}
-    width={1920}
-    height={1080}
-  >
-    <Caption
-      label="4"
-      title="Workaround: Elbow Interaction"
-      text="Elbow interaction force user into an awkward position while only provide limited interaction precision."
-      overlay={false}
-      topPadding
-    />
-  </Video>
-</LayoutMainContent>
+In order to experiment with hand gestures, I developed a unique technique to process depth sensor feed which captures and smooth out the user’s movement. This provided a platform where we can try and iterate on different gesture approaches rapidly.
+
+<LayoutFull extraMargin>
+  <Image
+    src="/project-assets/kitchen-experiment/sensor-feed-processing.jpg"
+    width={1792}
+    height={1053}
+  />
+</LayoutFull>
+
+## Air gesture design principles
+
+In early experiments, we played around with the idea of creating a air gesture pointer system—like on a desktop. But the idea was quickly abandoned as we found using pointer system is a rather intricate task that creates extra cognitive overhead.
+
+<LayoutFull extraMargin>
+  <Image
+    src="/project-assets/kitchen-experiment/air-gesture-problem.jpg"
+    width={1792}
+    height={1053}
+  />
+</LayoutFull>
+
+As a result of our own experiment and secondary research, here are a few principle that we adhere to when designing an intuitive gesture language.
+
+<List>
+  <ListItem label="1">
+    _Use natural spatial mapping_ to match the user mental modal of the real
+    world.
+  </ListItem>
+  <ListItem label="2">
+    _Continuous feedback_ to create an intuitive, fluid feeling. (apple
+    designing fluid interfaces) Its also means that the gesture is
+    interruptible, user can change direction, exit as they will.
+  </ListItem>
+  <ListItem label="3">
+    _Design for imprecision_ to reduce the cognitive load of operating the
+    gestural interface. In our user studies, user perceived the larger interface
+    elements to be easier to use. This make sense as the larger scale encourage
+    them to take bigger and less precise gesture to control the interface.
+  </ListItem>
+</List>
+
+That lead us to experimenting with air gesture based “drag to scrub” interaction
+
+Insert exploration images here
+
+So we tried again. After a lot of sketching(and air gesturing), we arrived at this second promising line of investigation. This iteration was utilize a circular dialling motion as video scrubbing.
+
+However, Users find it physically fatiguing to use this gesture for a prolonged period of time.
+
+## A deceptively simple solution
+
+Then we were stuck, but then we reminded a user behaviour we observed in of our study. A participant dash around a youtube video instruction. This got us the idea of using “leaning” to capture user’s intent of video scrubbing.
