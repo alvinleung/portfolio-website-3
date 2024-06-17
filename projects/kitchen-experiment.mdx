@@ -52,11 +52,11 @@ weight: 10
 
 ## A Sticky Situation
 
-As home cook ourselves, the pain of navigating such digital recipes—video or textural—with dirty hands is all too familiar. Slimy raw meat, dusty flour, there are million of things in the kitchen that makes you think twice before touching your devices. Because of this, we see the oppoutinity to _challenge the dominant touch paradigm_ of modern mobile devices.
+As home cooks ourselves, we know the pain of navigating digital recipes—whether video or text—with dirty hands. Slimy raw meat, dusty flour, and a million other things in the kitchen make you think twice before touching your devices. Because of this, we see the opportunity to _challenge the dominant touch paradigm_ of modern mobile devices.
 
 ## Touchless cooking companion
 
-The solution feature an air-gesture and voice query enabled cooking companion, allowing users to navigate recipes during cooking without ever touching their devices.
+The solution features an air-gesture and voice-query-enabled cooking companion, allowing users to navigate recipes while cooking without ever touching their devices.
 
 <LayoutMainContent grid="2/3" extraMargin>
   <Video
@@ -65,7 +65,7 @@ The solution feature an air-gesture and voice query enabled cooking companion, a
   >
     <Caption
       label="1"
-      text="User can play and pause a video by holding their hands in front of the device."
+      text="Users can play and pause a video by holding their hands in front of the device."
       overlay={false}
       topPadding
     />
@@ -76,7 +76,7 @@ The solution feature an air-gesture and voice query enabled cooking companion, a
   >
     <Caption
       label="2"
-      text="As user long-hold, the user enters scrubbing mode. They can lean their hands on a side to scrub the video—like using arrow keys."
+      text="As the user long-holds, they enter scrubbing mode. They can lean their hands to one side to scrub the video, similar to using arrow keys."
       overlay={false}
       topPadding
     />
@@ -90,7 +90,7 @@ The solution feature an air-gesture and voice query enabled cooking companion, a
   >
     <Caption
       label="3"
-      text="Voice query is supported when the for use-cases where the user's hands are occupied by other tasks."
+      text="Users can enable voice queries when their hands are occupied with other tasks."
       overlay={false}
       topPadding
     />
@@ -105,7 +105,7 @@ The solution feature an air-gesture and voice query enabled cooking companion, a
   >
     <Caption
       label="4"
-      text="Follow actions like setting a timer, pinning a card can be access by using voice command right after a response."
+      text="Follow-up actions, such as setting a timer and pinning a card, can be accessed using voice commands right after a response."
       overlay={false}
     />
   </Image>
@@ -115,8 +115,8 @@ The solution feature an air-gesture and voice query enabled cooking companion, a
     height={693 * 1.5}
   >
     <Caption
-      label="3"
-      text="The measurements mentioned in the response will be highlighted beneath for the ease of access. User can toggle between units by tapping on the pills."
+      label="5"
+      text="The measurements mentioned in the response will be highlighted beneath for ease of access. Users can toggle between units by tapping on the pills."
       topPadding
       overlay={false}
     />
@@ -125,12 +125,11 @@ The solution feature an air-gesture and voice query enabled cooking companion, a
 
 ## Literature review and secondary research
 
-The investigation began by surveying the domain of spatial computing and domestic computing. We have found intriguing exploration such as _[on-skin gesture control](https://www.tandfonline.com/doi/full/10.1080/14606925.2022.2058444)_, but that relies on custom hardware. On the consumer market, recipe apps typically focus on pre-cooking phases like recipe management and discovery. In during-cooking phase, voice enabled solutions are typically very primitive and clunky to navigate.
+The investigation began by surveying the domains of spatial computing and domestic computing. We have found intriguing exploration such as _[on-skin gesture control](https://www.tandfonline.com/doi/full/10.1080/14606925.2022.2058444)_, but that relies on custom hardware. On the consumer market, recipe apps typically focus on pre-cooking phases like recipe management and discovery. In during-cooking phase, voice enabled solutions are typically very primitive and clunky to navigate.
 
 ## Insights from ethnographic field study
 
-To gain a more robust understanding of digital recipes navigation during cooking, we conducted contextual inquiries with 5 home cooks of varying skill levels. While users are generally able to complete the
-tasks through workarounds, the operations were less than desirable.
+To gain a more robust understanding of digital recipes navigation during cooking, we conducted contextual inquiries with 5 home cooks of varying skill levels. While users are generally able to complete the tasks through workarounds, the operations were less than desirable.
 
 <LayoutMainContent grid="2/3" extraMargin>
   <Video
@@ -142,7 +141,7 @@ tasks through workarounds, the operations were less than desirable.
     <Caption
       label="4"
       title="Elbow Interaction"
-      text="Elbow interaction force user into an awkward position, leading them moving the devices accidntally on up-right positions."
+      text="Elbow interaction forces users into an awkward position, often leading them to accidentally move the devices into an upright position."
       overlay={false}
       topPadding
     />
@@ -154,30 +153,30 @@ tasks through workarounds, the operations were less than desirable.
     <Caption
       label="4"
       title="Knuckle Interaction"
-      text="While affording higher precision, the digital device is prone to contamination because of its proximity with the dirty fingers."
+      text="While affording higher precision, the digital device is prone to contamination due to its proximity to dirty fingers."
       overlay={false}
       topPadding
     />
   </Video>
 </LayoutMainContent>
-Other than that, through affinity diragramm we also surfaced the following major
-insights:
+In addition, through affinity diagramming, we also surfaced the following major insights:
 
 <List>
   <ListItem label="1">
-    _Pictures speak a thousand word_. Mutiple participants emphasised the
-    importance of having visual reference in the instruction. Videos or images,
-    unlike text, let learners match their cooking intuitively. This is
-    especially useful for novice cooks or those unfamiliar with the recipe.
+    _Pictures speak a thousand word_. Multiple participants emphasized the
+    importance of having visual references in the instructions. Videos or
+    images, unlike text, allow learners to match their cooking intuitively. This
+    is especially useful for novice cooks or those unfamiliar with the recipe.
   </ListItem>
   <ListItem label="2">
-    _Cooking and recipe lookup introduces high cognitive load_ as it take away
-    user’s attention to perform their actual cooking task. Our design
-    intervention needs to be as lightweight as possible.
+    _Cooking and recipe lookup introduces a high cognitive load_, as it takes
+    away the user’s attention from performing their actual cooking tasks. Our
+    design intervention needs to be as lightweight as possible.
   </ListItem>
   <ListItem label="3">
     _Participants move around the kitchen_, meaning they don’t necessarily have
-    line of sight with the digital device — especially tablet.
+    a line of sight with the digital device, especially when they are using a
+    tablet.
   </ListItem>
 </List>
 
@@ -196,7 +195,7 @@ With more user context, we decided to take a multi-modal approach and establishe
 
 ## Experimentation with design engineering
 
-Originally designed for FaceID, the depth sensor front facing camera provide a reliable way to extract air-gesture's distance. I picked up swift and developed an unique technique to process depth sensor feed which captures and smoothes out the user’s movement. This provided a platform where we can try and iterate on different gesture approaches rapidly.
+Originally designed for Face ID, the depth sensor front-facing camera reliably extracts air gesture distances. I learned Swift and created a technique to process sensor data, capturing and smoothing user movements. This enabled rapid iteration on various gesture approaches.
 
 <LayoutFull extraMargin>
   <Image
@@ -208,7 +207,7 @@ Originally designed for FaceID, the depth sensor front facing camera provide a r
 
 ## Air gesture design principles
 
-In early experiments, we played around with the idea of creating a air gesture pointer system—like on a desktop. But the idea was quickly abandoned as we found using pointer system is a rather intricate task that creates extra cognitive overhead.
+In early experiments, we explored the idea of creating an air gesture pointer system, similar to a desktop pointer. However, the idea was quickly abandoned as we found that using a pointer system is a rather intricate task that adds extra cognitive overhead.
 
 <LayoutFull extraMargin>
   <Image
@@ -218,17 +217,20 @@ In early experiments, we played around with the idea of creating a air gesture p
   />
 </LayoutFull>
 
-As a result of our own experiment and secondary research, we consolidated the following principles for designing an intuitive gesture language.
+Based on our experiments and secondary research, we used the following principles when designing the gesture language.
 
 <List>
   <ListItem label="1">
-    _Use natural spatial mapping_ to match the user mental modal of the real
-    world.
+    _Use natural spatial mapping_. Appeal to the user's existing mental modal
+    whenever we could. Take the example for video scrubbing: people associate
+    left with backward and right with forward.
   </ListItem>
   <ListItem label="2 ">
-    _Continuous feedback_ to create an intuitive, fluid feeling. (apple
-    designing fluid interfaces) Its also means that the gesture is
-    interruptible, user can change direction, exit as they will.
+    _Continuous feedback_ to create a fluid feeling. Gestures needs to be
+    interruptible, user can change their mind as they will. By doing so, it
+    makes the user [feel like the interface is always responding to them
+    (7:00)](https://developer.apple.com/videos/play/wwdc2018/803/), which is
+    good for usability.
   </ListItem>
   <ListItem label="3">
     _Design for imprecision_ to reduce the cognitive load of operating the
