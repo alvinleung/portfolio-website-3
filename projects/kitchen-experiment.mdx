@@ -199,7 +199,7 @@ To experiment with air gesture, I used Swift to developed a technique to process
 
 <LayoutFull extraMargin>
   <Video
-    src="https://stream.mux.com/w3EtjrjVzzeY9jCLfRMWcUdQQ2VJdKyaIRTLQNm2wN4/capped-1080p.mp4"
+    src="https://stream.mux.com/8C3UF9xK3O86ZCLz5jtQhSZy1MhYxJlncCXfnJX01RI00/capped-1080p.mp4"
     width={1792}
     height={1052}
   >
@@ -229,24 +229,27 @@ Based on our experiments and secondary research, we then proceed with the follow
 
 <List>
   <ListItem label="1">
-    _Use natural spatial mapping_. Appeal to the user's existing mental modal
-    whenever we could. Take the example for video scrubbing: people associate
-    left with backward and right with forward.
+    _Use natural spatial mapping_. When gesturing to the left side, the visual
+    should move left as well.
   </ListItem>
-  <ListItem label="2 ">
-    _Continuous, instant visual feedback_ to encourage play. Gestures need to
-    respond to user's input all the time, if they change their mind, gestures
-    need to respond to that interruption. By doing so,[the user's thought and
-    action happens at the same time
-    (7:00)](https://developer.apple.com/videos/play/wwdc2018/803/), making the
-    interface feel "intuitive".
+  <ListItem label="2">
+    _Appeal to the user's existing mental modal_ whenever we could. Take the
+    example for video scrubbing: people associate left with backward and right
+    with forward.
   </ListItem>
   <ListItem label="3">
+    _Continuous, instant visual feedback_. Gestures need to respond to user's
+    input all the time, if they change their mind, gestures need to respond to
+    that interruption. This establish trust towards the interface, the user
+    would not have to [think before performing an action (WWDC,
+    7:00)](https://developer.apple.com/videos/play/wwdc2018/803/), which
+    encourage the user to explore the novel interaction.
+  </ListItem>
+  <ListItem label="4">
     _Design for imprecision_ to reduce the cognitive load of operating the
     gestural interface. In our user studies, user perceived the larger interface
     elements to be easier to use. This make sense as the larger scale encourage
     them to take bigger and less precise gesture to control the interface.
-    Consider the larger click area presents on Google Map's car ui.
   </ListItem>
 </List>
 
