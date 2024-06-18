@@ -5,9 +5,9 @@ tags: Human Computer Interaction, Research Through Design
 type: case-study
 
 colorAccent: rgb(249,255,241)
-colorLight: rgb(249,255,241)
-colorDark: rgb(28, 30, 38)
-colorDarkest: rgb(28, 30, 38)
+colorLight: rgb(235, 250, 214)
+colorDark: rgb(23,58,50)
+colorDarkest: rgb(23,58,50)
 colorScheme: dark
 
 nextProject: tedxsfu
@@ -78,7 +78,7 @@ Our reimagined experience features an air-gesture and voice-query-enabled cookin
   >
     <Caption
       label="2"
-      text="As the user long-holds, they enter scrubbing mode. They can lean their hands to one side to scrub the video, similar to using arrow keys."
+      text="As the user long-holds, they enter scrubbing mode. By tilting their hands to one side, they can scrub through the video, akin to using arrow keys."
       overlay={false}
       topPadding
     />
@@ -195,9 +195,9 @@ With more user context, we chose to adopt a multi-modal approach to redesign the
 
 ## Experimentation with design engineering
 
-The depth sensor on iOS devices enables the software to know how far away a gesture is performed. This capability is crucial for reliably preventing unwanted triggers of the gesture system.
+The depth sensor on iOS devices enables the software to know how far away a gesture is performed. This capability is crucial for reliably preventing unwanted triggers.
 
-To achieve that, I picked up Swift and developed a technique to process depth sensor data, which included capturing and smoothing user movements. This resulted in a platform that facilitated rapid iteration on different gesture approaches.
+To experiment with air gesture, I used Swift and developed a technique to process depth sensor data, which included capturing and smoothing user movements. This resulted in a platform that facilitated rapid iteration on different gesture approaches.
 
 <LayoutFull extraMargin>
   <Image
