@@ -197,14 +197,20 @@ With more user context, we chose to adopt a multi-modal approach to redesign the
 
 To experiment with air gesture, I used Swift and developed a technique to process depth sensor data, which included capturing and smoothing user movements. This resulted in a platform that facilitated rapid iteration on different gesture approaches.
 
-The depth sensor on iOS devices enables the software to know how far away a gesture is performed. This capability is crucial for reliably preventing unwanted triggers.
-
 <LayoutFull extraMargin>
   <Video
-    src="https://stream.mux.com/GuBJZ00FoNWKiocOl02KVEQpNB014cbSCou02SI9M65wUQ8/capped-1080p.mp4"
+    src="https://stream.mux.com/w3EtjrjVzzeY9jCLfRMWcUdQQ2VJdKyaIRTLQNm2wN4/capped-1080p.mp4"
     width={1792}
     height={1052}
-  />
+  >
+    <Caption
+      label="8"
+      wideSpacing
+      text="THe motion demostrates the signal processing pipeline. Depth sensor on iOS devices enables the software to know how far away a gesture is performed. This capability is crucial for reliably preventing unwanted triggers."
+      overlay={true}
+      topPadding
+    />
+  </Video>
 </LayoutFull>
 
 ## Air gesture design principles
@@ -291,7 +297,7 @@ this gesture for a prolonged period of time because of the fine motor movement.
 
 ## Experiment: Lean to scrub
 
-Then we were stuck, but then we reminded a user behaviour we observed in of our study a participant dash around a youtube video instruction just by holding down the arrow keys. This got us the idea of using “leaning” to capture user’s intent of video scrubbing.
+We were stuck, but then we remembered a user behaviour observed in of our study. The participant dash around a youtube video instruction just by holding down the arrow keys. This got us the idea of using “leaning” to capture user’s intent of video scrubbing.
 
 <LayoutMainContent grid="1/3" extraMargin>
   <Video
@@ -319,6 +325,8 @@ This was chosen to be included in the final solution because:
   </ListItem>
 </List>
 
+It was particularly rewarding when we have the approval of our supervisor:
+
 ## Reflection—Anything flies in prototype-land
 
-As a research-through-design project, our goal wasn’t to create a pristine high fidelity mockups but to gain insights from each step of prototyping. One particularly wonderful moment came when we essentially hacked together a ChatGPT voice interaction client and open a YouTube tab next to it. Despite its rough form, this prototype provided us with invaluable behavioral insights into how our potential solution could function.
+As a research-through-design project, our goal wasn’t to create a pristine high fidelity mockups but to gain insights from each step of prototyping. One particularly wonderful moment came when we essentially hacked together a ChatGPT voice interaction client and open a YouTube tab next to it. Despite its rough form, this prototype provided us with invaluable behavioral insights into how our potential solution could function. This really drive home the idea that prototypes are good as long as they provide us glimpes of of the final resault.
