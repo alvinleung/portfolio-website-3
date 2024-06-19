@@ -255,7 +255,7 @@ Based on our experiments and secondary research, we then proceed with the follow
 
 To constrain our exploration, we have decided to focus our effort on defining the air-gesture scrubbing interaction first as this is the part that has the most complexity.
 
-## Experiment: Drag to scrub
+## Attempt 1: Drag to scrub
 
 That lead us to experimenting with air gesture based “_drag to scrub_” interaction.
 
@@ -277,14 +277,14 @@ While the scrubbing system was intuitive to understand, it suffer a few drawback
     sacrificing too much responsiveness.
   </ListItem>
   <ListItem label="2">
-    This interaction also introduces a very awkward in-between state of jumping
-    back as the user run out of the scrubbing area.
+    This interaction also introduces a very awkward in-between-swipe state of
+    jumping back as the user run out of the scrubbing area.
   </ListItem>
 </List>
 
-## Experiment: Dial to scrub
+## Attempt 2: Dial to scrub
 
-This iteration was utilize a circular dialling motion as video scrubbing. It solved the in-between state issue by making the scrubbing movement an infinite loop. The gesture was also intentionally referencing the knob-turning motion to appeal to the user's existing mental model.
+This iteration was utilize a circular dialling motion as video scrubbing. It solved the in-between-swipe state issue by making the scrubbing movement an infinite loop. The gesture was also intentionally referencing the knob-turning motion to appeal to the user's existing mental model.
 
 <LayoutMainContent grid="1/3" extraMargin>
   <Video
@@ -296,9 +296,9 @@ This iteration was utilize a circular dialling motion as video scrubbing. It sol
 </LayoutMainContent>
 
 However it suffer from ergonomic issues. Users find it physically fatiguing to use
-this gesture for a prolonged period of time because of the fine motor movement.
+this gesture for a prolonged period of time because of the fine motor control required.
 
-## Experiment: Lean to scrub
+## Third time the charm: Lean to scrub
 
 We were stuck, but then we remembered a user behaviour observed in of our study. The participant dash around a youtube video instruction just by holding down the arrow keys. This got us the idea of using “leaning” to capture user’s intent of video scrubbing.
 
@@ -311,7 +311,7 @@ We were stuck, but then we remembered a user behaviour observed in of our study.
   />
 </LayoutMainContent>
 
-This was chosen to be included in the final solution because:
+This was ultimately chosen to be included in the final solution because:
 
 <List>
   <ListItem label="1">
