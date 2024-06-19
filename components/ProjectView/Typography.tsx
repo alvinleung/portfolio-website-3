@@ -8,7 +8,7 @@ export const ParagraphBig = (children: any) => (
 );
 export const Quote = ({ children, who = "", title = "" }: any) => (
   <>
-    <blockquote className="col-start-2 2xl:col-start-4 col-span-3 mt-48 mb-12 text-5xl font-light -indent-4">
+    <blockquote className="col-start-2 2xl:col-start-4 col-span-3 mt-48 mb-12 text-5xl font-light -indent-4 -tracking-[.037em]">
       “{children}”
     </blockquote>
     <div className="col-start-2 2xl:col-start-4 col-span-1 text-sm mb-24">
