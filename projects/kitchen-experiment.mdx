@@ -194,30 +194,23 @@ These insights guided our exploration. After generating ideas, we pursued a mult
   </ListItem>
 </List>
 
-## Experimentation with design engineering
+## Design + engineering
 
-To faclitate the exploration, I developed a technique to process depth sensor data, capturing and smoothing user movements using Swift. This platform allowed quick testing of various gesture approaches.
+Leveraging iOS TrueDepth Camera, we can accurately detect gesture distances and prevent unwanted triggers effectively.
+
+To design around this sensor, I developed a technique to process depth sensor data, capturing and smoothing user movements using Swift. The resulted platform allowed quick testing of various gesture approaches.
 
 <LayoutFull extraMargin>
   <Video
-    src="https://stream.mux.com/8C3UF9xK3O86ZCLz5jtQhSZy1MhYxJlncCXfnJX01RI00/capped-1080p.mp4"
+    src="https://stream.mux.com/GuBJZ00FoNWKiocOl02KVEQpNB014cbSCou02SI9M65wUQ8/capped-1080p.mp4"
     width={1792}
     height={1052}
-  >
-    <Caption
-      label="8"
-      wideSpacing
-      text="
-The motion graphic illustrates the signal processing pipeline, leveraging iOS depth sensors to accurately detect gesture distances and prevent unwanted triggers effectively."
-      overlay={true}
-      topPadding
-    />
-  </Video>
+  />
 </LayoutFull>
 
 ## Air gesture design principles
 
-In early experiments, we explored the idea of creating an air gesture pointer system. But we soon find out that it was a bad idea: as _manipulating a pointer on screen is a rather intricate task that adds cognitive overhead_.
+In early experiments, we explored the idea of creating an air gesture pointer system. But we soon find out that it was a bad idea: as _manipulating a pointer on screen is a rather intricate task that adds cognitive overhead_. They are better off interacting with features directly.
 
 <LayoutFull extraMargin>
   <Image
