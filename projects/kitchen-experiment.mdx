@@ -50,7 +50,7 @@ weight: 10
 
 <ColorShifter background="#F9FFF1" color="#444" />
 
-## A Sticky Situation
+## A sticky situation
 
 As home cooks ourselves, we know the pain of navigating digital recipes intimately. Slimy raw meat, dusty flour, and a million other things in the kitchen make you think twice before touching your devices.
 
@@ -67,7 +67,7 @@ Our reimagined experience features an air-gesture and voice-query-enabled cookin
   >
     <Caption
       label="1"
-      text="Users can play and pause a video by holding their hands in front of the device."
+      text="Users can play or pause a video by holding their hand in front of the device."
       overlay={false}
       topPadding
     />
@@ -164,19 +164,19 @@ To gain a more robust understanding of digital recipes navigation during cooking
     />
   </Video>
 </LayoutMainContent>
+
 In addition, through affinity diagramming, we also surfaced the following major insights:
 
 <List>
   <ListItem label="1">
-    _Pictures speak a thousand word_. Multiple participants emphasized the
+    _Pictures speak a thousand words_. Multiple participants emphasized the
     importance of having visual references in the instructions. Videos or
     images, unlike text, allow learners to match their cooking intuitively. This
     is especially useful for novice cooks or those unfamiliar with the recipe.
   </ListItem>
   <ListItem label="2">
-    _Cooking and recipe lookup introduces a high cognitive load_, as it takes
-    away the user’s attention from performing their actual cooking tasks. Our
-    design intervention needs to be as lightweight as possible.
+    _Design intervention needs to be as lightweight as possible_. as it takes
+    away the user’s attention from performing their actual cooking tasks.
   </ListItem>
   <ListItem label="3">
     _Participants move around the kitchen_, meaning they don’t necessarily have
@@ -228,7 +228,7 @@ In early experiments, we explored the idea of creating an air gesture pointer sy
   />
 </LayoutFull>
 
-Based on our experiments and secondary research, we then proceed with the following principles when designing the gesture language.
+We then proceed with the following gesture principles with our research.
 
 <List>
   <ListItem label="1">
@@ -259,9 +259,9 @@ Based on our experiments and secondary research, we then proceed with the follow
 
 To constrain our exploration, we have decided to focus our effort on defining the air-gesture scrubbing interaction first as this is the part that has the most complexity.
 
-## Attempt 1: Drag to scrub
+## Attempt 1: wave to scrub
 
-That lead us to experimenting with air gesture based “drag to scrub” interaction. It make sense if we think about translating the 2d haptic scroll experience to a 3d air-gesture space.
+That lead us to experimenting with air gesture based wave to scrub” interaction. It make sense if we think about translating the 2d haptic scroll experience to a 3d air-gesture space.
 
 <LayoutMainContent grid="1/3" extraMargin>
   <Video
@@ -277,7 +277,7 @@ While the scrubbing system was intuitive to understand, it suffer a few drawback
 <List>
   <ListItem label="1">
     The enter and exit motion may accidentally trigger scrubbing action. And
-    this is difficault to address with software gesture rejection without
+    this is difficult to address with software gesture rejection without
     sacrificing too much responsiveness.
   </ListItem>
   <ListItem label="2">
@@ -299,10 +299,10 @@ This iteration was utilize a circular dialling motion as video scrubbing. It sol
   />
 </LayoutMainContent>
 
-Yet, aside from unresolved rejection on enter/exit motion, it alos suffer from ergonomic issues. Users find it physically fatiguing to use
-this gesture for a prolonged period of time because of the fine motor control required.
+Yet, aside from unresolved rejection on enter/exit motion, it alsO suffer from ergonomic issues. Users find it physically fatiguing to use
+this gesture for a prolonged period of time because of the fine motor control involved.
 
-## Third time the charm: Lean to scrub
+## Takeaway: 3rd times the charm: Lean to scrub
 
 We were initially stuck, but then we recalled an interesting behavior from our study: a participant navigated quickly through a YouTube video by holding down the arrow keys. This observation inspired us to explore the concept of using “leaning” to capture a user’s intent when scrubbing through a video.
 
@@ -333,19 +333,15 @@ This was ultimately chosen to be included in the final solution because:
   </ListItem>
 </List>
 
-Who would have thought this deceptively simple solution is the best out of the three. It was particularly rewarding when we have the approval of our supervisor:
-
 <Quote who="Dr. Carman Neustaedter" title="Supervisor">
   {
     "The interaction—of pausing it, moving forward, backwards— is actually going really, really well. I am very impressed with that, very nicely done."
   }
 </Quote>
 
-## Reflection: In praise of the barely working prototype
+## Takeaway: in praise of the barely working prototype
 
-When prototyping, it's easy to fall into the trap of perfectionism. After all, you want your idea to have the best possible chance of success with users. Throughout our process, we kept pushing testing sessions back because we didn't feel "ready." But the truth is, we would never truly feel ready.
-
-It wasn't until we set a hard deadline of "no prototype, no dinner" that we forced ourselves to test our design in situ. Surprisingly, the prototypes we thought were "not ready" turned out to be incredibly valuable for learning about the use case.
+We kept delaying testing sessions, feeling we weren’t “ready.” It wasn’t until we set a hard deadline of “no prototype, no dinner” that we forced ourselves to test our design. Surprisingly, the prototypes we thought weren’t ready turned out to be incredibly valuable for learning.
 
 <LayoutMainContent grid="2/3" extraMargin>
   <Image
@@ -355,15 +351,14 @@ It wasn't until we set a hard deadline of "no prototype, no dinner" that we forc
   >
     <Caption
       label="9"
-      text="One particularly wonderful moment came when we essentially hacked together a ChatGPT voice interaction client and open a YouTube tab next to it. Despite its rough form, this prototype provided us with invaluable behavioral insights into how our potential solution could function.
-"
+      text="One wonderful moment was when we hacked together a ChatGPT voice interaction client and opened a YouTube tab next to it. Despite its rough form, this prototype gave us invaluable insights into how our solution could function."
       overlay={false}
       topPadding
     />
   </Image>
 </LayoutMainContent>
 
-## Reflection: Don’t overthink ideation — Ideas come when you start making things
+## Takeaway: idea happens when you make things
 
 During the process of prototyping the air gesture, we explored various techniques for detecting hand gestures. As we experimented with different methods, we discovered new ways to detect user input and potential possibilities for interaction emerged.
 
@@ -377,22 +372,22 @@ During the process of prototyping the air gesture, we explored various technique
 
 <Caption
       label="10"
-      text="The possibility of a circular gesture was enabled as we figured out the dynamic bounding box technique for detecting finger gesture motion around a point. But the circular gesture was ultimately not pursued as we weren’t able to find an elegant way to exit the gesture control."
+      text="Because we developed the dynamic bounding box technique, we were able to to explore a circular air-gestures."
       overlay={false}
       topPadding
     />
   </Video>
 </LayoutMainContent>
 
-## Reflection: Formative qualitative testing and feedback don't have to be overly complex or rigorous to be valuable; they just need to make sense.
+## Takeaway: Testing just need to make sense
 
-The ultimate goal is to expand your thinking in the problem space.
+Formative qualitative testing and feedback don't have to be overly complex or rigorous to be valuable; they just need to make sense. The ultimate goal is to expand your thinking in the problem space.
 
 In our case, we frequently tested our idea with friends and family. By observing how they interacted with our prototype and interpreting their reactions, we were able to catch a lot of issues in the design. Even though our testing was not overly elaborate, it still provided us with valuable insights that helped us to better understand our users' needs and preferences. In the end, this approach helped us to create a more effective and user-friendly product.
 
-## Appendix:
+## Appendix: a fascinated dad
 
-A fascinated dad trying to scrub video with head—slighlty less violant than pointing a knife at the prototype(yes, someone did try the interaction with a knife)
+My dad tried to scrub video with his head—slighlty less violant than pointing a knife at the prototype(yes, someone did try the interaction with a knife)
 
 <LayoutMainContent grid="1/3" extraMargin>
   <Video
