@@ -49,7 +49,7 @@ export const Header3 = ({ children }: any) => (
 );
 
 export const Emphasis = ({ children }: any) => {
-  return <em className="not-italic bg-[rgba(200,200,200)] px-1">{children}</em>;
+  return <em className="not-italic bg-[rgba(230,230,230)] px-1">{children}</em>;
 };
 export const Link = ({ children, href }: any) => {
   return (

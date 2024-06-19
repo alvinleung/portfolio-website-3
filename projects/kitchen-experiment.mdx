@@ -215,7 +215,7 @@ To experiment with air gesture, I used Swift to developed a technique to process
 
 ## Air gesture design principles
 
-In early experiments, we explored the idea of creating an air gesture pointer system. Similar to a desktop pointer, the user will control a vitual pointer by gestures. However, the idea was quickly abandoned as we found that using a pointer system is a rather intricate task that adds extra cognitive overhead.
+In early experiments, we explored the idea of creating an air gesture pointer system. Similar to a desktop pointer, the user will control a vitual pointer by gesturing in front of the device. However, the idea was quickly abandoned as we found that _using a pointer system is a rather intricate task that adds cognitive overhead_.
 
 <LayoutFull extraMargin>
   <Image
@@ -247,10 +247,10 @@ Based on our experiments and secondary research, we then proceed with the follow
     encourages the user to explore the novel interaction.
   </ListItem>
   <ListItem label="4">
-    _Design for imprecision_ to reduce the cognitive load of operating the
-    gestural interface. In our user studies, user perceived the larger interface
-    elements to be easier to use. This make sense as the larger scale nudges the
-    users to take bigger and less precise gesture to control the interface.
+    _Design for imprecision_ to reduce the cognitive load. In our user studies,
+    user perceived the larger interface elements to be easier to use. This make
+    sense as the larger scale nudges the users to take bigger and less precise
+    gesture to control the interface.
   </ListItem>
 </List>
 
@@ -258,7 +258,7 @@ To constrain our exploration, we have decided to focus our effort on defining th
 
 ## Attempt 1: Drag to scrub
 
-That lead us to experimenting with air gesture based “_drag to scrub_” interaction.
+That lead us to experimenting with air gesture based “drag to scrub” interaction. It make sense if we think about translating the 2d haptic scroll experience to a 3d air-gesture space.
 
 <LayoutMainContent grid="1/3" extraMargin>
   <Video
@@ -301,13 +301,13 @@ this gesture for a prolonged period of time because of the fine motor control re
 
 ## Third time the charm: Lean to scrub
 
-We were stuck, but then we remembered a user behaviour observed in of our study. The participant dash around a youtube video instruction just by holding down the arrow keys. This got us the idea of using “leaning” to capture user’s intent of video scrubbing.
+We were stuck, but then we remembered a user behaviour observed in the study: a participant dashed around a youtube video instruction just by holding down the arrow keys. This inspired us to pursue the idea of using “leaning” to capture user’s intent of video scrubbing.
 
 <LayoutMainContent grid="1/3" extraMargin>
   <Video
-    src="https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/elxDbGufYVdRx2SBPOeM2V30vWr2/QocppSyo5cTqixN0OOaR/15a10979-b424-4fe3-806d-046f503a55d6.mp4?_a=DATAdtAAZAA0"
-    width={1920}
-    height={1080}
+    src="https://stream.mux.com/yVziBc4eEEknQ6AcEoHeL027wynPFUGtBpCtCeGwFQWI/capped-1080p.mp4"
+    width={1080}
+    height={1920}
     canScrub={true}
   />
 </LayoutMainContent>
@@ -317,11 +317,11 @@ This was ultimately chosen to be included in the final solution because:
 <List>
   <ListItem label="1">
     Physically not taxing to perform as the user just need to hold down a
-    spatial position.
+    spatial position—which demand less motor precision.
   </ListItem>
   <ListItem label="2">
-    Provide continuous feedback with the subtle following motion that
-    acknowledge user's input
+    It provide continuous feedback with the subtle following motion that
+    acknowledge user's input.
   </ListItem>
   <ListItem label="3">
     With the additional hold state, it seemlessly incorporate the play, pause
@@ -334,3 +334,24 @@ It was particularly rewarding when we have the approval of our supervisor:
 ## Reflection—Anything flies in prototype-land
 
 As a research-through-design project, our goal wasn’t to create a pristine high fidelity mockups but to gain insights from each step of prototyping. One particularly wonderful moment came when we essentially hacked together a ChatGPT voice interaction client and open a YouTube tab next to it. Despite its rough form, this prototype provided us with invaluable behavioral insights into how our potential solution could function. This really drive home the idea that prototypes are good as long as they provide us glimpes of of the final resault.
+
+<LayoutMainContent grid="2/3" extraMargin>
+  <Image
+    src="/project-assets/kitchen-experiment/chat-gpt-demo.jpg"
+    width={3024 / 4}
+    height={4032 / 4}
+  />
+</LayoutMainContent>
+
+## Appendix:
+
+A fascinated dad trying to scrub video with head—slighlty less violant than pointing a knife at the prototype(yes, someone did try to interact with the prototype with a knife)
+
+<LayoutMainContent grid="1/3" extraMargin>
+  <Video
+    src="https://stream.mux.com/jHx00zHu02rMPr6q7G02dmvP7k02EjetS2IP4hq02nJkQcIk/capped-1080p.mp4"
+    width={1080}
+    height={1920}
+    canScrub={true}
+  />
+</LayoutMainContent>
