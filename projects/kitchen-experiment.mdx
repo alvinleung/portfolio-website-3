@@ -32,12 +32,16 @@ weight: 10
 <Team
   teammates={[
     {
+      name: "Supervisor",
+      position: "Dr. Carman Neustaedter",
+    },
+    {
       name: "Collaborator",
       position: "Ethan Ma",
     },
     {
-      name: "Supervisor",
-      position: "Dr. Carman Neustaedter",
+      name: "Videographer",
+      position: "Chris Thomas",
     },
   ]}
 />
@@ -53,7 +57,8 @@ weight: 10
 
 ## A sticky situation
 
-Slimy raw meat, dusty flour, and a million other things in the kitchen make you think twice before touching your devices. As fellow home cooks, we know the frustration intimately.
+Slimy raw meat, dusty flour, and a million other things in the kitchen make you think twice before touching your devices.
+Surveying HCI literature, we found promising ideas like [on-skin gesture control](https://www.tandfonline.com/doi/full/10.1080/14606925.2022.2058444) but it requires custom hardware, while recipe apps on the market often neglect the during-cooking phase.
 
 Here, we saw the opportunity to challenge the dominant touch paradigm of modern mobile devices—say goodbye to your buttons, scroll views, and scrubbers.
 
@@ -129,13 +134,9 @@ Our reimagined cooking experience integrates air-gesture and voice-query capabil
   />
 </LayoutMainContent>
 
-## Literature review and secondary research
-
-Our investigation started with spatial and domestic computing domains in HCI literature. We found promising ideas like [on-skin gesture control](https://www.tandfonline.com/doi/full/10.1080/14606925.2022.2058444) but it requires custom hardware. While recipe apps on the market shine in pre-cooking—managing and discovering recipes, they often neglect the during-cooking phase. Additionally, voice-enabled solutions tend to be rudimentary and challenging to navigate.
-
 ## Ethnography study (definitely not a scheme to get participants to cook for us)
 
-To gain a more robust understanding of digital recipes navigation during cooking, we conducted contextual inquiries with 5 home cooks of varying skill levels.
+To gain a more robust understanding of digital recipes usage during cooking, we conducted contextual inquiries with 5 home cooks of varying skill levels.
 
 <LayoutMainContent grid="2/3" extraMargin>
   <Video
@@ -148,7 +149,7 @@ To gain a more robust understanding of digital recipes navigation during cooking
   </Video>
 </LayoutMainContent>
 
-While users generally managed to complete tasks with workarounds, the experience was suboptimal.
+While users generally managed to complete tasks with workarounds, their experience was suboptimal. Here are our observations:
 
 <LayoutMainContent grid="2/3" extraMargin>
   <Video
@@ -222,7 +223,7 @@ To design with this sensor, I developed a technique to process depth sensor data
   />
 </LayoutFull>
 
-## Air gesture design principles
+## Uncovering design principles
 
 In early experiments, we explored the idea of creating an air gesture pointer system. But we soon find out that it was a bad idea: as _manipulating a pointer on screen is a rather intricate task that adds cognitive overhead_. They are better off interacting with features directly.
 
@@ -254,6 +255,8 @@ We consolidated our learnings into the following principles:
 
   </ListItem>
 </List>
+
+## Throwing educated guess onto the problem
 
 To refocus our exploration, we have decided to tackle the more complex air-gesture scrubbing first.
 
