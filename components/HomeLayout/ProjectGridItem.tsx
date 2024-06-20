@@ -28,6 +28,7 @@ type Props = {
   cardHeight: number;
   firstRowHeight: number;
   topOffset: number;
+  isFirstItem: boolean;
 };
 
 const INACTIVE_BG_COLOR = "rgb(37, 55, 52)";
@@ -42,12 +43,13 @@ const ProjectGridItem = ({
   cardHeight,
   topOffset,
   isWide,
+  isFirstItem,
 }: Props) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const isLoading = useMemo(
-    () => (isWide && !isVideoLoaded) || (!isWide && !isImageLoaded),
-    [isWide, isVideoLoaded, isImageLoaded]
+    () => (isFirstItem && !isVideoLoaded) || (!isFirstItem && !isImageLoaded),
+    [isFirstItem, isVideoLoaded, isImageLoaded]
   );
 
   const [isHovering, setIsHovering] = useState(false);
@@ -99,7 +101,6 @@ const ProjectGridItem = ({
   useEffect(() => {
     const vid = videoRef.current;
     if (!vid) return;
-    console.log(vid.readyState);
     if (vid.readyState === 4) {
       setIsVideoLoaded(true);
       return;
@@ -124,7 +125,7 @@ const ProjectGridItem = ({
   useEffect(() => {
     if (!videoRef.current) return;
 
-    if (isWide) {
+    if (isFirstItem) {
       videoRef.current.play();
       return;
     }
@@ -135,7 +136,7 @@ const ProjectGridItem = ({
     } else {
       videoRef.current.pause();
     }
-  }, [isHovering, isWide]);
+  }, [isHovering, isFirstItem]);
 
   return (
     <motion.div
@@ -174,7 +175,7 @@ const ProjectGridItem = ({
                 ease: AnimationConfig.EASING_DRAMATIC,
               }}
             >
-              {!isWide && (
+              {!isFirstItem && (
                 <Image
                   src={getProjectCover(projectInfo.slug)}
                   width={582}
@@ -189,7 +190,7 @@ const ProjectGridItem = ({
                 <motion.video
                   disablePictureInPicture
                   style={{
-                    opacity: isHovering || isWide ? 1 : 0,
+                    opacity: isHovering || isFirstItem ? 1 : 0,
                     height: cardHeight,
                   }}
                   ref={videoRef}
@@ -208,7 +209,7 @@ const ProjectGridItem = ({
                 opacity: 0,
               }}
               animate={{
-                opacity: isImageLoaded ? 1 : 0,
+                opacity: !isLoading ? 1 : 0,
               }}
               style={{
                 color: projectStyle.getTextColor(),

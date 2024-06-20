@@ -42,8 +42,6 @@ const ProjectGrid = ({ projects }: Props) => {
   const [firstItemHeight, setFirstItemHeight] = useState(550);
 
   useLayoutEffect(() => {
-    if (currentBreakpoint === 0) return;
-
     if (currentBreakpoint >= breakpoints["2xl"]) {
       setGridItemHeight(windowDimension.width * 0.37);
       setFirstItemHeight(windowDimension.height * 0.85);
@@ -67,8 +65,6 @@ const ProjectGrid = ({ projects }: Props) => {
   }, [windowDimension.width, windowDimension.height, currentBreakpoint]);
 
   useLayoutEffect(() => {
-    if (currentBreakpoint === 0) return;
-
     setTopOffset(currentBreakpoint < breakpoints.lg ? 336 : 0);
   }, [currentBreakpoint]);
 
@@ -114,6 +110,7 @@ const ProjectGrid = ({ projects }: Props) => {
               projectInfo={projectInfo}
               topOffset={topOffset}
               isWide={shouldEmphasiseFirst && index === 0}
+              isFirstItem={index === 0}
               key={index}
             />
           );

@@ -15,7 +15,7 @@ const Team = ({ teammates }: Props) => {
       <h3 className="sm:col-start-2 col-span-full pb-6 text-[1rem] leading-none">
         Team
       </h3>
-      <div className="sm:col-start-2 col-span-full md:col-start-2 md:col-span-2 2xl:col-start-2 2xl:col-span-1 grid grid-cols-2 text-[1rem] leading-[120%] mb-[12em]">
+      <div className="sm:col-start-2 col-span-full md:col-start-2 md:col-span-2 2xl:col-start-2 2xl:col-span-2 grid grid-cols-2 text-[1rem] leading-[120%] mb-[12em]">
         {teammates.map((teammate, index) => (
           <React.Fragment key={index}>
             <div className="col-start-1">{teammate.name}</div>
