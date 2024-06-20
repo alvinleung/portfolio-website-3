@@ -78,7 +78,7 @@ const ProjectGrid = ({ projects }: Props) => {
 
   return (
     <div className="flex gap-4">
-      <div>
+      <div className="w-7">
         <motion.div
           className="sticky top-4"
           style={{ writingMode: "vertical-rl" }}
