@@ -70,7 +70,7 @@ const Home: NextPage = ({
         description={`Alvin Leung is an interaction designer. Informed by business and
               user needs, he thrives in using his aesthetic sensibility and
               prototyping wizardry to bring wild concepts from 0 to 1.
-              Previously designed @ Daybreak Studio & Dossier Creative`}
+              Currently designing @ Daybreak Studio. Previously @ Dossier Creative`}
       />
       {/* <LandingHero isViewingGrid={isViewingGrid} /> */}
       {/* <div ref={projectRef} /> */}

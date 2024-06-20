@@ -90,8 +90,8 @@ const HomeLayout = ({ projects }: Props) => {
           >
             Alvin is an interaction designer. He thrives in bringing wild
             concepts from 0 to 1 using his prototyping wizardry and aesthetic
-            sensibility. Previously designed @ Daybreak Studio & Dossier
-            Creative.
+            sensibility. Currently designing @ Daybreak Studio. Previously @
+            Dossier Creative
           </motion.div>
           <motion.div
             className="mt-4"
