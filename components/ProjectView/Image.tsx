@@ -12,6 +12,7 @@ type Props = {
   caption?: string;
   fullWidth?: boolean;
   rowSpan?: number;
+  priority?: boolean;
   children: React.ReactNode;
 };
 
@@ -23,6 +24,7 @@ const Image = ({
   caption,
   children,
   rowSpan = 1,
+  priority,
 }: Props) => {
   return (
     <Figure rowSpan={rowSpan}>
@@ -33,6 +35,7 @@ const Image = ({
         height={height}
         alt={caption || ""}
         // placeholder="blur"
+        priority={priority}
       />
       {children}
     </Figure>
