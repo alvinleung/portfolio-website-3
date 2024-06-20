@@ -8,6 +8,7 @@ import Link from "next/link";
 import React, {
   MutableRefObject,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -103,7 +104,7 @@ const ProjectView = ({
     return 32;
   }, [is2XLBreakpoint, isMDBreakpoint]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setShrinkedScale(1 - margin / window.innerWidth);
   }, [contentContainerRef, windowDimension.width, margin]);
 
