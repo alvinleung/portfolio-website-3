@@ -68,6 +68,14 @@ const ProjectGrid = ({ projects }: Props) => {
     setTopOffset(currentBreakpoint < breakpoints.lg ? 336 : 0);
   }, [currentBreakpoint]);
 
+  const filteredProjectList = useMemo(() => {
+    return projects.filter((project) => {
+      const info = getProjectInfo(project.meta);
+
+      return !info.hidden;
+    });
+  }, [projects]);
+
   return (
     <div className="flex gap-4">
       <div>
@@ -85,9 +93,10 @@ const ProjectGrid = ({ projects }: Props) => {
           gridTemplateColumns: isTwoColumns ? "1fr 1fr" : "1fr",
         }}
       >
-        {projects.map((project, index) => {
+        {filteredProjectList.map((project, index) => {
           const projectInfo = getProjectInfo(project.meta);
           const projectStyle = getProjectStyle(project.meta);
+
           const currentRow = isTwoColumns
             ? Math.floor((index + rowOffset) / 2)
             : index;

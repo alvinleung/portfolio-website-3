@@ -5,6 +5,7 @@ export interface ProjectInfo {
   slug: string;
   scope: string;
   previewVideo: string;
+  hidden: boolean;
 }
 
 export function getProjectInfo(meta: any): ProjectInfo {
@@ -15,6 +16,7 @@ export function getProjectInfo(meta: any): ProjectInfo {
     scope: meta.scope,
     description: meta.description,
     previewVideo: meta.previewVideo,
+    hidden: meta.hidden,
   };
 }
 
