@@ -44,9 +44,10 @@ const ProjectGridItem = ({
   isWide,
 }: Props) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const isLoading = useMemo(
-    () => !isImageLoaded && !isWide,
-    [isImageLoaded, isWide]
+    () => (isWide && !isVideoLoaded) || (!isWide && !isImageLoaded),
+    [isWide, isVideoLoaded, isImageLoaded]
   );
 
   const [isHovering, setIsHovering] = useState(false);
@@ -93,6 +94,33 @@ const ProjectGridItem = ({
   }, [projectRow, cardHeight, topOffset, firstRowHeight]);
 
   const videoRef = useRef() as MutableRefObject<HTMLVideoElement>;
+
+  // video loading mechanism
+  useEffect(() => {
+    const vid = videoRef.current;
+    if (!vid) return;
+    console.log(vid.readyState);
+    if (vid.readyState === 4) {
+      setIsVideoLoaded(true);
+      return;
+    }
+    const handleVideoLoaded = () => {
+      setIsVideoLoaded(true);
+      console.log("video is now loaded");
+    };
+    vid.addEventListener("loadedmetadata", handleVideoLoaded);
+    try {
+      vid.load();
+    } catch (e) {
+      console.error(e);
+    }
+
+    return () => {
+      vid.removeEventListener("loadedmetadata", handleVideoLoaded);
+    };
+  }, [videoRef]);
+
+  // video loading mechanism
   useEffect(() => {
     if (!videoRef.current) return;
 
@@ -146,27 +174,27 @@ const ProjectGridItem = ({
                 ease: AnimationConfig.EASING_DRAMATIC,
               }}
             >
-              <Image
-                src={getProjectCover(projectInfo.slug)}
-                width={582}
-                height={767}
-                className="w-full "
-                alt={""}
-                onLoad={() => setIsImageLoaded(true)}
-              />
+              {!isWide && (
+                <Image
+                  src={getProjectCover(projectInfo.slug)}
+                  width={582}
+                  height={767}
+                  className="w-full "
+                  alt={""}
+                  onLoad={() => setIsImageLoaded(true)}
+                />
+              )}
+
               {projectInfo.previewVideo !== undefined && (
                 <motion.video
                   disablePictureInPicture
-                  transition={{
-                    duration: AnimationConfig.NORMAL,
-                    ease: AnimationConfig.EASING_DRAMATIC,
-                  }}
                   style={{
                     opacity: isHovering || isWide ? 1 : 0,
                     height: cardHeight,
                   }}
                   ref={videoRef}
                   src={projectInfo.previewVideo}
+                  preload="metadata"
                   autoPlay
                   muted
                   loop
