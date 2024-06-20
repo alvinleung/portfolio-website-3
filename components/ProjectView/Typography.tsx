@@ -42,7 +42,7 @@ export const Header2 = ({ children }: any) => (
 
 export const Header3 = ({ children }: any) => (
   <h3
-    className={`${paragraphLayout} opacity-70 text-sm tracking-wider uppercase pt-20`}
+    className={`${paragraphLayout} opacity-90 font-bold text-xs tracking-wider uppercase pt-20`}
   >
     {children}
   </h3>

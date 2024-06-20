@@ -52,13 +52,13 @@ weight: 10
 
 ## A sticky situation
 
-As fellow home cooks, we understand the frustration. Slimy raw meat, dusty flour, and a million other things in the kitchen make you think twice before touching your devices.
+Slimy raw meat, dusty flour, and a million other things in the kitchen make you think twice before touching your devices. As fellow home cooks, we know the frustration intimately.
 
-Here, we we see the opportunity to challenge the dominant touch paradigm of modern mobile devices. Without buttons, scroll views or scrubbers, is it even possible?
+Here, we saw the opportunity to challenge the dominant touch paradigm of modern mobile devices—no buttons, scroll views, or scrubbers.
 
 ## A touchless cooking companion
 
-Effortlessly navigate recipes without ever touching your device. Our reimagined cooking experience integrates air-gesture and voice-query capabilities, allowing you to focus on creating delicious meals, mess-free. No taps, flicks, or swipes—just seamless, intuitive interaction.
+Our reimagined cooking experience integrates air-gesture and voice-query capabilities, allowing the user to focus on creating delicious meals, mess-free. No taps, flicks, or swipes—just seamless, intuitive interaction.
 
 <LayoutMainContent grid="2/3" extraMargin>
   <Video
@@ -132,9 +132,22 @@ Effortlessly navigate recipes without ever touching your device. Our reimagined 
 
 Our investigation started with spatial and domestic computing domains in HCI literature. We found promising ideas like [on-skin gesture control](https://www.tandfonline.com/doi/full/10.1080/14606925.2022.2058444) but it requires custom hardware. While recipe apps on the market shine in pre-cooking—managing and discovering recipes, they often neglect the during-cooking phase. Additionally, voice-enabled solutions tend to be rudimentary and challenging to navigate.
 
-## Insights from ethnographic study
+## Ethnography study (definitely not a hoax to get them to cook for us)
 
-To gain a more robust understanding of digital recipes navigation during cooking, we conducted contextual inquiries with 5 home cooks of varying skill levels. While users managed to complete tasks with workarounds, the experience was suboptimal.
+To gain a more robust understanding of digital recipes navigation during cooking, we conducted contextual inquiries with 5 home cooks of varying skill levels.
+
+<LayoutMainContent grid="2/3" extraMargin>
+  <Video
+    src="https://stream.mux.com/InB32NeYUsHpbZnHipYZF4ivmvxz01SHTNlvKGruyEis/capped-1080p.mp4"
+    width={800}
+    height={800}
+    canScrub={false}
+  >
+    <Caption label="" text="" overlay={false} topPadding />
+  </Video>
+</LayoutMainContent>
+
+During the sessions, while users managed to complete tasks with workarounds, the experience was suboptimal:
 
 <LayoutMainContent grid="2/3" extraMargin>
   <Video
@@ -145,7 +158,7 @@ To gain a more robust understanding of digital recipes navigation during cooking
   >
     <Caption
       label="6"
-      title="Observation: elbow Interaction"
+      title="Observation: elbow interaction"
       text="Elbow interaction forces users into an awkward position, often leading them to accidentally move the devices into an upright position."
       overlay={false}
       topPadding
@@ -157,7 +170,7 @@ To gain a more robust understanding of digital recipes navigation during cooking
   >
     <Caption
       label="7"
-      title="Observation: Knuckle Interaction"
+      title="Observation: knuckle interaction"
       text="While affording higher precision, the digital device is prone to contamination due to its proximity to dirty fingers."
       overlay={false}
       topPadding
@@ -169,15 +182,15 @@ Through affinity diagramming, we uncovered these key insights:
 
 <List>
   <ListItem label="1">
-    _Pictures speak a thousand words_. Participants stressed the value of visual instructions. Videos and images help home cooks match their actions intuitively, making recipes more accessible.
+    _Visual aids matter:_ Participants stressed the value of visual instructions. Videos and images help home cooks match their actions intuitively, making recipes more accessible.
 
   </ListItem>
   <ListItem label="2">
-    _Keep design interventions minimal_ Distractions from recipe lookups can be mentally taxing. Lightweight solutions help users stay focused on cooking.
+    _Keep design interventions minimal:_ distractions from recipe lookups can be mentally taxing. Lightweight solutions help users stay focused on cooking.
 
   </ListItem>
   <ListItem label="3">
-    _Participants move around the kitchen_, Users move around the kitchen, often without direct sightlines to digital devices, emphasizing the need for accessible, hands-free solutions.
+    _Participants move around the kitchen:_ Users move around the kitchen, often without direct sightlines to digital devices, emphasizing the need for accessible, hands-free solutions.
 
   </ListItem>
 </List>
@@ -196,9 +209,9 @@ These insights guided our exploration. After generating ideas, we pursued a mult
 
 ## Design + engineering
 
-Leveraging iOS TrueDepth Camera, we can accurately detect gesture distances and prevent unwanted triggers effectively.
+Leveraging iOS TrueDepth Camera, we can accurately detect gesture distances and prevent unwanted triggers.
 
-To design around this sensor, I developed a technique to process depth sensor data, capturing and smoothing user movements using Swift. The resulted platform allowed quick testing of various gesture approaches.
+To design with this sensor, I developed a technique to process depth sensor data, capturing and smoothing user movements using Swift. The resulted platform allowed quick testing of various gesture approaches.
 
 <LayoutFull extraMargin>
   <Video
@@ -241,11 +254,11 @@ We then proceed with the following gesture principles with our research.
   </ListItem>
 </List>
 
-To bring focus on exploration, we have decided to tackle the more complex air-gesture scrubbing first.
+To refocus our exploration, we have decided to tackle the more complex air-gesture scrubbing first.
 
-## Attempt 1: wave to scrub
+### Attempt 1: wave to scrub
 
-That lead us to experimenting with air gesture based wave to scrub” interaction. It make sense if we think about translating the 2d haptic scroll experience to a 3d air-gesture space.
+That lead us to experimenting with air gesture based wave to scrub” interaction.
 
 <LayoutMainContent grid="1/3" extraMargin>
   <Video
@@ -265,13 +278,13 @@ While intuitive, the scrubbing system suffer a few drawbacks that makes it parti
   </ListItem>
   <ListItem label="2">
     This interaction also introduces a very awkward in-between-swipe state of
-    users have to lift their hands to restart swiping.
+    users have to lift their hands off the detection zone to restart swiping.
   </ListItem>
 </List>
 
-## Attempt 2: Dial to scrub
+### Attempt 2: Dial to scrub
 
-This iteration used a circular dialing motion for video scrubbing. It resolved the in-between-swipe issue by making the scrubbing an infinite loop. The gesture also referenced knob-turning to align with the user’s existing mental model.
+This iteration used a circular scrubbing motion, mimicking knob-turning. The circular motion solves the in-between-swipe motion.
 
 <LayoutMainContent grid="1/3" extraMargin>
   <Video
@@ -285,7 +298,7 @@ This iteration used a circular dialing motion for video scrubbing. It resolved t
 Yet, aside from unresolved rejection on enter/exit motion, it also suffer from ergonomic issues. Users find it physically fatiguing to use
 this gesture for a prolonged period of time because of the fine motor control involved.
 
-## 3rd times the charm: Lean to scrub
+### 3rd times the charm: Lean to scrub
 
 We were initially stuck, but then we recalled an interesting behavior from our study: a participant navigated quickly through a YouTube video by holding down the arrow keys. This observation inspired us to explore the concept of using “leaning” to capture a user’s intent when scrubbing through a video.
 
@@ -302,17 +315,17 @@ This was ultimately chosen to be included in the final solution because:
 
 <List>
   <ListItem label="1">
-    It is not physically taxing for the user, as they only need to maintain a
-    static position. This requires less motor effort compared to the constant
-    movement needed for other solution.
+    It is easy to perform for the user, as they only need to maintain a static
+    position. This requires less motor effort compared to the constant movement
+    needed for other solution.
   </ListItem>
   <ListItem label="2">
-    It still provides continuous feedback with subtle hints that acknowledge the
-    user’s input.
-  </ListItem>
-  <ListItem label="3">
     With the additional hold state, it seemlessly incorporate the play, pause
     state into the design.
+  </ListItem>
+  <ListItem label="3">
+    It still provides continuous feedback with subtle hints that acknowledge the
+    user’s input.
   </ListItem>
 </List>
 
