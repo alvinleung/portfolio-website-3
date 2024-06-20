@@ -19,6 +19,7 @@ import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 import { useWindowDimension } from "../../hooks/useWindowDimension";
 import ReactiveTapArea from "../ReactiveTapArea/ReactiveTapArea";
 import { AnimationConfig } from "../AnimationConfig";
+import { useMotionValueSwitch } from "../../hooks/useMotionValueSwitch";
 
 type Props = {
   projectStyle: ProjectStyle;
@@ -29,6 +30,7 @@ type Props = {
   firstRowHeight: number;
   topOffset: number;
   isFirstItem: boolean;
+  shouldHideTitles: boolean;
 };
 
 const INACTIVE_BG_COLOR = "rgb(37, 55, 52)";
@@ -44,6 +46,7 @@ const ProjectGridItem = ({
   topOffset,
   isWide,
   isFirstItem,
+  shouldHideTitles,
 }: Props) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -204,20 +207,32 @@ const ProjectGridItem = ({
               )}
             </motion.div>
             <motion.div
-              className="absolute top-0 left-0 right-0 mx-4 my-3 text-l tracking-tight grid grid-cols-2"
-              initial={{
-                opacity: 0,
-              }}
-              animate={{
-                opacity: !isLoading ? 1 : 0,
-              }}
+              className="absolute top-0 left-0 right-0 mx-4 my-3 text-sm lg:text-base tracking-tight grid grid-cols-2"
               style={{
                 color: projectStyle.getTextColor(),
                 opacity: headingOpacity,
               }}
             >
-              <div className="mb-1 leading-tight">{projectInfo.title}</div>
-              <div className="opacity-60 leading-tight">
+              <motion.div
+                initial={{
+                  opacity: 0,
+                }}
+                animate={{
+                  opacity: !shouldHideTitles && !isLoading ? 1 : 0,
+                }}
+                className="mb-1 leading-tight"
+              >
+                {projectInfo.title}
+              </motion.div>
+              <motion.div
+                initial={{
+                  opacity: 0,
+                }}
+                animate={{
+                  opacity: !shouldHideTitles && !isLoading ? 1 : 0,
+                }}
+                className="opacity-60 leading-tight"
+              >
                 {!isHovering
                   ? projectInfo.tags?.map((tag, index) => (
                       <div className="" key={index}>
@@ -225,7 +240,7 @@ const ProjectGridItem = ({
                       </div>
                     ))
                   : projectInfo.description}
-              </div>
+              </motion.div>
             </motion.div>
           </Link>
         </motion.div>

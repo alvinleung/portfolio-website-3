@@ -18,9 +18,12 @@ import { useWindowDimension } from "../../hooks/useWindowDimension";
 import { useBoundingBox } from "../../hooks/useBoundingClientRect";
 import { motion } from "framer-motion";
 import { AnimationConfig } from "../AnimationConfig";
+import { useMotionValueSwitch } from "../../hooks/useMotionValueSwitch";
+import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 
 type Props = {
   projects: any[];
+  heroOffset: number;
 };
 
 export enum GridLayoutState {
@@ -29,7 +32,7 @@ export enum GridLayoutState {
   sm = "small",
 }
 
-const ProjectGrid = ({ projects }: Props) => {
+const ProjectGrid = ({ projects, heroOffset }: Props) => {
   const currentBreakpoint = useAllBreakpoints();
   const shouldEmphasiseFirst = currentBreakpoint > breakpoints.md;
   const rowOffset = shouldEmphasiseFirst ? 1 : 0;
@@ -65,8 +68,8 @@ const ProjectGrid = ({ projects }: Props) => {
   }, [windowDimension.width, windowDimension.height, currentBreakpoint]);
 
   useLayoutEffect(() => {
-    setTopOffset(currentBreakpoint < breakpoints.lg ? 336 : 0);
-  }, [currentBreakpoint]);
+    setTopOffset(currentBreakpoint < breakpoints.lg ? heroOffset + 16 : 0);
+  }, [currentBreakpoint, heroOffset]);
 
   const filteredProjectList = useMemo(() => {
     return projects.filter((project) => {
@@ -75,6 +78,11 @@ const ProjectGrid = ({ projects }: Props) => {
       return !info.hidden;
     });
   }, [projects]);
+
+  const { scrollY } = useContainerScroll();
+  const isScrolled = useMotionValueSwitch(scrollY, (latest) => latest > 150);
+  const shouldHideTitlesOnMobile =
+    !isScrolled && currentBreakpoint < breakpoints.lg;
 
   return (
     <div className="flex gap-4">
@@ -112,6 +120,7 @@ const ProjectGrid = ({ projects }: Props) => {
               isWide={shouldEmphasiseFirst && index === 0}
               isFirstItem={index === 0}
               key={index}
+              shouldHideTitles={shouldHideTitlesOnMobile}
             />
           );
         })}

@@ -13,6 +13,8 @@ type Props = {
   projects: any[];
 };
 
+const HERO_OFFSET = 500;
+
 const HomeLayout = ({ projects }: Props) => {
   const windowDimension = useWindowDimension();
   const [transformOrigin, setTransformOrigin] = useState("center center");
@@ -60,7 +62,7 @@ const HomeLayout = ({ projects }: Props) => {
     >
       <div className="lg:col-start-3">
         <motion.div
-          className="sticky top-0 py-4 flex flex-col h-80 lg:h-screen"
+          className={`sticky top-0 py-4 flex flex-col h-[500px] lg:h-screen`}
           initial={{ opacity: 0, scale: 0.97 }}
           style={{
             transformOrigin: "center left",
@@ -135,7 +137,7 @@ const HomeLayout = ({ projects }: Props) => {
         </motion.div>
       </div>
       <div className="lg:col-span-2  mb-4">
-        <ProjectGrid projects={projects} />
+        <ProjectGrid heroOffset={HERO_OFFSET} projects={projects} />
       </div>
     </motion.div>
   );
