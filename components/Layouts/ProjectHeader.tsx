@@ -24,6 +24,7 @@ const ProjectHeader = ({ projectInfo }: Props) => {
           alt={""}
           width={144}
           height={144}
+          priority={true}
         />
       }
       <div className="col-start-3 lg:col-start-2">
