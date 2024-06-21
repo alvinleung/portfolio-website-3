@@ -77,6 +77,7 @@ const ProjectGrid = ({ projects, heroOffset }: Props) => {
       return !info.hidden;
     });
   }, [projects]);
+  console.log("render ===============");
 
   const { scrollY } = useContainerScroll();
   const isScrolled = useMotionValueSwitch(scrollY, (latest) => latest > 150);

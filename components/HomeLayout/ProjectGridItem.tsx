@@ -122,6 +122,8 @@ const ProjectGridItem = ({
       vid.removeEventListener("loadedmetadata", handleVideoLoaded);
     };
   }, [videoRef]);
+  console.log(`boxHeight`, boxHeight);
+  console.log(`cardHeight`, cardHeight);
 
   // video loading mechanism
   useEffect(() => {
@@ -139,7 +141,6 @@ const ProjectGridItem = ({
       videoRef.current.pause();
     }
   }, [isHovering, isFirstItem]);
-  console.log(cardHeight);
   return (
     <motion.div
       className="sticky top-4 overflow-hidden"
