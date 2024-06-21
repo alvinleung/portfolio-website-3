@@ -44,25 +44,25 @@ const ProjectGrid = ({ projects, heroOffset }: Props) => {
   const itemSizes = useMemo(() => {
     if (currentBreakpoint >= breakpoints["2xl"]) {
       return {
-        firstItem: windowDimension.width * 0.37,
-        normalItem: windowDimension.height * 0.85,
+        normalItem: windowDimension.width * 0.37,
+        firstItem: windowDimension.height * 0.85,
       };
     }
     if (currentBreakpoint >= breakpoints.lg) {
       return {
-        firstItem: windowDimension.width * 0.37,
-        normalItem: windowDimension.height * 0.85,
+        normalItem: windowDimension.width * 0.37,
+        firstItem: windowDimension.height * 0.85,
       };
     }
     if (currentBreakpoint >= breakpoints.md) {
       return {
-        firstItem: windowDimension.width * 0.55,
-        normalItem: windowDimension.height * 0.55,
+        normalItem: windowDimension.width * 0.55,
+        firstItem: windowDimension.height * 0.55,
       };
     }
     return {
-      firstItem: windowDimension.width * 0.9,
       normalItem: windowDimension.width * 0.9,
+      firstItem: windowDimension.width * 0.9,
     };
   }, [currentBreakpoint, windowDimension.height, windowDimension.width]);
 
@@ -82,7 +82,6 @@ const ProjectGrid = ({ projects, heroOffset }: Props) => {
   const isScrolled = useMotionValueSwitch(scrollY, (latest) => latest > 150);
   const shouldHideTitlesOnMobile =
     !isScrolled && currentBreakpoint < breakpoints.lg;
-
   return (
     <div className="flex gap-4">
       <div className="w-7">
