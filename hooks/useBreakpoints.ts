@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useState } from "react";
+import { useMemo, useEffect, useState, useLayoutEffect } from "react";
 import resolveConfig from "tailwindcss/resolveConfig";
 //@ts-ignore
 import tailwindConfig from "../tailwind.config.js";
@@ -57,7 +57,7 @@ export function useAllBreakpoints() {
   const [currentBreakpoint, setCurrentBreakpoint] = useState(0);
   const allBreakpoints = useMemo(() => Object.values(breakpoints), []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let newBreakpoint = 0;
     for (let i = 0; i < allBreakpoints.length; i++) {
       if (allBreakpoints[i] < windowDimension.width) {

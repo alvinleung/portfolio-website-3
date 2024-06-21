@@ -122,8 +122,6 @@ const ProjectGridItem = ({
       vid.removeEventListener("loadedmetadata", handleVideoLoaded);
     };
   }, [videoRef]);
-  console.log(`boxHeight`, boxHeight.get());
-  console.log(`cardHeight`, cardHeight);
 
   // video loading mechanism
   useEffect(() => {
@@ -159,7 +157,7 @@ const ProjectGridItem = ({
             backgroundColor: INACTIVE_BG_COLOR,
           }}
         >
-          {/* <Link
+          <Link
             href={`projects/${projectInfo.slug}`}
             scroll={false}
             onMouseEnter={() => setIsHovering(true)}
@@ -242,7 +240,7 @@ const ProjectGridItem = ({
                   : projectInfo.description}
               </motion.div>
             </motion.div>
-          </Link> */}
+          </Link>
         </motion.div>
       </ReactiveTapArea>
     </motion.div>
