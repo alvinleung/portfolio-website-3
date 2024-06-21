@@ -40,35 +40,34 @@ const ProjectGrid = ({ projects, heroOffset }: Props) => {
 
   const windowDimension = useWindowDimension();
   const gridBeginRef = useRef() as MutableRefObject<HTMLDivElement>;
-  const [topOffset, setTopOffset] = useState(0);
-  const [gridItemHeight, setGridItemHeight] = useState(550);
-  const [firstItemHeight, setFirstItemHeight] = useState(550);
 
-  useLayoutEffect(() => {
+  const itemSizes = useMemo(() => {
     if (currentBreakpoint >= breakpoints["2xl"]) {
-      setGridItemHeight(windowDimension.width * 0.37);
-      setFirstItemHeight(windowDimension.height * 0.85);
-      return;
+      return {
+        firstItem: windowDimension.width * 0.37,
+        normalItem: windowDimension.height * 0.85,
+      };
     }
-
     if (currentBreakpoint >= breakpoints.lg) {
-      setGridItemHeight(windowDimension.width * 0.37);
-      // setGridItemHeight(windowDimension.width * 0.45);
-      setFirstItemHeight(windowDimension.height * 0.85);
-      return;
+      return {
+        firstItem: windowDimension.width * 0.37,
+        normalItem: windowDimension.height * 0.85,
+      };
     }
     if (currentBreakpoint >= breakpoints.md) {
-      setGridItemHeight(windowDimension.width * 0.55);
-      setFirstItemHeight(windowDimension.width * 0.55);
-      return;
+      return {
+        firstItem: windowDimension.width * 0.55,
+        normalItem: windowDimension.height * 0.55,
+      };
     }
+    return {
+      firstItem: windowDimension.width * 0.9,
+      normalItem: windowDimension.width * 0.9,
+    };
+  }, [currentBreakpoint, windowDimension.height, windowDimension.width]);
 
-    setFirstItemHeight(windowDimension.width * 0.9);
-    setGridItemHeight(windowDimension.width * 0.9);
-  }, [windowDimension.width, windowDimension.height, currentBreakpoint]);
-
-  useLayoutEffect(() => {
-    setTopOffset(currentBreakpoint < breakpoints.lg ? heroOffset + 16 : 0);
+  const topOffset = useMemo(() => {
+    return currentBreakpoint < breakpoints.lg ? heroOffset + 16 : 0;
   }, [currentBreakpoint, heroOffset]);
 
   const filteredProjectList = useMemo(() => {
@@ -111,9 +110,11 @@ const ProjectGrid = ({ projects, heroOffset }: Props) => {
 
           return (
             <ProjectGridItem
-              cardHeight={index === 0 ? firstItemHeight : gridItemHeight}
+              cardHeight={
+                index === 0 ? itemSizes.firstItem : itemSizes.normalItem
+              }
               projectRow={currentRow}
-              firstRowHeight={firstItemHeight}
+              firstRowHeight={itemSizes.firstItem}
               projectStyle={projectStyle}
               projectInfo={projectInfo}
               topOffset={topOffset}

@@ -60,9 +60,24 @@ const ProjectGridItem = ({
   const { scrollY } = useContainerScroll();
   const containerRef = useRef() as MutableRefObject<HTMLDivElement>;
 
-  const [beginShrinkPos, setBeginShrinkPos] = useState(100);
-  const [endShrinkPos, setEndShrinkPos] = useState(200);
-  const [boxContainerHeight, setBoxContainerHeight] = useState(1000);
+  const projectGridGap = 16 / 2;
+  const marginTop = 16;
+  const firstRow = useMemo(
+    () => firstRowHeight + projectGridGap,
+    [firstRowHeight, projectGridGap]
+  );
+  const beginShrinkPos = useMemo(() => {
+    return (
+      firstRow +
+      (projectRow - 1) * (cardHeight + projectGridGap) -
+      marginTop +
+      topOffset
+    );
+  }, [cardHeight, firstRow, projectGridGap, projectRow, topOffset]);
+  const endShrinkPos = useMemo(() => {
+    return beginShrinkPos + cardHeight;
+  }, [beginShrinkPos, cardHeight]);
+  const boxContainerHeight = useMemo(() => cardHeight, [cardHeight]);
   const boxTransitionOutProgress = useTransform(
     scrollY,
     [beginShrinkPos, endShrinkPos],
@@ -81,22 +96,6 @@ const ProjectGridItem = ({
     [0.2, 0.1],
     [1, 0]
   );
-
-  useLayoutEffect(() => {
-    const projectGridGap = 16 / 2;
-    const marginTop = 16;
-
-    const firstRow = firstRowHeight + projectGridGap;
-    const beginShrinkPos =
-      firstRow +
-      (projectRow - 1) * (cardHeight + projectGridGap) -
-      marginTop +
-      topOffset;
-
-    setBeginShrinkPos(beginShrinkPos);
-    setEndShrinkPos(beginShrinkPos + cardHeight);
-    setBoxContainerHeight(cardHeight);
-  }, [projectRow, cardHeight, topOffset, firstRowHeight]);
 
   const videoRef = useRef() as MutableRefObject<HTMLVideoElement>;
 
