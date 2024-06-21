@@ -7,9 +7,10 @@ type Props = {
   width: number;
   height: number;
   caption?: string;
+  priority?: boolean;
 };
 
-const FullImage = ({ src, width, height, caption }: Props) => {
+const FullImage = ({ src, width, height, caption, priority }: Props) => {
   return (
     <div className="min-h-[70vh] col-start-1 col-span-full relative z-10">
       <motion.div
@@ -19,6 +20,7 @@ const FullImage = ({ src, width, height, caption }: Props) => {
       >
         <NextImage
           className="block w-[100vw] min-h-[70vh] object-cover"
+          priority={priority}
           src={src}
           width={width}
           height={height}
