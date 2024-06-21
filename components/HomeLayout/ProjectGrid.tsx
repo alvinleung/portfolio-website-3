@@ -57,7 +57,7 @@ const ProjectGrid = ({ projects, heroOffset }: Props) => {
     if (currentBreakpoint >= breakpoints.md) {
       return {
         normalItem: windowDimension.width * 0.55,
-        firstItem: windowDimension.height * 0.55,
+        firstItem: windowDimension.width * 0.55,
       };
     }
     return {
