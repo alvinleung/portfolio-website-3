@@ -150,101 +150,101 @@ const ProjectGridItem = ({
         height: cardHeight,
       }}
     >
-      <ReactiveTapArea>
-        <motion.div
-          ref={containerRef}
-          className="relative h-[50vw] overflow-hidden rounded-xl"
-          style={{
-            height: boxHeight,
-            backgroundColor: INACTIVE_BG_COLOR,
-          }}
+      {/* <ReactiveTapArea> */}
+      <motion.div
+        ref={containerRef}
+        className="relative h-[50vw] overflow-hidden rounded-xl"
+        style={{
+          height: boxHeight,
+          backgroundColor: INACTIVE_BG_COLOR,
+        }}
+      >
+        <Link
+          href={`projects/${projectInfo.slug}`}
+          scroll={false}
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
         >
-          <Link
-            href={`projects/${projectInfo.slug}`}
-            scroll={false}
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => setIsHovering(false)}
+          <motion.div
+            initial={{ opacity: 0 }}
+            style={{
+              y: parallaxY,
+            }}
+            animate={{
+              opacity: !isLoading ? 1 : 0,
+            }}
+            transition={{
+              duration: AnimationConfig.NORMAL,
+              ease: AnimationConfig.EASING_DRAMATIC,
+            }}
+          >
+            {!isFirstItem && (
+              <Image
+                src={getProjectCover(projectInfo.slug)}
+                width={582}
+                height={767}
+                className="w-full "
+                alt={""}
+                onLoad={() => setIsImageLoaded(true)}
+              />
+            )}
+
+            {projectInfo.previewVideo !== undefined && (
+              <motion.video
+                disablePictureInPicture
+                style={{
+                  opacity: isHovering || isFirstItem ? 1 : 0,
+                  height: cardHeight,
+                }}
+                ref={videoRef}
+                src={projectInfo.previewVideo}
+                preload="metadata"
+                autoPlay
+                muted
+                loop
+                className="w-full object-cover object-center absolute top-0 left-0 right-0"
+              />
+            )}
+          </motion.div>
+          <motion.div
+            className="absolute top-0 left-0 right-0 mx-4 my-3 text-sm lg:text-base tracking-tight grid grid-cols-2"
+            style={{
+              color: projectStyle.getTextColor(),
+              opacity: headingOpacity,
+            }}
           >
             <motion.div
-              initial={{ opacity: 0 }}
-              style={{
-                y: parallaxY,
+              initial={{
+                opacity: 0,
               }}
               animate={{
-                opacity: !isLoading ? 1 : 0,
+                opacity: !shouldHideTitles && !isLoading ? 1 : 0,
               }}
-              transition={{
-                duration: AnimationConfig.NORMAL,
-                ease: AnimationConfig.EASING_DRAMATIC,
-              }}
+              className="mb-1 leading-tight"
             >
-              {!isFirstItem && (
-                <Image
-                  src={getProjectCover(projectInfo.slug)}
-                  width={582}
-                  height={767}
-                  className="w-full "
-                  alt={""}
-                  onLoad={() => setIsImageLoaded(true)}
-                />
-              )}
-
-              {projectInfo.previewVideo !== undefined && (
-                <motion.video
-                  disablePictureInPicture
-                  style={{
-                    opacity: isHovering || isFirstItem ? 1 : 0,
-                    height: cardHeight,
-                  }}
-                  ref={videoRef}
-                  src={projectInfo.previewVideo}
-                  preload="metadata"
-                  autoPlay
-                  muted
-                  loop
-                  className="w-full object-cover object-center absolute top-0 left-0 right-0"
-                />
-              )}
+              {projectInfo.title}
             </motion.div>
             <motion.div
-              className="absolute top-0 left-0 right-0 mx-4 my-3 text-sm lg:text-base tracking-tight grid grid-cols-2"
-              style={{
-                color: projectStyle.getTextColor(),
-                opacity: headingOpacity,
+              initial={{
+                opacity: 0,
               }}
+              animate={{
+                opacity: !shouldHideTitles && !isLoading ? 1 : 0,
+              }}
+              className="opacity-60 leading-tight"
             >
-              <motion.div
-                initial={{
-                  opacity: 0,
-                }}
-                animate={{
-                  opacity: !shouldHideTitles && !isLoading ? 1 : 0,
-                }}
-                className="mb-1 leading-tight"
-              >
-                {projectInfo.title}
-              </motion.div>
-              <motion.div
-                initial={{
-                  opacity: 0,
-                }}
-                animate={{
-                  opacity: !shouldHideTitles && !isLoading ? 1 : 0,
-                }}
-                className="opacity-60 leading-tight"
-              >
-                {!isHovering
-                  ? projectInfo.tags?.map((tag, index) => (
-                      <div className="" key={index}>
-                        {tag}
-                      </div>
-                    ))
-                  : projectInfo.description}
-              </motion.div>
+              {!isHovering
+                ? projectInfo.tags?.map((tag, index) => (
+                    <div className="" key={index}>
+                      {tag}
+                    </div>
+                  ))
+                : projectInfo.description}
             </motion.div>
-          </Link>
-        </motion.div>
-      </ReactiveTapArea>
+          </motion.div>
+        </Link>
+      </motion.div>
+      {/* </ReactiveTapArea> */}
     </motion.div>
   );
 };
