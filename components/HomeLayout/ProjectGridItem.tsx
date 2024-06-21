@@ -122,7 +122,7 @@ const ProjectGridItem = ({
       vid.removeEventListener("loadedmetadata", handleVideoLoaded);
     };
   }, [videoRef]);
-  console.log(`boxHeight`, boxHeight);
+  console.log(`boxHeight`, boxHeight.get());
   console.log(`cardHeight`, cardHeight);
 
   // video loading mechanism
