@@ -177,7 +177,7 @@ const ProjectGridItem = ({
                 ease: AnimationConfig.EASING_DRAMATIC,
               }}
             >
-              {!isFirstItem && (
+              {/* {!isFirstItem && (
                 <Image
                   src={getProjectCover(projectInfo.slug)}
                   width={582}
@@ -186,9 +186,9 @@ const ProjectGridItem = ({
                   alt={""}
                   onLoad={() => setIsImageLoaded(true)}
                 />
-              )}
+              )} */}
 
-              {projectInfo.previewVideo !== undefined && (
+              {/* {projectInfo.previewVideo !== undefined && (
                 <motion.video
                   disablePictureInPicture
                   style={{
@@ -203,7 +203,7 @@ const ProjectGridItem = ({
                   loop
                   className="w-full object-cover object-center absolute top-0 left-0 right-0"
                 />
-              )}
+              )} */}
             </motion.div>
             <motion.div
               className="absolute top-0 left-0 right-0 mx-4 my-3 text-sm lg:text-base tracking-tight grid grid-cols-2"
