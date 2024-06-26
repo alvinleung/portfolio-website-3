@@ -156,18 +156,39 @@ const Video = ({
   useEffect(() => {
     if (seekOnScroll || !canScrub) return;
 
+    let prevTouchX = 0;
+    let isUsingTouch = false;
     let isDragging = false;
 
-    const handleDragStart = (e: PointerEvent) => {
+    const handleTouchStart = (e: TouchEvent) => {
+      isUsingTouch = true;
+      prevTouchX = e.touches[0].clientX;
+      handleDragStart();
+    };
+    const handleTouchMove = (e: TouchEvent) => {
+      const offset = e.touches[0].clientX - prevTouchX;
+      updateScrub(offset * 0.5);
+    };
+    const handleTouchEnd = (e: TouchEvent) => {
+      isUsingTouch = false;
+      handleDragEnd();
+    };
+
+    const handleDragStart = () => {
       isDragging = true;
       playerRef.current.pause();
       setIsScrubbing(true);
     };
     const handleDragMove = (e: PointerEvent) => {
+      if (isUsingTouch) return;
       if (!isDragging || !playerRef.current || !playerRef.current.duration)
         return;
 
       const offset = e.movementX;
+      updateScrub(offset);
+    };
+
+    const updateScrub = (offset: number) => {
       const newTime = playerRef.current.currentTime + offset / 100;
       // const overflowTime = newTime - playerRef.current.duration;
 
@@ -193,12 +214,20 @@ const Video = ({
       setIsScrubbing(false);
     };
 
+    playerRef.current.addEventListener("touchstart", handleTouchStart);
+    window.addEventListener("touchend", handleTouchEnd);
+    window.addEventListener("touchmove", handleTouchMove);
+
     playerRef.current.addEventListener("pointerdown", handleDragStart);
     window.addEventListener("pointermove", handleDragMove);
     playerRef.current.addEventListener("pointerup", handleDragEnd);
 
     return () => {
       if (!playerRef.current) return;
+
+      playerRef.current.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
+      window.removeEventListener("touchmove", handleTouchMove);
 
       playerRef.current.removeEventListener("pointerdown", handleDragStart);
       window.removeEventListener("pointermove", handleDragMove);
@@ -237,7 +266,7 @@ const Video = ({
         onMouseLeave={() => canScrub && clearHoveringVideo()}
         className={`w-full ${
           fillHeight ? "md:h-full" : ""
-        } md:object-cover rounded-xl`}
+        } md:object-cover rounded-xl touch-pan-y`}
         ref={playerRef}
         style={{
           visibility: isInView ? "visible" : "hidden",
