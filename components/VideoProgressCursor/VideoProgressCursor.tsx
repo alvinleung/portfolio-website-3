@@ -1,21 +1,14 @@
 import {
-  AnimatePresence,
-  MotionValue,
   motion,
   useAnimation,
-  useScroll,
 } from "framer-motion";
 import React, {
-  createElement,
   MutableRefObject,
   useEffect,
   useMemo,
   useRef,
   useState,
 } from "react";
-import ReactDOM from "react-dom";
-import { useBoundingBox } from "../../hooks/useBoundingClientRect";
-import { useWindowDimension } from "../../hooks/useWindowDimension";
 import { AnimationConfig } from "../AnimationConfig";
 import ClientOnlyPortal from "../ClientOnlyPortal/ClientOnlyPortal";
 import { ProgressRing } from "./ProgressRing";
@@ -92,7 +85,7 @@ const VideoProgressCursor = ({
     if (isActive) {
       anim.start({
         opacity: 1,
-        // scale: 1,
+        // scale: .7,
         transition: {
           duration: AnimationConfig.NORMAL,
           ease: AnimationConfig.EASING,
@@ -105,7 +98,7 @@ const VideoProgressCursor = ({
     clearTimeout(debounceHideTimer.current);
     anim.start({
       opacity: 0,
-      // scale: 0.9,
+      // scale: .7,
       // x: vidBounds.left + vidBounds.width / 2,
       // y: vidBounds.top + vidBounds.height / 2,
       transition: {
@@ -119,7 +112,7 @@ const VideoProgressCursor = ({
     vidBounds: { left: number; top: number; right: number; bottom: number },
     positionX: number,
     positionY: number,
-    edgeMargin = RADIUS + 12
+    edgeMargin = RADIUS + 4
   ) => {
     return {
       x: clamp(
@@ -222,12 +215,14 @@ const VideoProgressCursor = ({
     };
   }, [isActive]);
 
+  const INITIAL_SCALE = .7;
+  const EXPANDED_SCALE = 1;
   useEffect(() => {
     if (isScrubbing) {
       anim.start({
         // x: vidBounds.left + vidBounds.width / 2 - RADIUS,
         // y: vidBounds.top + vidBounds.height / 2 - RADIUS,
-        scale: 1,
+        scale: EXPANDED_SCALE,
         transition: {
           duration: AnimationConfig.VERY_FAST,
           ease: AnimationConfig.EASING,
@@ -244,7 +239,7 @@ const VideoProgressCursor = ({
     anim.start({
       // x: newPos.x - RADIUS,
       // y: newPos.y - RADIUS,
-      scale: 1.1,
+      scale: INITIAL_SCALE,
       transition: {
         duration: AnimationConfig.VERY_FAST,
         ease: AnimationConfig.EASING,
@@ -289,8 +284,9 @@ const VideoProgressCursor = ({
     <ClientOnlyPortal selector="body">
       <motion.div
         className="fixed left-0 z-[100000] pointer-events-none opacity-0 backdrop-blur rounded-full "
-        style={{
+        initial={{
           backgroundColor: "rgba(100,100,100,.4)",
+          scale: INITIAL_SCALE
         }}
         animate={anim}
       >
@@ -305,6 +301,7 @@ const VideoProgressCursor = ({
             progress={progress}
             strokeColor={fill}
             radius={RADIUS}
+            stroke={isScrubbing ? 3 : 4}
           />
         </div>
         {/* <motion.div

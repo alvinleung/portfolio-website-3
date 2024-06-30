@@ -1,22 +1,17 @@
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import React, {
   MutableRefObject,
-  SetStateAction,
   createContext,
   useContext,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
 import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 import { Figure } from "./FigureWrapper";
 import VideoProgressCursor from "../VideoProgressCursor/VideoProgressCursor";
-import { ProgressRing } from "../VideoProgressCursor/ProgressRing";
-import ReactiveTapArea from "../ReactiveTapArea/ReactiveTapArea";
 import { useWindowDimension } from "../../hooks/useWindowDimension";
 import { clamp } from "../../lib/clamp";
-import useOverflowResponse from "../../lib/useOverflowResponse";
 
 type HoveringVideoTarget = HTMLVideoElement | null;
 type VideoContextProps = {
@@ -26,8 +21,8 @@ type VideoContextProps = {
 };
 export const VideoHoverContext = createContext<VideoContextProps>({
   hoveringVideo: null,
-  setHoveringVideo: () => {},
-  clearHoveringVideo: () => {},
+  setHoveringVideo: () => { },
+  clearHoveringVideo: () => { },
 });
 export const VideoHoverContextProvider = ({
   children,
@@ -264,9 +259,8 @@ const Video = ({
       <motion.video
         onMouseEnter={() => canScrub && setHoveringVideo(playerRef.current)}
         onMouseLeave={() => canScrub && clearHoveringVideo()}
-        className={`w-full ${
-          fillHeight ? "md:h-full" : ""
-        } md:object-cover rounded-xl touch-pan-y`}
+        className={`w-full ${fillHeight ? "md:h-full" : ""
+          } md:object-cover rounded-xl touch-pan-y`}
         ref={playerRef}
         style={{
           visibility: isInView ? "visible" : "hidden",
