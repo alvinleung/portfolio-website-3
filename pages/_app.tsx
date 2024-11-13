@@ -43,40 +43,40 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     };
   }, [router.events]);
 
-  const [scrollPercentages, setScrollPercentages] = useState(new Set());
+  // const [scrollPercentages, setScrollPercentages] = useState(new Set());
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      const scrollPercentage = Math.round((scrollTop / docHeight) * 100);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const scrollTop = window.scrollY;
+  //     const docHeight =
+  //       document.documentElement.scrollHeight - window.innerHeight;
+  //     const scrollPercentage = Math.round((scrollTop / docHeight) * 100);
 
-      const percentages = [25, 50, 75, 100];
+  //     const percentages = [25, 50, 75, 100];
 
-      percentages.forEach((percentage) => {
-        if (
-          scrollPercentage >= percentage &&
-          !scrollPercentages.has(percentage)
-        ) {
-          setScrollPercentages((prev) => new Set(prev).add(percentage));
+  //     percentages.forEach((percentage) => {
+  //       if (
+  //         scrollPercentage >= percentage &&
+  //         !scrollPercentages.has(percentage)
+  //       ) {
+  //         setScrollPercentages((prev) => new Set(prev).add(percentage));
 
-          ReactGA.event({
-            category: "Scroll",
-            action: "Scrolled",
-            label: `Scrolled ${percentage}%`,
-            value: percentage,
-          });
-        }
-      });
-    };
+  //         ReactGA.event({
+  //           category: "Scroll",
+  //           action: "Scrolled",
+  //           label: `Scrolled ${percentage}%`,
+  //           value: percentage,
+  //         });
+  //       }
+  //     });
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
+  //   window.addEventListener("scroll", handleScroll);
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [scrollPercentages]);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, [scrollPercentages]);
 
   return (
     <>
