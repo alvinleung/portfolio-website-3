@@ -24,7 +24,6 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   const isRouteHome = router.asPath === "/";
   const isAllImagesLoaded = useImagePreload(IMAGE_PRELOAD_LIST);
 
-
   useEffect(() => {
     initGA();
     // `routeChangeComplete` won't run for the first page load unless the query string is
@@ -46,35 +45,38 @@ function MyApp({ Component, pageProps, router }: AppProps) {
 
   const [scrollPercentages, setScrollPercentages] = useState(new Set());
 
-    useEffect(() => {
-      const handleScroll = () => {
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollPercentage = Math.round((scrollTop / docHeight) * 100);
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const docHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercentage = Math.round((scrollTop / docHeight) * 100);
 
-        const percentages = [25, 50, 75, 100];
+      const percentages = [25, 50, 75, 100];
 
-        percentages.forEach(percentage => {
-          if (scrollPercentage >= percentage && !scrollPercentages.has(percentage)) {
-            setScrollPercentages(prev => new Set(prev).add(percentage));
+      percentages.forEach((percentage) => {
+        if (
+          scrollPercentage >= percentage &&
+          !scrollPercentages.has(percentage)
+        ) {
+          setScrollPercentages((prev) => new Set(prev).add(percentage));
 
+          ReactGA.event({
+            category: "Scroll",
+            action: "Scrolled",
+            label: `Scrolled ${percentage}%`,
+            value: percentage,
+          });
+        }
+      });
+    };
 
-            ReactGA.event({
-              category: "Scroll",
-              action: "Scrolled",
-              label: `Scrolled ${percentage}%`,
-              value: percentage
-            });
-          }
-        });
-      };
+    window.addEventListener("scroll", handleScroll);
 
-      window.addEventListener('scroll', handleScroll);
-
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-      };
-    }, [scrollPercentages]);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrollPercentages]);
 
   return (
     <>
@@ -99,16 +101,13 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       </HistoryProvider>
       {/* <!-- Default Statcounter code for portfolio https://alvinn.design --> */}
       <script type="text/javascript">
-      var sc_project=12719687;
-      var sc_invisible=1;
-      var sc_security="ce1e7f94";
+        var sc_project=12719687; var sc_invisible=1; var sc_security="ce1e7f94";
       </script>
-      <script type="text/javascript"
-      src="https://www.statcounter.com/counter/counter.js" async></script>
-      <noscript><div class="statcounter"><a title="Web Analytics"
-      href="https://statcounter.com/" target="_blank"><img class="statcounter"
-      src="https://c.statcounter.com/12719687/0/ce1e7f94/1/" alt="Web Analytics"
-      referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
+      <script
+        type="text/javascript"
+        src="https://www.statcounter.com/counter/counter.js"
+        async
+      ></script>
       {/* <!-- End of Statcounter Code --> */}
     </>
   );
