@@ -14,6 +14,7 @@ const IMAGE_PRELOAD_LIST: string[] = [
   "/_next/image?url=%2Fproject-assets%2Ftedxsfu%2Fintro.jpg&w=3840&q=75",
   "/_next/image?url=%2Fproject-assets%2Fidagio%2Fintro.jpg&w=3840&q=75",
   "/_next/image?url=%2Fproject-assets%2Fkitchen-experiment%2Fintro-scroll2.jpg&w=3840&q=75",
+  "/_next/image?url=%2Fproject-assets%2Fvisual-design-projects%2Fintro.png&w=3840&q=75",
 ];
 
 function MyApp({ Component, pageProps, router }: AppProps) {
