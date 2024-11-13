@@ -1,16 +1,9 @@
-import { useScroll } from "framer-motion";
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
-import { MutableRefObject, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useHomeScrollPosition } from "../components/HomeScrollPositionContext";
-import LandingHero from "../components/Layouts/LandingHero";
-import ProjectGridSection from "../components/Layouts/ProjectGridSection";
-import ProjectGrid from "../components/ProjectGrid/ProjectGrid";
 import { useContainerScroll } from "../components/ScrollContainer/ScrollContainer";
-import useIsFirstRender from "../hooks/useIsFirstRender";
 import { getAllPostSlugs, getPostBySlug } from "../lib/projects";
 import { NextSeo } from "next-seo";
-import debounce from "../lib/debounce";
-import { useBoundingBox } from "../hooks/useBoundingClientRect";
 import HomeLayout from "../components/HomeLayout/HomeLayout";
 
 export const getStaticProps: GetStaticProps = () => {

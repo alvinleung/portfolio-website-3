@@ -26,13 +26,16 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       <Head>
         <meta name="pinterest" content="nopin" />
         {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-B56XYR5WW0"></script>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-B56XYR5WW0"
+        ></script>
         <script>
-          window.dataLayer = window.dataLayer || [];
+          {`window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
 
-          gtag('config', 'G-B56XYR5WW0');
+          gtag('config', 'G-B56XYR5WW0');`}
         </script>
       </Head>
       <HistoryProvider>
