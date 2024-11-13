@@ -12,6 +12,7 @@ export const logPageView = () => {
     hitType: "pageview",
     page:
       window.location.pathname + window.location.search + window.location.hash,
+    title: document.title,
   });
 };
 
