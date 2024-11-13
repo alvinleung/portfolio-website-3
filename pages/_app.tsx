@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import ReactGA from "react-ga4";
 import type { AppProps } from "next/app";
 import { AnimatePresence, motion } from "framer-motion";
 import { WindowDimensionContextProvider } from "../hooks/useWindowDimension";
@@ -8,6 +9,8 @@ import { HomeScrollPositionContextProvider } from "../components/HomeScrollPosit
 import { useImagePreload } from "../hooks/useImagePreload";
 import { HistoryProvider } from "../contexts/History";
 import Head from "next/head";
+import { useEffect, useState } from "react";
+import { initGA, logEvent, logPageView } from "../lib/analytics";
 
 const IMAGE_PRELOAD_LIST: string[] = [
   "/_next/image?url=%2Fproject-assets%2Fwhatif%2Fintro.jpg&w=3840&q=75",
@@ -21,22 +24,62 @@ function MyApp({ Component, pageProps, router }: AppProps) {
   const isRouteHome = router.asPath === "/";
   const isAllImagesLoaded = useImagePreload(IMAGE_PRELOAD_LIST);
 
+
+  useEffect(() => {
+    initGA();
+    // `routeChangeComplete` won't run for the first page load unless the query string is
+    // hydrated later on, so here we log a page view if this is the first render and
+    // there's no query string
+    if (!router.asPath.includes("?")) {
+      logPageView();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    // Listen for page changes after a navigation or when the query changes
+    router.events.on("routeChangeComplete", logPageView);
+    return () => {
+      router.events.off("routeChangeComplete", logPageView);
+    };
+  }, [router.events]);
+
+  const [scrollPercentages, setScrollPercentages] = useState(new Set());
+
+    useEffect(() => {
+      const handleScroll = () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercentage = Math.round((scrollTop / docHeight) * 100);
+
+        const percentages = [25, 50, 75, 100];
+
+        percentages.forEach(percentage => {
+          if (scrollPercentage >= percentage && !scrollPercentages.has(percentage)) {
+            setScrollPercentages(prev => new Set(prev).add(percentage));
+
+
+            ReactGA.event({
+              category: "Scroll",
+              action: "Scrolled",
+              label: `Scrolled ${percentage}%`,
+              value: percentage
+            });
+          }
+        });
+      };
+
+      window.addEventListener('scroll', handleScroll);
+
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, [scrollPercentages]);
+
   return (
     <>
       <Head>
         <meta name="pinterest" content="nopin" />
-        {/* Google tag (gtag.js) */}
-        <script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=G-B56XYR5WW0"
-        ></script>
-        <script>
-          {`window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'G-B56XYR5WW0');`}
-        </script>
       </Head>
       <HistoryProvider>
         <WindowDimensionContextProvider>
