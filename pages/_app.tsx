@@ -101,7 +101,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
       </HistoryProvider>
       {/* <!-- Default Statcounter code for portfolio https://alvinn.design --> */}
       <script type="text/javascript">
-        var sc_project=12719687; var sc_invisible=1; var sc_security="ce1e7f94";
+        {`var sc_project=12719687; var sc_invisible=1; var sc_security="ce1e7f94";`}
       </script>
       <script
         type="text/javascript"
