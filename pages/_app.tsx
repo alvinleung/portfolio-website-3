@@ -100,14 +100,14 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         </WindowDimensionContextProvider>
       </HistoryProvider>
       {/* <!-- Default Statcounter code for portfolio https://alvinn.design --> */}
-      <script type="text/javascript">
+      {/* <script type="text/javascript">
         {`var sc_project=12719687; var sc_invisible=1; var sc_security="ce1e7f94";`}
-      </script>
-      <script
+      </script> */}
+      {/* <script
         type="text/javascript"
         src="https://www.statcounter.com/counter/counter.js"
         async
-      ></script>
+      ></script> */}
       {/* <!-- End of Statcounter Code --> */}
     </>
   );
