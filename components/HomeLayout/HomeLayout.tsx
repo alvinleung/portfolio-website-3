@@ -138,8 +138,6 @@ const HomeLayout = ({ projects }: Props) => {
       </div>
       <div className="lg:col-span-2  mb-4">
         <ProjectGrid heroOffset={HERO_OFFSET} projects={projects} />
-        <h3 className="text-3xl mt-4">What I've been up to</h3>
-        <div></div>
       </div>
     </motion.div>
   );
