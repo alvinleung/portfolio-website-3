@@ -84,14 +84,14 @@ const ProjectGrid = ({ projects, heroOffset }: Props) => {
     !isScrolled && currentBreakpoint < breakpoints.lg;
   return (
     <div className="flex gap-4">
-      <div className="w-7">
-        <motion.div
-          className="sticky top-4"
-          style={{ writingMode: "vertical-rl" }}
-        >
-          Selected Works
-        </motion.div>
-      </div>
+      {/* <div className="w-7"> */}
+      {/*   <motion.div */}
+      {/*     className="sticky top-4" */}
+      {/*     style={{ writingMode: "vertical-rl" }} */}
+      {/*   > */}
+      {/*     Selected Works */}
+      {/*   </motion.div> */}
+      {/* </div> */}
       <div
         className="grid gap-2 w-full"
         ref={gridBeginRef}
