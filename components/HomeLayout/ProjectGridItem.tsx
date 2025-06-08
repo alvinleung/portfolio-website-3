@@ -52,7 +52,7 @@ const ProjectGridItem = ({
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const isLoading = useMemo(
     () => (isFirstItem && !isVideoLoaded) || (!isFirstItem && !isImageLoaded),
-    [isFirstItem, isVideoLoaded, isImageLoaded]
+    [isFirstItem, isVideoLoaded, isImageLoaded],
   );
 
   const [isHovering, setIsHovering] = useState(false);
@@ -64,7 +64,7 @@ const ProjectGridItem = ({
   const marginTop = 16;
   const firstRow = useMemo(
     () => firstRowHeight + projectGridGap,
-    [firstRowHeight, projectGridGap]
+    [firstRowHeight, projectGridGap],
   );
   const beginShrinkPos = useMemo(() => {
     return (
@@ -81,7 +81,7 @@ const ProjectGridItem = ({
   const boxTransitionOutProgress = useTransform(
     scrollY,
     [beginShrinkPos, endShrinkPos],
-    [1, 0]
+    [1, 0],
   );
 
   const boxHeight = useTransform(boxTransitionOutProgress, (val) => {
@@ -94,7 +94,7 @@ const ProjectGridItem = ({
   const headingOpacity = useTransform(
     boxTransitionOutProgress,
     [0.2, 0.1],
-    [1, 0]
+    [1, 0],
   );
 
   const videoRef = useRef() as MutableRefObject<HTMLVideoElement>;
@@ -115,7 +115,7 @@ const ProjectGridItem = ({
     try {
       vid.load();
     } catch (e) {
-      console.error(e);
+      console.warn(e);
     }
 
     return () => {
