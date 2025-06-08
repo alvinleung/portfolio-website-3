@@ -5,6 +5,7 @@ import { useContainerScroll } from "../components/ScrollContainer/ScrollContaine
 import { getAllPostSlugs, getPostBySlug } from "../lib/projects";
 import { NextSeo } from "next-seo";
 import HomeLayout from "../components/HomeLayout/HomeLayout";
+import FeatureFlagConsole from "../components/Debug";
 
 export const getStaticProps: GetStaticProps = () => {
   const allProjectsSlugs = getAllPostSlugs();
@@ -57,7 +58,7 @@ const Home: NextPage = ({
   // }, [scrollY]);
 
   return (
-    <>
+    <FeatureFlagConsole>
       <NextSeo
         title={`Alvin Leung`}
         description={`Alvin Leung is an interaction designer. Informed by business and
@@ -73,7 +74,7 @@ const Home: NextPage = ({
         projects={projects}
       /> */}
       <HomeLayout projects={projects} />
-    </>
+    </FeatureFlagConsole>
   );
 };
 
