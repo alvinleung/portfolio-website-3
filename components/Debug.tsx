@@ -64,7 +64,6 @@ export function useFeatureFlag<T extends readonly string[]>(
   const frozenOptionValueRef = useRef(options.values);
   for (let i = 0; i < options.values.length; i++) {
     if (options.values[i] !== frozenOptionValueRef.current[i]) {
-      console.log("changed!");
       frozenOptionValueRef.current = options.values;
       break;
     }
@@ -107,14 +106,12 @@ class DebugConsole {
   addFlag<T extends readonly string[]>(flag: FeatureFlag<T>) {
     this._interanl_flags.add(flag as unknown as FeatureFlag<readonly string[]>);
     this.refreshReact();
-    console.log("added:", this._interanl_flags);
   }
 
   removeFlag<T extends readonly string[]>(flag: FeatureFlag<T>) {
     this._interanl_flags.delete(
       flag as unknown as FeatureFlag<readonly string[]>,
     );
-    console.log("removed:", flag);
     this.refreshReact();
   }
 }
@@ -145,6 +142,8 @@ const FeatureFlagConsole = ({ children }: React.PropsWithChildren) => {
   const featureListContentRef = useRef<HTMLDivElement>(null);
   const [featureListHeight, setFeatureListHeight] = useState(0);
 
+  const hasFeatureFlags = debugConsole._interanl_flags.size > 0;
+
   useEffect(() => {
     const list = featureListContentRef.current;
     if (!list) return;
@@ -165,17 +164,23 @@ const FeatureFlagConsole = ({ children }: React.PropsWithChildren) => {
 
   const [shouldShowFeatureList, setShouldShowFeatureList] = useState(true);
   useEffect(() => {
+    if (!hasFeatureFlags) {
+      return;
+    }
     const shouldShow = URLState.get("should-show-feature-list") === "true";
     setShouldShowFeatureList(shouldShow);
-  }, []);
+  }, [hasFeatureFlags]);
 
   useEffect(() => {
+    if (!hasFeatureFlags) {
+      return;
+    }
     URLState.set("should-show-feature-list", `${shouldShowFeatureList}`);
-  }, [shouldShowFeatureList]);
+  }, [hasFeatureFlags, shouldShowFeatureList]);
 
   return (
     <DebugConsoleContext.Provider value={debugConsole}>
-      {debugConsole._interanl_flags.size > 0 && (
+      {hasFeatureFlags && (
         <div className="fixed right-4 bottom-4 z-[10000000] max-w-128 rounded-md bg-zinc-900/80 p-1 shadow-md text-sm text-zinc-200 backdrop-blur-2xl">
           <button
             onClick={() => setShouldShowFeatureList((prev) => !prev)}

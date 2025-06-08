@@ -272,40 +272,40 @@ const ProjectView = ({
   const overscrollOffsetY = useTransform(
     overscrollUp.overscrollProgress,
     [0, 1],
-    [0, 120]
+    [0, 120],
   );
   const overscrollScale = useTransform(
     overscrollUp.overscrollProgress,
     [0, 1],
-    [1, 1]
+    [1, 1],
   );
   const overscrollOpacity = useTransform(
     overscrollUp.overscrollProgress,
     [0, 1],
-    [1, 0]
+    [1, 0],
   );
 
   // main body enter
   const overscrollDownY = useTransform(
     overscrollDown.overscrollProgress,
     [0, 1],
-    [0, -100]
+    [0, -100],
   );
   const overscrollDownScale = useTransform(
     overscrollDown.overscrollProgress,
     [0, 1],
-    [1, 0.95]
+    [1, 0.95],
   );
   const overscrollDownOpacity = useTransform(
     overscrollDown.overscrollProgress,
     [0, 1],
-    [1, 0.1]
+    [1, 0.1],
   );
 
   const nextProjectY = useTransform(
     overscrollDown.overscrollProgress,
     [0, 1],
-    [0, -100]
+    [0, -100],
   );
   const { history, back } = useHistory();
 
@@ -323,7 +323,7 @@ const ProjectView = ({
 
     const lastPageCleaned = lastPage.substring(
       "/projects/".length,
-      lastPage.length
+      lastPage.length,
     );
     const titleMap = slugTitleMap.find((item) => item.slug === lastPageCleaned);
 
@@ -339,7 +339,7 @@ const ProjectView = ({
   const scrollUpHintPos = useTransform(
     overscrollUp.overscrollProgress,
     [0, 1],
-    [0, 20]
+    [0, 20],
   );
 
   return (
@@ -431,7 +431,9 @@ const ProjectView = ({
         ref={contentContainerRef}
         className="z-10"
         style={{
-          height: `${shrinkedScale}%`,
+          // this is a very hacking way to make firefox ackonwledge
+          // the post-transformeo html body height
+          height: `${shrinkedScale * Math.random()}%`,
           y: overscrollOffsetY,
           scale: overscrollScale,
           opacity: overscrollOpacity,
