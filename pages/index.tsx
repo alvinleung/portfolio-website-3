@@ -60,10 +60,11 @@ const Home: NextPage = ({
     <>
       <NextSeo
         title={`Alvin Leung`}
-        description={`Alvin Leung is an interaction designer. Informed by business and
-              user needs, he thrives in using his aesthetic sensibility and
-              prototyping wizardry to bring wild concepts from 0 to 1.
-              Currently designing @ Daybreak Studio. Previously @ Dossier Creative`}
+        description={`
+            Alvin is an interaction designer. He thrives in bringing wild
+            concepts from 0 to 1 using his prototyping wizardry and aesthetic
+            sensibility. Currently exploring what's coming next at Amazon's
+            Device Group.`}
       />
       {/* <LandingHero isViewingGrid={isViewingGrid} /> */}
       {/* <div ref={projectRef} /> */}
