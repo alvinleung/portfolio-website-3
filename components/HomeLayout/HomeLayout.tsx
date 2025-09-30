@@ -92,7 +92,7 @@ const HomeLayout = ({ projects }: Props) => {
           >
             Alvin is an interaction designer. He thrives in bringing wild
             concepts from 0 to 1 using his prototyping wizardry and aesthetic
-            sensibility. Currently exploring what's coming next at Amazon's
+            sensibility. Currently exploring what's coming next @ Amazon's
             Device Group.
           </motion.div>
           <motion.div
@@ -107,7 +107,7 @@ const HomeLayout = ({ projects }: Props) => {
               },
             }}
           >
-            Previously designing at Daybreak Studio and Dossier Creative
+            Previously designed at Daybreak Studio and Dossier Creative
           </motion.div>
           <div className="mt-auto">
             <ExternalLink
