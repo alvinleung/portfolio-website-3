@@ -63,8 +63,7 @@ const Home: NextPage = ({
         description={`
             Alvin is an interaction designer. He thrives in bringing wild
             concepts from 0 to 1 using his prototyping wizardry and aesthetic
-            sensibility. Currently exploring what's coming next at Amazon's
-            Device Group.`}
+            sensibility. Building @ Amazon AI Interaction Lab`}
       />
       {/* <LandingHero isViewingGrid={isViewingGrid} /> */}
       {/* <div ref={projectRef} /> */}
