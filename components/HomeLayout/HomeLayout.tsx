@@ -8,6 +8,8 @@ import { useContainerScroll } from "../ScrollContainer/ScrollContainer";
 import { useWindowDimension } from "../../hooks/useWindowDimension";
 import fluidFont from "../../lib/fluidFont";
 import { breakpoints } from "../../hooks/useBreakpoints";
+import { HomeLink } from "./HomeLink";
+import { EmailLink } from "./EmailLink";
 
 type Props = {
   projects: any[];
@@ -79,7 +81,7 @@ const HomeLayout = ({ projects }: Props) => {
         >
           <motion.div
             // className="text-xl sm:text-2xl lg:text-4xl font-light tracking-[-.047em] lg:leading-[1.08em] "
-            className={`text-xl sm:text-2xl 2xl:text-4xl font-light tracking-[-.047em] sm:leading-[1.3em] 2xl:leading-[1.15em]`}
+            className={`text-xl sm:text-2xl 2xl:text-4xl font-light tracking-[-.047em] sm:leading-[1.3em] 2xl:leading-[1.15em] gap-[1em] flex flex-col`}
             initial={{ opacity: 0 }}
             animate={{
               opacity: 1,
@@ -90,11 +92,29 @@ const HomeLayout = ({ projects }: Props) => {
               },
             }}
           >
-            Alvin is an interaction designer. He thrives in bringing wild
-            concepts from 0 to 1 using his prototyping wizardry and aesthetic
-            sensibility. Building @ Amazon AI Interaction Lab
+            <p>Alvin Leung is an interaction desinger.</p>
+            <p>
+              He thrives in making wild concepts tangible. His executions often
+              blend deep technical understanding, aesthetic sensibility and
+              restraint.
+            </p>
+            <p>
+              Currently building @ Amazon AI Interaction Lab. Chronically busy
+              but always down for a good chat{" "}
+              <EmailLink email={"alvinleung2009@gmail.com"} />
+            </p>
+            <p>
+              Occasionally* updating{" "}
+              <HomeLink
+                icon={"icon/icon-instagram.svg"}
+                href={"https://www.instagram.com/alvinn.design/"}
+              >
+                alvinn.design
+              </HomeLink>
+            </p>
+            <p>In the process of updating portfolio, more to come :) </p>
           </motion.div>
-          <motion.div
+          {/* <motion.div
             className="mt-4"
             initial={{ opacity: 0 }}
             animate={{
@@ -107,9 +127,9 @@ const HomeLayout = ({ projects }: Props) => {
             }}
           >
             Previously: Daybreak Studio and Dossier Creative
-          </motion.div>
-          <div className="mt-auto">
-            <ExternalLink
+          </motion.div> */}
+          <div className="text-sm md:text-base mt-auto opacity-70">
+            {/* <ExternalLink
               href={"https://read.cv/alvinleung"}
               icon={"icon/icon-cv.svg"}
               alt={"My Resume"}
@@ -129,7 +149,18 @@ const HomeLayout = ({ projects }: Props) => {
               alt={"Say Hello!"}
             >
               alvinleung2009@gmail.com
-            </ExternalLink>
+            </ExternalLink> */}
+            <div>
+              <div className="mb-[1em]">Experiences</div>
+              <div className="grid grid-cols-2 gap-0 gap-x-1">
+                <div>Amazon AI interaction lab</div>
+                <div>2025-current</div>
+                <div>Daybreak Studio</div>
+                <div>2023-2025</div>
+                <div>Dossier Creative</div>
+                <div>2022</div>
+              </div>
+            </div>
           </div>
         </motion.div>
       </div>

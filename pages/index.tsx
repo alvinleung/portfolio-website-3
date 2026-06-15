@@ -61,9 +61,13 @@ const Home: NextPage = ({
       <NextSeo
         title={`Alvin Leung`}
         description={`
-            Alvin is an interaction designer. He thrives in bringing wild
-            concepts from 0 to 1 using his prototyping wizardry and aesthetic
-            sensibility. Building @ Amazon AI Interaction Lab`}
+            Alvin Leung is an interaction desinger.
+
+He thrives in making wild concepts tangible. His executions often blend deep technical understanding, aesthetic sensibility and restraint.
+
+Currently building @ Amazon AI Interaction Lab. Chronically busy but always down for a
+good chat.
+  `}
       />
       {/* <LandingHero isViewingGrid={isViewingGrid} /> */}
       {/* <div ref={projectRef} /> */}
