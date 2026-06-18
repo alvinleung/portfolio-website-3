@@ -61,7 +61,7 @@ const Home: NextPage = ({
       <NextSeo
         title={`Alvin Leung`}
         description={`
-            Alvin Leung is an interaction desinger.
+            Alvin Leung is an interaction designer.
 
 He thrives in making wild concepts tangible. His executions often blend deep technical understanding, aesthetic sensibility and restraint.
 

@@ -92,7 +92,7 @@ const HomeLayout = ({ projects }: Props) => {
               },
             }}
           >
-            <p>Alvin Leung is an interaction desinger.</p>
+            <p>Alvin Leung is an interaction designer.</p>
             <p>
               He thrives in making wild concepts tangible. His executions often
               blend deep technical understanding, aesthetic sensibility and
